@@ -3,11 +3,15 @@ project(blockv2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(SFML)
-
-include_directories( ${PROJECT_SOURCE_DIR}/sfml/include)
-
 add_executable(blockv2
         test.cpp)
 
-target_link_libraries(blockv2 SFML)
+add_subdirectory(sfml)
+
+target_include_directories(blockv2 PUBLIC ${PROJECT_SOURCE_DIR}/sfml/include)
+
+target_link_directories(blockv2 PRIVATE  /sfml/src)
+
+target_link_libraries(blockv2 sfml-graphics)
+
+
