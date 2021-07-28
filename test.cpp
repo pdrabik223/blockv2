@@ -1,23 +1,41 @@
 //
 // Created by studio25 on 25.07.2021.
 //
-#include <SFML/Graphics.hpp>
+
+#include <GLFW/glfw3.h>
 #include <iostream>
 int main() {
   std::cout<<"lel";
-  sf::Window window;
-  window.create(sf::VideoMode(800, 600), "My window");
+  GLFWwindow* window;
 
-  while (window.isOpen()) {
-    // check all the window's events that were triggered since the last
-    // iteration of the loop
-    sf::Event event;
-    while (window.pollEvent(event)) {
-      // "close requested" event: we close the window
-      if (event.type == sf::Event::Closed)
-        window.close();
-    }
+  /* Initialize the library */
+  if (!glfwInit())
+    return -1;
+
+  /* Create a windowed mode window and its OpenGL context */
+  window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+  if (!window)
+  {
+    glfwTerminate();
+    return -1;
   }
 
+  /* Make the window's context current */
+  glfwMakeContextCurrent(window);
+
+  /* Loop until the user closes the window */
+  while (!glfwWindowShouldClose(window))
+  {
+    /* Render here */
+//    glClear(GL_COLOR_BUFFER_BIT);
+
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window);
+
+    /* Poll for and process events */
+    glfwPollEvents();
+  }
+
+  glfwTerminate();
   return 0;
 }
