@@ -19,7 +19,8 @@ The second iteration of my version of logic block and automata game. This time (
 |:---:| :---| :--- | :---:|
 | 1  |documentation|the proper documentation is a key here, because I deal with old and low level API, the proper documentation will e key.| the whole project will be documented using doxygen|
 | 2  |error handling| for the same reasons i.e. the old API, my own sanity and the size of the project, errors must be detected quickly | I propose throw "error" used everywhere|
-| 3  | 
+| 3  |cool tests| maybe a lot of executables, one for every stage but the most of it will be display tests | cmake can do it |
+| 4 |
 
 # The Plan
 
