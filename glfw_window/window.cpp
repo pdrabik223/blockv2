@@ -4,36 +4,45 @@
 
 #include "window.h"
 Window::Window() {
-  GLFWwindow* window;
+
+
 
   /* Initialize the library */
   if (!glfwInit())
     throw "window_error";
 
+  window_thread_ = new std::thread(&Window::THMainLoop,this);
+}
+void Window::THMainLoop() {
+
+
 
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-  if (!window)
+  window_ = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+  if (!window_)
   {
     glfwTerminate();
     throw "window_error";
   }
 
   /* Make the window's context current */
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(window_);
 
   /* Loop until the user closes the window */
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(window_))
   {
     /* Render here */
 //    glClear(GL_COLOR_BUFFER_BIT);
 
     /* Swap front and back buffers */
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(window_);
 
     /* Poll for and process events */
     glfwPollEvents();
   }
 
+}
+Window::~Window() {
+  window_thread_->join();
   glfwTerminate();
 }
