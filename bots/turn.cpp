@@ -3,5 +3,7 @@
 //
 
 #include "turn.h"
-Turn::Turn(const Coord &position) : position_(position) {}
+Turn::Turn(const Coord &position, TurnDirection direction)
+    : position_(position), direction_(direction) {}
 Turn::Turn() {}
+BotType Turn::type_ = BotType::TURN;

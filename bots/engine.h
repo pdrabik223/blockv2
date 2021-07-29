@@ -8,10 +8,11 @@
 class Engine: public Bot {
 
 public:
-  Engine(const Coord &position);
+  Engine(const Coord &position, Direction direction);
   Engine();
-
+  static BotType type_;
 private:
+  Direction direction_;
   Coord position_;
 };
 

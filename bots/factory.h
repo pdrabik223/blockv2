@@ -7,13 +7,14 @@
 #include "bot.h"
 class Factory : public Bot{
 public:
-  Factory(const Coord &position);
-
+  Factory(const Coord &position, Direction direction);
+  static BotType type_;
 private:
 public:
   Factory();
 
 private:
+  Direction direction_;
   Coord position_;
 };
 

@@ -7,10 +7,12 @@
 #include "bot.h"
 class Turn: public Bot {
 public:
-  Turn(const Coord &position);
+  Turn(const Coord &position, TurnDirection direction);
   Turn();
+  static BotType type_;
 
 private:
+  TurnDirection direction_;
   Coord position_;
 };
 

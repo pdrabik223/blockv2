@@ -5,3 +5,5 @@
 #include "empty.h"
 Empty::Empty(const Coord &position) : position_(position) {}
 Empty::Empty() {}
+BotType Empty::type_ = BotType::EMPTY;
+

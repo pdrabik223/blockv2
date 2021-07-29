@@ -5,3 +5,4 @@
 #include "bedrock.h"
 Bedrock::Bedrock(const Coord &position) : position_(position) {}
 Bedrock::Bedrock() {}
+BotType Bedrock::type_ = BotType::BEDROCK;

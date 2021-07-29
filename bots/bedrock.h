@@ -9,6 +9,7 @@ class Bedrock: public Bot {
 public:
   Bedrock(const Coord &position);
   Bedrock();
+  static BotType type_;
 
 private:
   Coord position_;

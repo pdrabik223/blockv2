@@ -9,7 +9,7 @@ class Goal: public Bot {
 public:
   Goal(const Coord &position);
   Goal();
-
+  static BotType type_;
 private:
   Coord position_;
 };

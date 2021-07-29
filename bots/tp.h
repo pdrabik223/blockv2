@@ -9,7 +9,7 @@ class Tp : public Bot{
 public:
   Tp(const Coord &position);
   Tp();
-
+  static BotType type_;
 private:
   Coord position_;
 };

@@ -5,3 +5,4 @@
 #include "enemy.h"
 Enemy::Enemy(const Coord &position) : position_(position) {}
 Enemy::Enemy() {}
+BotType Enemy::type_ = BotType::ENEMY;

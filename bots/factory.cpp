@@ -3,5 +3,7 @@
 //
 
 #include "factory.h"
-Factory::Factory(const Coord &position) : position_(position) {}
+Factory::Factory(const Coord &position, Direction direction)
+    : position_(position), direction_(direction) {}
 Factory::Factory() {}
+BotType Factory::type_ = BotType::FACTORY;

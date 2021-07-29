@@ -9,7 +9,7 @@ class Empty: public Bot{
 public:
   Empty(const Coord &position);
   Empty();
-
+  static BotType type_;
 private:
   Coord position_;
 };

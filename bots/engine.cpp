@@ -3,5 +3,7 @@
 //
 
 #include "engine.h"
-Engine::Engine(const Coord &position) : position_(position) {}
+Engine::Engine(const Coord &position, Direction direction)
+    : position_(position), direction_(direction) {}
 Engine::Engine() {}
+BotType Engine::type_ = BotType::ENGINE;

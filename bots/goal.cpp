@@ -5,3 +5,4 @@
 #include "goal.h"
 Goal::Goal(const Coord &position) : position_(position) {}
 Goal::Goal() {}
+BotType Goal::type_ = BotType::GOAL;

@@ -9,7 +9,7 @@ class Enemy : public Bot {
 public:
   Enemy(const Coord &position);
   Enemy();
-
+  static BotType type_;
 private:
   Coord position_;
 };

@@ -9,9 +9,9 @@
 /// contains all used cell types
  enum class BotType {
   EMPTY,
-  BASIC,
+  BASIC, /// something like stone
   BEDROCK,
-  TURN,
+  TURN, /// changes the direction of  block
   GOAL,
   ENEMY,
   ENGINE,
@@ -20,7 +20,18 @@
   NONE,
   SIZE
 };
+ /// direction witch bot might be facing
+ enum class Direction{
+   UP,
+   DOWN,
+   LEFT,
+   RIGHT
+ };
 
+ enum class TurnDirection{
+   CLOCKWISE,
+   COUNTER_CLOCKWISE
+ };
 class Bot {
 public:
   Bot() : position_() {} // std::array needs no-param constructor

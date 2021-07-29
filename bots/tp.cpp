@@ -5,3 +5,4 @@
 #include "tp.h"
 Tp::Tp(const Coord &position) : position_(position) {}
 Tp::Tp() {}
+BotType Tp::type_ = BotType::TP;

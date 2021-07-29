@@ -11,6 +11,7 @@ class Basic :Bot{
 public:
   Basic(const Coord &position);
   Basic();
+  static BotType type_;
 
 private:
   Coord position_;
