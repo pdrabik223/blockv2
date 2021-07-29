@@ -3,42 +3,40 @@ project(block_v2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(GLFW_WINDOW
-        glfw_window/window.h  glfw_window/window.cpp
-        glfw_window/button.h glfw_window/button.cpp
-        glfw_window/load_bmp.cpp)
+#set(GLFW_WINDOW
+#        glfw_window/window.h glfw_window/window.cpp
+#        glfw_window/button.h glfw_window/button.cpp
+#        glfw_window/load_bmp.cpp)
 
 set(SFML_WINDOW
         sfml_window/window.h sfml_window/window.cpp)
 
-set (BOT
-bots/bot.h bots/bot.cpp)
-set (UTILITY
-        utility/coord.h utility/coord.cpp)
-
 add_executable(block_v2_test
         test.cpp
         ${SFML_WINDOW}
-        ${BOT}
         )
 
-add_subdirectory(glfw)
-#add_subdirectory(glfw_window) I trued to do it proper way, but I can't
-
-target_include_directories(block_v2_test PUBLIC ${PROJECT_SOURCE_DIR}/glfw/include)
-target_link_directories(block_v2_test PUBLIC glfw/src)
-
 add_subdirectory(sfml)
+add_subdirectory(bots)
+add_subdirectory(utility)
 
-target_include_directories(block_v2_test PUBLIC ${PROJECT_SOURCE_DIR}/sfml/include)
-target_link_directories(block_v2_test PUBLIC sfml/src)
+target_include_directories(block_v2_test
+        PUBLIC ${PROJECT_SOURCE_DIR}/sfml/include
+        PUBLIC ${PROJECT_SOURCE_DIR}/bots
+        PUBLIC ${PROJECT_SOURCE_DIR}/utility
+        )
+
+target_link_directories(block_v2_test
+        PUBLIC sfml/src
+        PUBLIC bots
+        PUBLIC utility)
 
 target_link_libraries(block_v2_test
-        #glfw_window
         sfml-graphics
         sfml-system
         sfml-window
-        glfw
+        bot
+        utility
         )
 
 
