@@ -1,3 +1,7 @@
+
+
 add_library(utility
-        coord.h
-        coord.cpp)
+        coord.h coord.cpp
+        transposition.cpp transposition.h)
+
+

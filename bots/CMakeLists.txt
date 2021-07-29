@@ -10,4 +10,4 @@ add_library(bot
         enemy.cpp enemy.h
         engine.cpp engine.h
         factory.cpp factory.h
-        tp.cpp tp.h)
+        tp.cpp tp.h bots_main.h)

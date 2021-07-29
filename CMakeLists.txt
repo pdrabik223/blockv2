@@ -3,17 +3,12 @@ project(block_v2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-#set(GLFW_WINDOW
-#        glfw_window/window.h glfw_window/window.cpp
-#        glfw_window/button.h glfw_window/button.cpp
-#        glfw_window/load_bmp.cpp)
-
 set(SFML_WINDOW
         sfml_window/window.h sfml_window/window.cpp)
 
-add_executable(block_v2_test
-        test.cpp
+add_executable(block_v2_test  test.cpp
         ${SFML_WINDOW}
+        game.cpp game.h
         )
 
 add_subdirectory(sfml)
@@ -36,8 +31,7 @@ target_link_libraries(block_v2_test
         sfml-system
         sfml-window
         bot
-        utility
-        )
+        utility)
 
 
 
