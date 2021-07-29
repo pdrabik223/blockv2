@@ -16,12 +16,14 @@ enum class TranspositionType {
 
 };
 
+/// the modification of a piece is hard, because
 class Transposition {
 public:
   Transposition();
   void PushTransposition(TranspositionType target);
   void PushTransposition(TranspositionType target, Bot info);
   Bot& Collapse(Bot& target);
+
 private:
   std::vector<std::pair<TranspositionType, Bot>> transposition_;
 };
