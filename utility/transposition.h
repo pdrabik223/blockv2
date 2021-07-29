@@ -8,13 +8,17 @@
 #include "../bots/bots_main.h"
 #include <vector>
 enum class TranspositionType {
-  NONE,
-  CREATE,
-  MOVE_TO,
-  TURN,
+  NONE, // do nothing with the cell
+  CREATE, // factory
+  MOVE_TO, // every movable cell
+  TURN, // turn cell
+  DELETE, // kill cell
   SIZE
-
 };
+
+/// cell: checks if it's move is legal
+/// makes the move to transposition table
+/// but table returns verdict if the move is possible
 
 /// the modification of a piece is hard, because
 class Transposition {
@@ -23,6 +27,7 @@ public:
   void PushTransposition(TranspositionType target);
   void PushTransposition(TranspositionType target, Bot info);
   Bot& Collapse(Bot& target);
+
 
 private:
   std::vector<std::pair<TranspositionType, Bot>> transposition_;
