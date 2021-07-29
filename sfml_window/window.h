@@ -11,10 +11,10 @@
 namespace sfml {
 /// creates window object in separate tread
 /// window update is done by pushing special event on to event stack
-class Window {
+class Gui {
 public:
-  Window();
-  ~Window();
+  Gui();
+  ~Gui();
 
 private:
   void ThMainLoop();
@@ -22,6 +22,7 @@ private:
 protected:
   std::thread *window_thread_;
   sf::Event event_;
+
 };
 } // namespace sfml
 #endif // BLOCK_V2_SFML_WINDOW_WINDOW_H_

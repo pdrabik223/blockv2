@@ -4,13 +4,13 @@
 
 #include "window.h"
 using namespace glfw;
-Window::Window() {
+Gui::Gui() {
 
   /* Initialize the library */
   if (!glfwInit())
     throw "window_error";
 
-  window_thread_ = new std::thread(&Window::ThMainLoop, this);
+  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
 static void key_callback(GLFWwindow *window, int key, int scancode, int action,
@@ -22,7 +22,7 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action,
     printf("space me !");
 }
 
-void Window::ThMainLoop() {
+void Gui::ThMainLoop() {
 
 
 
@@ -59,7 +59,7 @@ void Window::ThMainLoop() {
     glfwPollEvents();
   }
 }
-Window::~Window() {
+Gui::~Gui() {
   window_thread_->join();
   glfwDestroyWindow(window_);
   glfwTerminate();

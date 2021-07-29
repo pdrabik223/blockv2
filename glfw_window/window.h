@@ -12,10 +12,10 @@ namespace glfw{
 
 /// creates window object in separate tread
 /// window update is done by pushing special event on to event stack
-class Window {
+class Gui {
 public:
-  Window();
- ~Window();
+  Gui();
+  ~Gui();
 private:
 
 void ThMainLoop();

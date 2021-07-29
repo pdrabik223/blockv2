@@ -8,7 +8,7 @@ int main() {
 
 
   std::cout<<"lel";
-  sfml::Window sin;
+  sfml::Gui sin;
 
 
 
