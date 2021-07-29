@@ -27,23 +27,16 @@ void Gui::ThMainLoop() {
   window.draw(shape);
   window.display();
   // run the program as long as the window is open
-  auto timer = std::chrono::steady_clock::now();
+
   while (window.isOpen()) {
 
     // check all the window's events that were triggered since the last
     // iteration of the loop
-
     while (window.pollEvent(event_)) {
       // "close requested" event: we close the window
       if (event_.type == sf::Event::Closed)
         window.close();
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(30));
-    shape.setPosition(shape.getPosition().x + 0.4f,
-                      shape.getPosition().y + 0.4f);
-    window.clear(sf::Color::Black);
-    window.draw(shape);
-    window.display();
   }
 }
 Gui::~Gui() { window_thread_->join(); }
