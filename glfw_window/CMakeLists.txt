@@ -1,6 +1,8 @@
 
 add_library(glfw_window
-        window.h window.cpp)
+        window.h window.cpp
+        button.h button.cpp
+        load_bmp.cpp)
 
 target_include_directories(glfw_window PUBLIC ${PROJECT_SOURCE_DIR}/glfw/include)
 
