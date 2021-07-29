@@ -8,9 +8,12 @@ set(GLFW_WINDOW
         glfw_window/button.h glfw_window/button.cpp
         glfw_window/load_bmp.cpp)
 
+set(SFML_WINDOW
+        sfml_window/window.h sfml_window/window.cpp)
 add_executable(block_v2_test
         test.cpp
-        ${GLFW_WINDOW})
+        ${GLFW_WINDOW}
+        ${SFML_WINDOW})
 
 add_subdirectory(glfw)
 #add_subdirectory(glfw_window) I trued to do it proper way, but I can't
