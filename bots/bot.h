@@ -24,7 +24,7 @@
 class Bot {
 public:
   Bot() : position_() {} // std::array needs no-param constructor
-  virtual Bot *Clone() = 0;
+  virtual Bot *Clone(){return this;};
   static BotType type_;
 
 protected:
