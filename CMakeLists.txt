@@ -10,10 +10,17 @@ set(GLFW_WINDOW
 
 set(SFML_WINDOW
         sfml_window/window.h sfml_window/window.cpp)
+
+set (BOT
+bots/bot.h bots/bot.cpp)
+set (UTILITY
+        utility/coord.h utility/coord.cpp)
+
 add_executable(block_v2_test
         test.cpp
-        ${GLFW_WINDOW}
-        ${SFML_WINDOW})
+        ${SFML_WINDOW}
+        ${BOT}
+        )
 
 add_subdirectory(glfw)
 #add_subdirectory(glfw_window) I trued to do it proper way, but I can't
