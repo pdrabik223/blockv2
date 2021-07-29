@@ -5,20 +5,30 @@
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
 #include "../utility/coord.h"
-enum class BotType{
 
-
+/// contains all used cell types
+ enum class BotType {
+  EMPTY,
+  BASIC,
+  BEDROCK,
+  TURN,
+  GOAL,
+  ENEMY,
+  ENGINE,
+  FACTORY,
+  TP,
+  NONE,
+  SIZE
 };
 
 class Bot {
 public:
-  Bot():position_(){} // std::array needs no-param constructor
+  Bot() : position_() {} // std::array needs no-param constructor
+  virtual Bot *Clone() = 0;
+  static BotType type_;
+
 protected:
-
-
-private:
-Coord position_;
-
+  Coord position_;
 };
 
 #endif // BLOCK_V2_BOTS_BOT_H_
