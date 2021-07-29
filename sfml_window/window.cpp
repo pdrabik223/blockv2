@@ -3,25 +3,31 @@
 //
 
 #include "window.h"
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 using namespace sfml;
-Gui::Gui() {
-
-  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
-
-  sf::Vertex line[2];
-  line[0].position = sf::Vector2f(100, 0  );
-  line[0].color  = sf::Color::Red;
-  line[1].position = sf::Vector2f(200, 0);
-  line[1].color = sf::Color::Blue;
-
-}
+Gui::Gui() { window_thread_ = new std::thread(&Gui::ThMainLoop, this); }
 
 void Gui::ThMainLoop() {
 
-  sf::Window window(sf::VideoMode(800, 600), "My window");
+  sf::ContextSettings settings;
+  settings.antialiasingLevel = 8;
 
+  sf::RenderWindow window(sf::VideoMode(800, 600), "My window",
+                          sf::Style::Default, settings);
+
+  sf::CircleShape shape(50.f);
+
+  // set the shape color to green
+  shape.setFillColor(sf::Color(100, 250, 50));
+  shape.setPosition(0.f, 0.f);
+
+  window.clear(sf::Color::Black);
+  window.draw(shape);
+  window.display();
   // run the program as long as the window is open
+  auto timer = std::chrono::steady_clock::now();
   while (window.isOpen()) {
 
     // check all the window's events that were triggered since the last
@@ -32,6 +38,12 @@ void Gui::ThMainLoop() {
       if (event_.type == sf::Event::Closed)
         window.close();
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    shape.setPosition(shape.getPosition().x + 0.4f,
+                      shape.getPosition().y + 0.4f);
+    window.clear(sf::Color::Black);
+    window.draw(shape);
+    window.display();
   }
 }
 Gui::~Gui() { window_thread_->join(); }
