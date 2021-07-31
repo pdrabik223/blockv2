@@ -5,9 +5,10 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_H_
 
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <coord.h>
+#include "../sfml/include/SFML/Graphics/RenderWindow.hpp"
+#include "../sfml/include/SFML/Window/Event.hpp"
+#include "../utility/coord.h"
+
 namespace sfml_window {
 class Context {
 public:
