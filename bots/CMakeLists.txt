@@ -1,8 +1,6 @@
 add_library(bot
         bot.h bot.cpp
         empty.h empty.cpp
-        ../utility/coord.h
-        ../utility/coord.cpp
         basic.cpp basic.h
         bedrock.cpp bedrock.h
         turn.cpp turn.h
@@ -11,3 +9,11 @@ add_library(bot
         engine.cpp engine.h
         factory.cpp factory.h
         tp.cpp tp.h bots_main.h)
+
+target_include_directories(bot
+        PUBLIC ${PROJECT_SOURCE_DIR}/utility)
+
+target_link_directories(bot PUBLIC utility)
+
+target_link_libraries(bot
+        utility)
