@@ -4,7 +4,7 @@ project(block_v2)
 set(CMAKE_CXX_STANDARD 14)
 
 set(SFML_WINDOW
-        sfml_window/window.h sfml_window/window.cpp)
+        sfml_window/window.h sfml_window/window.cpp sfml_window/context.cpp sfml_window/context.h)
 
 add_executable(block_v2_test  test.cpp
         ${SFML_WINDOW}
