@@ -37,3 +37,14 @@ The second iteration of my version of logic block and automata game. This time (
 - gui interaction with mouse (the simple one) pieces can be selected, and placed  with mouse but not moved on the screen, so the display function will be simpler 
 - very simple ui
 - I like the Idea of moving background on chose level screen, so the screen will be moving when player is in menu and in chose level screen   
+
+# Documentation
+- the main thing will be done in doxygen
+- few readme files to organise documentation
+
+
+| id | name |
+| :---: |:---:|
+| 1 | main documentation(current file)|
+| 2 | [cells/bots](bots/game_of_block.md)|
+| 2 | [utility](utility/README.md)|
