@@ -2,7 +2,16 @@
 
 recursive approach (last one): 
  -  the blocks need to exist between two planes, that complicates the 'generate new frame function' also in order for block to generate it's new position he first needs to consider   
- 
+
+## Bot/Cell
+it's the same thing, but sometimes word robot is better suited 
+from the game engine perspective the "bot" is more accurate 
+display on the other hand only shows image of occupied cell   
+
+## include file 
+to include all the bot classes 
+[here](bots_main.h)
+
 ## the template class 
 [here](bot.h)
 

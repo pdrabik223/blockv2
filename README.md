@@ -48,3 +48,4 @@ The second iteration of my version of logic block and automata game. This time (
 | 1 | main documentation(current file)|
 | 2 | [cells/bots](bots/game_of_block.md)|
 | 2 | [utility](utility/README.md)|
+| 3 | [sfml window](sfml_window/window.md)
