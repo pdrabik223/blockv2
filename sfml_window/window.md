@@ -15,3 +15,15 @@ should the images be simple 2d asset or custom colored polygon shape
 # The decision
 
 Images, but users can load their own assets (yey)
+
+# Gui_context 
+
+app will be divided in 4 parts
+- intro with authors and stuff  
+- level chose screen
+- play level screen 
+- edit level
+
+and we need to switch between these on the go 
+so the class [context](context.h) will keep all info about current displayed state 
+buttons, text, and stuff this will simplify code 
