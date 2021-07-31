@@ -1,7 +1,7 @@
 add_library(sfml_window
         window.cpp window.h
         context.cpp context.h
-        )
+        main_menu.cpp main_menu.h button.cpp button.h)
 
 
 #add_subdirectory(../sfml)
