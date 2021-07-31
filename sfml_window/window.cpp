@@ -3,6 +3,7 @@
 //
 
 #include "window.h"
+#include "context.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Vertex.hpp>
@@ -17,15 +18,6 @@ void Gui::ThMainLoop() {
   sf::RenderWindow window(sf::VideoMode(800, 600), "My window",
                           sf::Style::Default, settings);
 
-  sf::CircleShape shape(50.f);
-
-  // set the shape color to green
-  shape.setFillColor(sf::Color(100, 250, 50));
-  shape.setPosition(0.f, 0.f);
-
-  window.clear(sf::Color::Black);
-  window.draw(shape);
-  window.display();
   // run the program as long as the window is open
 
   while (window.isOpen()) {
