@@ -8,9 +8,8 @@ int main() {
 
 
   std::cout<<"lel";
-  sfml::Gui sin;
+  sfml_window::Gui sin;
 
-  Bot newone;
 
   return 0;
 }
