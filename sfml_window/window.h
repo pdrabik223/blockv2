@@ -7,6 +7,7 @@
 
 #include "../bots/bots_main.h"
 #include "context.h"
+#include "main_menu.h"
 #include <SFML/Graphics/Shape.hpp>
 #include <iostream>
 #include <thread>

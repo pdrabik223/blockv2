@@ -5,8 +5,8 @@
 #include "window.h"
 
 using namespace sfml_window;
-Gui::Gui(){
-
+Gui::Gui() {
+  current_context_ = new MainMenu();
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
@@ -19,7 +19,8 @@ void Gui::ThMainLoop() {
                           sf::Style::Default, settings);
 
   // run the program as long as the window is open
-
+  current_context_->DrawToWindow(window);
+  window.display();
   while (window.isOpen()) {
 
     // check all the window's events that were triggered since the last
@@ -28,7 +29,16 @@ void Gui::ThMainLoop() {
       // "close requested" event: we close the window
       if (event_.type == sf::Event::Closed)
         window.close();
+      else
+        current_context_->HandleEvent(event_,
+                                      {(unsigned)sf::Mouse::getPosition().x,
+                                       (unsigned)sf::Mouse::getPosition().y});
+
     }
+    current_context_->DrawToWindow(window);
+    window.display();
+
   }
+
 }
 Gui::~Gui() { window_thread_->join(); }
