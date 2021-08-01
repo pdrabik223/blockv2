@@ -9,12 +9,12 @@ void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
 sfml_window::TextBox::TextBox(const Coord &position, const std::string &text)
     : position_(position) {
   sf::Font font;
-  if (!font.loadFromFile("assets/STIXTwoMath-Regular.ttf"))
+  if (!font.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
+                         "window\\assets\\Georama-Medium.ttf"))
     throw "bad file";
 
   text_.setFont(font);
   text_.setString(text);
   text_.setCharacterSize(position_.y);
-  text_.setStyle(sf::Text::Bold);
-
+//  text_.setStyle(sf::Text::Bold);
 }
