@@ -13,8 +13,7 @@ namespace sfml_window {
 class Button {
 
 public:
-  virtual bool DetectHover(const Coord &press_point) = 0;
-  virtual bool DetectPress(const Coord &press_point, sf::Event &event) = 0;
+  virtual bool DetectInteraction(const Coord &press_point, sf::Event &event) = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual void SetButtonColor(const sf::Color &button_color) = 0;
 
