@@ -28,7 +28,7 @@ public:
   MainMenu(unsigned int window_width, unsigned int window_height);
 
   void DrawToWindow(sf::RenderWindow &window) override;
-  void HandleEvent(sf::Event &event, Coord mouse_position) override;
+  void HandleEvent(sf::Event &event) override;
   void ResizeWindow(unsigned int new_width, unsigned int new_height) override;
 
   ~MainMenu();
@@ -48,7 +48,7 @@ private:
 
 protected:
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
-  TextBox game_name_ = {{40, 20},"Block v2"};
+  TextBox game_name_ = {Align(50,20),"Block v2"};
   TextBox author_name_ = {Align(90,90),"author: piotr233"};
 
 
