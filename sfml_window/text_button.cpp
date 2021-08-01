@@ -45,3 +45,10 @@ sfml_window::TextButton::TextButton(const Rect &position,const std::string& text
   text_.setCharacterSize(position_.height / 2);
  // text_.setStyle(sf::Text::Bold);
 }
+void sfml_window::TextButton::SetButtonColor(const sf::Color &button_color) {
+  button_color_ = button_color;
+  text_.setFillColor(button_color);
+  text_.setOutlineColor(button_color);
+  background_.setFillColor(Light(button_color_));
+  background_.setOutlineColor(button_color_);
+}

@@ -12,9 +12,13 @@ class TextBox {
 public:
   TextBox(const Coord &position, const std::string &text);
   void DrawToWindow(sf::RenderWindow &window);
+  void SetButtonColor(const sf::Color &button_color);
+
 protected:
   Coord position_;
   sf::Text text_;
+
+  sf::Color text_color_;
 };
 }
 #endif // BLOCK_V2_SFML_WINDOW_TEXT_BOX_H_

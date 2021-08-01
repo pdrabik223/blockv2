@@ -18,3 +18,7 @@ sfml_window::TextBox::TextBox(const Coord &position, const std::string &text)
   text_.setCharacterSize(position_.y);
 //  text_.setStyle(sf::Text::Bold);
 }
+void sfml_window::TextBox::SetButtonColor(const sf::Color &button_color) {
+  text_color_ = button_color;
+  text_.setOutlineColor(text_color_);
+}

@@ -17,6 +17,7 @@ public:
   bool DetectHover(const Coord &press_point) override;
   bool DetectPress(const Coord &press_point, sf::Event &event) override;
   void DrawToWindow(sf::RenderWindow &window) override;
+  void SetButtonColor(const sf::Color &button_color);
 
 protected:
   Rect position_;
@@ -24,6 +25,8 @@ protected:
   sf::RectangleShape background_;
   /// if mouse is hovering over the button the font is larger
   bool hover_;
+
+  sf::Color button_color_;
 
   sf::Font font_;
 };
