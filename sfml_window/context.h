@@ -13,8 +13,9 @@ namespace sfml_window {
 
 /// all colors across whole platform must be unified
 /// all menus, and graphical elements must take one of these pre-defined colors
-/// this approach assures easy re-coloring of whole platform by simply editing one vector
-enum class GuiColor{
+/// this approach assures easy re-coloring of whole platform by simply editing
+/// one vector
+enum class GuiColor {
   MENU_PRIMARY_COLOR,
   MENU_SECONDARY_COLOR,
   MENU_TERTIARY_COLOR,
@@ -36,15 +37,13 @@ enum class GuiColor{
 
 class Context {
 public:
-
-  virtual void LoadColors()=0;
+  virtual void LoadColors() = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
-  virtual void HandleEvent(sf::Event& event, Coord mouse_position) = 0;
+  virtual void HandleEvent(sf::Event &event, Coord mouse_position) = 0;
   virtual void ResizeWindow(unsigned new_width, unsigned new_height) = 0;
 
 protected:
-  std::array<sf::Color,(size_t)GuiColor::SIZE> color_palette_;
-
+  std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_H_
