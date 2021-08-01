@@ -15,8 +15,7 @@ class TextButton : public Button {
 
 public:
   TextButton(const Coord &position, const std::string &text);
-  bool DetectHover(const Coord &press_point) override;
-  bool DetectPress(const Coord &press_point, sf::Event &event) override;
+  bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override;
 
@@ -28,8 +27,8 @@ protected:
   bool hover_;
   sf::Color button_color_;
   sf::Font font_;
-
   bool display_background_ = false;
+
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
