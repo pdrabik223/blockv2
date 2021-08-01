@@ -13,8 +13,18 @@
 #include <thread>
 
 namespace sfml_window {
+
 /// creates window object in separate tread
 /// window update is done by pushing special event on to event stack
+
+enum class Contexts{
+  MAIN_MENU,
+  LEVEL_PLAYER,
+  LEVEL_EDITOR,
+  LEVEL_PICKER,
+  SIZE
+};
+
 class Gui {
 public:
   Gui();
@@ -22,7 +32,7 @@ public:
 
 private:
   void ThMainLoop();
-
+  void SwitchContext(Contexts new_screen);
 protected:
 
   sfml_window::Context* current_context_;

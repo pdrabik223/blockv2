@@ -6,7 +6,7 @@
 
 using namespace sfml_window;
 Gui::Gui() {
-  current_context_ = new MainMenu();
+  current_context_ = new MainMenu(1000, 800);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
