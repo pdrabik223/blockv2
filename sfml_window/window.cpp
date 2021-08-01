@@ -30,9 +30,7 @@ void Gui::ThMainLoop() {
       if (event_.type == sf::Event::Closed)
         window.close();
       else
-        current_context_->HandleEvent(event_,
-                                      {(unsigned)sf::Mouse::getPosition().x,
-                                       (unsigned)sf::Mouse::getPosition().y});
+        current_context_->HandleEvent(event_);
 
     }
     current_context_->DrawToWindow(window);
