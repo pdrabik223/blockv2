@@ -10,6 +10,7 @@
 namespace sfml_window {
 class TextBox {
 public:
+
   TextBox(const Coord &position, const std::string &text);
   void DrawToWindow(sf::RenderWindow &window);
   void SetButtonColor(const sf::Color &button_color);
@@ -20,5 +21,5 @@ protected:
   sf::Font font_;
   sf::Color text_color_;
 };
-}
+} // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_TEXT_BOX_H_
