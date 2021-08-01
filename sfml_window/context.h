@@ -13,7 +13,7 @@ namespace sfml_window {
 class Context {
 public:
 
-  virtual void DisplayToWindow(sf::RenderWindow &window) = 0;
+  virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual void HandleEvent(sf::Event& event, Coord mouse_position) = 0;
 
 };
