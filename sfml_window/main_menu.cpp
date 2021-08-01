@@ -4,21 +4,24 @@
 
 #include "main_menu.h"
 
-sfml_window::MainMenu::MainMenu() {}
+sfml_window::MainMenu::MainMenu() {
+  LoadButtons();
+}
 sfml_window::MainMenu::~MainMenu() {
   for (auto &button : buttons_)
     delete button;
 }
 void sfml_window::MainMenu::LoadButtons() {
-  buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(Rect({0, 0},4,10),std::string("cos"));
-  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(Rect({0, 0},4,10),std::string("cos"));
-  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(Rect({0, 0},4,10),std::string("cos"));
-  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(Rect({0, 0},4,10),std::string("cos"));
-  buttons_[(unsigned)MainMenuButton::CREDITS] = new TextButton(Rect({0, 0},4,10),std::string("cos"));
+  buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(Rect({0, 0},100,100),std::string("cos"));
+  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(Rect({200, 200},200,100),std::string("cos"));
+  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(Rect({400, 200},200,100),std::string("cos"));
+  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(Rect({400, 100},200,100),std::string("cos"));
+  buttons_[(unsigned)MainMenuButton::CREDITS] = new TextButton(Rect({200, 300},200,100),std::string("cos"));
 
 }
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
+  window.clear(background_color_);
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }

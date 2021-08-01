@@ -27,14 +27,16 @@ public:
   MainMenu();
   void DrawToWindow(sf::RenderWindow &window) override;
   void HandleEvent(sf::Event &event, Coord mouse_position) override;
-  void LoadButtons();
   virtual ~MainMenu();
 
 private:
+  void LoadButtons();
+
+protected:
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
   TextBox game_name_ = {{0, 0},"Block v2"};
   TextBox author_name_ = {{100,100},"author: piotr233"};
-
+  sf::Color background_color_ = sf::Color(220,0,0);
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
