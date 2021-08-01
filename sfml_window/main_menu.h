@@ -26,26 +26,30 @@ enum class MainMenuButton {
 class MainMenu : public Context {
 public:
   MainMenu(unsigned int window_width, unsigned int window_height);
+
   void DrawToWindow(sf::RenderWindow &window) override;
   void HandleEvent(sf::Event &event, Coord mouse_position) override;
-
   void ResizeWindow(unsigned int new_width, unsigned int new_height) override;
 
   ~MainMenu();
 
-private:
+
 public:
   void LoadColors() override;
 
 private:
-  Rect AlignCenter(Rect default_position);
+
+  ///
+  /// \param x the percentage value where object should be placed
+  /// \param y the percentage value where object should be placed
+  /// \return the position on the screen corresponding to given relative position
+  Coord Align(double x,double y);
   void LoadButtons();
-  void DeleteButtons();
 
 protected:
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
-  TextBox game_name_ = {{0, 0},"Block v2"};
-  TextBox author_name_ = {{100,100},"author: piotr233"};
+  TextBox game_name_ = {{40, 20},"Block v2"};
+  TextBox author_name_ = {Align(90,90),"author: piotr233"};
 
 
   /// \format in pixels

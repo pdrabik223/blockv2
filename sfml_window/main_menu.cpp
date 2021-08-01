@@ -3,6 +3,7 @@
 //
 
 #include "main_menu.h"
+#include <iostream>
 
 sfml_window::MainMenu::MainMenu(unsigned int window_width,
                                 unsigned int window_height)
@@ -15,41 +16,48 @@ sfml_window::MainMenu::~MainMenu() {
   for (auto &button : buttons_)
     delete button;
 }
+
 void sfml_window::MainMenu::LoadButtons() {
 
   buttons_[(unsigned)MainMenuButton::EXIT] =
-      new TextButton({{window_width_ - 100, 0}, 100, 100}, std::string("EXIT"));
+      new TextButton({window_width_ - 64, 0}, std::string("EXIT"));
+
   buttons_[(unsigned)MainMenuButton::EXIT]->SetButtonColor(
       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
-      AlignCenter({{0, 100}, 400, 100}), std::string("Play level"));
+      Align(10,30), std::string("Play level"));
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL]->SetButtonColor(
       color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
 
   buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
-      AlignCenter({{0, 250}, 400, 100}), std::string("Create level"));
+      Align(10,40), std::string("Create level"));
   buttons_[(unsigned)MainMenuButton::CREATE_LEVEL]->SetButtonColor(
       color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
 
   buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(
-      AlignCenter({{0, 400}, 400, 100}), std::string("Multiplayer mode"));
+      Align(10,50), std::string("Multiplayer mode"));
+
   buttons_[(unsigned)MainMenuButton::MULTIPLAYER]->SetButtonColor(
       color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
 
   buttons_[(unsigned)MainMenuButton::CREDITS] =
-      new TextButton(AlignCenter({{0, 550}, 400, 100}), std::string("credits"));
+      new TextButton(Align(10,60), std::string("Credits"));
 
   buttons_[(unsigned)MainMenuButton::CREDITS]->SetButtonColor(
       color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]);
+
 }
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
   window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   for (const auto &button : buttons_)
-
     button->DrawToWindow(window);
+
+  game_name_.DrawToWindow(window);
+  author_name_.DrawToWindow(window);
 }
+
 void sfml_window::MainMenu::HandleEvent(sf::Event &event,
                                         Coord mouse_position) {
   for (unsigned id = 0; id < buttons_.size(); id++)
@@ -77,12 +85,9 @@ void sfml_window::MainMenu::ResizeWindow(unsigned int new_width,
   window_width_ = new_width;
   window_height_ = new_height;
 }
-Rect sfml_window::MainMenu::AlignCenter(Rect default_position) {
 
-  default_position.placement.x =
-      (window_width_ / 2) - default_position.width / 2;
-  return default_position;
-}
+
+
 void sfml_window::MainMenu::LoadColors() {
     color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x00ff99);
     color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] = sf::Color(0x9800ff);
@@ -92,6 +97,9 @@ void sfml_window::MainMenu::LoadColors() {
     color_palette_[(unsigned)GuiColor::WARNING_COLOR] = sf::Color(255,255,0);
     color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0,0,255);
     color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0,255,0);
+}
 
-
+Coord sfml_window::MainMenu::Align(double x, double y) {
+  std::cout<<window_width_;
+  return {(unsigned)((x*window_width_)/100.0),(unsigned)((y * window_height_) / 100.0)};
 }
