@@ -8,6 +8,8 @@
 #include "button.h"
 #include "context.h"
 #include "text_box.h"
+#include "text_button.h"
+#include <vector>
 #include <array>
 namespace sfml_window {
 /// white background
@@ -23,6 +25,8 @@ enum class MainMenuButton {
 class MainMenu : public Context {
 public:
   MainMenu();
+  void DrawToWindow(sf::RenderWindow &window) override;
+  void HandleEvent(sf::Event &event, Coord mouse_position) override;
   void LoadButtons();
   virtual ~MainMenu();
 
