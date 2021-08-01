@@ -8,11 +8,12 @@
 #include "coord.h"
 class Rect {
 public:
+  Rect();
   Rect(const Coord &position, unsigned int width, unsigned int height);
 
-  bool CheckWBoundaries(Coord point);
+  bool CheckWBoundaries(const Coord& point);
 
-Coord position;
+Coord placement;
 unsigned width;
 unsigned height;
 
