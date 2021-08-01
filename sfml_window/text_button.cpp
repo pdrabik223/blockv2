@@ -20,7 +20,6 @@ void sfml_window::TextButton::DrawToWindow(sf::RenderWindow &window) {
 
 
   window.draw(background_);
-
   if(hover_) text_.setScale(1.5,1.5);
   window.draw(text_);
 }
@@ -30,16 +29,19 @@ sfml_window::TextButton::TextButton(const Rect &position,const std::string& text
   background_.setSize({(float)position_.width, (float)position_.height});
   background_.setPosition((float)position_.placement.x,
                           (float)position_.placement.y);
+
   background_.setFillColor(sf::Color(195, 195, 195));
   background_.setOutlineColor(sf::Color(255, 255, 255));
   background_.setOutlineThickness(2);
 
-  sf::Font font;
-  if (!font.loadFromFile("assets/STIXTwoMath-Regular.ttf"))
-    throw "bad file";
 
-  text_.setFont(font);
+  if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
+                         "window\\assets\\Georama-Medium.ttf"))
+    throw "bad file";
+  text_.setPosition((float)position_.placement.x,
+                          (float)position_.placement.y);
+  text_.setFont(font_);
   text_.setString(text);
   text_.setCharacterSize(position_.height / 2);
-  text_.setStyle(sf::Text::Bold);
+ // text_.setStyle(sf::Text::Bold);
 }

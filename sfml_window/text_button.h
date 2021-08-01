@@ -24,6 +24,8 @@ protected:
   sf::RectangleShape background_;
   /// if mouse is hovering over the button the font is larger
   bool hover_;
+
+  sf::Font font_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
