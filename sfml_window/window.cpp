@@ -3,12 +3,12 @@
 //
 
 #include "window.h"
-#include "context.h"
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Vertex.hpp>
-using namespace sfml;
-Gui::Gui() { window_thread_ = new std::thread(&Gui::ThMainLoop, this); }
+
+using namespace sfml_window;
+Gui::Gui(){
+
+  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
+}
 
 void Gui::ThMainLoop() {
 

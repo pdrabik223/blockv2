@@ -6,12 +6,12 @@
 #define BLOCK_V2_SFML_WINDOW_WINDOW_H_
 
 #include "../bots/bots_main.h"
+#include "context.h"
 #include <SFML/Graphics/Shape.hpp>
-#include <SFML/Window.hpp>
 #include <iostream>
 #include <thread>
 
-namespace sfml {
+namespace sfml_window {
 /// creates window object in separate tread
 /// window update is done by pushing special event on to event stack
 class Gui {
@@ -23,7 +23,8 @@ private:
   void ThMainLoop();
 
 protected:
-  std::vector<sf::Shape> images_; // the size of  images is static
+
+  sfml_window::Context* current_context_;
   std::thread *window_thread_;
   sf::Event event_;
 
