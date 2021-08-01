@@ -6,7 +6,7 @@
 
 using namespace sfml_window;
 Gui::Gui() {
-  current_context_ = new MainMenu(1000, 800);
+  current_context_ = new MainMenu(1200, 600);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
@@ -15,7 +15,7 @@ void Gui::ThMainLoop() {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
 
-  sf::RenderWindow window(sf::VideoMode(800, 600), "My window",
+  sf::RenderWindow window(sf::VideoMode(1200, 600), "My window",
                           sf::Style::Default, settings);
 
   // run the program as long as the window is open
