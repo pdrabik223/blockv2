@@ -8,14 +8,14 @@ void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
 }
 sfml_window::TextBox::TextBox(const Coord &position, const std::string &text)
     : position_(position) {
-  sf::Font font;
-  if (!font.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
+
+  if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
                          "window\\assets\\Georama-Medium.ttf"))
     throw "bad file";
 
-  text_.setFont(font);
+  text_.setFont(font_);
   text_.setString(text);
-  text_.setCharacterSize(position_.y);
+  text_.setCharacterSize(30);
 //  text_.setStyle(sf::Text::Bold);
 }
 void sfml_window::TextBox::SetButtonColor(const sf::Color &button_color) {

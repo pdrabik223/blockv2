@@ -17,7 +17,7 @@ public:
 protected:
   Coord position_;
   sf::Text text_;
-
+  sf::Font font_;
   sf::Color text_color_;
 };
 }
