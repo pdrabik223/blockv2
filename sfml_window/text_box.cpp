@@ -38,12 +38,15 @@ sfml_window::TextBox::TextBox(const Rect &position, const std::string &raw_text,
   if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
                           "window\\assets\\Georama-Medium.ttf"))
     throw "bad file";
-  std::cout<<font_.getInfo().family;
+  std::cout << font_.getInfo().family;
   text_.setPosition(position_.x, position_.y);
   text_.setFont(font_);
   text_.setString(raw_text);
   SetFontSize(position);
 }
-const Coord &sfml_window::TextBox::GetFontBoundaries() {
-  return {};
+Rect sfml_window::TextBox::GetFontBoundaries() {
+
+  return {{position_.x, position_.y},
+          (unsigned)ceil(font_size_ * (raw_text_.size() -1) / 2),
+          (unsigned)(font_size_ * 1.4)};
 }

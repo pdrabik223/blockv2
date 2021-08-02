@@ -28,7 +28,7 @@ public:
 
   void DrawToWindow(sf::RenderWindow &window);
   void SetFontSize(const Rect &boundaries);
-  const Coord & GetFontBoundaries();
+  Rect GetFontBoundaries();
 
 protected:
   Coord position_;
