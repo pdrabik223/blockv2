@@ -27,7 +27,11 @@ public:
           const sf::Color &text_color);
 
   void DrawToWindow(sf::RenderWindow &window);
+
   void SetFontSize(const Rect &boundaries);
+
+  void CenterText(const Rect &boundaries);
+
   Rect GetFontBoundaries();
 
 protected:

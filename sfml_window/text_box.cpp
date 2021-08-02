@@ -3,13 +3,19 @@
 //
 
 #include "text_box.h"
+#include <cassert>
 #include <iostream>
 void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
   window.draw(text_);
 }
 
 void sfml_window::TextBox::SetFontSize(const Rect &boundaries) {
-  font_size_ = boundaries.width / (raw_text_.size());
+  if ((boundaries.height / 1.4) <
+      (boundaries.width * 2 / (double)raw_text_.size()))
+    font_size_ = (unsigned)(boundaries.height / 1.4);
+  else
+    font_size_ = (unsigned)(boundaries.width * 2 / raw_text_.size());
+
   text_.setCharacterSize(font_size_);
 }
 
@@ -38,15 +44,31 @@ sfml_window::TextBox::TextBox(const Rect &position, const std::string &raw_text,
   if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
                           "window\\assets\\Georama-Medium.ttf"))
     throw "bad file";
-  std::cout << font_.getInfo().family;
+
   text_.setPosition(position_.x, position_.y);
   text_.setFont(font_);
   text_.setString(raw_text);
   SetFontSize(position);
+  CenterText(position);
 }
 Rect sfml_window::TextBox::GetFontBoundaries() {
 
   return {{position_.x, position_.y},
-          (unsigned)ceil(font_size_ * (raw_text_.size() -1) / 2),
+          (unsigned)ceil((font_size_ * (raw_text_.size() - 1)) / 2),
           (unsigned)(font_size_ * 1.4)};
+}
+void sfml_window::TextBox::CenterText(const Rect &boundaries) {
+
+  double width = (font_size_ * raw_text_.size()) / 2;
+  double height = font_size_ * 1.4;
+
+  assert(boundaries.width - width >= 0);
+  assert(boundaries.height - height >= 0);
+
+  position_ = boundaries.placement;
+  if (boundaries.width - width > 1)
+    position_.x += (unsigned)(boundaries.width - width) / 2;
+  if (boundaries.height - height > 1)
+    position_.y += (unsigned)(boundaries.height - height) / 2;
+  text_.setPosition(position_.x, position_.y);
 }
