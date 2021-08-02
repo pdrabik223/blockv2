@@ -48,8 +48,8 @@ private:
 
 protected:
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
-  TextBox game_name_ = {Align(50,20),"Block v2"};
-  TextBox author_name_ = {Align(90,90),"author: piotr233"};
+  TextBox game_name_ = {Align(50,20),"Block v2",sf::Color::Red,22};
+  TextBox author_name_ = {Align(90,90),"author: piotr233",sf::Color::Red,10};
 
 
   /// \format in pixels

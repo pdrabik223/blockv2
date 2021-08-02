@@ -20,33 +20,39 @@ sfml_window::MainMenu::~MainMenu() {
 
 void sfml_window::MainMenu::LoadButtons() {
 
-  buttons_[(unsigned)MainMenuButton::EXIT] =
-      new TextButton({window_width_ - 64, 0}, std::string("EXIT"));
+  buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(
+      {{window_width_ - 64, 0}, 64, 64},
+      "EXIT",
+      color_palette_[(unsigned)GuiColor::DANGER_COLOR],
+      false);
 
-  buttons_[(unsigned)MainMenuButton::EXIT]->SetButtonColor(
-      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
+      Align(10, 30),
+      "Play level",
+      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR],
+      false,
+      24);
 
-  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] =
-      new TextButton(Align(10, 30), std::string("Play level"));
-  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL]->SetButtonColor(
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
+  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
+      Align(10, 40),
+      "Create level",
+      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR],
+      false,
+      24);
 
-  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] =
-      new TextButton(Align(10, 40), std::string("Create level"));
-  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL]->SetButtonColor(
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
+  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(
+      Align(10, 50),
+        "Multiplayer mode",
+        color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR],
+        false,
+        24);
 
-  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] =
-      new TextButton(Align(10, 50), std::string("Multiplayer mode"));
-
-  buttons_[(unsigned)MainMenuButton::MULTIPLAYER]->SetButtonColor(
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR]);
-
-  buttons_[(unsigned)MainMenuButton::CREDITS] =
-      new TextButton(Align(10, 60), std::string("Credits"));
-
-  buttons_[(unsigned)MainMenuButton::CREDITS]->SetButtonColor(
-      color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]);
+  buttons_[(unsigned)MainMenuButton::CREDITS] = new TextButton(
+      Align(10, 60),
+      "Credits",
+      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR],
+      false,
+      24);
 }
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
@@ -60,9 +66,8 @@ void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
 
 void sfml_window::MainMenu::HandleEvent(sf::Event &event) {
 
-  Coord mouse_position =
-  {(unsigned)sf::Mouse::getPosition().x,
-   (unsigned)sf::Mouse::getPosition().y};
+  Coord mouse_position = {(unsigned)sf::Mouse::getPosition().x,
+                          (unsigned)sf::Mouse::getPosition().y};
 
   for (unsigned id = 0; id < buttons_.size(); id++)
     if (buttons_[id]->DetectInteraction(mouse_position, event))
@@ -83,7 +88,6 @@ void sfml_window::MainMenu::HandleEvent(sf::Event &event) {
         // switch context to display credits
         break;
       }
-
 }
 void sfml_window::MainMenu::ResizeWindow(unsigned int new_width,
                                          unsigned int new_height) {
