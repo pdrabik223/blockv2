@@ -10,9 +10,19 @@
 namespace sfml_window {
 class TextBox {
 public:
+  /// create an handle text on screen
+  /// \param position placement of the text
+  /// \param raw_text displayed message
+  /// \param text_color color of text
+  /// \param font_size the size of the displayed text
   TextBox(const Coord &position, const std::string &raw_text,
           const sf::Color &text_color, unsigned int font_size);
 
+  /// create an handle text on screen
+  /// \param position boundaries the text will fill
+  /// \param raw_text displayed message
+  /// \param text_color color of text
+  /// \note the size of the text depends on position param
   TextBox(const Rect &position, const std::string &raw_text,
           const sf::Color &text_color);
 

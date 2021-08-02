@@ -3,13 +3,13 @@
 //
 
 #include "text_box.h"
+#include <iostream>
 void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
   window.draw(text_);
 }
 
 void sfml_window::TextBox::SetFontSize(const Rect &boundaries) {
-  // todo test this function
-  font_size_ = boundaries.width / raw_text_.size();
+  font_size_ = boundaries.width / (raw_text_.size());
   text_.setCharacterSize(font_size_);
 }
 
@@ -30,20 +30,20 @@ sfml_window::TextBox::TextBox(const Coord &position,
   text_.setCharacterSize(font_size);
 }
 
-sfml_window::TextBox::TextBox(const Rect &position,
-                              const std::string &raw_text,
+sfml_window::TextBox::TextBox(const Rect &position, const std::string &raw_text,
                               const sf::Color &text_color)
-    : position_(position.placement), raw_text_(raw_text), text_color_(text_color) {
+    : position_(position.placement), raw_text_(raw_text),
+      text_color_(text_color) {
 
   if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
                           "window\\assets\\Georama-Medium.ttf"))
     throw "bad file";
-
+  std::cout<<font_.getInfo().family;
   text_.setPosition(position_.x, position_.y);
   text_.setFont(font_);
   text_.setString(raw_text);
   SetFontSize(position);
 }
 const Coord &sfml_window::TextBox::GetFontBoundaries() {
-
+  return {};
 }
