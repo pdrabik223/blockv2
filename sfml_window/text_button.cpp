@@ -21,48 +21,40 @@ void sfml_window::TextButton::DrawToWindow(sf::RenderWindow &window) {
 
   text_.DrawToWindow(window);
 }
-sfml_window::TextButton::TextButton(const Coord &position,
-                                    const std::string &text)
-    : text_(position, text) {
 
-  background_.setPosition((float)position.x, (float)position.y);
-
-  background_.setFillColor(sf::Color(195, 195, 195));
-  background_.setOutlineColor(sf::Color(255, 255, 255));
-  background_.setOutlineThickness(2);
-
-  structure_ = {position, (unsigned)(22 * text.size()), (unsigned)(24 * 2)};
-  background_.setSize({(float)structure_.width, (float)structure_.height});
-  text_.SetFontSize(structure_.height / 2);
-}
 void sfml_window::TextButton::SetButtonColor(const sf::Color &button_color) {
   button_color_ = button_color;
-  text_.SetTextColor(button_color);
-
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 }
 sfml_window::TextButton::TextButton(const Rect &structure,
                                     const std::string &text,
                                     const sf::Color &button_color,
-                                    bool display_background = true,
-                                    bool rigid_structure = true)
-    : structure_(structure), text_(structure.placement,text), button_color_(button_color),
-      display_background_(display_background),
-      rigid_structure_(rigid_structure) {
+                                    bool display_background = true)
+    : structure_(structure), text_(structure, text, button_color_),
+      button_color_(button_color), display_background_(display_background) {
 
-  // set color
-  text_.SetTextColor(button_color_);
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 
   background_.setPosition((float)structure_.placement.x,
                           (float)structure_.placement.y);
 
-  if (rigid_structure) {
-    background_.setSize({(float)structure_.width, (float)structure_.height});
-    text_.SetFontSize(structure);
-  }else{
+  background_.setSize({(float)structure_.width, (float)structure_.height});
+  text_.SetFontSize(structure);
+}
+sfml_window::TextButton::TextButton(const Coord &position,
+                                    const std::string &text,
+                                    const sf::Color &button_color,
+                                    bool display_background,
+                                    unsigned int font_size)
+    :text_(position, text, button_color_,font_size), button_color_(button_color),
+      display_background_(display_background) {
 
-  }
+  background_.setFillColor(Light(button_color_));
+  background_.setOutlineColor(button_color_);
+
+  background_.setPosition((float)structure_.placement.x,
+                          (float)structure_.placement.y);
+
 }
