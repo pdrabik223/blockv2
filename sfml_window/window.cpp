@@ -30,8 +30,13 @@ void Gui::ThMainLoop() {
       if (event_.type == sf::Event::Closed)
         window.close();
       else
-        current_context_->HandleEvent(event_);
-
+        switch (current_context_->HandleEvent(event_, window)) {
+        case EXIT:
+          window.close();
+          break;
+        case BACK_TO_MAIN_MENU:
+          break;
+        }
     }
     current_context_->DrawToWindow(window);
     window.display();
