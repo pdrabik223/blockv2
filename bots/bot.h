@@ -5,6 +5,7 @@
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
 #include "../utility/coord.h"
+#include <ostream>
 
 /// contains all used cell types
  enum class BotType {
@@ -36,6 +37,9 @@ class Bot {
 public:
   Bot() : position_() {} // std::array needs no-param constructor
   virtual Bot *Clone(){return this;};
+
+  virtual void OutputFoFile(std::ostream &out) = 0;
+
   static BotType type_;
 
 protected:
