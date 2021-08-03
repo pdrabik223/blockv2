@@ -5,7 +5,8 @@
 #ifndef BLOCK_V2_SFML_WINDOW_BUTTON_H_
 #define BLOCK_V2_SFML_WINDOW_BUTTON_H_
 
-#include "SFML/Graphics/RenderWindow.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "SFML/Window/Event.hpp"
 #include <gui_color.h>
 #include <rect.h>
