@@ -21,12 +21,11 @@ class RunSimulation : public Context {
 public:
 
   /// run provided simulation
-  /// \param local_board the starting position
-  /// \param directory_path the path to assets
+  /// \param level_info full level info object
   /// \param window_height of the window
   /// \param window_width of the window
-  RunSimulation(const Board &local_board, const std::string &directory_path,
-                unsigned int window_width, unsigned int window_height);
+  RunSimulation(unsigned int window_width, unsigned int window_height,
+                LevelInfo &level_info);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 

@@ -3,26 +3,23 @@
 //
 
 #include "run_simulation.h"
+#include <image_button.h>
 
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
     delete button;
   }
 }
-sfml_window::RunSimulation::RunSimulation(const Board &local_board,
-                                          const std::string &directory_path,
-                                          unsigned int window_width,
-                                          unsigned int window_height)
-    : local_board_(local_board), window_width_(window_width),
-      window_height_(window_height) {
-
-}
+sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
+                                          unsigned int window_height,
+                                          LevelInfo &level_info)
+    : local_board_(level_info), window_width_(window_width),
+      window_height_(window_height) {}
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
-
 }
 sfml_window::ContextEvent
 sfml_window::RunSimulation::HandleEvent(sf::Event &event,
@@ -68,8 +65,10 @@ void sfml_window::RunSimulation::LoadColors() {
 }
 void sfml_window::RunSimulation::LoadButtons() {
 
-  buttons_[(unsigned)RunSimulationButton::EXIT] = new TextButton(
-      Align(10, 70), "EXIT", color_palette_[(unsigned)GuiColor::DANGER_COLOR],
-      false, 24);
-
+  buttons_[(unsigned)RunSimulationButton::EXIT] =
+      new ImageButton(Rect({20, 20}, 64, 64), "no_path_yet");
+  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
+      new ImageButton(Rect({120, 120}, 64, 64), "no_path_yet");
+  buttons_[(unsigned)RunSimulationButton::END_SIMULATION] =
+      new ImageButton(Rect({220, 220}, 64, 64), "no_path_yet");
 }
