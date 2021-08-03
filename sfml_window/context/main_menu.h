@@ -5,10 +5,9 @@
 #ifndef BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 #define BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 
-#include "../button.h"
-#include "../context/context.h"
-#include "../text_box.h"
-#include "../text_button.h"
+#include "../window_utility/text_box.h"
+#include "../window_utility/text_button.h"
+#include "context.h"
 #include <array>
 #include <vector>
 namespace sfml_window {
@@ -28,15 +27,14 @@ public:
   MainMenu(unsigned int window_width, unsigned int window_height);
 
   void DrawToWindow(sf::RenderWindow &window) override;
-  sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
+  ContextEvent HandleEvent(sf::Event &event,
+                           const sf::RenderWindow &window) override;
   void ResizeWindow(unsigned int new_width, unsigned int new_height) override;
 
   ~MainMenu();
 
-public:
-  void LoadColors() override;
-
 private:
+  void LoadColors() override;
   ///
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed

@@ -5,8 +5,8 @@
 #ifndef BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
 #define BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
 
-#include "../sfml_window/button.h"
-#include "text_box.h"
+#include "../window_utility/button.h"
+#include "../window_utility/text_box.h"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
