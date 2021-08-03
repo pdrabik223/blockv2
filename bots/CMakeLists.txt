@@ -8,7 +8,7 @@ add_library(bot
         enemy.cpp enemy.h
         engine.cpp engine.h
         factory.cpp factory.h
-        tp.cpp tp.h bots_main.h)
+        tp.cpp tp.h bots_include.h)
 
 target_include_directories(bot
         PUBLIC ${PROJECT_SOURCE_DIR}/utility)

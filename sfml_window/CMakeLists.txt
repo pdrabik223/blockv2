@@ -8,7 +8,7 @@ add_library(sfml_window
         context/run_simulation.cpp context/run_simulation.h
         context/level_creator.cpp context/level_creator.h
         context/level_player.cpp context/level_player.h
-        context/level_picker.cpp context/level_picker.h)
+        context/level_picker.cpp context/level_picker.h context/context_include.h window_utility/image_button.cpp window_utility/image_button.h)
 
 
 #add_subdirectory(../sfml)
