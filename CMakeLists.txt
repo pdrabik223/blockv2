@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(block_v2_test  test.cpp
         game.cpp game.h
-        )
+        level_info.cpp level_info.h)
 
 add_subdirectory(sfml)
 add_subdirectory(bots)
