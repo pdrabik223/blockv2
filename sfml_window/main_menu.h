@@ -44,12 +44,18 @@ private:
   /// position
   Coord Align(double x, double y);
 
-  Rect Align(double x, double y, double width, double height);
+  /// creates shape of an object centered around x,y point
+  /// \param x the percentage value where object should be placed
+  /// \param y the percentage value where object should be placed
+  /// \param width of the returned object
+  /// \param height of the returned object
+  /// \return the shape of centered object
+  Rect Align(double x, double y, unsigned int width, unsigned int height);
 
+  /// load pre-defined buttons to memory
   void LoadButtons();
 
 protected:
-
   /// \format in pixels
   /// x axis domain = <0,window_width_>
   unsigned window_width_;
@@ -59,10 +65,8 @@ protected:
   unsigned window_height_;
 
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
-  TextBox game_name_ ;
-  TextBox author_name_ ;
-
-
+  TextBox game_name_;
+  TextBox author_name_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_

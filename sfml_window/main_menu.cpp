@@ -8,12 +8,12 @@
 sfml_window::MainMenu::MainMenu(unsigned int window_width,
                                 unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
-      game_name_(Align(50, 20), "Block v2", sf::Color::Red, 70),
-      author_name_(Align(90, 90), "author: piotr233\nalpha 0.1", sf::Color::Red, 10) {
+      game_name_(Align(50, 20, 500, 100), "Block v2", sf::Color::Red),
+      author_name_(Align(90, 90, 100, 50), "author: piotr233\nversion: alpha 0.1",
+                   sf::Color::Red) {
 
   LoadColors();
   LoadButtons();
-
 }
 
 sfml_window::MainMenu::~MainMenu() {
@@ -104,10 +104,10 @@ Coord sfml_window::MainMenu::Align(double x, double y) {
   return {(unsigned)((x * window_width_) / 100.0),
           (unsigned)((y * window_height_) / 100.0)};
 }
-Rect sfml_window::MainMenu::Align(double x, double y, double width,
-                                  double height) {
-  return {{(unsigned)((x * window_width_) / 100.0),
-           (unsigned)((y * window_height_) / 100.0)},
-          (unsigned)((width * window_width_) / 100.0),
-          (unsigned)((height * window_height_) / 100.0)};
+Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
+                                  unsigned int height) {
+  return {{(unsigned)(((x * window_width_) / 100.0) - (width / 2)),
+           (unsigned)(((y * window_height_) / 100.0) - (height / 2))},
+          width,
+          height};
 }
