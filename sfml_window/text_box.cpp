@@ -59,7 +59,7 @@ Rect sfml_window::TextBox::GetFontBoundaries() {
 }
 void sfml_window::TextBox::CenterText(const Rect &boundaries) {
 
-  double width = (font_size_ * raw_text_.size()) / 2;
+  double width = (font_size_ * raw_text_.size()) / 2.0;
   double height = font_size_ * 1.4;
 
   assert(boundaries.width - width >= 0);
@@ -72,3 +72,4 @@ void sfml_window::TextBox::CenterText(const Rect &boundaries) {
     position_.y += (unsigned)(boundaries.height - height) / 2;
   text_.setPosition(position_.x, position_.y);
 }
+

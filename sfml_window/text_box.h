@@ -10,6 +10,8 @@
 namespace sfml_window {
 class TextBox {
 public:
+  TextBox() = default;
+
   /// create an handle text on screen
   /// \param position placement of the text
   /// \param raw_text displayed message

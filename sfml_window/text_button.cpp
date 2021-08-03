@@ -13,11 +13,9 @@ bool sfml_window::TextButton::DetectInteraction(const Coord &press_point,
 void sfml_window::TextButton::DrawToWindow(sf::RenderWindow &window) {
 
   if (display_background_)
-
-    if (hover_)
       window.draw(background_);
-  //  else
-  //  text_.setFillColor(Light(button_color_));
+
+  //  if (hover_)
 
   text_.DrawToWindow(window);
 }
@@ -54,7 +52,11 @@ sfml_window::TextButton::TextButton(const Coord &position,
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 
+  background_.setSize({(float)structure_.width, (float)structure_.height});
+  structure_ = text_.GetFontBoundaries();
+
   background_.setPosition((float)structure_.placement.x,
                           (float)structure_.placement.y);
-
+  background_.setSize({(float)structure_.width,(float)structure_.height});
 }
+

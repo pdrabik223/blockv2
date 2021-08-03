@@ -15,6 +15,8 @@ namespace sfml_window {
 class TextButton : public Button {
 
 public:
+  TextButton() = default;
+
   ///
   /// \param structure  the position on screen and boundaries the text will fill
   /// \param text displayed text
