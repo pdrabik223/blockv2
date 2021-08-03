@@ -19,7 +19,7 @@ enum class RunSimulationButton {
 
 class RunSimulation : public Context {
 public:
-  RunSimulation();
+  RunSimulation( const Board& local_board,const std::string& directory_path);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
