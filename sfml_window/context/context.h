@@ -47,7 +47,6 @@ public:
   virtual void LoadColors() = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
-  virtual void ResizeWindow(unsigned new_width, unsigned new_height) = 0;
 
 protected:
   std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
