@@ -35,11 +35,18 @@ enum class GuiColor {
   SIZE
 };
 
+enum ContextEvent{
+  EXIT,
+  BACK_TO_MAIN_MENU,
+  SIZE
+
+};
+
 class Context {
 public:
   virtual void LoadColors() = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
-  virtual void HandleEvent(sf::Event &event) = 0;
+  virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
   virtual void ResizeWindow(unsigned new_width, unsigned new_height) = 0;
 
 protected:
