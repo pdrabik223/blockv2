@@ -9,6 +9,12 @@ Gui::Gui() {
   current_context_ = new MainMenu(1200, 600);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
+Gui::Gui(const LevelInfo& level) {
+  current_context_ = new RunSimulation(1200, 600, 0, 0);
+
+  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
+
+}
 
 void Gui::ThMainLoop() {
 
@@ -45,3 +51,4 @@ void Gui::ThMainLoop() {
 
 }
 Gui::~Gui() { window_thread_->join(); }
+
