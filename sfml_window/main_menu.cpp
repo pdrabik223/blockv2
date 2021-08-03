@@ -3,14 +3,15 @@
 //
 
 #include "main_menu.h"
+#include <cassert>
 #include <iostream>
 
 sfml_window::MainMenu::MainMenu(unsigned int window_width,
                                 unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
       game_name_(Align(50, 20, 500, 100), "Block v2", sf::Color::Red),
-      author_name_(Align(90, 90, 100, 50), "author: piotr233\nversion: alpha 0.1",
-                   sf::Color::Red) {
+      author_name_(Align(90, 90, 100, 50),
+                   "author: piotr233\nversion: alpha 0.1", sf::Color::Red) {
 
   LoadColors();
   LoadButtons();
@@ -24,12 +25,12 @@ sfml_window::MainMenu::~MainMenu() {
 void sfml_window::MainMenu::LoadButtons() {
 
   buttons_[(unsigned)MainMenuButton::EXIT] =
-      new TextButton({{window_width_ - 64, 0}, 64, 64}, "EXIT",
+      new TextButton({Coord(window_width_ - 64, 0), 64, 64}, "EXIT",
                      color_palette_[(unsigned)GuiColor::DANGER_COLOR], true);
 
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
       Align(10, 30), "Play level",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
+      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], true, 24);
 
   buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
       Align(10, 40), "Create level",
@@ -55,17 +56,30 @@ void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
   author_name_.DrawToWindow(window);
 }
 
-void sfml_window::MainMenu::HandleEvent(sf::Event &event) {
+sfml_window::ContextEvent
+sfml_window::MainMenu::HandleEvent(sf::Event &event,
+                                   const sf::RenderWindow &window) {
 
-  Coord mouse_position = {(unsigned)sf::Mouse::getPosition().x,
-                          (unsigned)sf::Mouse::getPosition().y};
+  int mouse_x = sf::Mouse::getPosition(window).x;
+  int mouse_y = sf::Mouse::getPosition(window).y;
+
+  mouse_x = mouse_x < 0 ? 0 : mouse_x;
+  mouse_y = mouse_y < 0 ? 0 : mouse_y;
+
+  mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_-1;
+  mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_-1;
+
 
   for (unsigned id = 0; id < buttons_.size(); id++)
-    if (buttons_[id]->DetectInteraction(mouse_position, event))
+
+    if (buttons_[id]->DetectInteraction({(unsigned)mouse_x, (unsigned)mouse_y},
+                                        event))
+
       switch ((MainMenuButton)id) {
       case MainMenuButton::EXIT:
-        // exit the game
-        break;
+
+        return ContextEvent::EXIT;
+
       case MainMenuButton::PLAY_LEVEL:
         // switch context to play level
         break;
