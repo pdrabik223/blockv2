@@ -49,3 +49,11 @@ The second iteration of my version of logic block and automata game. This time (
 | 2 | [cells/bots](bots/game_of_block.md)|
 | 2 | [utility](utility/README.md)|
 | 3 | [sfml window](sfml_window/window.md)
+
+# Level 
+
+consists of :
+- level file a.k.a. .txt file with positions of block,
+game state and so on 
+- the block assets (all must be there if not the game won't start)
+- background image 
