@@ -10,7 +10,7 @@ sfml_window::MainMenu::MainMenu(unsigned int window_width,
                                 unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
       game_name_(Align(50, 20, 500, 100), "Block v2", sf::Color::Red),
-      author_name_(Align(90, 90, 100, 50),
+      author_name_(Align(90, 90, 200, 50),
                    "author: piotr233\nversion: alpha 0.1", sf::Color::Red) {
 
   LoadColors();
@@ -24,9 +24,9 @@ sfml_window::MainMenu::~MainMenu() {
 
 void sfml_window::MainMenu::LoadButtons() {
 
-  buttons_[(unsigned)MainMenuButton::EXIT] =
-      new TextButton({Coord(window_width_ - 64, 0), 64, 64}, "EXIT",
-                     color_palette_[(unsigned)GuiColor::DANGER_COLOR], true);
+  buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(
+      Align(10, 70), "EXIT", color_palette_[(unsigned)GuiColor::DANGER_COLOR],
+      false, 24);
 
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
       Align(10, 30), "Play level",
@@ -66,9 +66,8 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
   mouse_x = mouse_x < 0 ? 0 : mouse_x;
   mouse_y = mouse_y < 0 ? 0 : mouse_y;
 
-  mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_-1;
-  mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_-1;
-
+  mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
+  mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
   for (unsigned id = 0; id < buttons_.size(); id++)
 
