@@ -19,6 +19,11 @@ public:
   virtual ~LevelInfo();
 
 private:
+  /// creates bot object and returns ptr to it
+  /// \important the returned hanging pointer must be deleted manually!
+  /// \param in ifstream handle, the cursor position within will be modified!
+  /// \param position position of the bot on the plane (may be unnecessary but for now it stays)
+  /// \return the pointer to new bot object
   Bot *PushBot(std::ifstream &in, const Coord &position);
   std::string name_;
 

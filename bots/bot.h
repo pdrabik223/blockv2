@@ -39,7 +39,7 @@ public:
 
   virtual Bot *Clone(){return this;};
 
-  virtual void OutputFoFile(std::ostream &out)const {};
+  virtual void OutputFoFile(std::ostream &out) const {};
 
   static BotType type_;
 
