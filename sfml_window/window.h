@@ -30,7 +30,7 @@ enum class Contexts{
 class Gui {
 public:
   Gui();
-  Gui(const LevelInfo&  level);
+  Gui(LevelInfo &level);
   ~Gui();
 
 private:
