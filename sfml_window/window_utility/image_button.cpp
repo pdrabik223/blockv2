@@ -8,7 +8,7 @@ bool sfml_window::ImageButton::DetectInteraction(const Coord &press_point,
   bool hover = structure_.CheckWBoundaries(press_point);
 
   return hover && (event.type == sf::Event::MouseButtonReleased &&
-                   event.mouseButton.button == sf::Mouse::Left);
+  event.mouseButton.button == sf::Mouse::Left);
 }
 void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
   window.draw(sprite_);
@@ -23,6 +23,6 @@ sfml_window::ImageButton::ImageButton(const Rect &structure,
   texture_.setSmooth(true);
   sprite_.setTexture(texture_);
   sprite_.setPosition(structure.placement.x, structure.placement.y);
-  sprite_.setScale(structure.width / image_.getSize().x,
-                   structure.height / image_.getSize().y);
+  sprite_.setScale( structure.width/image_.getSize().x,
+                    structure.height/image_.getSize().y);
 }
