@@ -4,7 +4,7 @@
 
 #ifndef BLOCK_V2__LEVEL_INFO_H_
 #define BLOCK_V2__LEVEL_INFO_H_
-#include "bots_main.h"
+#include "bots_include.h"
 #include <string>
 #include <vector>
 class LevelInfo {

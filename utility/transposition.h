@@ -5,7 +5,7 @@
 #ifndef BLOCK_V2_UTILITY_TRANSPOSITION_H_
 #define BLOCK_V2_UTILITY_TRANSPOSITION_H_
 
-#include "../bots/bots_main.h"
+#include "../bots/bots_include.h"
 #include <vector>
 enum class TranspositionType {
   NONE, // do nothing with the cell

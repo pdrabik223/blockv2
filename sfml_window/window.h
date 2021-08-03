@@ -5,9 +5,10 @@
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_H_
 
-#include "../bots/bots_main.h"
-#include "context/context.h"
-#include "context/main_menu.h"
+#include "../bots/bots_include.h"
+#include "context/context_include.h"
+#include "../level_info.h"
+
 #include <SFML/Graphics/Shape.hpp>
 #include <iostream>
 #include <thread>
@@ -29,6 +30,7 @@ enum class Contexts{
 class Gui {
 public:
   Gui();
+  Gui(const LevelInfo&  level);
   ~Gui();
 
 private:
