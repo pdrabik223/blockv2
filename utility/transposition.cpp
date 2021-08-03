@@ -11,6 +11,6 @@ void Transposition::PushTransposition(TranspositionType target) {
 void Transposition::PushTransposition(TranspositionType target, Bot info) {
 //  transposition_.emplace_back(target, info.Clone());
 }
-Bot &Transposition::Collapse(Bot &target) {
-  return target;
+Bot *Transposition::Collapse(Bot &target) {
+  return &target;
 }

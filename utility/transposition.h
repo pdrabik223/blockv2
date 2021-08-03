@@ -26,7 +26,7 @@ public:
   Transposition();
   void PushTransposition(TranspositionType target);
   void PushTransposition(TranspositionType target, Bot info);
-  Bot& Collapse(Bot& target);
+  Bot* Collapse(Bot& target);
 
 
 private:
