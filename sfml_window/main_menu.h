@@ -9,8 +9,8 @@
 #include "context.h"
 #include "text_box.h"
 #include "text_button.h"
-#include <vector>
 #include <array>
+#include <vector>
 namespace sfml_window {
 
 enum class MainMenuButton {
@@ -33,24 +33,22 @@ public:
 
   ~MainMenu();
 
-
 public:
   void LoadColors() override;
 
 private:
-
   ///
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed
-  /// \return the position on the screen corresponding to given relative position
-  Coord Align(double x,double y);
+  /// \return the position on the screen corresponding to given relative
+  /// position
+  Coord Align(double x, double y);
+
+  Rect Align(double x, double y, double width, double height);
+
   void LoadButtons();
 
 protected:
-  std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
-  TextBox game_name_ = {Align(50,20),"Block v2",sf::Color::Red,22};
-  TextBox author_name_ = {Align(90,90),"author: piotr233",sf::Color::Red,10};
-
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -59,6 +57,12 @@ protected:
   /// \format in pixels
   /// y axis domain = <0,window_height_>
   unsigned window_height_;
+
+  std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
+  TextBox game_name_ ;
+  TextBox author_name_ ;
+
+
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
