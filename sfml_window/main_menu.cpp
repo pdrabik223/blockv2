@@ -30,7 +30,7 @@ void sfml_window::MainMenu::LoadButtons() {
 
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
       Align(10, 30), "Play level",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], true, 24);
+      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
 
   buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
       Align(10, 40), "Create level",
@@ -101,10 +101,10 @@ void sfml_window::MainMenu::ResizeWindow(unsigned int new_width,
 }
 
 void sfml_window::MainMenu::LoadColors() {
-  color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0xd81717);
+  color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
   color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
-      sf::Color(0x9800ff);
-  color_palette_[(unsigned)GuiColor::MENU_TERTIARY_COLOR] = sf::Color(0xff9900);
+      sf::Color(0xa000d6);
+  color_palette_[(unsigned)GuiColor::MENU_TERTIARY_COLOR] = sf::Color(0xd6a000);
   color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR] =
       sf::Color(27, 27, 27);
   color_palette_[(unsigned)GuiColor::DANGER_COLOR] = sf::Color(255, 0, 0);
