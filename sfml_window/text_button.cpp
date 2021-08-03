@@ -46,7 +46,8 @@ sfml_window::TextButton::TextButton(const Coord &position,
                                     bool display_background,
                                     unsigned int font_size)
     : text_(position, text, button_color_, font_size),
-      button_color_(button_color), display_background_(display_background) {
+    button_color_(button_color), display_background_(display_background),
+    hover_(false) {
 
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
