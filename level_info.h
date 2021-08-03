@@ -40,6 +40,10 @@ public:
   void AddBot(const Coord &position,BotType type,TurnDirection turn_direction);
   void AddBot(const Coord &position,BotType type,int id);
 
+  std::vector<Bot*>& GetPLane(){return plane_;};
+  unsigned int GetWidth() const;
+  unsigned int GetHeight() const;
+
 private:
   /// creates bot object and returns ptr to it
   /// \important the returned hanging pointer must be deleted manually!
@@ -48,6 +52,8 @@ private:
   /// \return the pointer to new bot object
   Bot *PushBot(std::ifstream &in, const Coord &position);
   std::string name_;
+
+
 
 protected:
   unsigned width_;

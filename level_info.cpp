@@ -148,3 +148,5 @@ void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
     throw "bad type";
   }
 }
+unsigned int LevelInfo::GetWidth() const { return width_; }
+unsigned int LevelInfo::GetHeight() const { return height_; }
