@@ -1,0 +1,10 @@
+//
+// Created by studio25 on 03.08.2021.
+//
+
+#ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
+#define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
+
+class LevelPlayer {};
+
+#endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_

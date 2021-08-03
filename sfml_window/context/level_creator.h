@@ -1,0 +1,10 @@
+//
+// Created by studio25 on 03.08.2021.
+//
+
+#ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_
+#define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_
+
+class LevelCreator {};
+
+#endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_

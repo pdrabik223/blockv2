@@ -1,7 +1,14 @@
 add_library(sfml_window
         window.cpp window.h
         context/context.cpp context/context.h
-        context/main_menu.cpp context/main_menu.h button.cpp button.h text_button.cpp text_button.h text_box.cpp text_box.h)
+        context/main_menu.cpp context/main_menu.h
+        window_utility/button.cpp window_utility/button.h
+        window_utility/text_button.cpp window_utility/text_button.h
+        window_utility/text_box.cpp window_utility/text_box.h
+        context/run_simulation.cpp context/run_simulation.h
+        context/level_creator.cpp context/level_creator.h
+        context/level_player.cpp context/level_player.h
+        context/level_picker.cpp context/level_picker.h)
 
 
 #add_subdirectory(../sfml)
