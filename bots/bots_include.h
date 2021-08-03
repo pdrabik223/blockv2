@@ -2,8 +2,8 @@
 // Created by studio25 on 29.07.2021.
 //
 
-#ifndef BLOCK_V2_BOTS_BOTS_MAIN_H_
-#define BLOCK_V2_BOTS_BOTS_MAIN_H_
+#ifndef BLOCK_V2_BOTS_BOTS_INCLUDE_H_
+#define BLOCK_V2_BOTS_BOTS_INCLUDE_H_
 
 ///  include file
 #include "basic.h"
@@ -17,4 +17,4 @@
 #include "empty.h"
 #include "tp.h"
 
-#endif // BLOCK_V2_BOTS_BOTS_MAIN_H_
+#endif // BLOCK_V2_BOTS_BOTS_INCLUDE_H_
