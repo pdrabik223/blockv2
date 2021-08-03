@@ -5,14 +5,16 @@
 #ifndef BLOCK_V2__GAME_H_
 #define BLOCK_V2__GAME_H_
 #include "bots/bots_include.h"
+#include "level_info.h"
 #include "utility/transposition.h"
 #include <vector>
 
 class Board {
 public:
   Board(unsigned int width, unsigned int height);
-  Bot& GetCell(Coord position);
-  Bot& GetCell(unsigned position);
+  Board(LevelInfo& level_info);
+  Bot* GetCell(Coord position);
+  Bot* GetCell(unsigned position);
 
 private:
   void CollapseTranspositionTable();
@@ -22,7 +24,7 @@ private:
   /// y axis
   unsigned height_;
 
-  std::vector<Bot> plane_;
+  std::vector<Bot*> plane_;
   std::vector<Transposition> transposition_table_;
 
 };
