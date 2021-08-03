@@ -6,8 +6,8 @@
 #define BLOCK_V2_SFML_WINDOW_WINDOW_H_
 
 #include "../bots/bots_main.h"
-#include "context.h"
-#include "main_menu.h"
+#include "context/context.h"
+#include "context/main_menu.h"
 #include <SFML/Graphics/Shape.hpp>
 #include <iostream>
 #include <thread>

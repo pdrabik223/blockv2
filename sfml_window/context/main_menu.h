@@ -5,10 +5,10 @@
 #ifndef BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 #define BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 
-#include "button.h"
-#include "context.h"
-#include "text_box.h"
-#include "text_button.h"
+#include "../button.h"
+#include "../context/context.h"
+#include "../text_box.h"
+#include "../text_button.h"
 #include <array>
 #include <vector>
 namespace sfml_window {

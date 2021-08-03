@@ -5,9 +5,9 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_H_
 
-#include "../sfml/include/SFML/Graphics/RenderWindow.hpp"
-#include "../sfml/include/SFML/Window/Event.hpp"
-#include "../utility/coord.h"
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "SFML/Window/Event.hpp"
+#include "coord.h"
 #include <array>
 namespace sfml_window {
 
