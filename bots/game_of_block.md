@@ -10,7 +10,7 @@ display on the other hand only shows image of occupied cell
 
 ## include file 
 to include all the bot classes 
-[here](bots_main.h)
+[here](bots_include.h)
 
 ## the template class 
 [here](bot.h)
