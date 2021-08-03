@@ -4,9 +4,9 @@
 
 #ifndef BLOCK_V2__GAME_H_
 #define BLOCK_V2__GAME_H_
-#include "bots/bots_main.h"
-#include <vector>
+#include "bots/bots_include.h"
 #include "utility/transposition.h"
+#include <vector>
 
 class Board {
 public:

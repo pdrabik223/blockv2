@@ -19,14 +19,19 @@ enum class RunSimulationButton {
 
 class RunSimulation : public Context {
 public:
-  RunSimulation( const Board& local_board,const std::string& directory_path);
+
+  /// run provided simulation
+  /// \param local_board the starting position
+  /// \param directory_path the path to assets
+  /// \param window_height of the window
+  /// \param window_width of the window
+  RunSimulation(const Board &local_board, const std::string &directory_path,
+                unsigned int window_width, unsigned int window_height);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
-
-  void ResizeWindow(unsigned int new_width, unsigned int new_height) override;
 
   virtual ~RunSimulation();
 
@@ -45,7 +50,7 @@ protected:
   /// y axis domain = <0,window_height_>
   unsigned window_height_;
 
-  std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
+  std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_{};
   Board local_board_;
 };
 } // namespace sfml_window

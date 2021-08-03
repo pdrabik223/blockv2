@@ -93,11 +93,6 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
         break;
       }
 }
-void sfml_window::MainMenu::ResizeWindow(unsigned int new_width,
-                                         unsigned int new_height) {
-  window_width_ = new_width;
-  window_height_ = new_height;
-}
 
 void sfml_window::MainMenu::LoadColors() {
   color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
