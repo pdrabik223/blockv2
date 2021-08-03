@@ -38,6 +38,7 @@ public:
   /// \param event last window event
   /// \return true if button is pressed
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
+
   /// display current look of a button to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
@@ -50,10 +51,9 @@ protected:
 
   /// if mouse is hovering over the button the font is larger
   bool hover_;
-
   sf::Color button_color_;
-
   bool display_background_;
+
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
