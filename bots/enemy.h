@@ -7,8 +7,11 @@
 #include "bot.h"
 class Enemy : public Bot {
 public:
-  Enemy(const Coord &position);
   Enemy();
+  Enemy(const Coord &position);
+  Enemy *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 private:
   Coord position_;

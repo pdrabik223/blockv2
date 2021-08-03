@@ -6,10 +6,10 @@
 
 Transposition::Transposition(){}
 void Transposition::PushTransposition(TranspositionType target) {
-  transposition_.emplace_back(target, Bot());
+//  transposition_.emplace_back(target, Bot());
 }
 void Transposition::PushTransposition(TranspositionType target, Bot info) {
-  transposition_.emplace_back(target, info);
+//  transposition_.emplace_back(target, info.Clone());
 }
 Bot &Transposition::Collapse(Bot &target) {
   return target;

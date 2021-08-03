@@ -35,10 +35,11 @@
  };
 class Bot {
 public:
-  Bot() : position_() {} // std::array needs no-param constructor
+  Bot() = default;
+
   virtual Bot *Clone(){return this;};
 
-  virtual void OutputFoFile(std::ostream &out) = 0;
+  virtual void OutputFoFile(std::ostream &out)const {};
 
   static BotType type_;
 

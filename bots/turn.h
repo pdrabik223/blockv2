@@ -7,8 +7,11 @@
 #include "bot.h"
 class Turn: public Bot {
 public:
-  Turn(const Coord &position, TurnDirection direction);
   Turn();
+  Turn(const Coord &position, TurnDirection direction);
+  Turn *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 
 private:

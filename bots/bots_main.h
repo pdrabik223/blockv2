@@ -15,5 +15,6 @@
 #include "turn.h"
 #include "bot.h"
 #include "empty.h"
+#include "tp.h"
 
 #endif // BLOCK_V2_BOTS_BOTS_MAIN_H_

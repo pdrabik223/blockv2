@@ -7,8 +7,12 @@
 #include "bot.h"
 class Bedrock: public Bot {
 public:
-  Bedrock(const Coord &position);
   Bedrock();
+  Bedrock(const Coord &position);
+
+  Bedrock *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 
 private:

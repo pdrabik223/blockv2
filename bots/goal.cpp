@@ -6,3 +6,8 @@
 Goal::Goal(const Coord &position) : position_(position) {}
 Goal::Goal() {}
 BotType Goal::type_ = BotType::GOAL;
+Goal *Goal::Clone() { return this; }
+void Goal::OutputFoFile(std::ostream &out) const {
+  out<<(unsigned)BotType::GOAL<<"\n";
+}
+

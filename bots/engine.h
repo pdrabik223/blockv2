@@ -8,8 +8,11 @@
 class Engine: public Bot {
 
 public:
-  Engine(const Coord &position, Direction direction);
   Engine();
+  Engine(const Coord &position, Direction direction);
+  Engine *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 private:
   Direction direction_;

@@ -7,8 +7,11 @@
 #include "bot.h"
 class Goal: public Bot {
 public:
-  Goal(const Coord &position);
   Goal();
+  Goal(const Coord &position);
+  Goal *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 private:
   Coord position_;

@@ -7,11 +7,13 @@
 #include "bot.h"
 class Factory : public Bot{
 public:
-  Factory(const Coord &position, Direction direction);
-  static BotType type_;
-private:
-public:
   Factory();
+  Factory(const Coord &position, Direction direction);
+  Factory *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
+  static BotType type_;
+
 
 private:
   Direction direction_;

@@ -6,3 +6,8 @@
 Bedrock::Bedrock(const Coord &position) : position_(position) {}
 Bedrock::Bedrock() {}
 BotType Bedrock::type_ = BotType::BEDROCK;
+Bedrock *Bedrock::Clone() { return this; }
+void Bedrock::OutputFoFile(std::ostream &out) const {
+  out<<(unsigned)BotType::BEDROCK<<"\n";
+}
+

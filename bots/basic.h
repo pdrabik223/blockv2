@@ -6,11 +6,13 @@
 #define BLOCK_V2_BOTS_BASIC_H_
 
 #include "bot.h"
-class Basic :Bot{
-
+class Basic : public Bot{
 public:
-  Basic(const Coord &position);
   Basic();
+  explicit Basic(const Coord &position);
+  Basic *Clone() override;
+  void OutputFoFile(std::ostream &out) const override;
+
   static BotType type_;
 
 private:

@@ -19,6 +19,7 @@ public:
   virtual ~LevelInfo();
 
 private:
+  Bot *PushBot(std::ifstream &in, const Coord &position);
   std::string name_;
 
 protected:

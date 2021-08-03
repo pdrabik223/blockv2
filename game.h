@@ -4,7 +4,7 @@
 
 #ifndef BLOCK_V2__GAME_H_
 #define BLOCK_V2__GAME_H_
-#include "bots_main.h"
+#include "bots/bots_main.h"
 #include <vector>
 #include "utility/transposition.h"
 
