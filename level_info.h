@@ -8,15 +8,37 @@
 #include <string>
 #include <vector>
 class LevelInfo {
-
 public:
   LevelInfo(const std::string &file_path);
   LevelInfo(unsigned int width, unsigned int height);
 
+
   void LoadLevel(const std::string &file_path);
   void SaveLevel();
-
   virtual ~LevelInfo();
+
+  /// creates specified bot object in given position
+  /// \param position position on plane the bot should be created at
+  /// \param type type of the created object<br>
+  /// <h3>passed type object can only be:</h3>
+  /// <ol>
+  /// <li>BotType::EMPTY
+  /// <li>BotType::BASIC
+  /// <li>BotType::BEDROCK
+  /// <li>BotType::GOAL
+  /// <li>BotType::ENEMY
+  void AddBot(const Coord &position,BotType type);
+  /// creates specified bot object in given position
+  /// \param position position on plane the bot should be created at
+  /// \param type type of the created object<br>
+  /// \param direction witch the block will be facing
+  /// <h3>passed type object can only be:</h3>
+  /// <ol>
+  /// <li> BotType::ENGINE
+  /// <li> BotType::FACTORY
+  void AddBot(const Coord &position,BotType type,Direction direction);
+  void AddBot(const Coord &position,BotType type,TurnDirection turn_direction);
+  void AddBot(const Coord &position,BotType type,int id);
 
 private:
   /// creates bot object and returns ptr to it
@@ -30,7 +52,6 @@ private:
 protected:
   unsigned width_;
   unsigned height_;
-
   std::vector<Bot*> plane_;
 
 };

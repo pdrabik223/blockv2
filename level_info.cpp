@@ -11,6 +11,7 @@ LevelInfo::~LevelInfo() {
   for (auto &bot : plane_)
     delete bot;
 }
+
 LevelInfo::LevelInfo(unsigned int width, unsigned int height)
     : width_(width), height_(height) {
   name_ = "no_name_given";
@@ -18,19 +19,19 @@ LevelInfo::LevelInfo(unsigned int width, unsigned int height)
   plane_.reserve(width_ * height_);
 
   for (auto i = 0; i < plane_.capacity(); i++)
-    plane_[i] = new Empty();
+    plane_.emplace_back(new Empty({i / width_, i % width_}));
 }
 void LevelInfo::SaveLevel() {
 
   std::ofstream my_file;
-  std::string file_path = "levels/" + name_;
+  std::string file_path = "../levels/" + name_;
 
   my_file.open(file_path);
   if (!my_file.is_open()) {
     throw "file_error";
   }
   my_file << name_ << "\n";
-  my_file << width_ << " " << height_;
+  my_file << width_ << " " << height_<<"\n";
 
   for (const Bot *bot : plane_)
     bot->OutputFoFile(my_file);
@@ -87,5 +88,63 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
   case BotType::NONE:
   case BotType::SIZE:
     throw "error";
+  }
+}
+
+void LevelInfo::AddBot(const Coord &position, BotType type) {
+  delete plane_[position.ToInt(width_)];
+  switch (type) {
+  case BotType::EMPTY:
+    plane_[position.ToInt(width_)] = new Empty();
+    break;
+  case BotType::BASIC:
+    plane_[position.ToInt(width_)] = new Basic();
+    break;
+  case BotType::BEDROCK:
+    plane_[position.ToInt(width_)] = new Bedrock();
+    break;
+  case BotType::GOAL:
+    plane_[position.ToInt(width_)] = new Goal();
+    break;
+  case BotType::ENEMY:
+    plane_[position.ToInt(width_)] = new Enemy();
+    break;
+  default:
+    throw "bad type";
+  }
+}
+void LevelInfo::AddBot(const Coord &position, BotType type,
+                       Direction direction) {
+  delete plane_[position.ToInt(width_)];
+  switch (type) {
+  case BotType::ENGINE:
+    plane_[position.ToInt(width_)] = new Engine(position, direction);
+    break;
+  case BotType::FACTORY:
+    plane_[position.ToInt(width_)] = new Factory(position, direction);
+    break;
+  default:
+    throw "bad type";
+  }
+}
+void LevelInfo::AddBot(const Coord &position, BotType type,
+                       TurnDirection turn_direction) {
+  delete plane_[position.ToInt(width_)];
+  switch (type) {
+  case BotType::TURN:
+    plane_[position.ToInt(width_)] = new Turn(position, turn_direction);
+    break;
+  default:
+    throw "bad type";
+  }
+}
+void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
+  delete plane_[position.ToInt(width_)];
+  switch (type) {
+  case BotType::TP:
+    plane_[position.ToInt(width_)] = new Tp(position, id);
+    break;
+  default:
+    throw "bad type";
   }
 }
