@@ -6,12 +6,11 @@
 #define BLOCK_V2_UTILITY_RECT_H_
 
 #include "coord.h"
-class Rect {
-public:
+struct Rect {
   Rect();
   Rect(const Coord &position, unsigned int width, unsigned int height);
 
-  bool CheckWBoundaries(const Coord& point);
+  bool CheckWBoundaries(const Coord& point) const;
 
 Coord placement;
 unsigned width;
