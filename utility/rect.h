@@ -9,6 +9,8 @@
 struct Rect {
   Rect();
   Rect(const Coord &position, unsigned int width, unsigned int height);
+  Rect(const Rect &other);
+  Rect&  operator=(const Rect &other);
 
   bool CheckWBoundaries(const Coord& point) const;
 

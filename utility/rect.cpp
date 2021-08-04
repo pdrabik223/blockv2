@@ -20,3 +20,16 @@ bool Rect::CheckWBoundaries(const Coord &point) const {
 }
 
 Rect::Rect() : placement(), width(0), height(0) {}
+
+Rect::Rect(const Rect &other) {
+  placement = other.placement;
+  width = other.width;
+  height = other.width;
+}
+Rect &Rect::operator=(const Rect &other) {
+  if(this == &other) return *this;
+  placement = other.placement;
+  width = other.width;
+  height = other.width;
+  return *this;
+}
