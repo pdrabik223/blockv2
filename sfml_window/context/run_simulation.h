@@ -67,6 +67,9 @@ protected:
   unsigned cell_size_;
 
   std::vector<sf::RectangleShape> grid_;
+
+  bool display_grid_ = true;
+
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_

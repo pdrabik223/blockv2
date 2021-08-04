@@ -17,28 +17,13 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
   LoadColors();
   LoadButtons();
 
-  // all cells are squares so the width = height
-  // between all cells and surrounding them is 3px wide border
-  double vertical_cell_size =
-      (window_width_ - 3) / (double)(local_board_.GetWidth() + 3);
-  //right border       /\        left border on every cell    /\
-
-  double horizontal_cell_size =
-      (window_height_ - 3) / (double)(local_board_.GetHeight() + 3);
-  //right border       /\        left border on every cell    /\
-
-
-  // the actual cell size must be smaller of the two above
-  cell_size_ = vertical_cell_size < horizontal_cell_size
-                   ? (unsigned)vertical_cell_size
-                   : (unsigned)horizontal_cell_size;
-
   GenGrid();
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
 
-  DrawGrid(window);
+  if (display_grid_)
+    DrawGrid(window);
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
@@ -164,18 +149,43 @@ void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
 }
 void sfml_window::RunSimulation::GenGrid() {
 
+  // all cells are squares so the width = height
+  // between all cells and surrounding them is 3px wide border
+  double vertical_cell_size =
+      ((window_width_ - 3) - 3 * local_board_.GetWidth()) /
+      (double)(local_board_.GetWidth());
+  //right border       /\        left border on every cell    /\
+
+  double horizontal_cell_size =
+      ((window_height_ - 3) - 3 * local_board_.GetHeight()) /
+      (double)(local_board_.GetHeight());
+  //right border       /\        left border on every cell    /\
+
+
+  // the actual cell size must be smaller of the two above
+  cell_size_ = vertical_cell_size < horizontal_cell_size
+                   ? (unsigned)vertical_cell_size
+                   : (unsigned)horizontal_cell_size;
+
   unsigned pixel_shift = cell_size_ + 3;
-
-  sf::RectangleShape jango; // get it, coz it's going to be cloned
-  jango.setFillColor(sf::Color::Transparent);
-
+  // generate grid
   for (int y = 0; y < local_board_.GetHeight(); ++y)
     for (int x = 0; x < local_board_.GetWidth(); ++x) {
       grid_.push_back(sf::RectangleShape());
-      grid_.back().setPosition(x * (cell_size_ + 3), y * (cell_size_ + 3));
-      grid_.back().setSize({(float)cell_size_,(float)cell_size_});
+      grid_.back().setPosition(3 + x * pixel_shift, 3 + y * pixel_shift);
+      grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
       grid_.back().setOutlineColor(sf::Color::White);
       grid_.back().setOutlineThickness(1);
     }
+
+  // center grid
+  unsigned right_shift =
+      (window_width_ - (3 + local_board_.GetWidth() * pixel_shift)) / 2;
+  unsigned down_shift =
+      (window_height_ - (3 + local_board_.GetHeight() * pixel_shift)) / 2;
+
+  for (auto &square : grid_) {
+    square.move(right_shift, down_shift);
+  }
 }
