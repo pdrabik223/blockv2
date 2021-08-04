@@ -11,7 +11,7 @@
 namespace sfml_window {
 class ImageButton : public Button {
 public:
-  ImageButton(const Rect &structure, const std::string &image_path);
+  ImageButton(const Rect &structure, const std::string &image_path, const sf::Color &color);
 
 public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
@@ -20,7 +20,6 @@ public:
 
 protected:
   Rect structure_;
-  sf::Image image_; // I don't know if this needs to exist
   sf::Texture texture_; // this one for sure tho
   sf::Sprite sprite_;
 

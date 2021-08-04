@@ -14,7 +14,10 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           unsigned int window_height,
                                           LevelInfo &level_info)
     : local_board_(level_info), window_width_(window_width),
-      window_height_(window_height) {}
+      window_height_(window_height) {
+  LoadColors();
+  LoadButtons();
+}
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
 
@@ -65,10 +68,15 @@ void sfml_window::RunSimulation::LoadColors() {
 }
 void sfml_window::RunSimulation::LoadButtons() {
 
+  std::string directory = "../sfml_window/assets/";
+
   buttons_[(unsigned)RunSimulationButton::EXIT] =
-      new ImageButton(Rect({20, 20}, 64, 64), "no_path_yet");
+      new ImageButton(Rect({window_width_ - 32, 0}, 32, 32), directory+"cancel-button.png",
+                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
   buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
-      new ImageButton(Rect({120, 120}, 64, 64), "no_path_yet");
+      new ImageButton(Rect({window_width_ - 70, 0}, 32, 32), directory+"pause-button.png",
+                      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
   buttons_[(unsigned)RunSimulationButton::END_SIMULATION] =
-      new ImageButton(Rect({220, 220}, 64, 64), "no_path_yet");
+      new ImageButton(Rect({window_width_ - 108, 0}, 32, 32), directory+"next.png",
+                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 }
