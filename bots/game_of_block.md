@@ -20,10 +20,10 @@ to include all the bot classes
 | 1  | [empty](empty.h)     | none  | yes | yes | is empty | 
 | 2  | [basic](basic.h)     | grey  | no  | yes | can be pushed and does nothing |
 | 3  | [bedrock](bedrock.h) | black | no  | no  | can't be pushed, nor killed |
-| 4  | [turn](turn.h)       | blue  | yes | no  | changes the direction the block is going | 
-| 5  | [goal](goal.h)       | purple| yes | yes | when all are killed the level is beaten | 
+| 4  | [turn](turn.h)       | blue  | yes | no  | changes the direction of the block that touches it | 
+| 5  | [goal](goal.h)       | purple| yes | yes | when all are killed the level is beaten, the goal of the game | 
 | 6  | [enemy](enemy.h)     | red   | yes | yes | kills everything it touches | 
-| 7  | [engine](engine.h)   | orange| yes | yes | pushes blocks in front of itself | 
-| 8  | [factory](factory.h) | green | yes | yes | copies cell from behind and spawns it in front|
-| 9  | [tp](tp.h)           | rainbow | no | no | teleports cell that enter's it to the exit it's exit, linked portals have the same color |
+| 7  | [engine](engine.h)   | orange| yes | yes | pushes blocks in front of itself in the way it's facing | 
+| 8  | [factory](factory.h) | green | yes | yes | copies cell from behind and spawns it in front, tan pushes it in front |
+| 9  | [tp](tp.h)           | rainbow | no | no | teleports cell that enters it to the exit it's exit, linked portals have the same color |
  
