@@ -150,3 +150,4 @@ void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
 }
 unsigned int LevelInfo::GetWidth() const { return width_; }
 unsigned int LevelInfo::GetHeight() const { return height_; }
+const std::string &LevelInfo::GetName() const { return name_; }

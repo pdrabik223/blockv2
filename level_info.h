@@ -43,6 +43,7 @@ public:
   std::vector<Bot*>& GetPLane(){return plane_;};
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
+  const std::string &GetName() const;
 
 private:
   /// creates bot object and returns ptr to it
