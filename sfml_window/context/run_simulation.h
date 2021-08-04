@@ -8,6 +8,11 @@
 #include "../../game.h"
 #include "../window_utility/button.h"
 #include "context.h"
+#include <vector>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <cassert>
+#include <image_button.h>
+#include <iostream>
 
 namespace sfml_window {
 enum class RunSimulationButton {
@@ -40,6 +45,12 @@ private:
   /// load pre-defined buttons to memory
   void LoadButtons();
 
+  void GenGrid();
+
+  /// display centered grid lines
+  /// \param window target window
+  void DrawGrid(sf::RenderWindow &window);
+
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -49,8 +60,13 @@ protected:
   /// y axis domain = <0,window_height_>
   unsigned window_height_;
 
-  std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_{};
+  std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
   Board local_board_;
+
+  /// size of a square cell
+  unsigned cell_size_;
+
+  std::vector<sf::RectangleShape> grid_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_

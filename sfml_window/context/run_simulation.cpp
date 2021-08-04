@@ -3,7 +3,6 @@
 //
 
 #include "run_simulation.h"
-#include <image_button.h>
 
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
@@ -17,9 +16,29 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
       window_height_(window_height) {
   LoadColors();
   LoadButtons();
+
+  // all cells are squares so the width = height
+  // between all cells and surrounding them is 3px wide border
+  double vertical_cell_size =
+      (window_width_ - 3) / (double)(local_board_.GetWidth() + 3);
+  //right border       /\        left border on every cell    /\
+
+  double horizontal_cell_size =
+      (window_height_ - 3) / (double)(local_board_.GetHeight() + 3);
+  //right border       /\        left border on every cell    /\
+
+
+  // the actual cell size must be smaller of the two above
+  cell_size_ = vertical_cell_size < horizontal_cell_size
+                   ? (unsigned)vertical_cell_size
+                   : (unsigned)horizontal_cell_size;
+
+  GenGrid();
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+
+  DrawGrid(window);
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
@@ -70,13 +89,93 @@ void sfml_window::RunSimulation::LoadButtons() {
 
   std::string directory = "../sfml_window/assets/";
 
-  buttons_[(unsigned)RunSimulationButton::EXIT] =
-      new ImageButton(Rect({window_width_ - 32, 0}, 32, 32), directory+"cancel-button.png",
-                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
-  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
-      new ImageButton(Rect({window_width_ - 70, 0}, 32, 32), directory+"pause-button.png",
-                      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
-  buttons_[(unsigned)RunSimulationButton::END_SIMULATION] =
-      new ImageButton(Rect({window_width_ - 108, 0}, 32, 32), directory+"next.png",
-                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+  buttons_[(unsigned)RunSimulationButton::EXIT] = new ImageButton(
+      Rect({window_width_ - 32, 0}, 32, 32), directory + "cancel-button.png",
+      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] = new ImageButton(
+      Rect({window_width_ - 70, 0}, 32, 32), directory + "pause-button.png",
+      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
+  buttons_[(unsigned)RunSimulationButton::END_SIMULATION] = new ImageButton(
+      Rect({window_width_ - 108, 0}, 32, 32), directory + "next.png",
+      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+}
+
+/// draws white line between two points width width 3px
+/// \param p_1  first point
+/// \param p_2  second point
+/// \return the shape of the line
+sf::RectangleShape DrawLine(const Coord &p_1, const Coord &p_2,
+                            sf::RectangleShape &target) {
+  // make sure that these are not the same point
+  // and are at the same asix
+
+  assert(p_1.x == p_2.x xor p_1.y == p_2.y);
+
+  // example a)
+  //  y-axis
+  //  .
+  // / \
+  //  |  c ------------- .  / \
+  //  |  |               |   |
+  //  | p_1             p_2  height        p_1.y = p_2.y and  p_1.x < p_2.x
+  //  |  |               |   |
+  //  |  . ------------- .  \ /
+  //  .----------------------->  x-axis
+  //     <-----width----->
+
+  // example b)
+  //  y-axis
+  //  .
+  // / \
+  //  |  c --p_1-- . / \
+  //  |  |         |  |
+  //  |  |         | height         p_1.x = p_2.x   and  p_1.y > p_2.y
+  //  |  |         |  |
+  //  |  . --p_2-- . \ /
+  //  .----------------------->  x-axis
+  //     <-width--->
+
+  // return {c.x,c.y,width,height}
+
+  // example a)
+
+  Coord c;
+  if (p_1.y == p_2.y) {
+    c = p_1.x > p_2.x ? p_1 : p_2;
+
+    target.setPosition(c.x, c.y + 1);
+    target.setSize({abs((float)(p_2.x - p_1.x)), 3});
+
+  } else if (p_1.x == p_2.x) { // example b
+    c = p_1.y > p_2.y ? p_1 : p_2;
+
+    target.setPosition(c.x - 1, c.y);
+    target.setSize({3, abs((float)(p_1.y - p_2.y))});
+  }
+  target.setFillColor(sf::Color::White);
+  target.setOutlineColor(sf::Color::White);
+  // solution_rectangle.setOutlineThickness(1);
+  return target;
+}
+void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
+
+  for (const auto &box : grid_)
+    window.draw(box);
+}
+void sfml_window::RunSimulation::GenGrid() {
+
+  unsigned pixel_shift = cell_size_ + 3;
+
+  sf::RectangleShape jango; // get it, coz it's going to be cloned
+  jango.setFillColor(sf::Color::Transparent);
+
+  for (int y = 0; y < local_board_.GetHeight(); ++y)
+    for (int x = 0; x < local_board_.GetWidth(); ++x) {
+      grid_.push_back(sf::RectangleShape());
+      grid_.back().setPosition(x * (cell_size_ + 3), y * (cell_size_ + 3));
+      grid_.back().setSize({(float)cell_size_,(float)cell_size_});
+      grid_.back().setFillColor(sf::Color::Transparent);
+      grid_.back().setOutlineColor(sf::Color::White);
+      grid_.back().setOutlineThickness(1);
+    }
 }
