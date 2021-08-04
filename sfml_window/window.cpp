@@ -21,7 +21,7 @@ void Gui::ThMainLoop() {
   settings.antialiasingLevel = 8;
 
   sf::RenderWindow window(sf::VideoMode(1200, 600), "My window",
-                          sf::Style::Default, settings);
+                          sf::Style::None, settings);
 
   // run the program as long as the window is open
   current_context_->DrawToWindow(window);
