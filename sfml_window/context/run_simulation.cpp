@@ -75,13 +75,13 @@ void sfml_window::RunSimulation::LoadButtons() {
   std::string directory = "../sfml_window/assets/";
 
   buttons_[(unsigned)RunSimulationButton::EXIT] = new ImageButton(
-      Rect({window_width_ - 32, 0}, 32, 32), directory + "cancel-button.png",
+      Rect({window_width_ - 36, 4}, 32, 32), directory + "cancel-button.png",
       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
   buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] = new ImageButton(
-      Rect({window_width_ - 70, 0}, 32, 32), directory + "pause-button.png",
+      Rect({window_width_ - 74, 4}, 32, 32), directory + "pause-button.png",
       color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
   buttons_[(unsigned)RunSimulationButton::END_SIMULATION] = new ImageButton(
-      Rect({window_width_ - 108, 0}, 32, 32), directory + "next.png",
+      Rect({window_width_ - 112, 4}, 32, 32), directory + "next.png",
       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 }
 
@@ -193,6 +193,7 @@ void sfml_window::RunSimulation::LoadBackground(const std::string& level_name) {
   if (!background_texture_.loadFromFile("../levels/" + level_name + "/background.png")){
     assert(false);
   }
-
-
+  background_sprite_.setTexture(background_texture_);
+  background_sprite_.setScale( (float)window_width_/(float)background_texture_.getSize().x,
+                               (float)window_height_/(float)background_texture_.getSize().y);
 }
