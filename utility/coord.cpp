@@ -9,3 +9,14 @@ bool Coord::operator==(const Coord &rhs) const {
   return x == rhs.x && y == rhs.y;
 }
 bool Coord::operator!=(const Coord &rhs) const { return !(rhs == *this); }
+Coord::Coord(const Coord &other) {
+  x = other.x;
+  y = other.y;
+}
+Coord &Coord::operator=(const Coord &other) {
+  if(this == &other) return *this;
+  x = other.x;
+  y = other.y;
+  return *this;
+
+}
