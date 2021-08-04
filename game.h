@@ -15,6 +15,8 @@ public:
   Board(LevelInfo& level_info);
   Bot* GetCell(Coord position);
   Bot* GetCell(unsigned position);
+  unsigned int GetWidth() const;
+  unsigned int GetHeight() const;
 
 private:
   void CollapseTranspositionTable();
