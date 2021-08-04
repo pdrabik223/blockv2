@@ -3,7 +3,10 @@
 //
 
 #include "level_info.h"
+#include <cassert>
 #include <fstream>
+#include <iostream>
+#include <windows.h>
 
 LevelInfo::LevelInfo(const std::string &file_path) { LoadLevel(file_path); }
 
@@ -24,14 +27,24 @@ LevelInfo::LevelInfo(unsigned int width, unsigned int height)
 void LevelInfo::SaveLevel() {
 
   std::ofstream my_file;
-  std::string file_path = "../levels/" + name_;
+
+  std::string directory_path = "..\\levels\\" + name_;
+  CreateDirectoryA(directory_path.c_str(), NULL);
+
+  int k = 1;
+  while (CreateDirectoryA(std::string(directory_path + (char)k).c_str(),
+                          NULL) == ERROR_ALREADY_EXISTS) {
+    k++;
+  }
+
+  std::string file_path = "../levels/" + name_ + "/" + name_;
 
   my_file.open(file_path);
   if (!my_file.is_open()) {
     throw "file_error";
   }
   my_file << name_ << "\n";
-  my_file << width_ << " " << height_<<"\n";
+  my_file << width_ << " " << height_ << "\n";
 
   for (const Bot *bot : plane_)
     bot->OutputFoFile(my_file);
