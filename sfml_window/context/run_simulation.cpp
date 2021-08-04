@@ -16,12 +16,12 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
       window_height_(window_height) {
   LoadColors();
   LoadButtons();
-
+  LoadBackground(level_info.GetName());
   GenGrid();
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
-  window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
-
+  //window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+  window.draw(background_sprite_);
   if (display_grid_)
     DrawGrid(window);
 
@@ -188,4 +188,11 @@ void sfml_window::RunSimulation::GenGrid() {
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
   }
+}
+void sfml_window::RunSimulation::LoadBackground(const std::string& level_name) {
+  if (!background_texture_.loadFromFile("../levels/" + level_name + "/background.png")){
+    assert(false);
+  }
+
+
 }

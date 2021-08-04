@@ -8,23 +8,17 @@
 #include "../../game.h"
 #include "../window_utility/button.h"
 #include "context.h"
-#include <vector>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <cassert>
 #include <image_button.h>
 #include <iostream>
+#include <vector>
 
 namespace sfml_window {
-enum class RunSimulationButton {
-  EXIT,
-  STOP_SIMULATION,
-  END_SIMULATION,
-  SIZE
-};
+enum class RunSimulationButton { EXIT, STOP_SIMULATION, END_SIMULATION, SIZE };
 
 class RunSimulation : public Context {
 public:
-
   /// run provided simulation
   /// \param level_info full level info object
   /// \param window_height of the window
@@ -45,6 +39,7 @@ private:
   /// load pre-defined buttons to memory
   void LoadButtons();
 
+  void LoadBackground(const std::string &level_name);
   void GenGrid();
 
   /// display centered grid lines
@@ -60,6 +55,11 @@ protected:
   /// y axis domain = <0,window_height_>
   unsigned window_height_;
 
+  /// background texture
+  sf::Texture background_texture_;
+  /// background sprite always provided by user
+  sf::Sprite background_sprite_;
+
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
   Board local_board_;
 
@@ -69,7 +69,6 @@ protected:
   std::vector<sf::RectangleShape> grid_;
 
   bool display_grid_ = true;
-
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
