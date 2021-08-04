@@ -16,6 +16,27 @@
 
 namespace sfml_window {
 enum class RunSimulationButton { EXIT, STOP_SIMULATION, END_SIMULATION, SIZE };
+enum class CellSprite{
+  BASIC, /// something like stone
+  BEDROCK,
+  TURN_C, /// clockwise
+  TURN_CC,/// counterclockwise
+  GOAL,
+  ENEMY,
+
+
+  ENGINE_U, /// up
+  ENGINE_D, /// down
+  ENGINE_L, /// left
+  ENGINE_R, /// right
+
+  FACTORY_U,/// up
+  FACTORY_D,/// down
+  FACTORY_L,/// left
+  FACTORY_R,/// right
+  TP,
+  SIZE
+};
 
 class RunSimulation : public Context {
 public:
@@ -40,12 +61,23 @@ private:
   void LoadButtons();
 
   void LoadBackground(const std::string &level_name);
+
+  void LoadCells(const std::string &level_name);
+
+  void LoadCell(CellSprite cell,const std::string &level_name);
+
+  void LoadCell(CellSprite cell_to,CellSprite cell_from,double angle);
+
   void GenGrid();
 
   /// display centered grid lines
   /// \param window target window
   void DrawGrid(sf::RenderWindow &window);
 
+  void DrawCells(sf::RenderWindow &window);
+
+  sf::Texture& Texture(CellSprite cell);
+  sf::Sprite& Sprite(CellSprite cell);
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -61,6 +93,9 @@ protected:
   sf::Sprite background_sprite_;
 
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
+
+  std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)CellSprite::SIZE>
+      cells_;
   Board local_board_;
 
   /// size of a square cell

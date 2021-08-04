@@ -17,10 +17,11 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
   LoadColors();
   LoadButtons();
   LoadBackground(level_info.GetName());
+  LoadCells(level_info.GetName());
   GenGrid();
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
-  //window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+  // window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   window.draw(background_sprite_);
   if (display_grid_)
     DrawGrid(window);
@@ -189,11 +190,167 @@ void sfml_window::RunSimulation::GenGrid() {
     square.move(right_shift, down_shift);
   }
 }
-void sfml_window::RunSimulation::LoadBackground(const std::string& level_name) {
-  if (!background_texture_.loadFromFile("../levels/" + level_name + "/background.png")){
+void sfml_window::RunSimulation::LoadBackground(const std::string &level_name) {
+  if (!background_texture_.loadFromFile("../levels/" + level_name +
+                                        "/background.png")) {
     assert(false);
   }
   background_sprite_.setTexture(background_texture_);
-  background_sprite_.setScale( (float)window_width_/(float)background_texture_.getSize().x,
-                               (float)window_height_/(float)background_texture_.getSize().y);
+  background_sprite_.setScale(
+      (float)window_width_ / (float)background_texture_.getSize().x,
+      (float)window_height_ / (float)background_texture_.getSize().y);
+}
+void sfml_window::RunSimulation::LoadCells(const std::string &level_name) {
+  // loading images is hard
+  // because user is dudu,
+  // and I need to apologise for it
+  //
+  // ok nessery images:
+  // basic, bedrock, goal, enemy
+  //
+  // turn has 2 versions
+  // engine 4
+  // factory 4
+  // and tp infinite but it's hard to have infinite
+
+  // ok, basic rules :
+  // 1. the names of the files are strict,
+  // 2. if directory has image for block use this one
+  // if not use default one
+  // 3.  only one of the variant blocks must be present, rest will be created by
+  // flipping
+  //  a) if the up is present down will be created first
+  //   than the check will be run for left and right ones
+  //  b) if the left and right are present that's it
+  //   if only one is present the second will be created by vertical flip
+  std::string dir = "../levels/" + level_name + "/";
+  std::string default_dir = "../levels/default/";
+
+  // easy ones
+  LoadCell(CellSprite::BASIC, "basic.png");
+
+  LoadCell(CellSprite::BEDROCK, "bedrock.png");
+
+  LoadCell(CellSprite::GOAL, "goal.png");
+
+  LoadCell(CellSprite::ENEMY, "enemy.png");
+
+  LoadCell(CellSprite::TP, "tp.png");
+
+  // now for tha hard ones
+  bool turn_c =
+      Texture(CellSprite::TURN_C).loadFromFile(dir + "turn_clockwise.png");
+  bool turn_cc = Texture(CellSprite::TURN_CC)
+                     .loadFromFile(default_dir + "turn_counterclockwise.png");
+
+  if (turn_c and !turn_cc) {
+    LoadCell(CellSprite::TURN_CC, CellSprite::TURN_C, 180);
+
+  } else if (!turn_c and turn_cc) {
+
+    LoadCell(CellSprite::TURN_C, CellSprite::TURN_CC, 180);
+
+  } else if (!turn_c and !turn_cc) {
+    if (Texture(CellSprite::TURN_CC)
+            .loadFromFile(default_dir + "turn_counterclockwise.png")) {
+      LoadCell(CellSprite::TURN_C, CellSprite::TURN_CC, 180);
+    } else
+      throw "error";
+  }
+
+  Texture(CellSprite::ENGINE_U).loadFromFile(default_dir + "engine_up.png");
+
+  LoadCell(CellSprite::ENGINE_D, CellSprite::ENGINE_U, 180);
+  LoadCell(CellSprite::ENGINE_R, CellSprite::ENGINE_U, 90);
+  LoadCell(CellSprite::ENGINE_L, CellSprite::ENGINE_R, 180);
+
+  Texture(CellSprite::FACTORY_R)
+      .loadFromFile(default_dir + "factory_right.png");
+  LoadCell(CellSprite::FACTORY_L, CellSprite::FACTORY_R, 180);
+
+  LoadCell(CellSprite::FACTORY_U, CellSprite::FACTORY_L, 90);
+
+  LoadCell(CellSprite::FACTORY_D, CellSprite::FACTORY_U, 180);
+
+  //
+  //  bool engine_u =
+  //      Texture(CellSprite::ENGINE_U).loadFromFile(dir + "engine_up.png");
+  //  bool engine_d =
+  //      Texture(CellSprite::ENGINE_D).loadFromFile(dir + "engine_down.png");
+  //  bool engine_l =
+  //      Texture(CellSprite::ENGINE_L).loadFromFile(dir + "engine_left.png");
+  //  bool engine_r =
+  //      Texture(CellSprite::ENGINE_R).loadFromFile(dir + "engine_right.png");
+  //
+  //  if(engine_u and !engine_d){
+  //    Sprite(CellSprite::ENGINE_U).setTexture(Texture(CellSprite::ENGINE_U));
+  //    Texture(CellSprite::ENGINE_D).update(Texture(CellSprite::ENGINE_U));
+  //
+  //    Sprite(CellSprite::ENGINE_D).setTexture(Texture(CellSprite::ENGINE_D));
+  //    Sprite(CellSprite::ENGINE_D).rotate(180);
+  //  }else if(!engine_u and engine_d){
+  //  }
+}
+
+sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::CellSprite cell) {
+  return cells_[(unsigned)cell].first;
+}
+sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::CellSprite cell) {
+  return cells_[(unsigned)cell].second;
+}
+
+void sfml_window::RunSimulation::LoadCell(CellSprite cell_to,
+                                          CellSprite cell_from, double angle) {
+  Sprite(cell_from).setTexture(Texture(cell_from));
+
+  Texture(cell_to).update(Texture(cell_from));
+
+  Sprite(cell_to).setTexture(Texture(cell_to));
+  Sprite(cell_to).rotate(angle);
+}
+void sfml_window::RunSimulation::LoadCell(CellSprite cell,
+                                          const std::string &level_name) {
+  std::string dir = "../levels/" + level_name + "/";
+  std::string default_dir = "../levels/default/";
+
+  if (!Texture(cell).loadFromFile(dir + level_name))
+    if (!Texture(cell).loadFromFile(default_dir + level_name))
+      throw "error";
+    else
+      Sprite(cell).setTexture(Texture(cell));
+}
+void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
+  // todo 1. proper display (this function)
+
+  // todo 2. finish load cells function
+
+  // todo 3. test this shit
+
+  // todo 4. better assets
+
+  // todo 5. let ti move 
+  for (unsigned y = 0; y < local_board_.GetHeight(); ++y)
+    for (unsigned  x = 0; x < local_board_.GetWidth(); ++x)
+      switch (local_board_.GetCell({x, y})->type_) {
+      case BotType::BASIC:
+        break;
+      case BotType::BEDROCK:
+        break;
+      case BotType::TURN:
+        break;
+      case BotType::GOAL:
+        break;
+      case BotType::ENEMY:
+        break;
+      case BotType::ENGINE:
+        break;
+      case BotType::FACTORY:
+        break;
+      case BotType::TP:
+        break;
+      case BotType::EMPTY:
+        break;
+      default:
+        throw "error";
+      }
 }
