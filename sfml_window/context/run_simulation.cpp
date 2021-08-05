@@ -5,7 +5,6 @@
 #include "run_simulation.h"
 #include <fstream>
 
-
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]
 sfml_window::RunSimulation::~RunSimulation() {
@@ -253,6 +252,10 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   }
 
 
+  // to finish off
+//  for (auto &cell :cells_)
+//    cell.first.setSmooth(true);
+
 }
 
 sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
@@ -264,7 +267,8 @@ sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell) {
 
 void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
                                           double angle) {
-  Texture(copy).create(Texture(original).getSize().x,Texture(original).getSize().y);
+  Texture(copy).create(Texture(original).getSize().x,
+                       Texture(original).getSize().y);
   Texture(copy).update(Texture(original), 0, 0);
   Sprite(copy).setTexture(Texture(copy));
   Sprite(copy).rotate(angle);
@@ -275,7 +279,9 @@ void sfml_window::RunSimulation::LoadCell(Assets cell,
 
   if (!Texture(cell).loadFromFile(asset_path))
     throw "error";
+
   Sprite(cell).setTexture(Texture(cell));
+
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 1. proper display (this function)
@@ -287,33 +293,29 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 4. better assets
 
   // todo 5. let ti move
-  //  for (unsigned y = 0; y < local_board_.GetHeight() *
-  //  local_board_.GetWidth();
-  //       ++y)
-  //    switch (local_board_.GetCell(y)->type_) {
-  //    case BotType::BASIC:
-  //
-  //      break;
-  //    case BotType::BEDROCK:
-  //
-  //      break;
-  //    case BotType::TURN:
-  //      break;
-  //    case BotType::GOAL:
-  //      Sprite(Assets::GOAL).setPosition(grid_[y].getPosition());
-  //      window.draw(Sprite(Assets::GOAL));
-  //      break;
-  //    case BotType::ENEMY:
-  //      break;
-  //    case BotType::ENGINE:
-  //      break;
-  //    case BotType::FACTORY:
-  //      break;
-  //    case BotType::TP:
-  //      break;
-  //    case BotType::EMPTY:
-  //      break;
-  //    default:
-  //      throw "error";
-  //    }
+
+  for (unsigned y = 0; y < local_board_.GetHeight() * local_board_.GetWidth();
+       ++y)
+    switch (local_board_.GetCell(y)->GetType()) {
+    case BotType::BASIC:
+    case BotType::TURN:
+    case BotType::BEDROCK:
+    case BotType::GOAL:
+      Sprite(Assets::GOAL).setPosition(grid_[y].getPosition());
+      Sprite(Assets::GOAL)
+          .setScale(
+              (float)cell_size_ / (float)Texture(Assets::GOAL).getSize().x,
+              (float)cell_size_ / (float)Texture(Assets::GOAL).getSize().y);
+      window.draw(Sprite(Assets::GOAL));
+      break;
+    case BotType::ENEMY:
+    case BotType::ENGINE:
+    case BotType::FACTORY:
+    case BotType::TP:
+    case BotType::EMPTY:
+      break;
+    default:
+
+      throw "error";
+    }
 }

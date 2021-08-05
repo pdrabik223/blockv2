@@ -6,6 +6,7 @@
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 
 #include "../../game.h"
+#include "bots_include.h"
 #include "../window_utility/button.h"
 #include "context.h"
 #include <SFML/Graphics/RectangleShape.hpp>
