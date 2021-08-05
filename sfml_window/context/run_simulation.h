@@ -16,25 +16,25 @@
 
 namespace sfml_window {
 enum class RunSimulationButton { EXIT, STOP_SIMULATION, END_SIMULATION, SIZE };
-enum class CellSprite{
+enum class Assets {
   BASIC, /// something like stone
   BEDROCK,
-  TURN_C, /// clockwise
-  TURN_CC,/// counterclockwise
-  GOAL,
   ENEMY,
+  TP,
+  GOAL,
 
-
+  TURN_C,  /// clockwise
+  TURN_CC, /// counterclockwise
   ENGINE_U, /// up
   ENGINE_D, /// down
   ENGINE_L, /// left
   ENGINE_R, /// right
 
-  FACTORY_U,/// up
-  FACTORY_D,/// down
-  FACTORY_L,/// left
-  FACTORY_R,/// right
-  TP,
+  FACTORY_U, /// up
+  FACTORY_D, /// down
+  FACTORY_L, /// left
+  FACTORY_R, /// right
+  BACKGROUND,
   SIZE
 };
 
@@ -62,11 +62,11 @@ private:
 
   void LoadBackground(const std::string &level_name);
 
-  void LoadCells(const std::string &level_name);
+  void LoadAssets(const std::string &level_name);
 
-  void LoadCell(CellSprite cell,const std::string &level_name);
+  void LoadCell(Assets cell, const std::string &asset_path);
 
-  void LoadCell(CellSprite cell_to,CellSprite cell_from,double angle);
+  void CopyCell(Assets copy, Assets original, double angle);
 
   void GenGrid();
 
@@ -76,8 +76,9 @@ private:
 
   void DrawCells(sf::RenderWindow &window);
 
-  sf::Texture& Texture(CellSprite cell);
-  sf::Sprite& Sprite(CellSprite cell);
+  sf::Texture &Texture(Assets cell);
+  sf::Sprite &Sprite(Assets cell);
+
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -94,7 +95,7 @@ protected:
 
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
 
-  std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)CellSprite::SIZE>
+  std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE>
       cells_;
   Board local_board_;
 

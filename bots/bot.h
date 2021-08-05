@@ -9,7 +9,6 @@
 
 /// contains all used cell types
  enum class BotType {
-  EMPTY,
   BASIC, /// something like stone
   BEDROCK,
   TURN, /// changes the direction of  block
@@ -18,6 +17,7 @@
   ENGINE,
   FACTORY,
   TP,
+  EMPTY,
   NONE,
   SIZE
 };

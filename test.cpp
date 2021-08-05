@@ -9,6 +9,7 @@ int main() {
 
   LevelInfo game(10,5);
   game.AddBot({3, 4},BotType::GOAL);
+ // game.AddBot({4, 4},BotType::ENGINE,Direction::RIGHT);
   game.SaveLevel();
   sfml_window::Gui sin(game);
 

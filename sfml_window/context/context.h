@@ -39,7 +39,6 @@ enum ContextEvent{
   EXIT,
   BACK_TO_MAIN_MENU,
   SIZE
-
 };
 
 class Context {

@@ -3,7 +3,11 @@
 //
 
 #include "run_simulation.h"
+#include <fstream>
 
+
+/// replace with exists[(int)Assets::x]
+#define EXIST(x) exists[(int)Assets::x]
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
     delete button;
@@ -16,8 +20,7 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
       window_height_(window_height) {
   LoadColors();
   LoadButtons();
-  LoadBackground(level_info.GetName());
-  LoadCells(level_info.GetName());
+  LoadAssets(level_info.GetName());
   GenGrid();
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
@@ -28,6 +31,8 @@ void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
+
+  DrawCells(window);
 }
 sfml_window::ContextEvent
 sfml_window::RunSimulation::HandleEvent(sf::Event &event,
@@ -86,63 +91,6 @@ void sfml_window::RunSimulation::LoadButtons() {
       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 }
 
-/// draws white line between two points width width 3px
-/// \param p_1  first point
-/// \param p_2  second point
-/// \return the shape of the line
-sf::RectangleShape DrawLine(const Coord &p_1, const Coord &p_2,
-                            sf::RectangleShape &target) {
-  // make sure that these are not the same point
-  // and are at the same asix
-
-  assert(p_1.x == p_2.x xor p_1.y == p_2.y);
-
-  // example a)
-  //  y-axis
-  //  .
-  // / \
-  //  |  c ------------- .  / \
-  //  |  |               |   |
-  //  | p_1             p_2  height        p_1.y = p_2.y and  p_1.x < p_2.x
-  //  |  |               |   |
-  //  |  . ------------- .  \ /
-  //  .----------------------->  x-axis
-  //     <-----width----->
-
-  // example b)
-  //  y-axis
-  //  .
-  // / \
-  //  |  c --p_1-- . / \
-  //  |  |         |  |
-  //  |  |         | height         p_1.x = p_2.x   and  p_1.y > p_2.y
-  //  |  |         |  |
-  //  |  . --p_2-- . \ /
-  //  .----------------------->  x-axis
-  //     <-width--->
-
-  // return {c.x,c.y,width,height}
-
-  // example a)
-
-  Coord c;
-  if (p_1.y == p_2.y) {
-    c = p_1.x > p_2.x ? p_1 : p_2;
-
-    target.setPosition(c.x, c.y + 1);
-    target.setSize({abs((float)(p_2.x - p_1.x)), 3});
-
-  } else if (p_1.x == p_2.x) { // example b
-    c = p_1.y > p_2.y ? p_1 : p_2;
-
-    target.setPosition(c.x - 1, c.y);
-    target.setSize({3, abs((float)(p_1.y - p_2.y))});
-  }
-  target.setFillColor(sf::Color::White);
-  target.setOutlineColor(sf::Color::White);
-  // solution_rectangle.setOutlineThickness(1);
-  return target;
-}
 void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
 
   for (const auto &box : grid_)
@@ -190,134 +138,144 @@ void sfml_window::RunSimulation::GenGrid() {
     square.move(right_shift, down_shift);
   }
 }
-void sfml_window::RunSimulation::LoadBackground(const std::string &level_name) {
-  if (!background_texture_.loadFromFile("../levels/" + level_name +
-                                        "/background.png")) {
-    assert(false);
-  }
+void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
+
+  if (!background_texture_.loadFromFile(level_path))
+    throw "error";
+
   background_sprite_.setTexture(background_texture_);
   background_sprite_.setScale(
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
-void sfml_window::RunSimulation::LoadCells(const std::string &level_name) {
-  // loading images is hard
-  // because user is dudu,
-  // and I need to apologise for it
-  //
-  // ok nessery images:
-  // basic, bedrock, goal, enemy
-  //
-  // turn has 2 versions
-  // engine 4
-  // factory 4
-  // and tp infinite but it's hard to have infinite
+void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
 
-  // ok, basic rules :
-  // 1. the names of the files are strict,
-  // 2. if directory has image for block use this one
-  // if not use default one
-  // 3.  only one of the variant blocks must be present, rest will be created by
-  // flipping
-  //  a) if the up is present down will be created first
-  //   than the check will be run for left and right ones
-  //  b) if the left and right are present that's it
-  //   if only one is present the second will be created by vertical flip
-  std::string dir = "../levels/" + level_name + "/";
-  std::string default_dir = "../levels/default/";
+  bool exists[(unsigned)Assets::SIZE];
+  static std::string file_names[(unsigned)Assets::SIZE];
+  {
+    file_names[(unsigned)Assets::BASIC] = "basic.png";
+    file_names[(unsigned)Assets::BEDROCK] = "bedrock.png";
+    file_names[(unsigned)Assets::TURN_C] = "turn_clockwise.png";
+    file_names[(unsigned)Assets::TURN_CC] = "turn_counterclockwise.png";
+    file_names[(unsigned)Assets::GOAL] = "goal.png";
+    file_names[(unsigned)Assets::ENEMY] = "enemy.png";
+    file_names[(unsigned)Assets::ENGINE_U] = "engine_up.png";
+    file_names[(unsigned)Assets::ENGINE_D] = "engine_down.png";
+    file_names[(unsigned)Assets::ENGINE_L] = "engine_left.png";
+    file_names[(unsigned)Assets::ENGINE_R] = "engine_right.png";
+    file_names[(unsigned)Assets::FACTORY_U] = "factory_up.png";
+    file_names[(unsigned)Assets::FACTORY_D] = "factory_down.png";
+    file_names[(unsigned)Assets::FACTORY_L] = "factory_left.png";
+    file_names[(unsigned)Assets::FACTORY_R] = "factory_right.png";
+    file_names[(unsigned)Assets::TP] = "tp.png";
+    file_names[(unsigned)Assets::BACKGROUND] = "background.png";
+  } // set filenames
 
-  // easy ones
-  LoadCell(CellSprite::BASIC, "basic.png");
+  const std::string kDir = "../levels/" + level_name + "/";
+  const std::string kDefaultDir = "../levels/default/";
 
-  LoadCell(CellSprite::BEDROCK, "bedrock.png");
-
-  LoadCell(CellSprite::GOAL, "goal.png");
-
-  LoadCell(CellSprite::ENEMY, "enemy.png");
-
-  LoadCell(CellSprite::TP, "tp.png");
-
-  // now for tha hard ones
-  bool turn_c =
-      Texture(CellSprite::TURN_C).loadFromFile(dir + "turn_clockwise.png");
-  bool turn_cc = Texture(CellSprite::TURN_CC)
-                     .loadFromFile(default_dir + "turn_counterclockwise.png");
-
-  if (turn_c and !turn_cc) {
-    LoadCell(CellSprite::TURN_CC, CellSprite::TURN_C, 180);
-
-  } else if (!turn_c and turn_cc) {
-
-    LoadCell(CellSprite::TURN_C, CellSprite::TURN_CC, 180);
-
-  } else if (!turn_c and !turn_cc) {
-    if (Texture(CellSprite::TURN_CC)
-            .loadFromFile(default_dir + "turn_counterclockwise.png")) {
-      LoadCell(CellSprite::TURN_C, CellSprite::TURN_CC, 180);
-    } else
-      throw "error";
+  // detect custom assets
+  std::fstream file;
+  for (int i = 0; i < (unsigned)Assets::SIZE; i++) {
+    std::string full_path = kDir + file_names[i];
+    file.open(full_path.c_str());
+    exists[i] = file.good();
+    file.close();
   }
 
-  Texture(CellSprite::ENGINE_U).loadFromFile(default_dir + "engine_up.png");
+  {
+    // loading images is hard
+    // because user is dudu,
+    // and I need to apologise for it
+    //
+    // ok nessery images:
+    // basic, bedrock, goal, enemy
+    //
+    // turn has 2 versions
+    // engine 4
+    // factory 4
+    // and tp infinite but it's hard to have infinite
 
-  LoadCell(CellSprite::ENGINE_D, CellSprite::ENGINE_U, 180);
-  LoadCell(CellSprite::ENGINE_R, CellSprite::ENGINE_U, 90);
-  LoadCell(CellSprite::ENGINE_L, CellSprite::ENGINE_R, 180);
+    // ok, basic rules :
+    // 1. the names of the files are strict,
+    // 2. if directory has image for block use this one
+    // if not use default one
+    // 3.  only one of the variant blocks must be present, rest will be created
+    // by flipping
+    //  a) if the up is present down will be created first
+    //   than the check will be run for left and right ones
+    //  b) if the left and right are present that's it
+    //   if only one is present the second will be created by vertical flip
+  }
 
-  Texture(CellSprite::FACTORY_R)
-      .loadFromFile(default_dir + "factory_right.png");
-  LoadCell(CellSprite::FACTORY_L, CellSprite::FACTORY_R, 180);
+  // for background
+  if (exists[(unsigned)Assets::BACKGROUND])
+    LoadBackground(kDir + file_names[(unsigned)Assets::BACKGROUND]);
+  else
+    LoadBackground(kDefaultDir + file_names[(unsigned)Assets::BACKGROUND]);
 
-  LoadCell(CellSprite::FACTORY_U, CellSprite::FACTORY_L, 90);
+  // load custom assets (if one exist)
+  // all loaded this way assets are simple meaning they have defined counterpart
+  // in default directory
+  for (int i = 0; i < (unsigned)Assets::TURN_C; i++)
+    if (exists[i]) {
+      std::string full_path = kDir + file_names[i];
+      LoadCell((Assets)i, full_path);
+    } else {
+      std::string full_path = kDefaultDir + file_names[i];
+      LoadCell((Assets)i, full_path);
+    }
 
-  LoadCell(CellSprite::FACTORY_D, CellSprite::FACTORY_U, 180);
+  if (EXIST(TURN_C) and not EXIST(TURN_CC)) {
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, 180);
+  } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, 180);
+  } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
+    LoadCell(Assets::TURN_CC, kDefaultDir + file_names[(int)Assets::TURN_CC]);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, 180);
+  } else
+    throw "error";
+  // todo these  need to be done better
+  if (not EXIST(ENGINE_U) and not EXIST(ENGINE_D) and not EXIST(ENGINE_L) and
+      not EXIST(ENGINE_R)) {
+    LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
+    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, 180);
+    CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, 90);
+    CopyCell(Assets::ENGINE_L, Assets::ENGINE_R, 180);
+  }
+  if (not EXIST(FACTORY_U) and not EXIST(FACTORY_D) and not EXIST(FACTORY_L) and
+      not EXIST(FACTORY_R)) {
+    LoadCell(Assets::FACTORY_R,
+             kDefaultDir + file_names[(int)Assets::FACTORY_R]);
+    CopyCell(Assets::FACTORY_L, Assets::FACTORY_R, 180);
+    CopyCell(Assets::FACTORY_D, Assets::FACTORY_R, 90);
+    CopyCell(Assets::FACTORY_U, Assets::FACTORY_D, 180);
+  }
 
-  //
-  //  bool engine_u =
-  //      Texture(CellSprite::ENGINE_U).loadFromFile(dir + "engine_up.png");
-  //  bool engine_d =
-  //      Texture(CellSprite::ENGINE_D).loadFromFile(dir + "engine_down.png");
-  //  bool engine_l =
-  //      Texture(CellSprite::ENGINE_L).loadFromFile(dir + "engine_left.png");
-  //  bool engine_r =
-  //      Texture(CellSprite::ENGINE_R).loadFromFile(dir + "engine_right.png");
-  //
-  //  if(engine_u and !engine_d){
-  //    Sprite(CellSprite::ENGINE_U).setTexture(Texture(CellSprite::ENGINE_U));
-  //    Texture(CellSprite::ENGINE_D).update(Texture(CellSprite::ENGINE_U));
-  //
-  //    Sprite(CellSprite::ENGINE_D).setTexture(Texture(CellSprite::ENGINE_D));
-  //    Sprite(CellSprite::ENGINE_D).rotate(180);
-  //  }else if(!engine_u and engine_d){
-  //  }
+
 }
 
-sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::CellSprite cell) {
+sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].first;
 }
-sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::CellSprite cell) {
+sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].second;
 }
 
-void sfml_window::RunSimulation::LoadCell(CellSprite cell_to,
-                                          CellSprite cell_from, double angle) {
-  Sprite(cell_from).setTexture(Texture(cell_from));
-
-  Texture(cell_to).update(Texture(cell_from));
-
-  Sprite(cell_to).setTexture(Texture(cell_to));
-  Sprite(cell_to).rotate(angle);
+void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
+                                          double angle) {
+  Texture(copy).create(Texture(original).getSize().x,Texture(original).getSize().y);
+  Texture(copy).update(Texture(original), 0, 0);
+  Sprite(copy).setTexture(Texture(copy));
+  Sprite(copy).rotate(angle);
 }
-void sfml_window::RunSimulation::LoadCell(CellSprite cell,
-                                          const std::string &level_name) {
-  std::string dir = "../levels/" + level_name + "/";
-  std::string default_dir = "../levels/default/";
 
-  if (!Texture(cell).loadFromFile(dir + level_name))
-    if (!Texture(cell).loadFromFile(default_dir + level_name))
-      throw "error";
-    else
-      Sprite(cell).setTexture(Texture(cell));
+void sfml_window::RunSimulation::LoadCell(Assets cell,
+                                          const std::string &asset_path) {
+
+  if (!Texture(cell).loadFromFile(asset_path))
+    throw "error";
+  Sprite(cell).setTexture(Texture(cell));
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 1. proper display (this function)
@@ -328,29 +286,34 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
 
   // todo 4. better assets
 
-  // todo 5. let ti move 
-  for (unsigned y = 0; y < local_board_.GetHeight(); ++y)
-    for (unsigned  x = 0; x < local_board_.GetWidth(); ++x)
-      switch (local_board_.GetCell({x, y})->type_) {
-      case BotType::BASIC:
-        break;
-      case BotType::BEDROCK:
-        break;
-      case BotType::TURN:
-        break;
-      case BotType::GOAL:
-        break;
-      case BotType::ENEMY:
-        break;
-      case BotType::ENGINE:
-        break;
-      case BotType::FACTORY:
-        break;
-      case BotType::TP:
-        break;
-      case BotType::EMPTY:
-        break;
-      default:
-        throw "error";
-      }
+  // todo 5. let ti move
+  //  for (unsigned y = 0; y < local_board_.GetHeight() *
+  //  local_board_.GetWidth();
+  //       ++y)
+  //    switch (local_board_.GetCell(y)->type_) {
+  //    case BotType::BASIC:
+  //
+  //      break;
+  //    case BotType::BEDROCK:
+  //
+  //      break;
+  //    case BotType::TURN:
+  //      break;
+  //    case BotType::GOAL:
+  //      Sprite(Assets::GOAL).setPosition(grid_[y].getPosition());
+  //      window.draw(Sprite(Assets::GOAL));
+  //      break;
+  //    case BotType::ENEMY:
+  //      break;
+  //    case BotType::ENGINE:
+  //      break;
+  //    case BotType::FACTORY:
+  //      break;
+  //    case BotType::TP:
+  //      break;
+  //    case BotType::EMPTY:
+  //      break;
+  //    default:
+  //      throw "error";
+  //    }
 }
