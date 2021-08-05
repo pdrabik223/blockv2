@@ -4,6 +4,7 @@
 
 #ifndef BLOCK_V2_UTILITY_COORD_H_
 #define BLOCK_V2_UTILITY_COORD_H_
+#include <cassert>
 #include <ciso646>
 struct Coord {
   Coord(unsigned int x, unsigned int y);
@@ -13,7 +14,10 @@ struct Coord {
 
   bool operator==(const Coord &rhs) const;
   bool operator!=(const Coord &rhs) const;
-  unsigned ToInt(unsigned width)const { return y * width + x; }
+  unsigned ToInt(unsigned width)const {
+    assert(x<width);
+    return y * width + x;
+  }
 
   unsigned x;
   unsigned y;

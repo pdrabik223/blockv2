@@ -73,6 +73,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
 /// \param position position of the bot on the plane (may be unnecessary but for
 /// now it stays) \return the pointer to new bot object
 Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
+  assert(position.x<width_ and position.y<height_);
   int temp_int;
   in >> temp_int;
   switch ((BotType)temp_int) {
@@ -105,6 +106,7 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
 }
 
 void LevelInfo::AddBot(const Coord &position, BotType type) {
+  assert(position.x<width_ and position.y<height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::EMPTY:
@@ -129,6 +131,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type) {
 void LevelInfo::AddBot(const Coord &position, BotType type,
                        Direction direction) {
   delete plane_[position.ToInt(width_)];
+  assert(position.x<width_ and position.y<height_);
   switch (type) {
   case BotType::ENGINE:
     plane_[position.ToInt(width_)] = new Engine(position, direction);
@@ -142,6 +145,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type,
 }
 void LevelInfo::AddBot(const Coord &position, BotType type,
                        TurnDirection turn_direction) {
+  assert(position.x<width_ and position.y<height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::TURN:
@@ -152,6 +156,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type,
   }
 }
 void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
+  assert(position.x<width_ and position.y<height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::TP:
