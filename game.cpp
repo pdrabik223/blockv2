@@ -11,10 +11,10 @@ Board::Board(unsigned int width, unsigned int height)
 Bot *Board::GetCell(Coord position) { return plane_[Conv2D(position)];}
 
 void Board::CollapseTranspositionTable() {
-
-  for (int i = 0; i < transposition_table_.size(); ++i) {
-    plane_[i] = transposition_table_[i].Collapse(*GetCell(i));
-  }
+//
+//  for (int i = 0; i < transposition_table_.size(); ++i) {
+//    plane_[i] = transposition_table_[i].Collapse(*GetCell(i));
+//  }
 
 }
 Bot *Board::GetCell(unsigned int position) { return plane_[position]; }

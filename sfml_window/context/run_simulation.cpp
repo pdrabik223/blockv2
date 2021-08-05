@@ -119,7 +119,7 @@ void sfml_window::RunSimulation::GenGrid() {
   // generate grid
   for (int y = 0; y < local_board_.GetHeight(); ++y)
     for (int x = 0; x < local_board_.GetWidth(); ++x) {
-      grid_.push_back(sf::RectangleShape());
+      grid_.emplace_back();
       grid_.back().setPosition(3 + x * pixel_shift, 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
@@ -252,8 +252,8 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   }
 
   // to finish off
-    for (auto &cell :cells_)
-      cell.first.setSmooth(true);
+  for (auto &cell : cells_)
+    cell.first.setSmooth(true);
 }
 
 sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
@@ -300,71 +300,70 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 4. better assets
 
   // todo 5. let ti move
-
-  for (unsigned y = 0; y < local_board_.GetHeight() * local_board_.GetWidth();
-       ++y)
-    switch (local_board_.GetCell(y)->GetType()) {
+  assert(grid_.size() == local_board_.GetHeight() * local_board_.GetWidth());
+  for (unsigned p = 0; p < grid_.size(); ++p)
+    switch (local_board_.GetCell(p)->GetType()) {
     case BotType::BASIC:
-      DrawCell(window, Assets::BASIC, y);
+      DrawCell(window, Assets::BASIC, p);
       break;
+    case BotType::BEDROCK:
+      DrawCell(window, Assets::BEDROCK, p);
+      break;
+    case BotType::GOAL:
+      DrawCell(window, Assets::GOAL, p);
+      break;
+    case BotType::ENEMY:
+      DrawCell(window, Assets::ENEMY, p);
+      break;
+    case BotType::TP:
+      DrawCell(window, Assets::TP, p);
+      break;
+
     case BotType::TURN:
-      if (((Turn *)local_board_.GetCell(y))->GetDirection() ==
-          TurnDirection::CLOCKWISE)
-        DrawCell(window, Assets::TURN_C, y);
-      else if (((Turn *)local_board_.GetCell(y))->GetDirection() ==
+      if (((Turn*)local_board_.GetCell(p)->Clone())->GetDirection() == TurnDirection::CLOCKWISE)
+        DrawCell(window, Assets::TURN_C, p);
+
+      else if (((Turn*)local_board_.GetCell(p)->Clone())->GetDirection() ==
                TurnDirection::COUNTER_CLOCKWISE)
-        DrawCell(window, Assets::TURN_CC, y);
+        DrawCell(window, Assets::TURN_CC, p);
       else
         throw "ERROR";
       break;
-    case BotType::BEDROCK:
-      DrawCell(window, Assets::BEDROCK, y);
-      break;
-    case BotType::GOAL:
-      DrawCell(window, Assets::GOAL, y);
-      break;
-    case BotType::ENEMY:
-      DrawCell(window, Assets::ENEMY, y);
-      break;
     case BotType::ENGINE:
-      switch (((Engine *)local_board_.GetCell(y))->GetDirection()) {
+      switch (((Engine *)local_board_.GetCell(p)->Clone())->GetDirection()) {
       case Direction::UP:
-        DrawCell(window, Assets::ENGINE_U, y);
+        DrawCell(window, Assets::ENGINE_U, p);
         break;
       case Direction::DOWN:
-        DrawCell(window, Assets::ENGINE_D, y);
+        DrawCell(window, Assets::ENGINE_D, p);
         break;
       case Direction::LEFT:
-        DrawCell(window, Assets::ENGINE_L, y);
+        DrawCell(window, Assets::ENGINE_L, p);
         break;
       case Direction::RIGHT:
-        DrawCell(window, Assets::ENGINE_R, y);
+        DrawCell(window, Assets::ENGINE_R, p);
         break;
       }
       break;
     case BotType::FACTORY:
-      switch (((Factory *)local_board_.GetCell(y))->GetDirection()) {
+      switch (((Factory *)local_board_.GetCell(p)->Clone())->GetDirection()) {
       case Direction::UP:
-        DrawCell(window, Assets::FACTORY_U, y);
+        DrawCell(window, Assets::FACTORY_U, p);
         break;
       case Direction::DOWN:
-        DrawCell(window, Assets::FACTORY_D, y);
+        DrawCell(window, Assets::FACTORY_D, p);
         break;
       case Direction::LEFT:
-        DrawCell(window, Assets::FACTORY_L, y);
+        DrawCell(window, Assets::FACTORY_L, p);
         break;
       case Direction::RIGHT:
-        DrawCell(window, Assets::FACTORY_R, y);
+        DrawCell(window, Assets::FACTORY_R, p);
         break;
       }
-      break;
-    case BotType::TP:
-      DrawCell(window, Assets::TP, y);
       break;
     case BotType::EMPTY:
       break;
     default:
-
       throw "error";
     }
 }

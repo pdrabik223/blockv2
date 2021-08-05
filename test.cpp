@@ -11,8 +11,14 @@ int main() {
   srand(time(NULL));
   LevelInfo game(10, 5);
 
-  FillWithBots(game, 0.5);
-  Border(game);
+
+  game.AddBot({32/10, 32%10}, BotType::ENEMY);
+  game.AddBot({28/10, 28%10}, BotType::GOAL);
+
+ // FillWithBots(game, 0.5);
+  //Border(game);
+
+
   game.SaveLevel();
   sfml_window::Gui sin(game);
 
@@ -22,7 +28,7 @@ int main() {
 void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
   for (unsigned y = 0; y < target_level.GetHeight(); y++)
     for (unsigned x = 0; x < target_level.GetWidth(); x++)
-      if (rand() > fill_level)
+      if (rand() % 100 < fill_level * 100)
         switch (rand() % 8) {
         case 0:
           target_level.AddBot({x, y}, BotType::BASIC);
