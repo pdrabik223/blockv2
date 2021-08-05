@@ -7,7 +7,7 @@ Tp::Tp(const Coord &position,unsigned id) : position_(position),id_(id) {}
 Tp::Tp() {}
 
 Tp *Tp::Clone() { return this; }
-void Tp::OutputFoFile(std::ostream &out) const {
+void Tp::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<"\n";
 }
 const BotType Tp::GetType() const { return type_; }

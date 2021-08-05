@@ -10,7 +10,7 @@ public:
   Turn();
   Turn(const Coord &position, TurnDirection direction);
   Turn *Clone() override;
-  void OutputFoFile(std::ostream &out) const override;
+  void OutputToFile(std::ostream &out) const override;
 
   TurnDirection GetDirection() const;
   const BotType GetType() const override;

@@ -10,7 +10,7 @@ public:
   Empty();
   Empty(const Coord &position);
   Empty *Clone() override;
-  void OutputFoFile(std::ostream &out) const override;
+  void OutputToFile(std::ostream &out) const override;
   const BotType GetType() const override;
   const BotType type_ = BotType::EMPTY;
 private:

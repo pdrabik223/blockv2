@@ -8,7 +8,7 @@ Engine::Engine(const Coord &position, Direction direction)
 Engine::Engine() {}
 
 Engine *Engine::Clone() { return this; }
-void Engine::OutputFoFile(std::ostream &out) const {
+void Engine::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::BASIC<<" "<<(unsigned)direction_<<"\n";
 }
 

@@ -10,7 +10,7 @@ public:
   Tp();
   Tp(const Coord &position,unsigned id);
   Tp *Clone() override;
-  void OutputFoFile(std::ostream &out) const override;
+  void OutputToFile(std::ostream &out) const override;
   const BotType GetType() const override;
   const BotType type_ = BotType::TP;
 private:

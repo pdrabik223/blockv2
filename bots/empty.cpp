@@ -7,7 +7,7 @@ Empty::Empty(const Coord &position) : position_(position) {}
 Empty::Empty() {}
 
 Empty *Empty::Clone() { return this; }
-void Empty::OutputFoFile(std::ostream &out) const {
+void Empty::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::EMPTY<<"\n";
 }
 const BotType Empty::GetType() const { return type_; }

@@ -9,7 +9,7 @@ Turn::Turn() {}
 
 Turn *Turn::Clone() { return this; }
 
-void Turn::OutputFoFile(std::ostream &out) const {
+void Turn::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::TURN<<" "<<(unsigned)direction_<<"\n";
 }
 

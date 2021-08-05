@@ -10,7 +10,7 @@ public:
   Factory();
   Factory(const Coord &position, Direction direction);
   Factory *Clone() override;
-  void OutputFoFile(std::ostream &out) const override;
+  void OutputToFile(std::ostream &out) const override;
 
   Direction GetDirection() const;
   const BotType GetType() const override;

@@ -8,7 +8,7 @@ Factory::Factory(const Coord &position, Direction direction)
 Factory::Factory() {}
 
 Factory *Factory::Clone() { return this;}
-void Factory::OutputFoFile(std::ostream &out) const {
+void Factory::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::FACTORY<<"\n";
 }
 

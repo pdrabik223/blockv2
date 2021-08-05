@@ -7,7 +7,7 @@ Bedrock::Bedrock(const Coord &position) : position_(position) {}
 Bedrock::Bedrock() {}
 
 Bedrock *Bedrock::Clone() { return this; }
-void Bedrock::OutputFoFile(std::ostream &out) const {
+void Bedrock::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::BEDROCK<<"\n";
 }
 const BotType Bedrock::GetType() const {return type_; }
