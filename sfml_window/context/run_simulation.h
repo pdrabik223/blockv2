@@ -77,6 +77,8 @@ private:
 
   void DrawCells(sf::RenderWindow &window);
 
+  void DrawCell(sf::RenderWindow &window,sfml_window::Assets id,unsigned position);
+
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 

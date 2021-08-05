@@ -28,10 +28,10 @@ void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   if (display_grid_)
     DrawGrid(window);
 
+  DrawCells(window);
+
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
-
-  DrawCells(window);
 }
 sfml_window::ContextEvent
 sfml_window::RunSimulation::HandleEvent(sf::Event &event,
@@ -251,11 +251,9 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
     CopyCell(Assets::FACTORY_U, Assets::FACTORY_D, 180);
   }
 
-
   // to finish off
-//  for (auto &cell :cells_)
-//    cell.first.setSmooth(true);
-
+  //  for (auto &cell :cells_)
+  //    cell.first.setSmooth(true);
 }
 
 sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
@@ -281,7 +279,16 @@ void sfml_window::RunSimulation::LoadCell(Assets cell,
     throw "error";
 
   Sprite(cell).setTexture(Texture(cell));
+}
 
+void sfml_window::RunSimulation::DrawCell(sf::RenderWindow &window,
+                                          sfml_window::Assets id,
+                                          unsigned position) {
+  Sprite(id).setPosition(grid_[position].getPosition());
+  Sprite(id).setScale(
+      (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().x,
+      (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().y);
+  window.draw(Sprite(id));
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 1. proper display (this function)
@@ -298,20 +305,61 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
        ++y)
     switch (local_board_.GetCell(y)->GetType()) {
     case BotType::BASIC:
+      DrawCell(window, Assets::BASIC, y);
+      break;
     case BotType::TURN:
+      if (((Turn *)local_board_.GetCell(y))->GetDirection() ==
+          TurnDirection::CLOCKWISE)
+        DrawCell(window, Assets::TURN_C, y);
+      else if (((Turn *)local_board_.GetCell(y))->GetDirection() ==
+               TurnDirection::COUNTER_CLOCKWISE)
+        DrawCell(window, Assets::TURN_CC, y);
+      else
+        throw "ERROR";
+      break;
     case BotType::BEDROCK:
+      DrawCell(window, Assets::BEDROCK, y);
+      break;
     case BotType::GOAL:
-      Sprite(Assets::GOAL).setPosition(grid_[y].getPosition());
-      Sprite(Assets::GOAL)
-          .setScale(
-              (float)cell_size_ / (float)Texture(Assets::GOAL).getSize().x,
-              (float)cell_size_ / (float)Texture(Assets::GOAL).getSize().y);
-      window.draw(Sprite(Assets::GOAL));
+      DrawCell(window, Assets::GOAL, y);
       break;
     case BotType::ENEMY:
+      DrawCell(window, Assets::ENEMY, y);
+      break;
     case BotType::ENGINE:
+      switch (((Engine *)local_board_.GetCell(y))->GetDirection()) {
+      case Direction::UP:
+        DrawCell(window, Assets::ENGINE_U, y);
+        break;
+      case Direction::DOWN:
+        DrawCell(window, Assets::ENGINE_D, y);
+        break;
+      case Direction::LEFT:
+        DrawCell(window, Assets::ENGINE_L, y);
+        break;
+      case Direction::RIGHT:
+        DrawCell(window, Assets::ENGINE_R, y);
+        break;
+      }
     case BotType::FACTORY:
+      switch (((Factory *)local_board_.GetCell(y))->GetDirection()) {
+      case Direction::UP:
+        DrawCell(window, Assets::FACTORY_U, y);
+        break;
+      case Direction::DOWN:
+        DrawCell(window, Assets::FACTORY_D, y);
+        break;
+      case Direction::LEFT:
+        DrawCell(window, Assets::FACTORY_L, y);
+        break;
+      case Direction::RIGHT:
+        DrawCell(window, Assets::FACTORY_R, y);
+        break;
+      }
+      break;
     case BotType::TP:
+      DrawCell(window, Assets::TP, y);
+      break;
     case BotType::EMPTY:
       break;
     default:
