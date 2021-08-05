@@ -47,7 +47,7 @@ void LevelInfo::SaveLevel() {
   my_file << width_ << " " << height_ << "\n";
 
   for (const Bot *bot : plane_)
-    bot->OutputFoFile(my_file);
+    bot->OutputToFile(my_file);
 
   my_file.close();
 }

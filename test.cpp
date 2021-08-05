@@ -6,13 +6,13 @@
 #include "level_info.h"
 #include "sfml_window/window.h"
 void FillWithBots(LevelInfo &target_level, double fill_level);
+void Border(LevelInfo &target_level);
 int main() {
   srand(time(NULL));
-  LevelInfo game(20, 10);
+  LevelInfo game(10, 5);
 
   FillWithBots(game, 0.5);
-  //  game.AddBot({0, 0}, BotType::GOAL);
-  // game.AddBot({4, 4},BotType::ENGINE,Direction::RIGHT);
+  Border(game);
   game.SaveLevel();
   sfml_window::Gui sin(game);
 
@@ -51,4 +51,17 @@ void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
           target_level.AddBot({x, y}, BotType::TP, rand());
           break;
         }
+}
+
+void Border(LevelInfo &target_level) {
+
+  for (unsigned y = 0; y < target_level.GetHeight(); y++) {
+    target_level.AddBot({0, y}, BotType::BEDROCK);
+    target_level.AddBot({target_level.GetWidth() - 1, y}, BotType::BEDROCK);
+  }
+
+  for (unsigned x = 0; x < target_level.GetWidth(); x++) {
+    target_level.AddBot({x, 0}, BotType::BEDROCK);
+    target_level.AddBot({x, target_level.GetHeight() - 1}, BotType::BEDROCK);
+  }
 }

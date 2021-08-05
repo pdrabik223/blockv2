@@ -10,9 +10,8 @@ Gui::Gui() {
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 Gui::Gui(LevelInfo &level) {
-  current_context_ = new RunSimulation(1200,600,level);
+  current_context_ = new RunSimulation(1200, 600, level);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
-
 }
 
 void Gui::ThMainLoop() {
@@ -43,11 +42,14 @@ void Gui::ThMainLoop() {
           break;
         }
     }
+    auto t1 = std::chrono::steady_clock::now();
     current_context_->DrawToWindow(window);
+    auto t2 = std::chrono::steady_clock::now();
+//    std::cout << "my display: "
+//              << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1)
+//                     .count()
+//              << "ms\n";
     window.display();
-
   }
-
 }
 Gui::~Gui() { window_thread_->join(); }
-

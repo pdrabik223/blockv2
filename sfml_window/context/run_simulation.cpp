@@ -252,8 +252,8 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   }
 
   // to finish off
-  //  for (auto &cell :cells_)
-  //    cell.first.setSmooth(true);
+    for (auto &cell :cells_)
+      cell.first.setSmooth(true);
 }
 
 sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
@@ -341,6 +341,7 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
         DrawCell(window, Assets::ENGINE_R, y);
         break;
       }
+      break;
     case BotType::FACTORY:
       switch (((Factory *)local_board_.GetCell(y))->GetDirection()) {
       case Direction::UP:

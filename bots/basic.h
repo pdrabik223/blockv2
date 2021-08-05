@@ -12,7 +12,7 @@ public:
   explicit Basic(const Coord &position);
   Basic *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  const BotType GetType() const;
+  const BotType GetType() const override;
   const BotType type_ = BotType::BASIC;
 
 private:
