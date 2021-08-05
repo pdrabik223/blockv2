@@ -9,7 +9,7 @@ Engine::Engine() {}
 
 Engine *Engine::Clone() { return this; }
 void Engine::OutputToFile(std::ostream &out) const {
-  out<<(unsigned)BotType::BASIC<<" "<<(unsigned)direction_<<"\n";
+  out<<(unsigned)BotType::ENGINE<<" "<<(unsigned)direction_<<"\n";
 }
 
 

@@ -9,7 +9,7 @@ Factory::Factory() {}
 
 Factory *Factory::Clone() { return this;}
 void Factory::OutputToFile(std::ostream &out) const {
-  out<<(unsigned)BotType::FACTORY<<"\n";
+  out<<(unsigned)BotType::FACTORY<<" "<<(unsigned)direction_<<"\n";
 }
 
 Direction Factory::GetDirection() const { return direction_; }

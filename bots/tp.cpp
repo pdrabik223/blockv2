@@ -8,6 +8,6 @@ Tp::Tp() {}
 
 Tp *Tp::Clone() { return this; }
 void Tp::OutputToFile(std::ostream &out) const {
-  out<<(unsigned)BotType::TP<<"\n";
+  out<<(unsigned)BotType::TP<<" "<<id_<<"\n";
 }
 const BotType Tp::GetType() const { return type_; }
