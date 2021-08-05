@@ -12,8 +12,8 @@ public:
   Engine(const Coord &position, Direction direction);
   Engine *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
-
-  static BotType type_;
+  Direction GetDirection() const;
+  const BotType type_ = BotType::ENGINE;
 private:
   Direction direction_;
   Coord position_;

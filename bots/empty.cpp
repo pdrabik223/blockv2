@@ -5,9 +5,8 @@
 #include "empty.h"
 Empty::Empty(const Coord &position) : position_(position) {}
 Empty::Empty() {}
-BotType Empty::type_ = BotType::EMPTY;
+
 Empty *Empty::Clone() { return this; }
 void Empty::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::EMPTY<<"\n";
 }
-

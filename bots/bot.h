@@ -41,7 +41,7 @@ public:
 
   virtual void OutputFoFile(std::ostream &out) const {};
 
-  static BotType type_;
+  const BotType type_ = BotType::NONE;
 
 protected:
   Coord position_;

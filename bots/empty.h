@@ -12,7 +12,7 @@ public:
   Empty *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
 
-  static BotType type_;
+  const BotType type_ = BotType::EMPTY;
 private:
   Coord position_;
 };

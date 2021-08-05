@@ -13,7 +13,7 @@ public:
   Basic *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
 
-  static BotType type_;
+  const BotType type_ = BotType::BASIC;
 
 private:
   Coord position_;

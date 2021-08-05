@@ -13,7 +13,7 @@ public:
   Bedrock *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
 
-  static BotType type_;
+  const BotType type_ = BotType::BEDROCK;
 
 private:
   Coord position_;

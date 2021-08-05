@@ -12,7 +12,8 @@ public:
   Turn *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
 
-  static BotType type_;
+  TurnDirection GetDirection() const;
+  const BotType type_ = BotType::TURN;
 
 private:
   TurnDirection direction_;

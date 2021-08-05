@@ -12,7 +12,7 @@ public:
   Tp *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
 
-  static BotType type_;
+  const BotType type_ = BotType::TP;
 private:
   Coord position_;
   unsigned id_;

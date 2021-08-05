@@ -5,9 +5,8 @@
 #include "tp.h"
 Tp::Tp(const Coord &position,unsigned id) : position_(position),id_(id) {}
 Tp::Tp() {}
-BotType Tp::type_ = BotType::TP;
+
 Tp *Tp::Clone() { return this; }
 void Tp::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<"\n";
 }
-
