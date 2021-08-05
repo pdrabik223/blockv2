@@ -10,3 +10,4 @@ Tp *Tp::Clone() { return this; }
 void Tp::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<"\n";
 }
+const BotType Tp::GetType() const { return type_; }

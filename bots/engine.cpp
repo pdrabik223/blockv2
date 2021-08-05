@@ -14,3 +14,4 @@ void Engine::OutputFoFile(std::ostream &out) const {
 
 
 Direction Engine::GetDirection() const { return direction_; }
+const BotType Engine::GetType() const { return type_; }

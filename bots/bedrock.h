@@ -12,7 +12,7 @@ public:
 
   Bedrock *Clone() override;
   void OutputFoFile(std::ostream &out) const override;
-
+  const BotType GetType() const override;
   const BotType type_ = BotType::BEDROCK;
 
 private:

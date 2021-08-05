@@ -10,3 +10,4 @@ Empty *Empty::Clone() { return this; }
 void Empty::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::EMPTY<<"\n";
 }
+const BotType Empty::GetType() const { return type_; }

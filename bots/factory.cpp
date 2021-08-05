@@ -13,3 +13,4 @@ void Factory::OutputFoFile(std::ostream &out) const {
 }
 
 Direction Factory::GetDirection() const { return direction_; }
+const BotType Factory::GetType() const { return type_; }

@@ -10,3 +10,4 @@ Goal *Goal::Clone() { return this; }
 void Goal::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::GOAL<<"\n";
 }
+const BotType Goal::GetType() const { return type_; }

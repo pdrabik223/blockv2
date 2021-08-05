@@ -10,3 +10,4 @@ Enemy *Enemy::Clone() { return this; }
 void Enemy::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::ENEMY<<"\n";
 }
+const BotType Enemy::GetType() const { return type_; }

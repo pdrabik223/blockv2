@@ -14,3 +14,4 @@ void Turn::OutputFoFile(std::ostream &out) const {
 }
 
 TurnDirection Turn::GetDirection() const { return direction_; }
+const BotType Turn::GetType() const { return type_; }

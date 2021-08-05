@@ -11,4 +11,4 @@ Basic *Basic::Clone() { return this; }
 void Basic::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::BASIC<<"\n";
 }
-
+const BotType Basic::GetType() const { return type_; }

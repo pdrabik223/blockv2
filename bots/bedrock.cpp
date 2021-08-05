@@ -10,3 +10,4 @@ Bedrock *Bedrock::Clone() { return this; }
 void Bedrock::OutputFoFile(std::ostream &out) const {
   out<<(unsigned)BotType::BEDROCK<<"\n";
 }
+const BotType Bedrock::GetType() const {return type_; }

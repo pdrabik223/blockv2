@@ -5,7 +5,7 @@
 #ifndef BLOCK_V2_BOTS_FACTORY_H_
 #define BLOCK_V2_BOTS_FACTORY_H_
 #include "bot.h"
-class Factory : public Bot{
+class Factory : public Bot {
 public:
   Factory();
   Factory(const Coord &position, Direction direction);
@@ -13,8 +13,8 @@ public:
   void OutputFoFile(std::ostream &out) const override;
 
   Direction GetDirection() const;
-const BotType type_ = BotType::FACTORY;
-
+  const BotType GetType() const override;
+  const BotType type_ = BotType::FACTORY;
 
 private:
   Direction direction_;

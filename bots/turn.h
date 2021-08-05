@@ -13,6 +13,7 @@ public:
   void OutputFoFile(std::ostream &out) const override;
 
   TurnDirection GetDirection() const;
+  const BotType GetType() const override;
   const BotType type_ = BotType::TURN;
 
 private:
