@@ -4,7 +4,7 @@
 
 #ifndef BLOCK_V2_UTILITY_GUI_COLOR_H_
 #define BLOCK_V2_UTILITY_GUI_COLOR_H_
-#include "../sfml/include/SFML/Graphics/Color.hpp"
+#include "SFML/Graphics/Color.hpp"
 
 /// \param color primary color, to be lighten
 /// \return light/ brighter  version of the primary color
