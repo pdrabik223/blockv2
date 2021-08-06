@@ -6,9 +6,11 @@
 #include "level_info.h"
 #include "sfml_window/window.h"
 void FillWithBots(LevelInfo &target_level, double fill_level);
+
 void Border(LevelInfo &target_level);
+
 int main() {
-//  srand(time(NULL));
+  srand(time(NULL));
   LevelInfo game(15, 7);
 
 
@@ -21,7 +23,7 @@ int main() {
 
 
   game.SaveLevel();
-  sfml_window::Gui sin(game);
+  sfml_window::Gui sin;
 
   return 0;
 }
