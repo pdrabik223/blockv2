@@ -48,10 +48,11 @@ a.k.a. are placed on top of each other
 | weird data race| the text cell overrides position of the asset before the display happens| 
 | wrong square positions| from the beginning the grid is fucked|
 
-ok ok 
-so if the blocks are generated non randomly, the bug happens over the same squares
-but what does it mean
+# final window customisation setting
 
+|name |implementation form| description|
+|:---:|:---:|:---|
+|bloom effect| simple check box maybe with value attached to it| bloom is cool, and I always wanted to learn how to write cereals|
+|custom assets| simply copy and paste to the level directory| 
+|ui colors| value box in rgb| customize ui colors for you level|
 
-
-# rotate function !
