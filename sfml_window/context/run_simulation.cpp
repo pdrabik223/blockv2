@@ -8,6 +8,7 @@
 
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]
+
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
     delete button;
@@ -47,22 +48,29 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
-  for (unsigned id = 0; id < buttons_.size(); id++)
+  if (event.type == sf::Event::MouseButtonReleased) {
+    for (unsigned id = 0; id < buttons_.size(); id++)
+      if (buttons_[id]->DetectInteraction(
+              {(unsigned)mouse_x, (unsigned)mouse_y}, event))
+        switch ((RunSimulationButton)id) {
+        case RunSimulationButton::EXIT:
+          return ContextEvent::EXIT;
+        case RunSimulationButton::STOP_SIMULATION:
+          break;
+        case RunSimulationButton::END_SIMULATION:
+          break;
+        case RunSimulationButton::SIZE:
+          break;
+        }
+  } else {
+   bool change = false ;
+    for (auto &button : buttons_)
+      if (button->DetectHover({(unsigned)mouse_x, (unsigned)mouse_y}))
+         change = true;
 
-    if (buttons_[id]->DetectInteraction({(unsigned)mouse_x, (unsigned)mouse_y},
-                                        event))
-
-      switch ((RunSimulationButton)id) {
-
-      case RunSimulationButton::EXIT:
-        return ContextEvent::EXIT;
-      case RunSimulationButton::STOP_SIMULATION:
-        break;
-      case RunSimulationButton::END_SIMULATION:
-        break;
-      case RunSimulationButton::SIZE:
-        break;
-      }
+    if(change) return ContextEvent::UPDATE_DISPLAY;
+  }
+  return ContextEvent::NONE;
 }
 void sfml_window::RunSimulation::LoadColors() {
   color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
@@ -274,9 +282,8 @@ void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
 
   Sprite(copy).setTexture(Texture(copy));
 
-
-
-  Sprite(copy).setOrigin(Texture(copy).getSize().x/2,Texture(copy).getSize().y/2);
+  Sprite(copy).setOrigin(Texture(copy).getSize().x / 2,
+                         Texture(copy).getSize().y / 2);
 
   if (flip == FlipDirection::HORIZONTAL) {
     Sprite(copy).rotate(90);
@@ -289,7 +296,6 @@ void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
 
   Sprite(copy).setScale((float)cell_size_ / (float)Texture(copy).getSize().x,
                         (float)cell_size_ / (float)Texture(copy).getSize().y);
-
 }
 
 void sfml_window::RunSimulation::LoadCell(Assets cell,
@@ -305,14 +311,15 @@ void sfml_window::RunSimulation::LoadCell(Assets cell,
   Sprite(cell).setScale((float)cell_size_ / (float)Texture(cell).getSize().x,
                         (float)cell_size_ / (float)Texture(cell).getSize().y);
 
-  Sprite(cell).setOrigin(Texture(cell).getSize().x/2,Texture(cell).getSize().y/2);
+  Sprite(cell).setOrigin(Texture(cell).getSize().x / 2,
+                         Texture(cell).getSize().y / 2);
 }
 
 void sfml_window::RunSimulation::DrawCell(sf::RenderWindow &window,
                                           sfml_window::Assets id,
                                           unsigned position) {
-  Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_/2,
-                         grid_[position].getPosition().y+ cell_size_/2);
+  Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_ / 2,
+                         grid_[position].getPosition().y + cell_size_ / 2);
   window.draw(Sprite(id));
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {

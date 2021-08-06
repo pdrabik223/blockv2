@@ -19,6 +19,7 @@ void Gui::ThMainLoop() {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
 
+
   sf::RenderWindow window(sf::VideoMode(1200, 600), "My window",
                           sf::Style::None, settings);
 
@@ -29,7 +30,8 @@ void Gui::ThMainLoop() {
 
     // check all the window's events that were triggered since the last
     // iteration of the loop
-    while (window.pollEvent(event_)) {
+    while (window.waitEvent(event_)) {
+
       // "close requested" event: we close the window
       if (event_.type == sf::Event::Closed)
         window.close();
@@ -39,17 +41,16 @@ void Gui::ThMainLoop() {
           window.close();
           break;
         case BACK_TO_MAIN_MENU:
+          goto update_display;
+        case UPDATE_DISPLAY:
+        update_display:
+          current_context_->DrawToWindow(window);
+          window.display();
+        default:
           break;
         }
     }
-    auto t1 = std::chrono::steady_clock::now();
-    current_context_->DrawToWindow(window);
-    auto t2 = std::chrono::steady_clock::now();
-//    std::cout << "my display: "
-//              << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1)
-//                     .count()
-//              << "ms\n";
-    window.display();
+
   }
 }
 Gui::~Gui() { window_thread_->join(); }
