@@ -4,6 +4,7 @@
 
 #include "run_simulation.h"
 #include <fstream>
+#include <thread>
 
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]
