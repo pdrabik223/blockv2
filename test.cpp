@@ -12,10 +12,11 @@ int main() {
   LevelInfo game(10, 5);
 
 
-  game.AddBot({32/10, 32%10}, BotType::ENEMY);
-  game.AddBot({28/10, 28%10}, BotType::GOAL);
+//  game.AddBot({32%10, 32/10}, BotType::ENEMY);
+//  game.AddBot({0%10, 0/10}, BotType::ENEMY);
+//  game.AddBot({28%10, 28/10}, BotType::GOAL);
 
- // FillWithBots(game, 0.5);
+  FillWithBots(game, 1);
   //Border(game);
 
 
