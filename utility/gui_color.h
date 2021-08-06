@@ -8,6 +8,6 @@
 
 /// \param color primary color, to be lighten
 /// \return light/ brighter  version of the primary color
-sf::Color& Light(sf::Color& color);
+sf::Color Light(const sf::Color& color);
 
 #endif // BLOCK_V2_UTILITY_GUI_COLOR_H_
