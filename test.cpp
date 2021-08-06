@@ -8,7 +8,7 @@
 void FillWithBots(LevelInfo &target_level, double fill_level);
 void Border(LevelInfo &target_level);
 int main() {
-  //srand(time(NULL));
+//  srand(time(NULL));
   LevelInfo game(10, 5);
 
 

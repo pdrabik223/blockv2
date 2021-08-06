@@ -20,8 +20,8 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
       window_height_(window_height) {
   LoadColors();
   LoadButtons();
-  LoadAssets(level_info.GetName());
   GenGrid();
+  LoadAssets(level_info.GetName());
 }
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   // window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
@@ -76,6 +76,7 @@ void sfml_window::RunSimulation::LoadColors() {
   color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
   color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
 }
+
 void sfml_window::RunSimulation::LoadButtons() {
 
   std::string directory = "../sfml_window/assets/";
@@ -96,6 +97,7 @@ void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
   for (const auto &box : grid_)
     window.draw(box);
 }
+
 void sfml_window::RunSimulation::GenGrid() {
 
   // all cells are squares so the width = height
@@ -136,10 +138,9 @@ void sfml_window::RunSimulation::GenGrid() {
 
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
-
   }
-
 }
+
 void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
 
   if (!background_texture_.loadFromFile(level_path))
@@ -150,6 +151,7 @@ void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
+
 void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
 
   bool exists[(unsigned)Assets::SIZE];
@@ -229,54 +231,65 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
     }
 
   if (EXIST(TURN_C) and not EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, 90);
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
   } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, 90);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
   } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
     LoadCell(Assets::TURN_CC, kDefaultDir + file_names[(int)Assets::TURN_CC]);
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, 90);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
   } else
     throw "error";
   // todo these  need to be done better
   if (not EXIST(ENGINE_U) and not EXIST(ENGINE_D) and not EXIST(ENGINE_L) and
       not EXIST(ENGINE_R)) {
     LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
-    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, 180);
-    CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, 90);
-    CopyCell(Assets::ENGINE_L, Assets::ENGINE_R, 180);
+    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
+    CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, FlipDirection::BOTH);
+    CopyCell(Assets::ENGINE_L, Assets::ENGINE_R, FlipDirection::VERTICAL);
   }
   if (not EXIST(FACTORY_U) and not EXIST(FACTORY_D) and not EXIST(FACTORY_L) and
       not EXIST(FACTORY_R)) {
     LoadCell(Assets::FACTORY_R,
              kDefaultDir + file_names[(int)Assets::FACTORY_R]);
-    CopyCell(Assets::FACTORY_L, Assets::FACTORY_R, 180);
-    CopyCell(Assets::FACTORY_D, Assets::FACTORY_R, 90);
-    CopyCell(Assets::FACTORY_U, Assets::FACTORY_D, 180);
+    CopyCell(Assets::FACTORY_L, Assets::FACTORY_R, FlipDirection::VERTICAL);
+    CopyCell(Assets::FACTORY_D, Assets::FACTORY_R, FlipDirection::BOTH);
+    CopyCell(Assets::FACTORY_U, Assets::FACTORY_D, FlipDirection::VERTICAL);
   }
-
-  // to finish off
-  for (auto &cell : cells_)
-    cell.first.setSmooth(true);
 }
 
 sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].first;
 }
+
 sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].second;
 }
 
 void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
-                                          double angle) {
+                                          FlipDirection flip) {
   Texture(copy).create(Texture(original).getSize().x,
                        Texture(original).getSize().y);
   Texture(copy).update(Texture(original), 0, 0);
+  Texture(copy).setSmooth(true);
+
   Sprite(copy).setTexture(Texture(copy));
-  if(angle == 180) Sprite(copy).scale(-1,1);
-  else {
-    Sprite(copy).scale(-1,1);
-    Sprite(copy).scale(1,-1);
+
+
+
+  Sprite(copy).setOrigin(Texture(copy).getSize().x/2,Texture(copy).getSize().y/2);
+
+  if (flip == FlipDirection::HORIZONTAL) {
+    Sprite(copy).rotate(90);
+  } else if (flip == FlipDirection::VERTICAL) {
+    Sprite(copy).rotate(180);
+  } else {
+    Sprite(copy).rotate(90);
+    Sprite(copy).rotate(180);
   }
+
+  Sprite(copy).setScale((float)cell_size_ / (float)Texture(copy).getSize().x,
+                        (float)cell_size_ / (float)Texture(copy).getSize().y);
+
 }
 
 void sfml_window::RunSimulation::LoadCell(Assets cell,
@@ -285,18 +298,22 @@ void sfml_window::RunSimulation::LoadCell(Assets cell,
   if (!Texture(cell).loadFromFile(asset_path))
     throw "error";
 
+  Texture(cell).setSmooth(true);
+
   Sprite(cell).setTexture(Texture(cell));
+
+  Sprite(cell).setScale((float)cell_size_ / (float)Texture(cell).getSize().x,
+                        (float)cell_size_ / (float)Texture(cell).getSize().y);
+
+  Sprite(cell).setOrigin(Texture(cell).getSize().x/2,Texture(cell).getSize().y/2);
 }
 
 void sfml_window::RunSimulation::DrawCell(sf::RenderWindow &window,
                                           sfml_window::Assets id,
                                           unsigned position) {
-  Sprite(id).setPosition(grid_[position].getPosition());
-  Sprite(id).setScale(
-      (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().x,
-      (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().y);
+  Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_/2,
+                         grid_[position].getPosition().y+ cell_size_/2);
   window.draw(Sprite(id));
-
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 1. proper display (this function)
@@ -328,10 +345,11 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
       break;
 
     case BotType::TURN:
-      if (((Turn*)local_board_.GetCell(p)->Clone())->GetDirection() == TurnDirection::CLOCKWISE)
+      if (((Turn *)local_board_.GetCell(p)->Clone())->GetDirection() ==
+          TurnDirection::CLOCKWISE)
         DrawCell(window, Assets::TURN_C, p);
 
-      else if (((Turn*)local_board_.GetCell(p)->Clone())->GetDirection() ==
+      else if (((Turn *)local_board_.GetCell(p)->Clone())->GetDirection() ==
                TurnDirection::COUNTER_CLOCKWISE)
         DrawCell(window, Assets::TURN_CC, p);
       else

@@ -16,6 +16,7 @@
 #include <vector>
 
 namespace sfml_window {
+enum class FlipDirection{HORIZONTAL,VERTICAL,BOTH };
 enum class RunSimulationButton { EXIT, STOP_SIMULATION, END_SIMULATION, SIZE };
 enum class Assets {
   BASIC, /// something like stone
@@ -67,7 +68,7 @@ private:
 
   void LoadCell(Assets cell, const std::string &asset_path);
 
-  void CopyCell(Assets copy, Assets original, double angle);
+  void CopyCell(Assets copy, Assets original, FlipDirection flip);
 
   void GenGrid();
 
