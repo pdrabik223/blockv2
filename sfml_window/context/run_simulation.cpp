@@ -4,7 +4,6 @@
 
 #include "run_simulation.h"
 #include <fstream>
-#include <thread>
 
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]
@@ -63,12 +62,13 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
           break;
         }
   } else {
-   bool change = false ;
+    bool change = false;
     for (auto &button : buttons_)
       if (button->DetectHover({(unsigned)mouse_x, (unsigned)mouse_y}))
-         change = true;
+        change = true;
 
-    if(change) return ContextEvent::UPDATE_DISPLAY;
+    if (change)
+      return ContextEvent::UPDATE_DISPLAY;
   }
   return ContextEvent::NONE;
 }
@@ -323,11 +323,7 @@ void sfml_window::RunSimulation::DrawCell(sf::RenderWindow &window,
   window.draw(Sprite(id));
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
-  // todo 1. proper display (this function)
-
   // todo 2. finish load cells function
-
-  // todo 3. test this shit
 
   // todo 4. better assets
 

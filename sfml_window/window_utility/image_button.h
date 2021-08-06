@@ -22,7 +22,7 @@ public:
 protected:
   Rect structure_;
   sf::Color color_;
-  bool hover_;
+  bool hover_ = false;
   sf::Texture texture_; // this one for sure tho
   sf::Sprite sprite_;
 

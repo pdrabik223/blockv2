@@ -32,7 +32,7 @@ sfml_window::ImageButton::ImageButton(const Rect &structure,
   texture_.setSmooth(true);
   sprite_.setTexture(texture_);
   sprite_.setColor(Light(color_));
-  sprite_.setPosition(structure.placement.x, structure.placement.y);
+  sprite_.setPosition((float)structure.placement.x,(float)structure.placement.y);
   sprite_.setScale( (float)structure.width/(float)texture_.getSize().x,
                     (float)structure.height/(float)texture_.getSize().y);
 }
@@ -45,3 +45,4 @@ bool sfml_window::ImageButton::DetectHover(const Coord &press_point) {
 
   return change;
 }
+

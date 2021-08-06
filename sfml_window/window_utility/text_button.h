@@ -45,6 +45,7 @@ public:
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override;
+  ~TextButton();
 
 protected:
   Rect structure_;
@@ -52,9 +53,9 @@ protected:
   TextBox text_;
 
   /// if mouse is hovering over the button the font is larger
-  bool hover_;
+  bool hover_ = false;
   sf::Color button_color_;
-  bool display_background_;
+  bool display_background_ = false ;
 
 };
 } // namespace sfml_window
