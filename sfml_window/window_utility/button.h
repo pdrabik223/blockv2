@@ -17,7 +17,7 @@ public:
   virtual bool DetectInteraction(const Coord &press_point, sf::Event &event) = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual void SetButtonColor(const sf::Color &button_color) = 0;
-
+  virtual bool DetectHover(const Coord &press_point) = 0;
 protected:
   Rect position_;
 };

@@ -38,8 +38,10 @@ enum class GuiColor {
 enum ContextEvent{
   EXIT,
   BACK_TO_MAIN_MENU,
+  NONE,
+  UPDATE_DISPLAY,
   SIZE
-};
+  };
 
 class Context {
 public:
