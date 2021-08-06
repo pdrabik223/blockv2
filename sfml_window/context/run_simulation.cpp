@@ -136,7 +136,9 @@ void sfml_window::RunSimulation::GenGrid() {
 
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
+
   }
+
 }
 void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
 
@@ -227,12 +229,12 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
     }
 
   if (EXIST(TURN_C) and not EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, 180);
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, 90);
   } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, 180);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, 90);
   } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
     LoadCell(Assets::TURN_CC, kDefaultDir + file_names[(int)Assets::TURN_CC]);
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, 180);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, 90);
   } else
     throw "error";
   // todo these  need to be done better
@@ -270,7 +272,11 @@ void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
                        Texture(original).getSize().y);
   Texture(copy).update(Texture(original), 0, 0);
   Sprite(copy).setTexture(Texture(copy));
-  Sprite(copy).rotate(angle);
+  if(angle == 180) Sprite(copy).scale(-1,1);
+  else {
+    Sprite(copy).scale(-1,1);
+    Sprite(copy).scale(1,-1);
+  }
 }
 
 void sfml_window::RunSimulation::LoadCell(Assets cell,
@@ -290,6 +296,7 @@ void sfml_window::RunSimulation::DrawCell(sf::RenderWindow &window,
       (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().x,
       (float)cell_size_ / (float)Texture(Assets::BEDROCK).getSize().y);
   window.draw(Sprite(id));
+
 }
 void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
   // todo 1. proper display (this function)

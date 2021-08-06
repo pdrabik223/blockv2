@@ -39,3 +39,19 @@ buttons, text, and stuff this will simplify code
 | 4 | make it look pretty | better color composition and spacing and better player experience| 20%|
 | 5 | react to the player input | change screen when requested, load level etc| 10%|
 
+# why da fuck 
+ok ok, so there's a bug: sometimes the cells overlap, 
+a.k.a. are placed on top of each other 
+
+| potential solution | more info|
+|:---:|:---|
+| weird data race| the text cell overrides position of the asset before the display happens| 
+| wrong square positions| from the beginning the grid is fucked|
+
+ok ok 
+so if the blocks are generated non randomly, the bug happens over the same squares
+but what does it mean
+
+
+
+# rotate function !
