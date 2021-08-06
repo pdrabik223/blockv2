@@ -11,7 +11,8 @@
 
 class Board {
 public:
-  Board(unsigned int width, unsigned int height);
+  Board() = delete;
+
   Board(LevelInfo& level_info);
   Bot* GetCell(Coord position);
   Bot* GetCell(unsigned position);
@@ -19,8 +20,7 @@ public:
   unsigned int GetHeight() const;
 
 private:
-  void CollapseTranspositionTable();
-  unsigned Board::Conv2D(Coord position);
+
   /// x axis
   unsigned width_;
   /// y axis
