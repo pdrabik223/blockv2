@@ -9,15 +9,15 @@ void FillWithBots(LevelInfo &target_level, double fill_level);
 void Border(LevelInfo &target_level);
 int main() {
 //  srand(time(NULL));
-  LevelInfo game(10, 5);
+  LevelInfo game(15, 7);
 
 
 //  game.AddBot({32%10, 32/10}, BotType::ENEMY);
 //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
 //  game.AddBot({28%10, 28/10}, BotType::GOAL);
 
-  FillWithBots(game, 1);
-  //Border(game);
+  FillWithBots(game, 0.3);
+  Border(game);
 
 
   game.SaveLevel();
