@@ -19,4 +19,5 @@ TEST(first,MovementDirection){
 
   Transposition trans_3(2, 1, new Engine, 10);
   EXPECT_TRUE(trans_3.GetMovementDirection() == Direction::RIGHT);
+
 }
