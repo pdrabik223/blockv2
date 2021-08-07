@@ -6,6 +6,7 @@
 #define BLOCK_V2_UTILITY_COORD_H_
 #include <cassert>
 #include <ciso646>
+#include <ostream>
 struct Coord {
   Coord(unsigned int x, unsigned int y);
   Coord();
@@ -14,6 +15,8 @@ struct Coord {
 
   bool operator==(const Coord &rhs) const;
   bool operator!=(const Coord &rhs) const;
+  friend std::ostream &operator<<(std::ostream &os, const Coord &coord);
+
   unsigned ToInt(unsigned width)const {
     assert(x<width);
     return y * width + x;
