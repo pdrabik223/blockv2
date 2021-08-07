@@ -24,7 +24,7 @@ enum class TranspositionType {
 struct Transposition {
   Transposition(unsigned int from, unsigned int to, const Bot *bot,
                 unsigned matrix_width);
-  Direction GetMovementDirection(unsigned matrix_width) const;
+  Direction GetMovementDirection() const;
 
   const Coord from;
   const Coord to;
