@@ -16,5 +16,13 @@ Board::Board( LevelInfo &level_info) {
     width_ = level_info.GetWidth();
     height_ = level_info.GetHeight();
 }
+
 unsigned int Board::GetWidth() const { return width_; }
+
 unsigned int Board::GetHeight() const { return height_; }
+
+void Board::GenPosition() {
+
+
+
+}

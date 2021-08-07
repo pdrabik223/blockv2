@@ -13,17 +13,30 @@ int main() {
   srand(time(NULL));
   LevelInfo game(15, 7);
 
+  //  game.AddBot({32%10, 32/10}, BotType::ENEMY);
+  //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
+  //  game.AddBot({28%10, 28/10}, BotType::GOAL);
+  //
+  //  FillWithBots(game, 0.3);
+  //  Border(game);
+  //
+  //
+  //  game.SaveLevel();
+  //  sfml_window::Gui sin(game);
+  std::cout << "up, down, left, right\n";
+  Transposition trans(11, 1, new Engine, 0);
+  std::cout << (int)trans.GetMovementDirection(10) << " ";
 
-//  game.AddBot({32%10, 32/10}, BotType::ENEMY);
-//  game.AddBot({0%10, 0/10}, BotType::ENEMY);
-//  game.AddBot({28%10, 28/10}, BotType::GOAL);
+  Transposition trans1(1, 11, new Engine, 0);
+  std::cout << (int)trans1.GetMovementDirection(10) << " ";
 
-  FillWithBots(game, 0.3);
-  Border(game);
+  Transposition trans2(1, 2, new Engine, 0);
+  std::cout << (int)trans.GetMovementDirection(10) << " ";
+
+  Transposition trans3(2, 1, new Engine, 0);
+  std::cout << (int)trans1.GetMovementDirection(10) << " ";
 
 
-  game.SaveLevel();
-  sfml_window::Gui sin;
 
   return 0;
 }
