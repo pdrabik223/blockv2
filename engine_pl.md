@@ -2,7 +2,8 @@
 
 Wyobraźmy sobie sieć niezalażnych ale połączonych ze sobą komórek, które poruszają się na prostokątnej płaszczyźnie
 
-# The multi-class requ based approach
+# The multi-class requ based approach with movement direction field
+
 
 Bloki dzielą się na dwa typy:
 
