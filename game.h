@@ -19,10 +19,7 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
-
   void GenPosition();
-
-
 
 private:
 

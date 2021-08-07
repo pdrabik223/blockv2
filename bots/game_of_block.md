@@ -16,7 +16,7 @@ to include all the bot classes
 [here](bot.h)
 
 | id | name                 | color | killable | movable | short description | set 1  | set 2 
-|:---:| :---:                | :---: | :---:    | :---:   | :--- |:---:|:---:|
+|:---:| :---:               | :---: | :---:    | :---:   | :--- |:---:|:---:|
 | 1  | [empty](empty.h)     | none  | yes | yes | is empty | 
 | 2  | [basic](basic.h)     | grey  | no  | yes | can be pushed and does nothing |
 | 3  | [bedrock](bedrock.h) | black | no  | no  | can't be pushed, nor killed |
