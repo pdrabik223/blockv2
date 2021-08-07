@@ -24,17 +24,17 @@ int main() {
   //  game.SaveLevel();
   //  sfml_window::Gui sin(game);
   std::cout << "up, down, left, right\n";
-  Transposition trans(11, 1, new Engine, 0);
+  Transposition trans(11, 1, new Engine, 10);
   std::cout << (int)trans.GetMovementDirection(10) << " ";
 
-  Transposition trans1(1, 11, new Engine, 0);
-  std::cout << (int)trans1.GetMovementDirection(10) << " ";
+  Transposition trans_1(1, 11, new Engine, 10);
+  std::cout << (int)trans_1.GetMovementDirection(10) << " ";
 
-  Transposition trans2(1, 2, new Engine, 0);
-  std::cout << (int)trans.GetMovementDirection(10) << " ";
+  Transposition trans_2(1, 2, new Engine, 10);
+  std::cout << (int)trans_2.GetMovementDirection(10) << " ";
 
-  Transposition trans3(2, 1, new Engine, 0);
-  std::cout << (int)trans1.GetMovementDirection(10) << " ";
+  Transposition trans_3(2, 1, new Engine, 10);
+  std::cout << (int)trans_3.GetMovementDirection(10) << " ";
 
 
 
