@@ -21,16 +21,17 @@ enum class TranspositionType {
 /// but table returns verdict if the move is possible
 
 /// the modification of a piece is hard, because
-class Transposition {
-public:
-  Transposition();
-  void PushTransposition(TranspositionType target);
-  void PushTransposition(TranspositionType target, Bot info);
-  Bot* Collapse(Bot& target);
+struct Transposition {
+  Transposition(unsigned int from, unsigned int to, const Bot *bot,
+                unsigned matrix_width);
+  Direction GetMovementDirection(unsigned matrix_width) const;
+
+  const Coord from;
+  const Coord to;
+  std::unique_ptr<Bot> bot;
 
 
-private:
-  std::vector<std::pair<TranspositionType, Bot>> transposition_;
+
 };
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_
