@@ -17,7 +17,7 @@ add_subdirectory(sfml_window/window_utility)
 add_subdirectory(sfml_window/context)
 
 add_subdirectory(googletest)
-add_subdirectory(google_tests)
+add_subdirectory(tests)
 
 enable_testing()
 
