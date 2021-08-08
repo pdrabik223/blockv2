@@ -52,10 +52,9 @@ const Direction truth_table[(unsigned long long)Direction::SIZE][(
 /// \return sum of it's arguments, following the <a href="../README.md">truth
 /// table</a>
 
-Direction operator+(const Direction &a, const Direction &b) {
-  return truth_table[(unsigned)a][(unsigned)b];
-}
+Direction operator+(const Direction &a, const Direction &b);
 
+Direction& operator+=(Direction &a, const Direction &b);
 
 } // namespace movement_direction
 #endif // BLOCK_V2_UTILITY_MOVEMENT_DIRECTION_H_
