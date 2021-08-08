@@ -13,6 +13,7 @@ public:
   void OutputToFile(std::ostream &out) const override;
   const BotType GetType() const override;
   const BotType type_ = BotType::EMPTY;
+  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:
   Coord position_;
 };

@@ -16,6 +16,7 @@ public:
   const BotType GetType() const override;
   const BotType type_ = BotType::TURN;
 
+  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:
   TurnDirection direction_;
   Coord position_;

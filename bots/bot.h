@@ -5,6 +5,7 @@
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
 #include "../utility/coord.h"
+#include <movement_direction.h>
 #include <ostream>
 
 /// contains all used cell types
@@ -43,6 +44,7 @@ public:
   virtual const BotType GetType() const { return type_; }
   const BotType type_ = BotType::NONE;
 
+  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 protected:
   Coord position_;
 };

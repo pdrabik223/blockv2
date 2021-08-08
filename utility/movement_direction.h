@@ -18,43 +18,43 @@ enum class Direction {
   LOCK_GLOBAL = 7,
   SIZE
 };
+
 const Direction truth_table[(unsigned long long)Direction::SIZE][(
     unsigned long long)Direction::SIZE] = {
     {Direction::NONE, Direction::UP, Direction::DOWN, Direction::LEFT,
      Direction::RIGHT, Direction::LOCK_HORIZONTAL, Direction::LOCK_VERTICAL,
      Direction::LOCK_GLOBAL},
-     {Direction::UP, Direction::UP, Direction::LOCK_VERTICAL, Direction::LEFT,
-      Direction::UP, Direction::UP, Direction::LOCK_VERTICAL,
-      Direction::LOCK_GLOBAL},
-      {Direction::DOWN, Direction::LOCK_VERTICAL, Direction::DOWN,
-       Direction::DOWN, Direction::RIGHT, Direction::DOWN,
-       Direction::LOCK_VERTICAL, Direction::LOCK_GLOBAL},
-       {Direction::LEFT, Direction::LEFT, Direction::DOWN, Direction::LEFT,
-        Direction::LOCK_HORIZONTAL, Direction::LOCK_HORIZONTAL, Direction::LEFT,
-        Direction::LOCK_GLOBAL},
-        {Direction::RIGHT, Direction::UP, Direction::RIGHT,
-         Direction::LOCK_HORIZONTAL, Direction::RIGHT, Direction::LOCK_HORIZONTAL,
-         Direction::RIGHT, Direction::LOCK_GLOBAL},
-         {Direction::LOCK_HORIZONTAL, Direction::UP, Direction::DOWN,
-          Direction::LOCK_HORIZONTAL, Direction::LOCK_HORIZONTAL,
-          Direction::LOCK_HORIZONTAL, Direction::LOCK_GLOBAL,
-          Direction::LOCK_GLOBAL},
-          {Direction::LOCK_VERTICAL, Direction::LOCK_VERTICAL,
-           Direction::LOCK_VERTICAL, Direction::LEFT, Direction::RIGHT,
-           Direction::LOCK_GLOBAL, Direction::LOCK_VERTICAL, Direction::LOCK_GLOBAL},
-           {Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL,
-            Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL,
-            Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL}};
+    {Direction::UP, Direction::UP, Direction::LOCK_VERTICAL, Direction::LEFT,
+     Direction::UP, Direction::UP, Direction::LOCK_VERTICAL,
+     Direction::LOCK_GLOBAL},
+    {Direction::DOWN, Direction::LOCK_VERTICAL, Direction::DOWN,
+     Direction::DOWN, Direction::RIGHT, Direction::DOWN,
+     Direction::LOCK_VERTICAL, Direction::LOCK_GLOBAL},
+    {Direction::LEFT, Direction::LEFT, Direction::DOWN, Direction::LEFT,
+     Direction::LOCK_HORIZONTAL, Direction::LOCK_HORIZONTAL, Direction::LEFT,
+     Direction::LOCK_GLOBAL},
+    {Direction::RIGHT, Direction::UP, Direction::RIGHT,
+     Direction::LOCK_HORIZONTAL, Direction::RIGHT, Direction::LOCK_HORIZONTAL,
+     Direction::RIGHT, Direction::LOCK_GLOBAL},
+    {Direction::LOCK_HORIZONTAL, Direction::UP, Direction::DOWN,
+     Direction::LOCK_HORIZONTAL, Direction::LOCK_HORIZONTAL,
+     Direction::LOCK_HORIZONTAL, Direction::LOCK_GLOBAL,
+     Direction::LOCK_GLOBAL},
+    {Direction::LOCK_VERTICAL, Direction::LOCK_VERTICAL,
+     Direction::LOCK_VERTICAL, Direction::LEFT, Direction::RIGHT,
+     Direction::LOCK_GLOBAL, Direction::LOCK_VERTICAL, Direction::LOCK_GLOBAL},
+    {Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL,
+     Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL,
+     Direction::LOCK_GLOBAL, Direction::LOCK_GLOBAL}};
 ///
 /// \param a first argument
 /// \param b second argument
-/// \return sum of it's arguments, following the <a href="../README.md">truth table</a>
+/// \return sum of it's arguments, following the <a href="../README.md">truth
+/// table</a>
 
 Direction operator+(const Direction &a, const Direction &b) {
   return truth_table[(unsigned)a][(unsigned)b];
 }
-
-
 
 
 } // namespace movement_direction
