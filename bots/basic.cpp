@@ -4,11 +4,16 @@
 
 #include "basic.h"
 Basic::Basic(const Coord &position) : position_(position) {}
-Basic::Basic() {}
+Basic::Basic() = default;
 
 Basic *Basic::Clone() { return this; }
 
 void Basic::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::BASIC<<"\n";
 }
-const BotType Basic::GetType() const { return type_; }
+ BotType Basic::GetType() const { return type_; }
+void Basic::CalculateMovementDirection(const std::vector<Bot *> &plane) {
+
+}
+void Basic::ClearMovementDirection() { movement_direction_ = movement_direction::Direction::NONE;}
+

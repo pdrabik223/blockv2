@@ -11,8 +11,10 @@ public:
   Empty(const Coord &position);
   Empty *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  const BotType GetType() const override;
+  BotType GetType() const override;
   const BotType type_ = BotType::EMPTY;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane) override;
+  void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:
   Coord position_;

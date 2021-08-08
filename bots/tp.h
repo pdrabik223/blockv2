@@ -11,8 +11,10 @@ public:
   Tp(const Coord &position,unsigned id);
   Tp *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  const BotType GetType() const override;
+   BotType GetType() const override;
   const BotType type_ = BotType::TP;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane) override;
+  void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:
   Coord position_;

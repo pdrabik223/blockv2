@@ -9,7 +9,7 @@
 #include <ostream>
 
 /// contains all used cell types
- enum class BotType {
+enum class BotType {
   BASIC, /// something like stone
   BEDROCK,
   TURN, /// changes the direction of  block
@@ -22,30 +22,25 @@
   NONE,
   SIZE
 };
- /// direction witch bot might be facing
- enum class Direction{
-   UP,
-   DOWN,
-   LEFT,
-   RIGHT
- };
+/// direction witch bot might be facing
+enum class Direction { UP, DOWN, LEFT, RIGHT };
 
- enum class TurnDirection{
-   CLOCKWISE,
-   COUNTER_CLOCKWISE
- };
+enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
 class Bot {
 public:
   Bot() = default;
 
-  virtual Bot *Clone(){return this;};
+  virtual Bot *Clone() { return this; };
 
   virtual void OutputToFile(std::ostream &out) const {};
-  virtual const BotType GetType() const { return type_; }
+  virtual BotType GetType() const { return type_; }
+  virtual void CalculateMovementDirection(const std::vector<Bot *> &plane){ };
+  virtual void ClearMovementDirection(){ };
   const BotType type_ = BotType::NONE;
 
-  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
-//  virtual void CalculateMovementDirection(const std::vector<Bot*>& plane);
+  movement_direction::Direction movement_direction_ =
+      movement_direction::Direction::NONE;
+
 protected:
   Coord position_;
 };

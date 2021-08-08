@@ -31,7 +31,7 @@ void Board::ClearMovementDirection() {
     b->movement_direction_ = movement_direction::Direction::NONE;
 }
 void Board::CalculateMovementDirection() {
-//  for(auto & b:plane_)
-//    b->CalculateMovementDirection(plane_);
+  for(auto & b:plane_)
+    b->CalculateMovementDirection(plane_);
 
 }

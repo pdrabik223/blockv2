@@ -5,13 +5,17 @@
 #include "turn.h"
 Turn::Turn(const Coord &position, TurnDirection direction)
     : position_(position), direction_(direction) {}
-Turn::Turn() {}
+Turn::Turn() = default;
 
 Turn *Turn::Clone() { return this; }
 
 void Turn::OutputToFile(std::ostream &out) const {
-  out<<(unsigned)BotType::TURN<<" "<<(unsigned)direction_<<"\n";
+  out << (unsigned)BotType::TURN << " " << (unsigned)direction_ << "\n";
 }
 
 TurnDirection Turn::GetDirection() const { return direction_; }
-const BotType Turn::GetType() const { return type_; }
+ BotType Turn::GetType() const { return type_; }
+void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
+void Turn::ClearMovementDirection() {
+  movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
+}

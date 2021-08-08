@@ -13,9 +13,10 @@ public:
   void OutputToFile(std::ostream &out) const override;
 
   Direction GetDirection() const;
-  const BotType GetType() const override;
+   BotType GetType() const override;
   const BotType type_ = BotType::FACTORY;
-
+  void CalculateMovementDirection(const std::vector<Bot *> &plane) override;
+  void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:
   Direction direction_;

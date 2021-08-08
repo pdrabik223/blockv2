@@ -5,7 +5,7 @@
 #include "engine.h"
 Engine::Engine(const Coord &position, Direction direction)
     : position_(position), direction_(direction) {}
-Engine::Engine() {}
+Engine::Engine() = default;
 
 Engine *Engine::Clone() { return this; }
 void Engine::OutputToFile(std::ostream &out) const {
@@ -14,4 +14,6 @@ void Engine::OutputToFile(std::ostream &out) const {
 
 
 Direction Engine::GetDirection() const { return direction_; }
-const BotType Engine::GetType() const { return type_; }
+ BotType Engine::GetType() const { return type_; }
+void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
+void Engine::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::NONE;}

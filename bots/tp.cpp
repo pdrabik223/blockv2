@@ -4,10 +4,12 @@
 
 #include "tp.h"
 Tp::Tp(const Coord &position,unsigned id) : position_(position),id_(id) {}
-Tp::Tp() {}
+Tp::Tp() = default;
 
 Tp *Tp::Clone() { return this; }
 void Tp::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<" "<<id_<<"\n";
 }
-const BotType Tp::GetType() const { return type_; }
+ BotType Tp::GetType() const { return type_; }
+void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
+void Tp::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;}
