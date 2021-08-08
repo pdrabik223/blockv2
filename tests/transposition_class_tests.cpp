@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-TEST(first,MovementDirection){
+TEST(Transposition,Get_Movement_Direction){
 
   Transposition trans(11, 1, new Engine, 10);
   EXPECT_TRUE(trans.GetMovementDirection() == Direction::UP);
