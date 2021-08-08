@@ -12,9 +12,9 @@ add_library(bot
         bots_include.h)
 
 target_include_directories(bot
-        PUBLIC ${PROJECT_SOURCE_DIR}/utility)
+        PRIVATE ${PROJECT_SOURCE_DIR}/utility)
 
-target_link_directories(bot PUBLIC utility)
+target_link_directories(bot PRIVATE utility)
 
 target_link_libraries(bot
         utility)
