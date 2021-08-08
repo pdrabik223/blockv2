@@ -18,7 +18,7 @@ enum class Direction {
   LOCK_GLOBAL = 7,
   SIZE
 };
-
+// todo bot cirection to movemnet_direction casting
 const Direction truth_table[(unsigned long long)Direction::SIZE][(
     unsigned long long)Direction::SIZE] = {
     {Direction::NONE, Direction::UP, Direction::DOWN, Direction::LEFT,
