@@ -17,24 +17,13 @@ int main() {
   //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
   //  game.AddBot({28%10, 28/10}, BotType::GOAL);
   //
-  //  FillWithBots(game, 0.3);
-  //  Border(game);
-  //
-  //
-  //  game.SaveLevel();
-  //  sfml_window::Gui sin(game);
-  std::cout << "up, down, left, right\n";
-  Transposition trans(11, 1, new Engine, 10);
-  std::cout << (int)trans.GetMovementDirection() << " ";
+    FillWithBots(game, 0.3);
+    Border(game);
 
-  Transposition trans_1(1, 11, new Engine, 10);
-  std::cout << (int)trans_1.GetMovementDirection() << " ";
 
-  Transposition trans_2(1, 2, new Engine, 10);
-  std::cout << (int)trans_2.GetMovementDirection() << " ";
+    game.SaveLevel();
+    sfml_window::Gui sin(game);
 
-  Transposition trans_3(2, 1, new Engine, 10);
-  std::cout << (int)trans_3.GetMovementDirection() << " ";
 
 
 
