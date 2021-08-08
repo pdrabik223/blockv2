@@ -103,6 +103,7 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
   case BotType::SIZE:
     throw "error";
   }
+  throw "error";
 }
 
 void LevelInfo::AddBot(const Coord &position, BotType type) {
