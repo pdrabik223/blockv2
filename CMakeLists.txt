@@ -45,8 +45,9 @@ target_link_libraries(block_v2
         sfml_window
         window_utility)
 
-#add_library(block_v2 STATIC
-#        test.cpp
-#        game.cpp game.h
-#        level_info.cpp level_info.h)
-
+#[=[
+add_library(block_v2 STATIC
+        test.cpp
+        game.cpp game.h
+        level_info.cpp level_info.h)
+#]=]
