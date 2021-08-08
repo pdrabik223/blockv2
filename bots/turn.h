@@ -4,6 +4,7 @@
 
 #ifndef BLOCK_V2_BOTS_TURN_H_
 #define BLOCK_V2_BOTS_TURN_H_
+#include "../game.h"
 #include "bot.h"
 class Turn: public Bot {
 public:
@@ -15,7 +16,10 @@ public:
   TurnDirection GetDirection() const;
    BotType GetType() const override;
   const BotType type_ = BotType::TURN;
-  void CalculateMovementDirection(const std::vector<Bot *> &plane) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  const unsigned plane_width,
+                                  const unsigned plane_height) override;
   void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
 private:

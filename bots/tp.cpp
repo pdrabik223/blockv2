@@ -3,6 +3,7 @@
 //
 
 #include "tp.h"
+#include "../game.h"
 Tp::Tp(const Coord &position,unsigned id) : position_(position),id_(id) {}
 Tp::Tp() = default;
 
@@ -11,5 +12,8 @@ void Tp::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<" "<<id_<<"\n";
 }
  BotType Tp::GetType() const { return type_; }
-void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
+ void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                     const Coord &bot_position,
+                                     const unsigned plane_width,
+                                     const unsigned plane_height) {}
 void Tp::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;}

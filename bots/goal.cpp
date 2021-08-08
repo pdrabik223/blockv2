@@ -11,5 +11,8 @@ void Goal::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::GOAL<<"\n";
 }
  BotType Goal::GetType() const { return type_; }
-void Goal::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
+ void Goal::CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                       const Coord &bot_position,
+                                       const unsigned plane_width,
+                                       const unsigned plane_height) {}
 void Goal::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::NONE;}

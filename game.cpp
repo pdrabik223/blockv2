@@ -4,10 +4,7 @@
 
 #include "game.h"
 
-
-
 Bot *Board::GetCell(Coord position) { return plane_[position.ToInt(width_)];}
-
 
 Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 
@@ -31,7 +28,23 @@ void Board::ClearMovementDirection() {
     b->movement_direction_ = movement_direction::Direction::NONE;
 }
 void Board::CalculateMovementDirection() {
-  for(auto & b:plane_)
-    b->CalculateMovementDirection(plane_);
-
+  for (int i = 0; i < Size(); ++i) {
+    plane_[i]->CalculateMovementDirection(*this, Coord(i % width_, i / width_),
+                                          0, 0);
+  }
 }
+
+bool Board::CompareGameState(const Board& other) {
+  if(width_ not_eq other.GetWidth() or height_ not_eq other.GetHeight())
+    return false;
+
+  for (int i = 0; i < Size(); ++i) {
+    if(plane_[i]->type_ not_eq other.GetBotType(i))
+      return false;
+
+  }
+  return true;
+}
+size_t Board::Size() { return plane_.size();   }
+BotType Board::GetBotType(unsigned int position) const { return plane_[position]->type_; }
+BotType Board::GetBotType(Coord position)const { return plane_[position.ToInt(width_)]->type_; }

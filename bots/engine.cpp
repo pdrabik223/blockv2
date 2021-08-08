@@ -9,11 +9,20 @@ Engine::Engine() = default;
 
 Engine *Engine::Clone() { return this; }
 void Engine::OutputToFile(std::ostream &out) const {
-  out<<(unsigned)BotType::ENGINE<<" "<<(unsigned)direction_<<"\n";
+  out << (unsigned)BotType::ENGINE << " " << (unsigned)direction_ << "\n";
 }
 
-
 Direction Engine::GetDirection() const { return direction_; }
- BotType Engine::GetType() const { return type_; }
-void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane) {}
-void Engine::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::NONE;}
+BotType Engine::GetType() const { return type_; }
+void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                        const Coord &bot_position,
+                                        const unsigned plane_width,
+                                        const unsigned plane_height) {
+  Coord new_position = GenPosition(direction_, bot_position);
+  if(new_position.x >= plane_width || new_position.x >= plane_height)
+
+
+}
+void Engine::ClearMovementDirection() {
+  movement_direction_ = movement_direction::Direction::NONE;
+}

@@ -4,6 +4,7 @@
 
 #ifndef BLOCK_V2_UTILITY_COORD_H_
 #define BLOCK_V2_UTILITY_COORD_H_
+
 #include <cassert>
 #include <ciso646>
 #include <ostream>
