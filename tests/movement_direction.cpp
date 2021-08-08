@@ -17,6 +17,8 @@ TEST(movement_dir, add_operator) {
 
   EXPECT_TRUE( Direction::LOCK_HORIZONTAL + Direction::LOCK_VERTICAL == Direction::LOCK_GLOBAL);
 
+  EXPECT_TRUE( Direction::LEFT + Direction::RIGHT == Direction::LOCK_HORIZONTAL);
 
+  EXPECT_TRUE( Direction::LEFT + Direction::RIGHT == Direction::LEFT + Direction::RIGHT);
 
 }
