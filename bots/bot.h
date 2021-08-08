@@ -5,7 +5,7 @@
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
 #include "../utility/coord.h"
-#include <movement_direction.h>
+#include "../utility/movement_direction.h"
 #include <ostream>
 
 /// contains all used cell types
@@ -45,6 +45,7 @@ public:
   const BotType type_ = BotType::NONE;
 
   movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
+//  virtual void CalculateMovementDirection(const std::vector<Bot*>& plane);
 protected:
   Coord position_;
 };

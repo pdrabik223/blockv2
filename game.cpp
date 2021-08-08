@@ -22,7 +22,16 @@ unsigned int Board::GetWidth() const { return width_; }
 unsigned int Board::GetHeight() const { return height_; }
 
 void Board::GenPosition() {
+  ClearMovementDirection();
 
 
+}
+void Board::ClearMovementDirection() {
+  for(auto & b:plane_)
+    b->movement_direction_ = movement_direction::Direction::NONE;
+}
+void Board::CalculateMovementDirection() {
+//  for(auto & b:plane_)
+//    b->CalculateMovementDirection(plane_);
 
 }

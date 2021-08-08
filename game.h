@@ -23,6 +23,9 @@ public:
 
 private:
 
+  void ClearMovementDirection();
+  void CalculateMovementDirection();
+
   /// x axis
   unsigned width_;
   /// y axis
