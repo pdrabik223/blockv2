@@ -19,6 +19,7 @@ Direction Transposition::GetMovementDirection() const {
   }
   assert(false);
 }
+
 Transposition::Transposition(unsigned int from, unsigned int to, const Bot *bot,
                              unsigned matrix_width)
     : from(from % matrix_width, from / matrix_width),
