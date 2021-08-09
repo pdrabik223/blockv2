@@ -108,7 +108,7 @@ protected:
 
   std::vector<sf::RectangleShape> grid_;
 
-  bool display_grid_ = true;
+  bool display_grid_ = false;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
