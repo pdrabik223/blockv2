@@ -40,7 +40,7 @@ void Board::GenNextPlaneState() {
 
   temp_plane.reserve(Size());
 
-for (int i = 0; i < Size(); ++i)
+  for (int i = 0; i < Size(); ++i)
     temp_plane.push_back(nullptr);
 
   for (int i = 0; i < Size(); ++i) {
@@ -59,12 +59,15 @@ for (int i = 0; i < Size(); ++i)
     if (temp_plane[i] == nullptr)
       temp_plane[i] = new Empty();
 
-  for (int i = 0; i < Size(); ++i)
-    plane_[i] = temp_plane[i]->Clone();
+  plane_.clear();
+  plane_.reserve(Size());
 
-
   for (int i = 0; i < Size(); ++i)
-    delete temp_plane[i];
+    plane_.emplace_back(temp_plane[i]->Clone());
+
+  //
+  //  for (int i = 0; i < Size(); ++i)
+  //    delete temp_plane[i];
 }
 
 bool Board::CompareGameState(const Board &other) {
@@ -77,7 +80,7 @@ bool Board::CompareGameState(const Board &other) {
   }
   return true;
 }
-size_t Board::Size() { return plane_.size(); }
+size_t Board::Size() { return width_*height_; }
 BotType Board::GetBotType(unsigned int position) const {
   return plane_[position]->type_;
 }
