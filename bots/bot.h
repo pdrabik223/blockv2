@@ -4,7 +4,7 @@
 
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
-#include "../game.h"
+//#include "../game.h"
 #include "../utility/coord.h"
 #include "../utility/movement_direction.h"
 #include <ostream>

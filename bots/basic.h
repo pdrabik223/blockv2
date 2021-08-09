@@ -5,7 +5,7 @@
 #ifndef BLOCK_V2_BOTS_BASIC_H_
 #define BLOCK_V2_BOTS_BASIC_H_
 
-#include "../game.h"
+
 #include "bot.h"
 class Basic : public Bot{
 public:

@@ -19,7 +19,6 @@ void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                         const unsigned plane_width,
                                         const unsigned plane_height) {
   Coord new_position = GenPosition(direction_, bot_position);
-  if(new_position.x >= plane_width || new_position.x >= plane_height)
 
 
 }

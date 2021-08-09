@@ -4,7 +4,7 @@
 
 #ifndef BLOCK_V2_BOTS_ENEMY_H_
 #define BLOCK_V2_BOTS_ENEMY_H_
-#include "../game.h"
+
 #include "bot.h"
 class Enemy : public Bot {
 public:
