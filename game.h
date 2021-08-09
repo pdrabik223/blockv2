@@ -30,6 +30,7 @@ private:
 
   void ClearMovementDirection();
   void CalculateMovementDirection();
+  void GenNextPlaneState();
 
   /// x axis
   unsigned width_;
@@ -37,7 +38,7 @@ private:
   unsigned height_;
 
   std::vector<Bot*> plane_;
-  std::vector<Transposition> transposition_table_;
+
 
 };
 
