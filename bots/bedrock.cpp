@@ -11,8 +11,10 @@ void Bedrock::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::BEDROCK<<"\n";
 }
  BotType Bedrock::GetType() const {return type_; }
- void Bedrock::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                          const Coord &bot_position,
-                                          const unsigned plane_width,
-                                          const unsigned plane_height) {}
+ void Bedrock::CalculateMovementDirection(
+     const std::vector<Bot *> &plane, const Coord &bot_position,
+     const unsigned plane_width, const unsigned plane_height,
+                                          const Direction push_direction) {
+   // do nothing :P
+ }
 void Bedrock::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;}

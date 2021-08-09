@@ -13,15 +13,35 @@ void Engine::OutputToFile(std::ostream &out) const {
 }
 
 Direction Engine::GetDirection() const { return direction_; }
+
 BotType Engine::GetType() const { return type_; }
-void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                        const Coord &bot_position,
-                                        const unsigned plane_width,
-                                        const unsigned plane_height) {
+
+void Engine::CalculateMovementDirection(
+    const std::vector<Bot *> &plane, const Coord &bot_position,
+    const unsigned plane_width, const unsigned plane_height,
+                                        const Direction push_direction) {
+
   Coord new_position = GenPosition(direction_, bot_position);
 
+  if (new_position.x >= plane_width || new_position.x < 0 ||
+      new_position.y >= plane_height || new_position.y < 0) {
+    this->movement_direction_ =
+        movement_direction::LockAxis((movement_direction::Direction)direction_);
+    return;
+  }
 
+  plane[new_position.ToInt(plane_width)]->CalculateMovementDirection(
+      plane, new_position, plane_width, plane_height,direction_);
+
+  if (IsPossible(movement_direction::Direction((int)direction_ + 1),
+                 plane[new_position.ToInt(plane_width)]->movement_direction_))
+    this->movement_direction_ +=
+        movement_direction::Direction((int)direction_ + 1);
+  else
+    this->movement_direction_ +=
+        LockAxis(movement_direction::Direction((int)direction_ + 1));
 }
 void Engine::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::NONE;
+  this->movement_direction_ =
+      movement_direction::Direction((int)direction_ + 1);
 }

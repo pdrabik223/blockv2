@@ -12,8 +12,8 @@ void Tp::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::TP<<" "<<id_<<"\n";
 }
  BotType Tp::GetType() const { return type_; }
- void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                     const Coord &bot_position,
-                                     const unsigned plane_width,
-                                     const unsigned plane_height) {}
+ void Tp::CalculateMovementDirection(
+     const std::vector<Bot *> &plane, const Coord &bot_position,
+     const unsigned plane_width, const unsigned plane_height,
+                                     const Direction push_direction) {}
 void Tp::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;}
