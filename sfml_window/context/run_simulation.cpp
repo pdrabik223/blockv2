@@ -288,11 +288,11 @@ void sfml_window::RunSimulation::CopyCell(Assets copy, Assets original,
                          Texture(copy).getSize().y / 2);
 
   if (flip == FlipDirection::HORIZONTAL) {
-    Sprite(copy).rotate(90);
+    Sprite(copy).rotate(-90);
   } else if (flip == FlipDirection::VERTICAL) {
     Sprite(copy).rotate(180);
   } else {
-    Sprite(copy).rotate(90);
+    Sprite(copy).rotate(-90);
     Sprite(copy).rotate(180);
   }
 
