@@ -16,7 +16,7 @@ public:
   Board(LevelInfo& level_info);
   Bot* GetCell(Coord position);
   Bot* GetCell(unsigned position);
-  BotType GetBotType(Coord position)const;
+  BotType GetBotType(const Coord& position)const;
   BotType GetBotType(unsigned position) const ;
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;

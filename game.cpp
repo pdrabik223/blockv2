@@ -29,8 +29,7 @@ void Board::ClearMovementDirection() {
 }
 void Board::CalculateMovementDirection() {
   for (int i = 0; i < Size(); ++i) {
-    plane_[i]->CalculateMovementDirection(*this, Coord(i % width_, i / width_),
-                                          0, 0);
+
   }
 }
 
@@ -47,4 +46,4 @@ bool Board::CompareGameState(const Board& other) {
 }
 size_t Board::Size() { return plane_.size();   }
 BotType Board::GetBotType(unsigned int position) const { return plane_[position]->type_; }
-BotType Board::GetBotType(Coord position)const { return plane_[position.ToInt(width_)]->type_; }
+BotType Board::GetBotType(const Coord& position)const { return plane_[position.ToInt(width_)]->type_; }
