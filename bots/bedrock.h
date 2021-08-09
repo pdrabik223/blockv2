@@ -9,7 +9,7 @@
 class Bedrock : public Bot {
 public:
   Bedrock();
-  Bedrock(const Coord &position);
+
   Bedrock(const Bedrock& other);
   Bedrock *Clone() override;
   void OutputToFile(std::ostream &out) const override;

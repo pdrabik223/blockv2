@@ -9,7 +9,6 @@
 class Basic : public Bot {
 public:
   Basic();
-  explicit Basic(const Coord &position);
   Basic(const Basic &other);
   Basic *Clone() override;
   void OutputToFile(std::ostream &out) const override;

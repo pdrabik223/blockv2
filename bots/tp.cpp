@@ -23,3 +23,4 @@ Tp::Tp(const Tp &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
   id_ = other.id_;
 }
+Tp::Tp(unsigned int id) : id_(id) {}

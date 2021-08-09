@@ -25,3 +25,4 @@ Turn::Turn(const Turn &other)  : Bot(other) {
   movement_direction_ = other.movement_direction_;
   direction_ = other.direction_;
 }
+Turn::Turn(TurnDirection direction) : direction_(direction) {}

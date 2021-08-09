@@ -68,3 +68,5 @@ Engine::Engine(const Engine &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
   direction_ = other.direction_;
 }
+Engine::Engine(Direction direction) : direction_(direction) {}
+
