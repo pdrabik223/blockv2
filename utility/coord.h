@@ -9,7 +9,7 @@
 #include <ciso646>
 #include <ostream>
 struct Coord {
-  Coord(unsigned int x, unsigned int y);
+  Coord(int x,  int y);
   Coord();
   Coord(const Coord& other);
   Coord& operator=(const Coord& other);
@@ -23,8 +23,8 @@ struct Coord {
     return y * width + x;
   }
 
-  unsigned x;
-  unsigned y;
+  int x;
+  int y;
 };
 
 #endif // BLOCK_V2_UTILITY_COORD_H_
