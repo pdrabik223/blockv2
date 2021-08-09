@@ -3,8 +3,9 @@
 //
 
 #include "empty.h"
-Empty::Empty(const Coord &position) : position_(position) {}
 Empty::Empty() = default;
+
+Empty::Empty(const Coord &position) : position_(position) {}
 
 Empty *Empty::Clone() { return new Empty(*this); }
 
@@ -22,3 +23,4 @@ void Empty::ClearMovementDirection() {movement_direction_ = movement_direction::
 void Empty::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
                    const unsigned plane_height) { /* do nothing */ }
+Empty::Empty(const Empty &other)  : Bot(other) { movement_direction_ = other.movement_direction_;}

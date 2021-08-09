@@ -19,6 +19,6 @@ void Goal::CalculateMovementDirection(const std::vector<Bot *> &plane,
 void Goal::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::NONE;
 }
-Goal::Goal(const Goal &other) {
+Goal::Goal(const Goal &other)  : Bot(other) {
   movement_direction_ = other.movement_direction_;
 }

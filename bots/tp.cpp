@@ -20,4 +20,7 @@ void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane,
 void Tp::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
 }
-Tp::Tp(const Tp &other) { movement_direction_ = other.movement_direction_; }
+Tp::Tp(const Tp &other) : Bot(other) {
+  movement_direction_ = other.movement_direction_;
+  id_ = other.id_;
+}

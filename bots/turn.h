@@ -9,6 +9,7 @@
 class Turn: public Bot {
 public:
   Turn();
+  Turn(const Turn &other);
   Turn(const Coord &position, TurnDirection direction);
   Turn *Clone() override;
   void OutputToFile(std::ostream &out) const override;

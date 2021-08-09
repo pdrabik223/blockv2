@@ -9,8 +9,9 @@
 class Empty : public Bot {
 public:
   Empty();
+  Empty(const Empty& other);
   Empty(const Coord &position);
-  Empty *Clone() override ;
+  Empty *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
 
