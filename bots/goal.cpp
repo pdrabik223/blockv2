@@ -3,7 +3,7 @@
 //
 
 #include "goal.h"
-Goal::Goal(const Coord &position) : position_(position) {}
+
 Goal::Goal() = default;
 
 Goal *Goal::Clone() { return new Goal(*this); }
@@ -19,6 +19,6 @@ void Goal::CalculateMovementDirection(const std::vector<Bot *> &plane,
 void Goal::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::NONE;
 }
-Goal::Goal(const Goal &other)  : Bot(other) {
+Goal::Goal(const Goal &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
 }

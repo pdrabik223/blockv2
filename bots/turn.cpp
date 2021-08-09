@@ -3,8 +3,6 @@
 //
 
 #include "turn.h"
-Turn::Turn(const Coord &position, TurnDirection direction)
-    : position_(position), direction_(direction) {}
 Turn::Turn() = default;
 
 Turn *Turn::Clone() { return new Turn(*this); }

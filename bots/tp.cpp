@@ -4,7 +4,6 @@
 
 #include "tp.h"
 #include "../game.h"
-Tp::Tp(const Coord &position, unsigned id) : position_(position), id_(id) {}
 Tp::Tp() = default;
 
 Tp *Tp::Clone() { return new Tp(*this); }

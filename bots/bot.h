@@ -36,7 +36,6 @@ class Bot {
 public:
   Bot() = default;
 
-
   virtual Bot *Clone() {  assert(false); return new Bot(*this); };
 
   virtual void OutputToFile(std::ostream &out) const {};
@@ -46,17 +45,15 @@ public:
                       const unsigned plane_height){};
 
   virtual void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
-      const unsigned plane_width, const unsigned plane_height,
-                                          const Direction push_direction);;
+      unsigned plane_width,  unsigned plane_height,
+                                           Direction push_direction);
   virtual void ClearMovementDirection(){};
 
   const BotType type_ = BotType::NONE;
 
   movement_direction::Direction movement_direction_ =
       movement_direction::Direction::NONE;
-
-protected:
-  Coord position_;
+;
 };
 
 #endif // BLOCK_V2_BOTS_BOT_H_

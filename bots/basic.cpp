@@ -4,7 +4,7 @@
 
 #include "basic.h"
 #include "../game.h"
-Basic::Basic(const Coord &position) : position_(position) {}
+
 Basic::Basic() = default;
 
 Basic *Basic::Clone() { return new Basic(*this); }
@@ -43,6 +43,6 @@ void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
                    const unsigned plane_height) { /*do nothing*/ }
 Basic::Basic(const Basic &other)  : Bot(other) {
-  position_ = other.position_;
+
   movement_direction_ = other.movement_direction_;
 }

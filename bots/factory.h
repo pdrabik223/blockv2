@@ -9,22 +9,23 @@
 class Factory : public Bot {
 public:
   Factory();
-  Factory(const Coord &position, Direction direction);
-  Factory(const Factory& other);
+  Factory(const Factory &other);
   Factory *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 
   Direction GetDirection() const;
-   BotType GetType() const override;
+  BotType GetType() const override;
   const BotType type_ = BotType::FACTORY;
-  void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
-      const unsigned plane_width, const unsigned plane_height,
-                                  const Direction push_direction) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  unsigned plane_width, unsigned plane_height,
+                                  Direction push_direction) override;
   void ClearMovementDirection() override;
-  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
+  movement_direction::Direction movement_direction_ =
+      movement_direction::Direction::NONE;
+
 private:
   Direction direction_;
-  Coord position_;
 };
 
 #endif // BLOCK_V2_BOTS_FACTORY_H_

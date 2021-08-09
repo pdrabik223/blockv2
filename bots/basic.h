@@ -26,8 +26,6 @@ public:
   movement_direction::Direction movement_direction_ =
       movement_direction::Direction::NONE;
 
-private:
-  Coord position_;
 };
 
 #endif // BLOCK_V2_BOTS_BASIC_H_

@@ -24,8 +24,7 @@ public:
                                   Direction push_direction) override;
   void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
-private:
-  Coord position_;
+
 };
 
 #endif // BLOCK_V2_BOTS_BEDROCK_H_

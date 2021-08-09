@@ -9,21 +9,21 @@
 class Enemy : public Bot {
 public:
   Enemy();
-  Enemy(const Coord &position);
-  Enemy(const Enemy& other);
+
+  Enemy(const Enemy &other);
   Enemy *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-   BotType GetType() const override;
+  BotType GetType() const override;
   const BotType type_ = BotType::ENEMY;
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              const unsigned plane_width, const unsigned plane_height) override;
-  void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
-      const unsigned plane_width, const unsigned plane_height,
-                                  const Direction push_direction) override;
+              unsigned plane_width, unsigned plane_height) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  unsigned plane_width, unsigned plane_height,
+                                  Direction push_direction) override;
   void ClearMovementDirection() override;
-  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
-private:
-  Coord position_;
+  movement_direction::Direction movement_direction_ =
+      movement_direction::Direction::NONE;
 };
 
 #endif // BLOCK_V2_BOTS_ENEMY_H_
