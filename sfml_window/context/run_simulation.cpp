@@ -23,6 +23,7 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
   GenGrid();
   LoadAssets(level_info.GetName());
 }
+
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   // window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   window.draw(background_sprite_);
@@ -34,6 +35,7 @@ void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
+
 sfml_window::ContextEvent
 sfml_window::RunSimulation::HandleEvent(sf::Event &event,
                                         const sf::RenderWindow &window) {
@@ -57,9 +59,9 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::STOP_SIMULATION:
           break;
         case RunSimulationButton::END_SIMULATION:
-          break;
-        case RunSimulationButton::SIZE:
-          break;
+          local_board_.GenPosition();
+          return ContextEvent::UPDATE_DISPLAY;
+
         }
   } else {
     bool change = false;
@@ -72,6 +74,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   }
   return ContextEvent::NONE;
 }
+
 void sfml_window::RunSimulation::LoadColors() {
   color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
   color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
@@ -331,6 +334,7 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
 
   // todo 5. let ti move
   assert(grid_.size() == local_board_.GetHeight() * local_board_.GetWidth());
+
   for (unsigned p = 0; p < grid_.size(); ++p)
     switch (local_board_.GetCell(p)->GetType()) {
     case BotType::BASIC:
@@ -395,6 +399,7 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
     case BotType::EMPTY:
       break;
     default:
+
       throw "error";
     }
 }
