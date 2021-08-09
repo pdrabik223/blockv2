@@ -3,9 +3,10 @@
 //
 
 #include "coord.h"
-Coord::Coord( int x,  int y) : x(x), y(y) {}
-
 Coord::Coord(): x(0), y(0) {}
+Coord::Coord( int x,  int y) : x(x), y(y) {}
+//Coord::Coord(const unsigned int x, const unsigned int y)  : x((int)x), y((int)y){}
+
 
 bool Coord::operator==(const Coord &rhs) const {
   return x == rhs.x && y == rhs.y;

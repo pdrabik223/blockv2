@@ -50,7 +50,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   if (event.type == sf::Event::MouseButtonReleased) {
     for (unsigned id = 0; id < buttons_.size(); id++)
       if (buttons_[id]->DetectInteraction(
-              {(unsigned)mouse_x, (unsigned)mouse_y}, event))
+              {mouse_x,mouse_y}, event))
         switch ((RunSimulationButton)id) {
         case RunSimulationButton::EXIT:
           return ContextEvent::EXIT;
@@ -64,7 +64,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   } else {
     bool change = false;
     for (auto &button : buttons_)
-      if (button->DetectHover({(unsigned)mouse_x, (unsigned)mouse_y}))
+      if (button->DetectHover({mouse_x, mouse_y}))
         change = true;
 
     if (change)
@@ -89,14 +89,16 @@ void sfml_window::RunSimulation::LoadButtons() {
 
   std::string directory = "../sfml_window/assets/";
 
-  buttons_[(unsigned)RunSimulationButton::EXIT] = new ImageButton(
-      Rect({window_width_ - 36, 4}, 32, 32), directory + "cancel-button.png",
-      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
-  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] = new ImageButton(
-      Rect({window_width_ - 74, 4}, 32, 32), directory + "pause-button.png",
-      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
+  buttons_[(unsigned)RunSimulationButton::EXIT] =
+      new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
+                      directory + "cancel-button.png",
+                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
+      new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
+                      directory + "pause-button.png",
+                      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
   buttons_[(unsigned)RunSimulationButton::END_SIMULATION] = new ImageButton(
-      Rect({window_width_ - 112, 4}, 32, 32), directory + "next.png",
+      Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png",
       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 }
 

@@ -8,11 +8,11 @@
 #include "../bots/bots_include.h"
 #include <vector>
 enum class TranspositionType {
-  NONE, // do nothing with the cell
-  CREATE, // factory
+  NONE,    // do nothing with the cell
+  CREATE,  // factory
   MOVE_TO, // every movable cell
-  TURN, // turn cell
-  DELETE, // kill cell
+  TURN,    // turn cell
+  DELETE,  // kill cell
   SIZE
 };
 
@@ -22,17 +22,13 @@ enum class TranspositionType {
 
 /// the modification of a piece is hard, because
 struct Transposition {
-  Transposition(unsigned int from, unsigned int to, const Bot *bot,
-                unsigned matrix_width);
+  Transposition(int from, int to, const Bot *bot, unsigned matrix_width);
 
   Direction GetMovementDirection() const;
 
   const Coord from;
   const Coord to;
   std::unique_ptr<Bot> bot;
-
-
-
 };
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_

@@ -36,30 +36,30 @@ void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
       if (rand() % 100 < fill_level * 100)
         switch (rand() % 8) {
         case 0:
-          target_level.AddBot({x, y}, BotType::BASIC);
+          target_level.AddBot(Coord(x, y), BotType::BASIC);
           break;
         case 1:
-          target_level.AddBot({x, y}, BotType::BEDROCK);
+          target_level.AddBot(Coord(x, y), BotType::BEDROCK);
           break;
         case 2:
-          target_level.AddBot({x, y}, BotType::TURN,
+          target_level.AddBot(Coord(x, y), BotType::TURN,
                               (TurnDirection)(rand() % 2));
           break;
         case 3:
-          target_level.AddBot({x, y}, BotType::GOAL);
+          target_level.AddBot(Coord(x, y), BotType::GOAL);
           break;
         case 4:
-          target_level.AddBot({x, y}, BotType::ENEMY);
+          target_level.AddBot(Coord(x, y), BotType::ENEMY);
           break;
         case 5:
-          target_level.AddBot({x, y}, BotType::ENGINE, (Direction)(rand() % 4));
+          target_level.AddBot(Coord(x, y), BotType::ENGINE, (Direction)(rand() % 4));
           break;
         case 6:
-          target_level.AddBot({x, y}, BotType::FACTORY,
+          target_level.AddBot(Coord(x, y), BotType::FACTORY,
                               (Direction)(rand() % 4));
           break;
         case 7:
-          target_level.AddBot({x, y}, BotType::TP, rand());
+          target_level.AddBot(Coord(x, y), BotType::TP, rand());
           break;
         }
 }
@@ -67,12 +67,12 @@ void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
 void Border(LevelInfo &target_level) {
 
   for (unsigned y = 0; y < target_level.GetHeight(); y++) {
-    target_level.AddBot({0, y}, BotType::BEDROCK);
-    target_level.AddBot({target_level.GetWidth() - 1, y}, BotType::BEDROCK);
+    target_level.AddBot(Coord(0, y), BotType::BEDROCK);
+    target_level.AddBot(Coord(target_level.GetWidth() - 1, y), BotType::BEDROCK);
   }
 
   for (unsigned x = 0; x < target_level.GetWidth(); x++) {
-    target_level.AddBot({x, 0}, BotType::BEDROCK);
-    target_level.AddBot({x, target_level.GetHeight() - 1}, BotType::BEDROCK);
+    target_level.AddBot(Coord(x, 0), BotType::BEDROCK);
+    target_level.AddBot(Coord(x, target_level.GetHeight() - 1), BotType::BEDROCK);
   }
 }

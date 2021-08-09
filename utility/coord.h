@@ -9,17 +9,20 @@
 #include <ciso646>
 #include <ostream>
 struct Coord {
-  Coord(int x,  int y);
+  Coord(int x, int y);
+  //  Coord(unsigned x, unsigned y);
+
+
   Coord();
-  Coord(const Coord& other);
-  Coord& operator=(const Coord& other);
+  Coord(const Coord &other);
+  Coord &operator=(const Coord &other);
 
   bool operator==(const Coord &rhs) const;
   bool operator!=(const Coord &rhs) const;
   friend std::ostream &operator<<(std::ostream &os, const Coord &coord);
 
-  unsigned ToInt(unsigned width)const {
-    assert(x<width);
+  unsigned ToInt(unsigned width) const {
+    assert(x < width);
     return y * width + x;
   }
 

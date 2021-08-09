@@ -69,10 +69,9 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
-  for (unsigned id = 0; id < buttons_.size(); id++)
+  for (int id = 0; id < buttons_.size(); id++)
 
-    if (buttons_[id]->DetectInteraction({(unsigned)mouse_x, (unsigned)mouse_y},
-                                        event))
+    if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
 
       switch ((MainMenuButton)id) {
       case MainMenuButton::EXIT:
@@ -109,13 +108,12 @@ void sfml_window::MainMenu::LoadColors() {
 
 Coord sfml_window::MainMenu::Align(double x, double y) {
 
-  return {(unsigned)((x * window_width_) / 100.0),
-          (unsigned)((y * window_height_) / 100.0)};
+  return {(int)((x * window_width_) / 100.0), (int)((y * window_height_) / 100.0)};
 }
 Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
                                   unsigned int height) {
-  return {{(unsigned)(((x * window_width_) / 100.0) - (width / 2)),
-           (unsigned)(((y * window_height_) / 100.0) - (height / 2))},
+  return {{(int)(((x * window_width_) / 100.0) - (width / 2)),
+           (int)(((y * window_height_) / 100.0) - (height / 2))},
           width,
           height};
 }

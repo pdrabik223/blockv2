@@ -22,7 +22,7 @@ LevelInfo::LevelInfo(unsigned int width, unsigned int height)
   plane_.reserve(width_ * height_);
 
   for (auto i = 0; i < plane_.capacity(); i++)
-    plane_.emplace_back(new Empty({i / width_, i % width_}));
+    plane_.emplace_back(new Empty(Coord(i / width_, i % width_)));
 }
 void LevelInfo::SaveLevel() {
 
@@ -65,7 +65,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
 
   for (unsigned x = 0; x < width_; ++x)
     for (unsigned y = 0; y < height_; ++y)
-      plane_.emplace_back(PushBot(my_file, {x, y}));
+      plane_.emplace_back(PushBot(my_file, Coord(x, y)));
 }
 /// creates bot object and returns ptr to it
 /// \important the returned hanging pointer must be deleted manually!
