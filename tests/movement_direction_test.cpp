@@ -51,3 +51,29 @@ TEST(movement_dir, LockAxis) {
 
   EXPECT_TRUE( LockAxis(Direction::UP) == Direction::LOCK_VERTICAL);
 }
+
+TEST(movement_dir, IsPossible) {
+
+  EXPECT_TRUE(IsPossible(Direction::LEFT,Direction::UP));
+  EXPECT_TRUE(IsPossible(Direction::UP,Direction::UP));
+  EXPECT_TRUE(IsPossible(Direction::RIGHT,Direction::DOWN));
+  EXPECT_TRUE(IsPossible(Direction::LEFT,Direction::LOCK_VERTICAL));
+  EXPECT_TRUE(IsPossible(Direction::RIGHT,Direction::LOCK_VERTICAL));
+  EXPECT_TRUE(IsPossible(Direction::UP,Direction::LOCK_HORIZONTAL));
+  EXPECT_TRUE(IsPossible(Direction::DOWN,Direction::LOCK_HORIZONTAL));
+
+  EXPECT_FALSE(IsPossible(Direction::LEFT,Direction::RIGHT));
+  EXPECT_FALSE(IsPossible(Direction::UP,Direction::DOWN));
+
+ EXPECT_FALSE(IsPossible(Direction::LEFT,Direction::LOCK_GLOBAL));
+ EXPECT_FALSE(IsPossible(Direction::RIGHT,Direction::LOCK_GLOBAL));
+ EXPECT_FALSE(IsPossible(Direction::UP,Direction::LOCK_GLOBAL));
+ EXPECT_FALSE(IsPossible(Direction::DOWN,Direction::LOCK_GLOBAL));
+
+
+ EXPECT_FALSE(IsPossible(Direction::LEFT,Direction::LOCK_HORIZONTAL));
+ EXPECT_FALSE(IsPossible(Direction::RIGHT,Direction::LOCK_HORIZONTAL));
+ EXPECT_FALSE(IsPossible(Direction::UP,Direction::LOCK_VERTICAL));
+ EXPECT_FALSE(IsPossible(Direction::DOWN,Direction::LOCK_VERTICAL));
+
+}
