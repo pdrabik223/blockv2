@@ -17,7 +17,7 @@ void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                       const Coord &bot_position,
                                       const unsigned plane_width,
                                       const unsigned plane_height,
-                                      const Direction push_direction) {}
+    const movement_direction::Direction push_direction) {}
 void Turn::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
 }

@@ -18,9 +18,8 @@ public:
               unsigned int plane_width, unsigned int plane_height) override;
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
-                                  unsigned int plane_width,
-                                  unsigned int plane_height,
-                                  Direction push_direction) override;
+      const unsigned int plane_width, const unsigned int plane_height,
+      const movement_direction::Direction push_direction) override;
   void ClearMovementDirection() override;
 
   const BotType type_ = BotType::EMPTY;

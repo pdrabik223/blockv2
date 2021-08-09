@@ -27,6 +27,8 @@ enum class BotType {
 enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 Coord NextPosition(Direction direction, const Coord &current_position);
+Coord NextPosition(movement_direction::Direction direction, const Coord &current_position);
+
 
 enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
 
@@ -47,9 +49,8 @@ public:
 
   virtual void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                           const Coord &bot_position,
-                                          unsigned plane_width,
-                                          unsigned plane_height,
-                                          Direction push_direction);
+      const unsigned int plane_width, const unsigned int plane_height,
+      const movement_direction::Direction push_direction);
   virtual void ClearMovementDirection(){};
 
   const BotType type_ = BotType::NONE;
