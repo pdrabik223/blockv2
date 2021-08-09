@@ -16,6 +16,9 @@ public:
   Direction GetDirection() const;
    BotType GetType() const override;
   const BotType type_ = BotType::ENGINE;
+  void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+              const unsigned plane_width, const unsigned plane_height) override;
+
   void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       const unsigned plane_width, const unsigned plane_height,

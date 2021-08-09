@@ -18,3 +18,6 @@ void Bedrock::OutputToFile(std::ostream &out) const {
    // do nothing :P
  }
 void Bedrock::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;}
+void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+                     const unsigned plane_width,
+                     const unsigned plane_height) { /*do nothing*/ }

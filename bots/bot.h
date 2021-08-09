@@ -40,6 +40,9 @@ public:
 
   virtual void OutputToFile(std::ostream &out) const {};
   virtual BotType GetType() const { return type_; }
+  virtual void Action(const std::vector<Bot *> &plane,
+                      const Coord &bot_position, const unsigned plane_width,
+                      const unsigned plane_height){};
   virtual void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       const unsigned plane_width, const unsigned plane_height,
