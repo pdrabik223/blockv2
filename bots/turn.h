@@ -10,7 +10,7 @@ class Turn : public Bot {
 public:
   Turn();
   Turn(const Turn &other);
-  Turn(TurnDirection direction);
+  explicit Turn(TurnDirection direction);
   Turn *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 
@@ -26,7 +26,7 @@ public:
       movement_direction::Direction::NONE;
 
 private:
-  TurnDirection direction_;
+  TurnDirection direction_ = TurnDirection::CLOCKWISE;
 };
 
 #endif // BLOCK_V2_BOTS_TURN_H_

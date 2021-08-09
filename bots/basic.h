@@ -16,15 +16,13 @@ public:
   const BotType type_ = BotType::BASIC;
   void ClearMovementDirection() override;
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-               unsigned plane_width,  unsigned plane_height) override;
+              unsigned plane_width, unsigned plane_height) override;
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
-                                  unsigned plane_width,
-                                  unsigned plane_height,
+                                  unsigned plane_width, unsigned plane_height,
                                   Direction push_direction) override;
   movement_direction::Direction movement_direction_ =
       movement_direction::Direction::NONE;
-
 };
 
 #endif // BLOCK_V2_BOTS_BASIC_H_

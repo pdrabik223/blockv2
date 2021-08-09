@@ -21,7 +21,7 @@ void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
 void Turn::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
 }
-Turn::Turn(const Turn &other)  : Bot(other) {
+Turn::Turn(const Turn &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
   direction_ = other.direction_;
 }

@@ -69,4 +69,3 @@ Engine::Engine(const Engine &other) : Bot(other) {
   direction_ = other.direction_;
 }
 Engine::Engine(Direction direction) : direction_(direction) {}
-

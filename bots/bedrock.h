@@ -10,21 +10,20 @@ class Bedrock : public Bot {
 public:
   Bedrock();
 
-  Bedrock(const Bedrock& other);
+  Bedrock(const Bedrock &other);
   Bedrock *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
   const BotType type_ = BotType::BEDROCK;
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-               unsigned plane_width,  unsigned plane_height) override;
+              unsigned plane_width, unsigned plane_height) override;
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
-                                  unsigned plane_width,
-                                  unsigned plane_height,
+                                  unsigned plane_width, unsigned plane_height,
                                   Direction push_direction) override;
   void ClearMovementDirection() override;
-  movement_direction::Direction movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
-
+  movement_direction::Direction movement_direction_ =
+      movement_direction::Direction::LOCK_GLOBAL;
 };
 
 #endif // BLOCK_V2_BOTS_BEDROCK_H_
