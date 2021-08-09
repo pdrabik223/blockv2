@@ -10,7 +10,7 @@ class Engine : public Bot {
 
 public:
   Engine();
-  Engine(Direction direction);
+  explicit Engine(Direction direction);
   Engine(const Engine &other);
 
   Engine *Clone() override;
@@ -21,10 +21,10 @@ public:
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
 
-  void CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                  const Coord &bot_position,
-      const unsigned int plane_width, const unsigned int plane_height,
-      const movement_direction::Direction push_direction) override;
+  void CalculateMovementDirection(
+      const std::vector<Bot *> &plane, const Coord &bot_position,
+      unsigned int plane_width, unsigned int plane_height,
+      movement_direction::Direction push_direction) override;
   void ClearMovementDirection() override;
 
   movement_direction::Direction movement_direction_ =
