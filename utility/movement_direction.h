@@ -5,6 +5,9 @@
 #ifndef BLOCK_V2_UTILITY_MOVEMENT_DIRECTION_H_
 #define BLOCK_V2_UTILITY_MOVEMENT_DIRECTION_H_
 #include <vector>
+#include <cassert>
+#include <ciso646>
+
 namespace movement_direction {
 
 enum class Direction {
@@ -55,6 +58,8 @@ const Direction truth_table[(unsigned long long)Direction::SIZE][(
 Direction operator+(const Direction &a, const Direction &b);
 
 Direction& operator+=(Direction &a, const Direction &b);
+
+Direction LockAxis(const Direction &locked_direction);
 
 } // namespace movement_direction
 #endif // BLOCK_V2_UTILITY_MOVEMENT_DIRECTION_H_
