@@ -2,7 +2,7 @@
 // Created by studio25 on 07.08.2021.
 //
 #include "../utility/transposition.h"
-//#include "bots_include.h"
+
 
 #include "gtest/gtest.h"
 
