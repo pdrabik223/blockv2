@@ -6,22 +6,26 @@
 #define BLOCK_V2_BOTS_EMPTY_H_
 
 #include "bot.h"
-class Empty: public Bot{
+class Empty : public Bot {
 public:
   Empty();
   Empty(const Coord &position);
   Empty *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
-  const BotType type_ = BotType::EMPTY;
-  void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              const unsigned plane_width, const unsigned plane_height) override;
-  void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
-      const unsigned plane_width, const unsigned plane_height,
-                                  const Direction push_direction) override;
+
+  void Action(const std::vector<Bot *> &plane, const Coord &bot_position, const unsigned int plane_width,
+              const unsigned int plane_height) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+      const unsigned int plane_width, const unsigned int plane_height,
+      const Direction push_direction) override;
   void ClearMovementDirection() override;
-  movement_direction::Direction movement_direction_ = movement_direction::Direction::NONE;
+
+  const BotType type_ = BotType::EMPTY;
+  movement_direction::Direction movement_direction_ =
+      movement_direction::Direction::NONE;
+
 private:
   Coord position_;
 };

@@ -7,18 +7,17 @@
 Basic::Basic(const Coord &position) : position_(position) {}
 Basic::Basic() = default;
 
-Basic *Basic::Clone() { return this; }
+Basic *Basic::Clone() { return new Basic(*this); }
 
 void Basic::OutputToFile(std::ostream &out) const {
   out<<(unsigned)BotType::BASIC<<"\n";
 }
  BotType Basic::GetType() const { return type_; }
- void Basic::CalculateMovementDirection(
-     const std::vector<Bot *> &plane, const Coord &bot_position,
+ void Basic::CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
      const unsigned plane_width, const unsigned plane_height,
                                         const Direction push_direction) {
 
-  Coord new_position = GenPosition(push_direction, bot_position);
+  Coord new_position = NextPosition(push_direction, bot_position);
 
   if (new_position.x >= plane_width || new_position.x < 0 ||
   new_position.y >= plane_height || new_position.y < 0) {

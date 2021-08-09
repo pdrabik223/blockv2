@@ -16,8 +16,7 @@ public:
   TurnDirection GetDirection() const;
    BotType GetType() const override;
   const BotType type_ = BotType::TURN;
-  void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
+  void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
       const unsigned plane_width, const unsigned plane_height,
                                   const Direction push_direction) override;
   void ClearMovementDirection() override;

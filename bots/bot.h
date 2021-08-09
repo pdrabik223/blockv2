@@ -28,7 +28,7 @@ enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 
 
-Coord GenPosition(Direction direction,const Coord &current_position);
+Coord NextPosition(Direction direction,const Coord &current_position);
 
 
 enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
@@ -36,17 +36,17 @@ class Bot {
 public:
   Bot() = default;
 
-  virtual Bot *Clone() { return this; };
+  virtual Bot *Clone() { return new Bot(*this); };
 
   virtual void OutputToFile(std::ostream &out) const {};
   virtual BotType GetType() const { return type_; }
   virtual void Action(const std::vector<Bot *> &plane,
                       const Coord &bot_position, const unsigned plane_width,
                       const unsigned plane_height){};
-  virtual void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
+
+  virtual void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
       const unsigned plane_width, const unsigned plane_height,
-                                          const Direction push_direction){ };
+                                          const Direction push_direction);;
   virtual void ClearMovementDirection(){};
 
   const BotType type_ = BotType::NONE;

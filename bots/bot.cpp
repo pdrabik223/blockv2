@@ -3,7 +3,7 @@
 //
 
 #include "bot.h"
-Coord GenPosition(Direction direction, const Coord &current_position) {
+Coord NextPosition(Direction direction, const Coord &current_position) {
   switch (direction) {
   case Direction::UP:
     return {current_position.x, current_position.y - 1};
@@ -15,3 +15,6 @@ Coord GenPosition(Direction direction, const Coord &current_position) {
     return {current_position.x + 1, current_position.y};
   }
 }
+void Bot::CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
+    const unsigned int plane_width, const unsigned int plane_height,
+    const Direction push_direction) { }

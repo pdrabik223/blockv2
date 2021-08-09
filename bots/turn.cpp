@@ -7,7 +7,7 @@ Turn::Turn(const Coord &position, TurnDirection direction)
     : position_(position), direction_(direction) {}
 Turn::Turn() = default;
 
-Turn *Turn::Clone() { return this; }
+Turn *Turn::Clone() { return new Turn(*this); }
 
 void Turn::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::TURN << " " << (unsigned)direction_ << "\n";
@@ -15,8 +15,7 @@ void Turn::OutputToFile(std::ostream &out) const {
 
 TurnDirection Turn::GetDirection() const { return direction_; }
  BotType Turn::GetType() const { return type_; }
- void Turn::CalculateMovementDirection(
-     const std::vector<Bot *> &plane, const Coord &bot_position,
+ void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
      const unsigned plane_width, const unsigned plane_height,
                                        const Direction push_direction) {}
 void Turn::ClearMovementDirection() {
