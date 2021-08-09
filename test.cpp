@@ -11,7 +11,7 @@ void Border(LevelInfo &target_level);
 
 int main() {
   srand(time(NULL));
-  LevelInfo game(15, 7);
+  LevelInfo game(10, 3);
 
   //  game.AddBot({32%10, 32/10}, BotType::ENEMY);
   //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
