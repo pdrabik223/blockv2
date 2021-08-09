@@ -10,6 +10,7 @@ class Factory : public Bot {
 public:
   Factory();
   Factory(const Coord &position, Direction direction);
+  Factory(const Factory& other);
   Factory *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

@@ -6,20 +6,22 @@
 #define BLOCK_V2_BOTS_BEDROCK_H_
 
 #include "bot.h"
-class Bedrock: public Bot {
+class Bedrock : public Bot {
 public:
   Bedrock();
   Bedrock(const Coord &position);
-
+  Bedrock(const Bedrock& other);
   Bedrock *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
   const BotType type_ = BotType::BEDROCK;
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              const unsigned plane_width, const unsigned plane_height) override;
-  void CalculateMovementDirection(const std::vector<Bot *> &plane, const Coord &bot_position,
-      const unsigned plane_width, const unsigned plane_height,
-                                  const Direction push_direction) override;
+               unsigned plane_width,  unsigned plane_height) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  unsigned plane_width,
+                                  unsigned plane_height,
+                                  Direction push_direction) override;
   void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
 private:

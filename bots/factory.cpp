@@ -18,3 +18,7 @@ Direction Factory::GetDirection() const { return direction_; }
      const unsigned plane_width, const unsigned plane_height,
                                           const Direction push_direction) {}
 void Factory::ClearMovementDirection() {movement_direction_ = movement_direction::Direction::NONE;}
+Factory::Factory(const Factory &other) {
+  movement_direction_ = other.movement_direction_;
+  direction_ = other.direction_;
+}

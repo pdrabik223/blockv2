@@ -10,6 +10,7 @@ class Tp : public Bot{
 public:
   Tp();
   Tp(const Coord &position,unsigned id);
+  Tp(const Tp & other);
   Tp *Clone() override;
   void OutputToFile(std::ostream &out) const override;
    BotType GetType() const override;

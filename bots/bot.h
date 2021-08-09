@@ -36,7 +36,8 @@ class Bot {
 public:
   Bot() = default;
 
-  virtual Bot *Clone() { return new Bot(*this); };
+
+  virtual Bot *Clone() {  assert(false); return new Bot(*this); };
 
   virtual void OutputToFile(std::ostream &out) const {};
   virtual BotType GetType() const { return type_; }

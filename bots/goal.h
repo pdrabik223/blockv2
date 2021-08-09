@@ -10,6 +10,7 @@ class Goal : public Bot {
 public:
   Goal();
   Goal(const Coord &position);
+  Goal(const Goal& other);
   Goal *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

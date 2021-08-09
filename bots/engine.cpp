@@ -67,3 +67,7 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 
 }
+Engine::Engine(const Engine &other) {
+  movement_direction_ = other.movement_direction_;
+  direction_ = other.direction_;
+}

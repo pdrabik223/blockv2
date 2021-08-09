@@ -10,6 +10,7 @@ class Enemy : public Bot {
 public:
   Enemy();
   Enemy(const Coord &position);
+  Enemy(const Enemy& other);
   Enemy *Clone() override;
   void OutputToFile(std::ostream &out) const override;
    BotType GetType() const override;
