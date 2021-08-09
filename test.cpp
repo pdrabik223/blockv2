@@ -17,8 +17,14 @@ int main() {
   //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
   //  game.AddBot({28%10, 28/10}, BotType::GOAL);
   //
-    FillWithBots(game, 0.3);
-    Border(game);
+//    FillWithBots(game, 0.3);
+
+ game.AddBot({3, 1}, BotType::ENGINE,Direction::RIGHT);
+ game.AddBot({4, 1}, BotType::BASIC);
+ game.AddBot({5, 1}, BotType::BASIC);
+
+  Border(game);
+
 
 
     game.SaveLevel();
