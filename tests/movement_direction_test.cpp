@@ -46,3 +46,8 @@ TEST(movement_dir, add_equal_operator) {
   e += Direction::LOCK_VERTICAL;
   EXPECT_TRUE(e == Direction::LOCK_GLOBAL);
 }
+TEST(movement_dir, LockAxis) {
+  EXPECT_TRUE( LockAxis(Direction::RIGHT) == Direction::LOCK_HORIZONTAL);
+
+  EXPECT_TRUE( LockAxis(Direction::UP) == Direction::LOCK_VERTICAL);
+}
