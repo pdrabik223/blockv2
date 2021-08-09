@@ -26,6 +26,15 @@ movement_direction::LockAxis(const movement_direction::Direction &locked_directi
       locked_direction == movement_direction::Direction::DOWN)
     return movement_direction::Direction::LOCK_VERTICAL;
 
-  assert(false);
   return movement_direction::Direction(locked_direction);
+
+}
+bool movement_direction::IsPossible(const movement_direction::Direction &a,
+                                    const movement_direction::Direction &b) {
+  if(b == a) return true;
+  if(LockAxis(a) == LockAxis(b)) return false;
+  if(b  == movement_direction::Direction::LOCK_GLOBAL) return false;
+  return true;
+  //assert(false);
+
 }

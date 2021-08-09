@@ -61,5 +61,12 @@ Direction& operator+=(Direction &a, const Direction &b);
 
 Direction LockAxis(const Direction &locked_direction);
 
+
+/// compares two directions if they are in collision
+/// \param a compared direction
+/// \param b template direction (a will be compared to b)
+/// \return true if the b direction allows a, false if they are in collision
+bool IsPossible(const Direction &a, const Direction &b);
+
 } // namespace movement_direction
 #endif // BLOCK_V2_UTILITY_MOVEMENT_DIRECTION_H_
