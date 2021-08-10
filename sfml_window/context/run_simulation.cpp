@@ -57,7 +57,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
           return ContextEvent::EXIT;
         case RunSimulationButton::STOP_SIMULATION:
           break;
-        case RunSimulationButton::END_SIMULATION:
+        case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
           return ContextEvent::UPDATE_DISPLAY;
         }
@@ -98,9 +98,9 @@ void sfml_window::RunSimulation::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "pause-button.png",
                       color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
-  buttons_[(unsigned)RunSimulationButton::END_SIMULATION] = new ImageButton(
+  buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] = new ImageButton(
       Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png",
-      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+      color_palette_[(unsigned)GuiColor::SAFE_COLOR]);
 }
 
 void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {

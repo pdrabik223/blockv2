@@ -17,7 +17,7 @@
 
 namespace sfml_window {
 enum class FlipDirection{HORIZONTAL,VERTICAL,BOTH };
-enum class RunSimulationButton { EXIT, STOP_SIMULATION, END_SIMULATION, SIZE };
+enum class RunSimulationButton { EXIT, STOP_SIMULATION, STEP_SIMULATION, SIZE };
 enum class Assets {
   BASIC, /// something like stone
   BEDROCK,
