@@ -16,7 +16,7 @@ void Empty::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                        const unsigned plane_width,
                                        const unsigned plane_height,
     const movement_direction::Direction push_direction) {
-  movement_direction_ += movement_direction::Direction((int)push_direction + 1);
+  movement_direction_ += push_direction;
 }
 void Empty::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::NONE;
