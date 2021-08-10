@@ -31,6 +31,7 @@ Coord NextPosition(movement_direction::Direction direction,
   case movement_direction::Direction::LOCK_HORIZONTAL:
   case movement_direction::Direction::LOCK_VERTICAL:
   case movement_direction::Direction::LOCK_GLOBAL:
+    return current_position;
   case movement_direction::Direction::SIZE:
     assert(false);
     return Coord();

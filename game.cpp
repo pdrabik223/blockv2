@@ -3,6 +3,7 @@
 //
 
 #include "game.h"
+#include <iostream>
 
 Bot *Board::GetCell(Coord position) { return plane_[position.ToInt(width_)]; }
 
@@ -20,8 +21,8 @@ unsigned int Board::GetHeight() const { return height_; }
 
 void Board::GenPosition() {
   ClearMovementDirection();
-  //  CalculateMovementDirection();
-  //  CalculateMovementDirection();
+  CalculateMovementDirection();
+  CalculateMovementDirection();
   GenNextPlaneState();
 }
 
@@ -44,13 +45,8 @@ void Board::GenNextPlaneState() {
     temp_plane.push_back(nullptr);
 
   for (int i = 0; i < Size(); ++i) {
-    if (plane_[i]->movement_direction_ == movement_direction::Direction::NONE or
-        plane_[i]->movement_direction_ ==
-            movement_direction::Direction::LOCK_GLOBAL)
-      temp_plane[i] = plane_[i]->Clone();
-    else
-      temp_plane[NextPosition(
-                     (Direction)((int)plane_[i]->movement_direction_ - 1),
+
+      temp_plane[NextPosition(plane_[i]->movement_direction_,
                      Coord(i % width_, i / width_))
                      .ToInt(width_)] = plane_[i]->Clone();
   }
@@ -65,9 +61,9 @@ void Board::GenNextPlaneState() {
   for (int i = 0; i < Size(); ++i)
     plane_.emplace_back(temp_plane[i]->Clone());
 
-  //
-  //  for (int i = 0; i < Size(); ++i)
-  //    delete temp_plane[i];
+
+//    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
+//      delete temp_plane[i];
 }
 
 bool Board::CompareGameState(const Board &other) {
@@ -80,7 +76,7 @@ bool Board::CompareGameState(const Board &other) {
   }
   return true;
 }
-size_t Board::Size() { return width_*height_; }
+size_t Board::Size() { return width_ * height_; }
 BotType Board::GetBotType(unsigned int position) const {
   return plane_[position]->type_;
 }

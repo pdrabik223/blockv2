@@ -51,8 +51,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
 
   if (event.type == sf::Event::MouseButtonReleased) {
     for (unsigned id = 0; id < buttons_.size(); id++)
-      if (buttons_[id]->DetectInteraction(
-              {mouse_x,mouse_y}, event))
+      if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
         switch ((RunSimulationButton)id) {
         case RunSimulationButton::EXIT:
           return ContextEvent::EXIT;
@@ -61,7 +60,6 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::END_SIMULATION:
           local_board_.GenPosition();
           return ContextEvent::UPDATE_DISPLAY;
-
         }
   } else {
     bool change = false;

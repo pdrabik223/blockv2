@@ -11,12 +11,16 @@ void Empty::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::EMPTY << "\n";
 }
 BotType Empty::GetType() const { return type_; }
-void Empty::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                       const Coord &bot_position,
-                                       const unsigned plane_width,
-                                       const unsigned plane_height,
+void Empty::CalculateMovementDirection(
+    const std::vector<Bot *> &plane, const Coord &bot_position,
+    const unsigned plane_width, const unsigned plane_height,
     const movement_direction::Direction push_direction) {
-  movement_direction_ += push_direction;
+
+  if (!IsPossible(
+          push_direction,
+          plane[NextPosition(push_direction, bot_position).ToInt(plane_width)]
+              ->movement_direction_))
+    movement_direction_ = movement_direction::LockAxis(push_direction);
 }
 void Empty::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::NONE;
