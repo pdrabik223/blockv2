@@ -24,3 +24,13 @@ Tp::Tp(const Tp &other) : Bot(other) {
   id_ = other.id_;
 }
 Tp::Tp(unsigned int id) : id_(id) {}
+void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+                 unsigned int plane_width,
+                 unsigned int plane_height) {
+
+}
+void Tp::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                   unsigned int plane_width,
+                   unsigned int plane_height) {
+
+}

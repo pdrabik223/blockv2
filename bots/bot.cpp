@@ -37,7 +37,4 @@ Coord NextPosition(movement_direction::Direction direction,
     return Coord();
   }
 }
-void Bot::CalculateMovementDirection(
-    const std::vector<Bot *> &plane, const Coord &bot_position,
-    const unsigned int plane_width, const unsigned int plane_height,
-    const movement_direction::Direction push_direction) {}
+

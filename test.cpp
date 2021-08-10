@@ -17,21 +17,16 @@ int main() {
   //  game.AddBot({0%10, 0/10}, BotType::ENEMY);
   //  game.AddBot({28%10, 28/10}, BotType::GOAL);
   //
-//    FillWithBots(game, 0.3);
+  //    FillWithBots(game, 0.3);
 
- game.AddBot({3, 1}, BotType::ENGINE,Direction::RIGHT);
- game.AddBot({4, 1}, BotType::BASIC);
- game.AddBot({5, 1}, BotType::BASIC);
+  game.AddBot({3, 1}, BotType::ENGINE, Direction::RIGHT);
+  game.AddBot({4, 1}, BotType::BASIC);
+  game.AddBot({5, 1}, BotType::BASIC);
 
   Border(game);
 
-
-
-    game.SaveLevel();
-    sfml_window::Gui sin(game);
-
-
-
+  game.SaveLevel();
+  sfml_window::Gui sin(game);
 
   return 0;
 }
@@ -58,7 +53,8 @@ void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
           target_level.AddBot(Coord(x, y), BotType::ENEMY);
           break;
         case 5:
-          target_level.AddBot(Coord(x, y), BotType::ENGINE, (Direction)(rand() % 4));
+          target_level.AddBot(Coord(x, y), BotType::ENGINE,
+                              (Direction)(rand() % 4));
           break;
         case 6:
           target_level.AddBot(Coord(x, y), BotType::FACTORY,
@@ -74,11 +70,13 @@ void Border(LevelInfo &target_level) {
 
   for (unsigned y = 0; y < target_level.GetHeight(); y++) {
     target_level.AddBot(Coord(0, y), BotType::BEDROCK);
-    target_level.AddBot(Coord(target_level.GetWidth() - 1, y), BotType::BEDROCK);
+    target_level.AddBot(Coord(target_level.GetWidth() - 1, y),
+                        BotType::BEDROCK);
   }
 
   for (unsigned x = 0; x < target_level.GetWidth(); x++) {
     target_level.AddBot(Coord(x, 0), BotType::BEDROCK);
-    target_level.AddBot(Coord(x, target_level.GetHeight() - 1), BotType::BEDROCK);
+    target_level.AddBot(Coord(x, target_level.GetHeight() - 1),
+                        BotType::BEDROCK);
   }
 }

@@ -13,10 +13,9 @@ void Turn::OutputToFile(std::ostream &out) const {
 
 TurnDirection Turn::GetDirection() const { return direction_; }
 BotType Turn::GetType() const { return type_; }
-void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                      const Coord &bot_position,
-                                      const unsigned plane_width,
-                                      const unsigned plane_height,
+void Turn::CalculateMovementDirection(
+    const std::vector<Bot *> &plane, const Coord &bot_position,
+    const unsigned plane_width, const unsigned plane_height,
     const movement_direction::Direction push_direction) {}
 void Turn::ClearMovementDirection() {
   movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
@@ -26,3 +25,7 @@ Turn::Turn(const Turn &other) : Bot(other) {
   direction_ = other.direction_;
 }
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
+void Turn::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+                  unsigned int plane_width, unsigned int plane_height) {}
+void Turn::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                    unsigned int plane_width, unsigned int plane_height) {}

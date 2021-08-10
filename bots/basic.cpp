@@ -45,3 +45,8 @@ Basic::Basic(const Basic &other) : Bot(other) {
 
   movement_direction_ = other.movement_direction_;
 }
+void Basic::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                     const unsigned int plane_width,
+                     const unsigned int plane_height) {
+
+}

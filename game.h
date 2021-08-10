@@ -27,9 +27,16 @@ public:
 
   size_t Size();
 private:
-
+  /// restore default moving direction in all the bots
   void ClearMovementDirection();
+
+  /// blocks every bot on the plane, from moving in the direction he can't
+  void LockEdges();
+
+  /// gen new legal moving directions
   void CalculateMovementDirection();
+
+  /// update bot position depending on legal moves
   void GenNextPlaneState();
 
   /// x axis

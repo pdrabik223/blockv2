@@ -22,3 +22,13 @@ void Goal::ClearMovementDirection() {
 Goal::Goal(const Goal &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
 }
+void Goal::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+                   unsigned int plane_width,
+                   unsigned int plane_height) {
+
+}
+void Goal::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                     unsigned int plane_width,
+                     unsigned int plane_height) {
+
+}

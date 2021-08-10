@@ -36,6 +36,12 @@ void Board::CalculateMovementDirection() {
   }
 }
 
+void Board::LockEdges(){
+  for (int i = 0; i < Size(); ++i)
+    plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_, height_);
+
+}
+
 void Board::GenNextPlaneState() {
   std::vector<Bot *> temp_plane;
 

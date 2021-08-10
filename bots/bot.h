@@ -43,6 +43,7 @@ public:
 
   virtual void OutputToFile(std::ostream &out) const {};
   virtual BotType GetType() const { return type_; }
+
   virtual void Action(const std::vector<Bot *> &plane,
                       const Coord &bot_position, const unsigned plane_width,
                       const unsigned plane_height){};
@@ -50,7 +51,12 @@ public:
   virtual void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       unsigned int plane_width, unsigned int plane_height,
-      movement_direction::Direction push_direction);
+      movement_direction::Direction push_direction){};
+
+  virtual void LockEdge(const std::vector<Bot *> &plane,
+                        const Coord &bot_position, const unsigned plane_width,
+                        const unsigned plane_height){};
+
   virtual void ClearMovementDirection(){};
 
   const BotType type_ = BotType::NONE;

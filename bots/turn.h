@@ -24,6 +24,12 @@ public:
   void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ =
       movement_direction::Direction::NONE;
+  void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
+               unsigned int plane_width,
+               unsigned int plane_height) override;
+  void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                 unsigned int plane_width,
+                 unsigned int plane_height) override;
 
 private:
   TurnDirection direction_ = TurnDirection::CLOCKWISE;

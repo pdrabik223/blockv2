@@ -33,3 +33,8 @@ void Empty::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 Empty::Empty(const Empty &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
 }
+void Empty::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
+                     const unsigned int plane_width,
+                     const unsigned int plane_height) {
+
+}
