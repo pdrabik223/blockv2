@@ -9,7 +9,7 @@
 #include <vector>
 
 /// direction witch bot might be facing
-enum class Direction { UP, DOWN, LEFT, RIGHT };
+enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
 
 Direction Opposite(Direction target);
 Coord NextPosition(Direction direction, const Coord &current_position);
@@ -23,29 +23,20 @@ enum class TranspositionType {
   SIZE
 };
 
-
-
-enum class TriBool{
-  NONE = -1,
-  FALSE = 0,
-  TRUE = 1
-};
-
+enum class TriBool { NONE = -1, FALSE = 0, TRUE = 1 };
 
 struct Transposition {
   Transposition();
-  Transposition(const Transposition& other);
-  Transposition& operator=(const Transposition& other);
+  Transposition(const Transposition &other);
+  Transposition &operator=(const Transposition &other);
   Coord Collapse(Coord current_position);
-  void LockEdge(const Direction& direction);
-  void AddDirection(const Direction& direction);
+  void LockEdge(const Direction &direction);
+  void AddDirection(const Direction &direction);
   void Clear();
   void LockAxis();
-  bool CheckDirection(const Direction& direction);
+  bool CheckDirection(const Direction &direction);
 
   TriBool encounter_counter[4];
 };
-
-
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_
