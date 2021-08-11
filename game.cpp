@@ -62,9 +62,9 @@ void Board::GenNextPlaneState() {
 
       if (origin != target) {
         // do nothing
-        std::cout << "move!\n";
+        std::cout << "move: " << origin << "\tto: " << target << "\n";
       }
-
+      if(temp_plane[target.ToInt(width_)] == nullptr) // this is kinda flimsily solution
       temp_plane[target.ToInt(width_)] = GetCell({x, y})->Clone();
     }
   }
