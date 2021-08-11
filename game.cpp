@@ -36,10 +36,10 @@ void Board::CalculateMovementDirection() {
   }
 }
 
-void Board::LockEdges(){
-  for (int i = 0; i < Size(); ++i)
-    plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_, height_);
-
+void Board::LockEdges() {
+  //  for (int i = 0; i < Size(); ++i)
+  //    plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_,
+  //    height_,);
 }
 
 void Board::GenNextPlaneState() {
@@ -52,9 +52,9 @@ void Board::GenNextPlaneState() {
 
   for (int i = 0; i < Size(); ++i) {
 
-      temp_plane[NextPosition(plane_[i]->movement_direction_,
-                     Coord(i % width_, i / width_))
-                     .ToInt(width_)] = plane_[i]->Clone();
+    temp_plane[plane_[i]
+                   ->movement_.Collapse(Coord(i % width_, i / width_))
+                   .ToInt(width_)] = plane_[i]->Clone();
   }
 
   for (int i = 0; i < Size(); ++i)
@@ -67,9 +67,8 @@ void Board::GenNextPlaneState() {
   for (int i = 0; i < Size(); ++i)
     plane_.emplace_back(temp_plane[i]->Clone());
 
-
-//    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
-//      delete temp_plane[i];
+  //    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
+  //      delete temp_plane[i];
 }
 
 bool Board::CompareGameState(const Board &other) {
