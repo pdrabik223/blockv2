@@ -40,7 +40,9 @@ public:
   void AddBot(const Coord &position,BotType type,TurnDirection turn_direction);
   void AddBot(const Coord &position,BotType type,int id);
 
-  std::vector<Bot*>& GetPLane(){return plane_;};
+  std::vector<Bot*>& GetPLane(){
+
+    return plane_;};
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
   const std::string &GetName() const;

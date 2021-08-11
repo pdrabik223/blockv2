@@ -11,6 +11,7 @@ Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 
 Board::Board(LevelInfo &level_info) {
   plane_ = level_info.GetPLane();
+
   width_ = level_info.GetWidth();
   height_ = level_info.GetHeight();
 }
@@ -20,6 +21,7 @@ unsigned int Board::GetWidth() const { return width_; }
 unsigned int Board::GetHeight() const { return height_; }
 
 void Board::GenPosition() {
+
   ClearMovementDirection();
   CalculateMovementDirection();
   CalculateMovementDirection();
@@ -30,6 +32,7 @@ void Board::ClearMovementDirection() {
   for (int i = 0; i < Size(); i++)
     plane_[i]->ClearMovementDirection();
 }
+
 void Board::CalculateMovementDirection() {
   for (int i = 0; i < Size(); ++i) {
     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_, height_);
@@ -37,9 +40,9 @@ void Board::CalculateMovementDirection() {
 }
 
 void Board::LockEdges() {
-  //  for (int i = 0; i < Size(); ++i)
-  //    plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_,
-  //    height_,);
+  //    for (int i = 0; i < Size(); ++i)
+  //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_,
+  //      height_,);
 }
 
 void Board::GenNextPlaneState() {
@@ -49,12 +52,21 @@ void Board::GenNextPlaneState() {
 
   for (int i = 0; i < Size(); ++i)
     temp_plane.push_back(nullptr);
+  std::cout << "new frame: generating\n";
 
-  for (int i = 0; i < Size(); ++i) {
+  for (int y = 0; y < height_; ++y) {
+    for (int x = 0; x < width_; ++x) {
 
-    temp_plane[plane_[i]
-                   ->movement_.Collapse(Coord(i % width_, i / width_))
-                   .ToInt(width_)] = plane_[i]->Clone();
+      Coord origin(x, y);
+      Coord target(GetCell({x, y})->GetMovement().Collapse(origin));
+
+      if (origin != target) {
+        // do nothing
+        std::cout << "move!\n";
+      }
+
+      temp_plane[target.ToInt(width_)] = GetCell({x, y})->Clone();
+    }
   }
 
   for (int i = 0; i < Size(); ++i)
