@@ -15,7 +15,7 @@ void Empty::CalculateMovementDirection(
     const std::vector<Bot *> &plane, const Coord &bot_position,
     const unsigned plane_width, const unsigned plane_height,
     const Direction push_direction) {
-    movement_.LockEdge(push_direction);
+    movement_.LockEdge(Opposite(push_direction));
 }
 void Empty::ClearMovementDirection() {
   movement_.Clear();
