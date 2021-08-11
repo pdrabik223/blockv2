@@ -23,6 +23,8 @@ void Gui::ThMainLoop() {
   sf::RenderWindow window(sf::VideoMode(1200, 600), "My window",
                           sf::Style::None, settings);
 
+  window.setPosition(sf::Vector2i(0, 0));
+
   // run the program as long as the window is open
   current_context_->DrawToWindow(window);
   window.display();
@@ -46,6 +48,7 @@ void Gui::ThMainLoop() {
         update_display:
           current_context_->DrawToWindow(window);
           window.display();
+          std::cout<<"updating screen\n";
         default:
           break;
         }
