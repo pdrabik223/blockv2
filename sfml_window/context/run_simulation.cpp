@@ -13,6 +13,7 @@ sfml_window::RunSimulation::~RunSimulation() {
     delete button;
   }
 }
+
 sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           unsigned int window_height,
                                           LevelInfo &level_info)
@@ -198,31 +199,6 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
     file.close();
   }
 
-  {
-    // loading images is hard
-    // because user is dudu,
-    // and I need to apologise for it
-    //
-    // ok nessery images:
-    // basic, bedrock, goal, enemy
-    //
-    // turn has 2 versions
-    // engine 4
-    // factory 4
-    // and tp infinite but it's hard to have infinite
-
-    // ok, basic rules :
-    // 1. the names of the files are strict,
-    // 2. if directory has image for block use this one
-    // if not use default one
-    // 3.  only one of the variant blocks must be present, rest will be created
-    // by flipping
-    //  a) if the up is present down will be created first
-    //   than the check will be run for left and right ones
-    //  b) if the left and right are present that's it
-    //   if only one is present the second will be created by vertical flip
-  }
-
   // for background
   if (exists[(unsigned)Assets::BACKGROUND])
     LoadBackground(kDir + file_names[(unsigned)Assets::BACKGROUND]);
@@ -246,8 +222,8 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
     CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
   } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
-    LoadCell(Assets::TURN_CC, kDefaultDir + file_names[(int)Assets::TURN_CC]);
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
+    LoadCell(Assets::TURN_C, kDefaultDir + file_names[(int)Assets::TURN_C]);
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
   } else
     throw "error";
   // todo these  need to be done better
@@ -261,10 +237,10 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   if (not EXIST(FACTORY_U) and not EXIST(FACTORY_D) and not EXIST(FACTORY_L) and
       not EXIST(FACTORY_R)) {
     LoadCell(Assets::FACTORY_R,
-             kDefaultDir + file_names[(int)Assets::FACTORY_R]);
+             kDefaultDir + file_names[(int)Assets::FACTORY_U]);
+    CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
+    CopyCell(Assets::FACTORY_R, Assets::FACTORY_U, FlipDirection::BOTH);
     CopyCell(Assets::FACTORY_L, Assets::FACTORY_R, FlipDirection::VERTICAL);
-    CopyCell(Assets::FACTORY_D, Assets::FACTORY_R, FlipDirection::BOTH);
-    CopyCell(Assets::FACTORY_U, Assets::FACTORY_D, FlipDirection::VERTICAL);
   }
 }
 
