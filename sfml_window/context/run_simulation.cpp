@@ -157,11 +157,12 @@ void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
 
   if (!background_texture_.loadFromFile(level_path))
     throw "error";
-
+  background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);
   background_sprite_.setScale(
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
+
 }
 
 void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
@@ -227,20 +228,27 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
   } else
     throw "error";
   // todo these  need to be done better
+
   if (not EXIST(ENGINE_U) and not EXIST(ENGINE_D) and not EXIST(ENGINE_L) and
       not EXIST(ENGINE_R)) {
     LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
-    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
+
     CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, FlipDirection::BOTH);
-    CopyCell(Assets::ENGINE_L, Assets::ENGINE_R, FlipDirection::VERTICAL);
+
+    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
+
+    CopyCell(Assets::ENGINE_L, Assets::ENGINE_D, FlipDirection::HORIZONTAL);
   }
   if (not EXIST(FACTORY_U) and not EXIST(FACTORY_D) and not EXIST(FACTORY_L) and
       not EXIST(FACTORY_R)) {
-    LoadCell(Assets::FACTORY_R,
+
+    LoadCell(Assets::FACTORY_U,
              kDefaultDir + file_names[(int)Assets::FACTORY_U]);
-    CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
     CopyCell(Assets::FACTORY_R, Assets::FACTORY_U, FlipDirection::BOTH);
-    CopyCell(Assets::FACTORY_L, Assets::FACTORY_R, FlipDirection::VERTICAL);
+
+    CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
+
+    CopyCell(Assets::FACTORY_L, Assets::FACTORY_D, FlipDirection::HORIZONTAL);
   }
 }
 
