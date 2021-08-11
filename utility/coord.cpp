@@ -12,6 +12,7 @@ bool Coord::operator==(const Coord &rhs) const {
   return x == rhs.x && y == rhs.y;
 }
 bool Coord::operator!=(const Coord &rhs) const { return !(rhs == *this); }
+
 Coord::Coord(const Coord &other) {
   x = other.x;
   y = other.y;
