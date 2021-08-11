@@ -11,24 +11,20 @@ void Goal::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::GOAL << "\n";
 }
 BotType Goal::GetType() const { return type_; }
-void Goal::CalculateMovementDirection(const std::vector<Bot *> &plane,
-                                      const Coord &bot_position,
-                                      const unsigned plane_width,
-                                      const unsigned plane_height,
-    const movement_direction::Direction push_direction) {}
+void Goal::CalculateMovementDirection(
+    const std::vector<Bot *> &plane, const Coord &bot_position,
+    const unsigned plane_width, const unsigned plane_height,
+    const Direction push_direction) {}
+
 void Goal::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::NONE;
+  movement_.Clear();
 }
 Goal::Goal(const Goal &other) : Bot(other) {
-  movement_direction_ = other.movement_direction_;
+  movement_.Clear();
 }
 void Goal::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                   unsigned int plane_width,
-                   unsigned int plane_height) {
-
-}
+                  unsigned int plane_width, unsigned int plane_height) {}
 void Goal::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
                     const unsigned int plane_width,
                     const unsigned int plane_height, Direction push_direction) {
-
 }

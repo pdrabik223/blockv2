@@ -4,11 +4,8 @@
 
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
-//#include "../game.h"
-#include "../utility/coord.h"
-//#include "../utility/movement_direction.h"
 #include <ostream>
-#include <transposition.h>
+#include "../utility/transposition.h"
 
 /// contains all used cell types
 enum class BotType {
@@ -25,10 +22,6 @@ enum class BotType {
   SIZE
 };
 
-
-Coord NextPosition(Direction direction, const Coord &current_position);
-//Coord NextPosition(movement_direction::Direction direction,
-//                   const Coord &current_position);
 
 enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
 

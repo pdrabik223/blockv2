@@ -16,24 +16,18 @@ void Factory::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                          const Coord &bot_position,
                                          const unsigned plane_width,
                                          const unsigned plane_height,
-    const movement_direction::Direction push_direction) {}
-void Factory::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::NONE;
-}
+                                         const Direction push_direction) {}
+void Factory::ClearMovementDirection() { movement_.Clear(); }
 Factory::Factory(const Factory &other) : Bot(other) {
-  movement_direction_ = other.movement_direction_;
+  movement_ = other.movement_;
   direction_ = other.direction_;
 }
 Factory::Factory(Direction direction) : direction_(direction) {}
 void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
-                     const unsigned int plane_height) {
-
-}
+                     const unsigned int plane_height) {}
 void Factory::LockEdge(const std::vector<Bot *> &plane,
                        const Coord &bot_position,
                        const unsigned int plane_width,
                        const unsigned int plane_height,
-                       Direction push_direction) {
-
-}
+                       Direction push_direction) {}

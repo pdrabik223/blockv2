@@ -15,20 +15,15 @@ void Enemy::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                        const Coord &bot_position,
                                        const unsigned plane_width,
                                        const unsigned plane_height,
-    const movement_direction::Direction push_direction) {}
-void Enemy::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::NONE;
-}
+                                       const Direction push_direction) {}
+
+void Enemy::ClearMovementDirection() { movement_.Clear(); }
 void Enemy::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
                    const unsigned plane_height) { /*do nothing*/
 }
-Enemy::Enemy(const Enemy &other) : Bot(other) {
-  movement_direction_ = other.movement_direction_;
-}
+Enemy::Enemy(const Enemy &other) : Bot(other) { movement_ = other.movement_; }
 void Enemy::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
                      const unsigned int plane_height,
-                     Direction push_direction) {
-
-}
+                     Direction push_direction) {}

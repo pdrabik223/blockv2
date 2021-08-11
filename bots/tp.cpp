@@ -15,22 +15,15 @@ void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                     const Coord &bot_position,
                                     const unsigned plane_width,
                                     const unsigned plane_height,
-    const movement_direction::Direction push_direction) {}
-void Tp::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
-}
+                                    const Direction push_direction) {}
+void Tp::ClearMovementDirection() { movement_.Clear(); }
 Tp::Tp(const Tp &other) : Bot(other) {
-  movement_direction_ = other.movement_direction_;
+  movement_ = other.movement_;
   id_ = other.id_;
 }
 Tp::Tp(unsigned int id) : id_(id) {}
 void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                 unsigned int plane_width,
-                 unsigned int plane_height) {
-
-}
+                unsigned int plane_width, unsigned int plane_height) {}
 void Tp::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
                   const unsigned int plane_width,
-                  const unsigned int plane_height, Direction push_direction) {
-
-}
+                  const unsigned int plane_height, Direction push_direction) {}

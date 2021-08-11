@@ -20,14 +20,14 @@ public:
   void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       unsigned int plane_width, unsigned int plane_height,
-      movement_direction::Direction push_direction) override;
+      Direction push_direction) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
                 const unsigned int plane_width, const unsigned int plane_height,
                 Direction push_direction) override;
   void ClearMovementDirection() override;
-  movement_direction::Direction movement_direction_ =
-      movement_direction::Direction::LOCK_GLOBAL;
+
+  Transposition movement_direction_;
 };
 
 #endif // BLOCK_V2_BOTS_BEDROCK_H_

@@ -15,16 +15,19 @@ void Bedrock::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                          const Coord &bot_position,
                                          const unsigned plane_width,
                                          const unsigned plane_height,
-    const movement_direction::Direction push_direction) {
+                                         const Direction push_direction) {
   // do nothing :P
 }
 void Bedrock::ClearMovementDirection() {
-  movement_direction_ = movement_direction::Direction::LOCK_GLOBAL;
+  movement_.Clear();
+  movement_.LockEdge(Direction::LEFT);
+  movement_.LockEdge(Direction::RIGHT);
+  movement_.LockEdge(Direction::UP);
+  movement_.LockEdge(Direction::DOWN);
 }
 void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      unsigned plane_width,
-                     unsigned plane_height) { /*do nothing*/
-}
+                     unsigned plane_height) { /*do nothing*/}
 Bedrock::Bedrock(const Bedrock &other) : Bot(other) {
   movement_direction_ = other.movement_direction_;
 }
@@ -32,6 +35,4 @@ void Bedrock::LockEdge(const std::vector<Bot *> &plane,
                        const Coord &bot_position,
                        const unsigned int plane_width,
                        const unsigned int plane_height,
-                       Direction push_direction) {
-
-}
+                       Direction push_direction) { /*do nothing*/}
