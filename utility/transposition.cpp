@@ -20,7 +20,7 @@ Direction RHR(Direction a, Direction b) {
 
   assert(a <= Direction::DOWN);
   assert(b > Direction::DOWN);
-  return r_h_r[(int)a][(int)b];
+  return r_h_r[(int)a][(int)b - 2];
 }
 
 Transposition::Transposition() {
@@ -40,27 +40,37 @@ Transposition &Transposition::operator=(const Transposition &other) {
 }
 Coord Transposition::Collapse(const Coord &current_position) {
 
-  std::unique_ptr<Direction> vertical = nullptr;
-  std::unique_ptr<Direction> horizontal = nullptr;
+  Direction vertical;
+  bool empty_vertical = true;
+  Direction horizontal;
+  bool empty_horizontal = true;
 
-  if (encounter_counter[(int)Direction::UP] == TriState::TRUE)
-    vertical = std::make_unique<Direction>(Direction::UP);
+  if (encounter_counter[(int)Direction::UP] == TriState::TRUE) {
+    vertical = Direction::UP;
+    empty_vertical = false;
+  }
+  if (encounter_counter[(int)Direction::DOWN] == TriState::TRUE) {
+    vertical = Direction::DOWN;
+    empty_vertical = false;
+  }
+  if (encounter_counter[(int)Direction::LEFT] == TriState::TRUE) {
+    horizontal = Direction::LEFT;
+    empty_horizontal = false;
+  }
+  if (encounter_counter[(int)Direction::RIGHT] == TriState::TRUE) {
+    horizontal = Direction::RIGHT;
+    empty_horizontal = false;
+  }
 
-  if (encounter_counter[(int)Direction::DOWN] == TriState::TRUE)
-    vertical = std::make_unique<Direction>(Direction::DOWN);
 
-  if (encounter_counter[(int)Direction::LEFT] == TriState::TRUE)
-    horizontal = std::make_unique<Direction>(Direction::LEFT);
+  if (not empty_vertical and not empty_horizontal)
+    return NextPosition(RHR(vertical, horizontal), current_position);
 
-  if (encounter_counter[(int)Direction::RIGHT] == TriState::TRUE)
-    horizontal = std::make_unique<Direction>(Direction::RIGHT);
+  if (empty_vertical and not empty_horizontal)
+    return NextPosition(horizontal, current_position);
 
-  if (vertical != nullptr and horizontal != nullptr)
-    return NextPosition(RHR(*vertical, *horizontal), current_position);
-  if (vertical == nullptr and horizontal != nullptr)
-    return NextPosition(*vertical, current_position);
-  if (vertical != nullptr and horizontal == nullptr)
-    return NextPosition(*horizontal, current_position);
+  if (not empty_vertical and empty_horizontal)
+    return NextPosition(vertical, current_position);
 
   return current_position;
 }

@@ -40,7 +40,6 @@ struct Transposition {
   void LockEdge(const Direction &direction);
   void AddDirection(const Direction &direction);
   void Clear();
-  void LockAxis();
   bool CheckDirection(const Direction &direction);
 
   TriState encounter_counter[4];
