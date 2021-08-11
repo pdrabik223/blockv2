@@ -33,6 +33,7 @@ void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 void Factory::LockEdge(const std::vector<Bot *> &plane,
                        const Coord &bot_position,
                        const unsigned int plane_width,
-                       const unsigned int plane_height) {
+                       const unsigned int plane_height,
+                       Direction push_direction) {
 
 }

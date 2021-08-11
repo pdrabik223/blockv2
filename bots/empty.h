@@ -22,8 +22,8 @@ public:
       movement_direction::Direction push_direction) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                const unsigned int plane_width,
-                const unsigned int plane_height) override;
+                const unsigned int plane_width, const unsigned int plane_height,
+                Direction push_direction) override;
   void ClearMovementDirection() override;
 
   const BotType type_ = BotType::EMPTY;

@@ -27,8 +27,8 @@ public:
                unsigned int plane_height) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                 unsigned int plane_width,
-                 unsigned int plane_height) override;
+                const unsigned int plane_width, const unsigned int plane_height,
+                Direction push_direction) override;
   void ClearMovementDirection() override;
   movement_direction::Direction movement_direction_ =
       movement_direction::Direction::NONE;

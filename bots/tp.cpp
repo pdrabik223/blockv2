@@ -30,7 +30,7 @@ void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 }
 void Tp::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                   unsigned int plane_width,
-                   unsigned int plane_height) {
+                  const unsigned int plane_width,
+                  const unsigned int plane_height, Direction push_direction) {
 
 }

@@ -13,7 +13,6 @@ public:
   Basic *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
-  const BotType type_ = BotType::BASIC;
 
   void ClearMovementDirection() override;
 
@@ -23,13 +22,15 @@ public:
   void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       unsigned int plane_width, unsigned int plane_height,
-      movement_direction::Direction push_direction) override;
+                                  Direction push_direction) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                const unsigned int plane_width,
-                const unsigned int plane_height) override;
-  movement_direction::Direction movement_direction_ =
-      movement_direction::Direction::NONE;
+                const unsigned int plane_width, const unsigned int plane_height,
+                Direction push_direction) override;
+
+  const BotType type_ = BotType::BASIC;
+
+  Transposition movement_;
 };
 
 #endif // BLOCK_V2_BOTS_BASIC_H_
