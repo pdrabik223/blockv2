@@ -11,6 +11,13 @@
 /// direction witch bot might be facing
 enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
 
+/// right hand rule
+/// \rule the  direction on the right goes first
+/// \param a first direction to compare
+/// \param b second direction to compare
+/// \return  returns the correct direction according to the right hand rule
+
+Direction RHR(Direction a,Direction b);
 Direction Opposite(Direction target);
 Coord NextPosition(Direction direction, const Coord &current_position);
 
@@ -23,20 +30,20 @@ enum class TranspositionType {
   SIZE
 };
 
-enum class TriBool { NONE = -1, FALSE = 0, TRUE = 1 };
+enum class TriState { NONE = -1, FALSE = 0, TRUE = 1 };
 
 struct Transposition {
   Transposition();
   Transposition(const Transposition &other);
   Transposition &operator=(const Transposition &other);
-  Coord Collapse(Coord current_position);
+  Coord Collapse(const Coord& current_position);
   void LockEdge(const Direction &direction);
   void AddDirection(const Direction &direction);
   void Clear();
   void LockAxis();
   bool CheckDirection(const Direction &direction);
 
-  TriBool encounter_counter[4];
+  TriState encounter_counter[4];
 };
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_
