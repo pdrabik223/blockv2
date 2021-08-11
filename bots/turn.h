@@ -32,9 +32,10 @@ public:
 
   const BotType type_ = BotType::TURN;
 
-  Transposition movement_;
+  Transposition GetMovement() const override;
 
-private:
+protected:
+  Transposition movement_;
   TurnDirection direction_ = TurnDirection::CLOCKWISE;
 };
 

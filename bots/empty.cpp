@@ -49,3 +49,4 @@ void Empty::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
   plane[new_position.ToInt(plane_width)]->LockEdge(
       plane, new_position, plane_width, plane_height, push_direction);
 }
+ Transposition Empty::GetMovement() const { return movement_; }

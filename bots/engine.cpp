@@ -49,7 +49,7 @@ void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
 
   // if the next cell is "pushable" in the push_direction
   // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->movement_.CheckDirection(
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           push_direction))
     movement_.AddDirection(push_direction);
   else
@@ -71,7 +71,7 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
   // if the next cell is "pushable" in the push_direction
   // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->movement_.CheckDirection(
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           direction_))
     movement_.AddDirection(direction_);
   else
@@ -82,3 +82,4 @@ Engine::Engine(const Engine &other) : Bot(other) {
   direction_ = other.direction_;
 }
 Engine::Engine(Direction direction) : direction_(direction) {}
+Transposition Engine::GetMovement() const { return movement_; }

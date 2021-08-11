@@ -28,6 +28,10 @@ public:
   void ClearMovementDirection() override;
 
   const BotType type_ = BotType::BEDROCK;
+
+   Transposition GetMovement() const override;
+
+protected:
   Transposition movement_;
 };
 

@@ -29,10 +29,12 @@ public:
                 unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
   void ClearMovementDirection() override;
-  const BotType type_ = BotType::FACTORY;
-  Transposition movement_;
 
-private:
+  Transposition GetMovement() const override;
+  const BotType type_ = BotType::FACTORY;
+
+protected:
+  Transposition movement_;
   Direction direction_;
 };
 

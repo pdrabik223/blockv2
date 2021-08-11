@@ -29,8 +29,13 @@ public:
                 unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
 
+
+
   const BotType type_ = BotType::BASIC;
 
+  Transposition GetMovement() const override;
+
+protected:
   Transposition movement_;
 };
 

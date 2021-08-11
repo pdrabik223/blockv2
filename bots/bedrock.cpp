@@ -37,3 +37,4 @@ void Bedrock::LockEdge(const std::vector<Bot *> &plane,
                        const unsigned int plane_width,
                        const unsigned int plane_height,
                        Direction push_direction) { /*do nothing*/}
+ Transposition Bedrock::GetMovement() const { return movement_; }

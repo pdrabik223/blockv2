@@ -29,7 +29,11 @@ public:
 
   void ClearMovementDirection() override;
 
+   Transposition GetMovement() const override;
   const BotType type_ = BotType::EMPTY;
+
+
+protected:
   Transposition movement_;
 };
 

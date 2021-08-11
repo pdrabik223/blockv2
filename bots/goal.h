@@ -28,6 +28,10 @@ public:
                 unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
   void ClearMovementDirection() override;
+
+  Transposition GetMovement() const override;
+
+protected:
   Transposition movement_;
 };
 

@@ -48,7 +48,7 @@ void Basic::CalculateMovementDirection(const std::vector<Bot *> &plane,
 
   // if the next cell is "pushable" in the push_direction
   // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->movement_.CheckDirection(
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           push_direction)) {
     movement_.AddDirection(push_direction);
     movement_.LockEdge(Opposite(push_direction));
@@ -62,3 +62,4 @@ void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_height) { /*do nothing*/
 }
 Basic::Basic(const Basic &other) : Bot(other) { movement_ = other.movement_; }
+Transposition Basic::GetMovement() const { return movement_; }

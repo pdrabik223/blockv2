@@ -29,9 +29,11 @@ public:
 
 
   const BotType type_ = BotType::TP;
-  Transposition movement_;
 
-private:
+  Transposition GetMovement() const override;
+
+protected:
+  Transposition movement_;
   unsigned id_;
 };
 

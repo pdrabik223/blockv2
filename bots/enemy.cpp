@@ -27,3 +27,4 @@ void Enemy::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
                      const unsigned int plane_height,
                      Direction push_direction) {}
+Transposition Enemy::GetMovement() const { return movement_; }

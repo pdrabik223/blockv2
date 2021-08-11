@@ -55,7 +55,9 @@ public:
   virtual void ClearMovementDirection(){};
 
   const BotType type_ = BotType::NONE;
+  virtual Transposition GetMovement() const { return movement_; }
 
+protected:
   Transposition movement_;
 };
 

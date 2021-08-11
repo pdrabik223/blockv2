@@ -33,9 +33,10 @@ public:
   void ClearMovementDirection() override;
 
   const BotType type_ = BotType::ENGINE;
-  Transposition movement_;
+  Transposition GetMovement() const override;
 
-private:
+protected:
+  Transposition movement_;
   Direction direction_ = Direction::UP;
 };
 

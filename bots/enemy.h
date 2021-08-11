@@ -27,7 +27,11 @@ public:
                 Direction push_direction) override;
   void ClearMovementDirection() override;
 
+  Transposition GetMovement() const override;
+
   const BotType type_ = BotType::ENEMY;
+
+protected:
   Transposition movement_;
 };
 
