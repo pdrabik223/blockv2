@@ -56,6 +56,7 @@ void Basic::CalculateMovementDirection(const std::vector<Bot *> &plane,
     movement_.LockEdge(push_direction);
 }
 void Basic::ClearMovementDirection() { movement_.Clear(); }
+
 void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
                    const unsigned plane_height) { /*do nothing*/

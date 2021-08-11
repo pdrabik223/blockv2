@@ -24,12 +24,13 @@ void Bedrock::ClearMovementDirection() {
   movement_.LockEdge(Direction::RIGHT);
   movement_.LockEdge(Direction::UP);
   movement_.LockEdge(Direction::DOWN);
+
 }
 void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      unsigned plane_width,
                      unsigned plane_height) { /*do nothing*/}
 Bedrock::Bedrock(const Bedrock &other) : Bot(other) {
-  movement_direction_ = other.movement_direction_;
+  movement_ = other.movement_;
 }
 void Bedrock::LockEdge(const std::vector<Bot *> &plane,
                        const Coord &bot_position,

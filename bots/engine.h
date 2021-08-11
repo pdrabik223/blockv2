@@ -17,7 +17,6 @@ public:
   void OutputToFile(std::ostream &out) const override;
   Direction GetDirection() const;
   BotType GetType() const override;
-  const BotType type_ = BotType::ENGINE;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
@@ -33,6 +32,7 @@ public:
 
   void ClearMovementDirection() override;
 
+  const BotType type_ = BotType::ENGINE;
   Transposition movement_;
 
 private:

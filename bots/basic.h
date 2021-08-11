@@ -19,13 +19,14 @@ public:
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
 
-  void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
-      unsigned int plane_width, unsigned int plane_height,
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  unsigned int plane_width,
+                                  unsigned int plane_height,
                                   Direction push_direction) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                const unsigned int plane_width, const unsigned int plane_height,
+                unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
 
   const BotType type_ = BotType::BASIC;

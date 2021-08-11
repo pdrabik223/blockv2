@@ -59,6 +59,7 @@ void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
 void Engine::ClearMovementDirection() {
   movement_.Clear();
   movement_.AddDirection(direction_);
+  movement_.LockEdge(Opposite(direction_));
 }
 
 void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,

@@ -14,20 +14,21 @@ public:
   Bedrock *Clone() override;
   void OutputToFile(std::ostream &out) const override;
   BotType GetType() const override;
-  const BotType type_ = BotType::BEDROCK;
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
-  void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
-      unsigned int plane_width, unsigned int plane_height,
-      Direction push_direction) override;
+  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+                                  const Coord &bot_position,
+                                  unsigned int plane_width,
+                                  unsigned int plane_height,
+                                  Direction push_direction) override;
 
   void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                const unsigned int plane_width, const unsigned int plane_height,
+                unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
   void ClearMovementDirection() override;
 
-  Transposition movement_direction_;
+  const BotType type_ = BotType::BEDROCK;
+  Transposition movement_;
 };
 
 #endif // BLOCK_V2_BOTS_BEDROCK_H_
