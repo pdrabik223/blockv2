@@ -95,13 +95,17 @@ bool Board::CompareGameState(const Board &other) {
   }
   return true;
 }
+
 size_t Board::Size() { return width_ * height_; }
+
 BotType Board::GetBotType(unsigned int position) const {
   return plane_[position]->GetType();
 }
+
 BotType Board::GetBotType(const Coord &position) const {
   return plane_[position.ToInt(width_)]->GetType();
 }
+
 int GetValue(const Bot &bot_a) {
 
   switch (bot_a.GetType()) {
@@ -133,6 +137,7 @@ int GetValue(const Bot &bot_a) {
   assert(false);
   return -1;
 }
+
 Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
   int value_of_a_life = GetValue(*bot_a);
   int value_of_b_life = GetValue(*bot_b);
@@ -140,4 +145,12 @@ Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
   // bedrock = 4
 
   return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
+}
+
+bool Board::IsWon() {
+  for (const auto &b : plane_)
+    if (b->GetType() == BotType::GOAL)
+      return false;
+
+  return true;
 }

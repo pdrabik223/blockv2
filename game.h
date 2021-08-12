@@ -25,6 +25,7 @@ public:
 
   bool CompareGameState(const Board &other);
 
+  bool IsWon();
   size_t Size();
 
 private:
