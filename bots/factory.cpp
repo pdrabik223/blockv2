@@ -25,6 +25,23 @@ Factory::Factory(const Factory &other) : Bot(other) {
 Factory::Factory(Direction direction) : direction_(direction) {}
 void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
-                     const unsigned int plane_height) {}
+                     const unsigned int plane_height) {
+  Coord new_position = NextPosition(direction_, bot_position);
+
+  plane[new_position.ToInt(plane_width)]->CalculateMovementDirection(
+      plane, new_position, plane_width, plane_height, direction_);
+}
 
 Transposition Factory::GetMovement() const { return movement_; }
+
+void Factory::Ability(const std::vector<Bot *> &plane,
+                      const Coord &bot_position, unsigned int plane_width,
+                      unsigned int plane_height) {
+  Coord target = NextPosition(direction_, bot_position);
+  Coord original = NextPosition(Opposite(direction_), bot_position);
+  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY and
+      plane[original.ToInt(plane_width)]->GetType() != BotType::EMPTY){
+
+  }
+
+}

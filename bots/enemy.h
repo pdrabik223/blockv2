@@ -23,6 +23,10 @@ public:
                                   unsigned int plane_height,
                                   Direction push_direction) override;
 
+  void Ability(const std::vector<Bot *> &plane, const Coord &bot_position,
+               unsigned int plane_width, unsigned int plane_height)  override
+               {/* do nothing */};
+
   void ClearMovementDirection() override;
 
   Transposition GetMovement() const override;

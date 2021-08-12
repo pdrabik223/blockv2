@@ -28,6 +28,10 @@ public:
 
   void ClearMovementDirection() override;
 
+  void Ability(const std::vector<Bot *> &plane, const Coord &bot_position,
+               unsigned int plane_width, unsigned int plane_height)  override
+               {/* do nothing */};
+
   Transposition GetMovement() const override;
   Direction GetDirection() const;
   BotType GetType() const override;

@@ -47,6 +47,8 @@ public:
       unsigned int plane_width, unsigned int plane_height,
       Direction push_direction){assert(false);};
 
+  virtual void Ability( const std::vector<Bot *> &plane, const Coord &bot_position,
+                        unsigned int plane_width, unsigned int plane_height){assert(false);};
 
   virtual void ClearMovementDirection(){assert(false);};
 

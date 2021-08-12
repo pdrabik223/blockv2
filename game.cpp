@@ -68,6 +68,11 @@ void Board::GenNextPlaneState() {
       else
         temp_plane[target.ToInt(width_)] =
             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
+
+      if(temp_plane[target.ToInt(width_)]->GetType() == BotType::FACTORY){
+        temp_plane[target.ToInt(width_)]->Ability();
+      }
+
     }
   }
 

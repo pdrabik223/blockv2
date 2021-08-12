@@ -43,3 +43,4 @@ void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 }
 Basic::Basic(const Basic &other) : Bot(other) { movement_ = other.movement_; }
 Transposition Basic::GetMovement() const { return movement_; }
+

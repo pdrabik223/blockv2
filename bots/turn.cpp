@@ -12,18 +12,26 @@ void Turn::OutputToFile(std::ostream &out) const {
 }
 
 TurnDirection Turn::GetDirection() const { return direction_; }
+
 BotType Turn::GetType() const { return type_; }
+
 void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                       const Coord &bot_position,
                                       const unsigned plane_width,
                                       const unsigned plane_height,
-                                      const Direction push_direction) {}
+                                      const Direction push_direction) {
+
+
+}
 void Turn::ClearMovementDirection() { movement_.Clear(); }
+
 Turn::Turn(const Turn &other) : Bot(other) {
   movement_ = other.movement_;
   direction_ = other.direction_;
 }
+
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
+
 void Turn::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                   unsigned int plane_width, unsigned int plane_height) {}
 
