@@ -13,20 +13,28 @@ class Board {
 public:
   Board() = delete;
 
-  Board(LevelInfo& level_info);
-  Bot* GetCell(Coord position);
-  Bot* GetCell(unsigned position);
-  BotType GetBotType(const Coord& position)const;
-  BotType GetBotType(unsigned position) const ;
+  Board(LevelInfo &level_info);
+  Bot *GetCell(Coord position);
+  Bot *GetCell(unsigned position);
+  BotType GetBotType(const Coord &position) const;
+  BotType GetBotType(unsigned position) const;
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
   void GenPosition();
 
-  bool CompareGameState(const Board& other);
+  bool CompareGameState(const Board &other);
 
   size_t Size();
+
 private:
+  /// if two bots want to be in the same place this function resolves this
+  /// conflict
+  /// \param bot_a bot a
+  /// \param bot_b  bot b
+  /// \return the new bot object that will survive
+  Bot *CrushBots(Bot *bot_a, Bot *bot_b);
+
   /// restore default moving direction in all the bots
   void ClearMovementDirection();
 
@@ -44,9 +52,7 @@ private:
   /// y axis
   unsigned height_;
 
-  std::vector<Bot*> plane_;
-
-
+  std::vector<Bot *> plane_;
 };
 
 #endif // BLOCK_V2__GAME_H_

@@ -131,7 +131,9 @@ void LevelInfo::AddBot(const Coord &position, BotType type) {
 }
 void LevelInfo::AddBot(const Coord &position, BotType type,
                        Direction direction) {
+
   delete plane_[position.ToInt(width_)];
+
   assert(position.x<width_ and position.y<height_);
   switch (type) {
   case BotType::ENGINE:

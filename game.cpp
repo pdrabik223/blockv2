@@ -25,6 +25,7 @@ void Board::GenPosition() {
   ClearMovementDirection();
   CalculateMovementDirection();
   CalculateMovementDirection();
+
   GenNextPlaneState();
 }
 
@@ -58,14 +59,15 @@ void Board::GenNextPlaneState() {
     for (int x = 0; x < width_; ++x) {
 
       Coord origin(x, y);
-      Coord target(GetCell({x, y})->GetMovement().Collapse(origin));
+      Coord target(GetCell(origin)->GetMovement().Collapse(origin));
 
-      if (origin != target) {
-        // do nothing
-        std::cout << "move: " << origin << "\tto: " << target << "\n";
-      }
-      if(temp_plane[target.ToInt(width_)] == nullptr) // this is kinda flimsily solution
-      temp_plane[target.ToInt(width_)] = GetCell({x, y})->Clone();
+      //      if(temp_plane[target.ToInt(width_)] == nullptr) // this is kinda
+      //      flimsily solution
+      if (temp_plane[target.ToInt(width_)] == nullptr)
+        temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
+      else
+        temp_plane[target.ToInt(width_)] =
+            CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
     }
   }
 
@@ -88,15 +90,54 @@ bool Board::CompareGameState(const Board &other) {
     return false;
 
   for (int i = 0; i < Size(); ++i) {
-    if (plane_[i]->type_ not_eq other.GetBotType(i))
+    if (plane_[i]->GetType() not_eq other.GetBotType(i))
       return false;
   }
   return true;
 }
 size_t Board::Size() { return width_ * height_; }
 BotType Board::GetBotType(unsigned int position) const {
-  return plane_[position]->type_;
+  return plane_[position]->GetType();
 }
 BotType Board::GetBotType(const Coord &position) const {
-  return plane_[position.ToInt(width_)]->type_;
+  return plane_[position.ToInt(width_)]->GetType();
+}
+int GetValue(const Bot &bot_a) {
+
+  switch (bot_a.GetType()) {
+  case BotType::BASIC:
+    return 4;
+  case BotType::BEDROCK:
+    return 4;
+  case BotType::TURN:
+    return 4;
+  case BotType::TP:
+    return 4;
+  case BotType::ENEMY:
+    return 3;
+  case BotType::FACTORY:
+    return 2;
+  case BotType::ENGINE:
+    return 2;
+  case BotType::GOAL:
+    return 1;
+  case BotType::EMPTY:
+    return 0;
+  case BotType::NONE:
+    assert(false);
+    break;
+  case BotType::SIZE:
+    assert(false);
+    break;
+  }
+  assert(false);
+  return -1;
+}
+Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
+  int value_of_a_life = GetValue(*bot_a);
+  int value_of_b_life = GetValue(*bot_b);
+  // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn , basic,
+  // bedrock = 4
+
+  return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
 }
