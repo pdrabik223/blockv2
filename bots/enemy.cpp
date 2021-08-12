@@ -32,7 +32,8 @@ void Enemy::CalculateMovementDirection(const std::vector<Bot *> &plane,
       movement_.AddDirection(push_direction);
       movement_.LockEdge(Opposite(push_direction));
     } else
-      movement_.LockEdge(push_direction);
+//      movement_.LockEdge(push_direction); // the basic can't crush the enemy
+      movement_.LockEdge(Opposite(push_direction)); // the basic can
 
   }else movement_.LockEdge(Opposite(push_direction));
 
