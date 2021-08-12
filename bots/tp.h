@@ -13,7 +13,7 @@ public:
   explicit Tp(unsigned int id);
   Tp *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  BotType GetType() const override;
+
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
                                   unsigned int plane_width,
@@ -28,11 +28,11 @@ public:
   void ClearMovementDirection() override;
 
 
-  const BotType type_ = BotType::TP;
 
   Transposition GetMovement() const override;
-
+  BotType GetType() const override;
 protected:
+  const BotType type_ = BotType::TP;
   Transposition movement_;
   unsigned id_;
 };

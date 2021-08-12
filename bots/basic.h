@@ -12,7 +12,7 @@ public:
   Basic(const Basic &other);
   Basic *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  BotType GetType() const override;
+
 
   void ClearMovementDirection() override;
 
@@ -31,11 +31,11 @@ public:
 
 
 
-  const BotType type_ = BotType::BASIC;
 
   Transposition GetMovement() const override;
-
+  BotType GetType() const override;
 protected:
+  const BotType type_ = BotType::BASIC;
   Transposition movement_;
 };
 

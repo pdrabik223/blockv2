@@ -12,7 +12,7 @@ public:
   Empty(const Empty &other);
   Empty *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  BotType GetType() const override;
+
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width, unsigned int plane_height) override;
@@ -30,10 +30,10 @@ public:
   void ClearMovementDirection() override;
 
    Transposition GetMovement() const override;
-  const BotType type_ = BotType::EMPTY;
-
+   BotType GetType() const override;
 
 protected:
+  const BotType type_ = BotType::EMPTY;
   Transposition movement_;
 };
 

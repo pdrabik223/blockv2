@@ -14,8 +14,7 @@ public:
   Factory *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 
-  Direction GetDirection() const;
-  BotType GetType() const override;
+
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
                                   unsigned int plane_width,
@@ -31,9 +30,11 @@ public:
   void ClearMovementDirection() override;
 
   Transposition GetMovement() const override;
-  const BotType type_ = BotType::FACTORY;
+  Direction GetDirection() const;
+  BotType GetType() const override;
 
 protected:
+  const BotType type_ = BotType::FACTORY;
   Transposition movement_;
   Direction direction_;
 };

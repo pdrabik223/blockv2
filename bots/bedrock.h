@@ -13,7 +13,7 @@ public:
   Bedrock(const Bedrock &other);
   Bedrock *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  BotType GetType() const override;
+
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
@@ -27,11 +27,11 @@ public:
                 Direction push_direction) override;
   void ClearMovementDirection() override;
 
-  const BotType type_ = BotType::BEDROCK;
 
    Transposition GetMovement() const override;
-
+   BotType GetType() const override;
 protected:
+  const BotType type_ = BotType::BEDROCK;
   Transposition movement_;
 };
 

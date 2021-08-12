@@ -23,8 +23,7 @@ void Empty::ClearMovementDirection() {
 
 void Empty::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
-                   const unsigned plane_height) { /* do nothing */
-}
+                   const unsigned plane_height) { /* do nothing */}
 Empty::Empty(const Empty &other) : Bot(other) {
   movement_ = other.movement_;
 }

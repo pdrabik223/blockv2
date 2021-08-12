@@ -12,10 +12,8 @@ public:
   Turn(const Turn &other);
   explicit Turn(TurnDirection direction);
   Turn *Clone() override;
-  void OutputToFile(std::ostream &out) const override;
 
-  TurnDirection GetDirection() const;
-  BotType GetType() const override;
+  void OutputToFile(std::ostream &out) const override;
 
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
@@ -30,11 +28,13 @@ public:
                 unsigned int plane_width, unsigned int plane_height,
                 Direction push_direction) override;
 
-  const BotType type_ = BotType::TURN;
 
+  TurnDirection GetDirection() const;
+  BotType GetType() const override;
   Transposition GetMovement() const override;
 
 protected:
+  const BotType type_ = BotType::TURN;
   Transposition movement_;
   TurnDirection direction_ = TurnDirection::CLOCKWISE;
 };

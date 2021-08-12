@@ -13,7 +13,7 @@ public:
   Enemy(const Enemy &other);
   Enemy *Clone() override;
   void OutputToFile(std::ostream &out) const override;
-  BotType GetType() const override;
+
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
@@ -30,6 +30,7 @@ public:
   Transposition GetMovement() const override;
 
   const BotType type_ = BotType::ENEMY;
+  BotType GetType() const override;
 
 protected:
   Transposition movement_;

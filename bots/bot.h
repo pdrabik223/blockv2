@@ -34,30 +34,32 @@ public:
     return new Bot(*this);
   };
 
-  virtual void OutputToFile(std::ostream &out) const {};
+  virtual void OutputToFile(std::ostream &out) const {assert(false);};
+
   virtual BotType GetType() const { return type_; }
 
   virtual void Action(const std::vector<Bot *> &plane,
                       const Coord &bot_position, const unsigned plane_width,
-                      const unsigned plane_height){};
+                      const unsigned plane_height){assert(false);};
 
   virtual void CalculateMovementDirection(
       const std::vector<Bot *> &plane, const Coord &bot_position,
       unsigned int plane_width, unsigned int plane_height,
-                                          Direction push_direction){};
+      Direction push_direction){assert(false);};
 
   virtual void LockEdge(const std::vector<Bot *> &plane,
                         const Coord &bot_position,
                         const unsigned int plane_width,
                         const unsigned int plane_height,
-                        Direction push_direction){};
+                        Direction push_direction){assert(false);};
 
-  virtual void ClearMovementDirection(){};
+  virtual void ClearMovementDirection(){assert(false);};
 
-  const BotType type_ = BotType::NONE;
+
   virtual Transposition GetMovement() const { return movement_; }
 
 protected:
+  const BotType type_ = BotType::NONE;
   Transposition movement_;
 };
 

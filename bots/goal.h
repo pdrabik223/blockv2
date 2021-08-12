@@ -13,8 +13,7 @@ public:
   Goal *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 
-  BotType GetType() const override;
-  const BotType type_ = BotType::GOAL;
+
 
   void CalculateMovementDirection(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
@@ -30,8 +29,9 @@ public:
   void ClearMovementDirection() override;
 
   Transposition GetMovement() const override;
-
+  BotType GetType() const override;
 protected:
+  const BotType type_ = BotType::GOAL;
   Transposition movement_;
 };
 
