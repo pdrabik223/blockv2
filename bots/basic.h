@@ -25,13 +25,6 @@ public:
                                   unsigned int plane_height,
                                   Direction push_direction) override;
 
-  void LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                unsigned int plane_width, unsigned int plane_height,
-                Direction push_direction) override;
-
-
-
-
   Transposition GetMovement() const override;
   BotType GetType() const override;
 protected:

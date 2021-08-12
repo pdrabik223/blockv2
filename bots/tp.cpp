@@ -24,7 +24,5 @@ Tp::Tp(const Tp &other) : Bot(other) {
 Tp::Tp(unsigned int id) : id_(id) {}
 void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                 unsigned int plane_width, unsigned int plane_height) {}
-void Tp::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                  const unsigned int plane_width,
-                  const unsigned int plane_height, Direction push_direction) {}
+
 Transposition Tp::GetMovement() const { return movement_; }

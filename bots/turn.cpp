@@ -26,8 +26,5 @@ Turn::Turn(const Turn &other) : Bot(other) {
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
 void Turn::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                   unsigned int plane_width, unsigned int plane_height) {}
-void Turn::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                    const unsigned int plane_width,
-                    const unsigned int plane_height, Direction push_direction) {
-}
+
  Transposition Turn::GetMovement() const { return movement_; }

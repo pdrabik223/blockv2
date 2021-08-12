@@ -27,25 +27,5 @@ void Empty::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 Empty::Empty(const Empty &other) : Bot(other) {
   movement_ = other.movement_;
 }
-void Empty::LockEdge(const std::vector<Bot *> &plane, const Coord &bot_position,
-                     const unsigned int plane_width,
-                     const unsigned int plane_height,
-                     Direction push_direction) {
-  // calculate pushed cell position
-  Coord new_position = NextPosition(push_direction, bot_position);
 
-  // this cell is pushed in some direction,
-  // that means it can't be pushed in the opposite
-  movement_.LockEdge(push_direction);
-
-  // if this cell is pushing the border of the map lock that direction
-  if (new_position.x >= plane_width || new_position.x < 0 ||
-  new_position.y >= plane_height || new_position.y < 0) {
-    movement_.LockEdge(Opposite(push_direction));
-    return;
-  }
-  // order the cell in front to do the same
-  plane[new_position.ToInt(plane_width)]->LockEdge(
-      plane, new_position, plane_width, plane_height, push_direction);
-}
  Transposition Empty::GetMovement() const { return movement_; }

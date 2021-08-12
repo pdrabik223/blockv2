@@ -26,9 +26,5 @@ Factory::Factory(Direction direction) : direction_(direction) {}
 void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
                      const unsigned int plane_height) {}
-void Factory::LockEdge(const std::vector<Bot *> &plane,
-                       const Coord &bot_position,
-                       const unsigned int plane_width,
-                       const unsigned int plane_height,
-                       Direction push_direction) {}
+
 Transposition Factory::GetMovement() const { return movement_; }

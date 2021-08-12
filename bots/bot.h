@@ -47,11 +47,6 @@ public:
       unsigned int plane_width, unsigned int plane_height,
       Direction push_direction){assert(false);};
 
-  virtual void LockEdge(const std::vector<Bot *> &plane,
-                        const Coord &bot_position,
-                        const unsigned int plane_width,
-                        const unsigned int plane_height,
-                        Direction push_direction){assert(false);};
 
   virtual void ClearMovementDirection(){assert(false);};
 
