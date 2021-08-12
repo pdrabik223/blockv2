@@ -34,7 +34,7 @@ void Enemy::CalculateMovementDirection(const std::vector<Bot *> &plane,
     } else
       movement_.LockEdge(push_direction);
 
-  }else movement_.LockEdge(push_direction);
+  }else movement_.LockEdge(Opposite(push_direction));
 
 }
 
