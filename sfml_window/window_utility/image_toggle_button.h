@@ -9,16 +9,17 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "button.h"
+#include <array>
 namespace sfml_window {
-enum class State { DEFAULT, TOGGLE };
+enum class State { DEFAULT, TOGGLE,SIZE };
 class ImageToggleButton : public Button {
 
+public:
   ImageToggleButton(
       const Rect &structure,
       std::pair<const std::string &, const sf::Color &> default_image,
       std::pair<const std::string &, const sf::Color &> toggle_image);
 
-public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
@@ -29,9 +30,9 @@ protected:
   bool hover_ = false;
 
   State state_ = State::DEFAULT;
-  std::vector<sf::Texture> textures_; // this one for sure tho
-  std::vector<sf::Sprite> sprites_;
-  std::vector<sf::Color> colors_;
+  std::array<sf::Texture,(int)State::SIZE> textures_; // this one for sure tho
+  std::array<sf::Sprite,(int)State::SIZE> sprites_;
+  std::array<sf::Color,(int)State::SIZE> colors_;
 
 };
 } // namespace sfml_window

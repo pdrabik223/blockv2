@@ -40,9 +40,30 @@ sfml_window::ImageToggleButton::ImageToggleButton(
     s.setPosition((float)structure.placement.x, (float)structure.placement.y);
 }
 void sfml_window::ImageToggleButton::DrawToWindow(sf::RenderWindow &window) {
-  if(hover_)
+  if (hover_)
     sprites_[(int)state_].setColor(colors_[(int)state_]);
   else
     sprites_[(int)state_].setColor(Light(colors_[(int)state_]));
   window.draw(sprites_[(int)state_]);
 }
+
+bool sfml_window::ImageToggleButton::DetectHover(const Coord &press_point) {
+
+  bool change =
+      hover_ not_eq structure_.CheckWBoundaries(press_point) ? true : false;
+
+  hover_ = structure_.CheckWBoundaries(press_point);
+
+  return change;
+}
+bool sfml_window::ImageToggleButton::DetectInteraction(const Coord &press_point,
+                                                       sf::Event &event) {
+  bool hover = structure_.CheckWBoundaries(press_point);
+
+  state_ = state_ == State::TOGGLE ? State::DEFAULT : State::TOGGLE;
+
+  return hover && (event.type == sf::Event::MouseButtonReleased &&
+                   event.mouseButton.button == sf::Mouse::Left);
+}
+void sfml_window::ImageToggleButton::SetButtonColor(
+    const sf::Color &button_color) {}
