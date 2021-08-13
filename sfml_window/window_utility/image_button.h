@@ -11,7 +11,8 @@
 namespace sfml_window {
 class ImageButton : public Button {
 public:
-  ImageButton(const Rect &structure, const std::string &image_path, const sf::Color &color);
+  ImageButton(const Rect &structure, const std::string &image_path,
+              const sf::Color &color);
 
 public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
@@ -25,7 +26,6 @@ protected:
   bool hover_ = false;
   sf::Texture texture_; // this one for sure tho
   sf::Sprite sprite_;
-
 };
-}
+} // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_IMAGE_BUTTON_H_

@@ -3,7 +3,7 @@ add_library(window_utility
         text_button.cpp text_button.h
         text_box.cpp text_box.h
         image_button.h  image_button.cpp
-        gui_color.cpp gui_color.h)
+        gui_color.cpp gui_color.h image_toggle_button.cpp image_toggle_button.h)
 
 
 target_include_directories(window_utility
