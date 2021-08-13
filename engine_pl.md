@@ -46,3 +46,7 @@ więc nadpisujemy blok
 kolejne pytanie brzmi: 
 jak zrobić custom'owe ruchy gdyż one muszą mieć jakąś kolejność wykonywania się 
 i teraz jak to wszystko zegrać razem nie męcząc się za bardzo 
+
+
+do każdego kierunku w "transformation" powinna przypisana być wartość siły 
+to poniekąd robi funkcja CrushBots 
