@@ -22,9 +22,6 @@ enum class BotType {
   SIZE
 };
 
-
-enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
-
 class Bot {
 public:
   Bot() = default;
