@@ -4,6 +4,7 @@
 
 #include "run_simulation.h"
 #include <fstream>
+#include <image_toggle_button.h>
 
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]
@@ -57,7 +58,8 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::EXIT:
           return ContextEvent::EXIT;
         case RunSimulationButton::STOP_SIMULATION:
-          break;
+          return ContextEvent::UPDATE_DISPLAY;
+
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
           return ContextEvent::UPDATE_DISPLAY;
@@ -95,10 +97,15 @@ void sfml_window::RunSimulation::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "cancel-button.png",
                       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+
   buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
-      new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
-                      directory + "pause-button.png",
-                      color_palette_[(unsigned)GuiColor::WARNING_COLOR]);
+      new ImageToggleButton(
+          Rect(Coord(window_width_ - 74, 4), 32, 32),
+          {directory + "run-button.png",
+           color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]},
+          {directory + "pause-button.png",
+           color_palette_[(unsigned)GuiColor::WARNING_COLOR]});
+
   buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] = new ImageButton(
       Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png",
       color_palette_[(unsigned)GuiColor::SAFE_COLOR]);
@@ -162,7 +169,6 @@ void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
   background_sprite_.setScale(
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
-
 }
 
 void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
