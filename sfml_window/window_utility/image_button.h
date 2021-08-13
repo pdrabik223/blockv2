@@ -14,7 +14,7 @@ public:
   ImageButton(const Rect &structure, const std::string &image_path,
               const sf::Color &color);
 
-public:
+
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;

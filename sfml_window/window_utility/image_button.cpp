@@ -11,6 +11,8 @@ bool sfml_window::ImageButton::DetectInteraction(const Coord &press_point,
   return hover && (event.type == sf::Event::MouseButtonReleased &&
   event.mouseButton.button == sf::Mouse::Left);
 }
+
+
 void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
 
   if(hover_)
