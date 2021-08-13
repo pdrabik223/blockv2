@@ -26,7 +26,7 @@ public:
   bool CompareGameState(const Board &other);
 
   bool IsWon();
-  size_t Size();
+  size_t Size() const;
 
 private:
   /// if two bots want to be in the same place this function resolves this
@@ -34,7 +34,7 @@ private:
   /// \param bot_a bot a
   /// \param bot_b  bot b
   /// \return the new bot object that will survive
-  Bot *CrushBots(Bot *bot_a, Bot *bot_b);
+  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
 
   /// restore default moving direction in all the bots
   void ClearMovementDirection();

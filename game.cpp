@@ -101,7 +101,7 @@ bool Board::CompareGameState(const Board &other) {
   return true;
 }
 
-size_t Board::Size() { return width_ * height_; }
+size_t Board::Size() const { return width_ * height_; }
 
 BotType Board::GetBotType(unsigned int position) const {
   return plane_[position]->GetType();
@@ -115,17 +115,13 @@ int GetValue(const Bot &bot_a) {
 
   switch (bot_a.GetType()) {
   case BotType::BASIC:
-    return 4;
   case BotType::BEDROCK:
-    return 4;
   case BotType::TURN:
-    return 4;
   case BotType::TP:
     return 4;
   case BotType::ENEMY:
     return 3;
   case BotType::FACTORY:
-    return 2;
   case BotType::ENGINE:
     return 2;
   case BotType::GOAL:
