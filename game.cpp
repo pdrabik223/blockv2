@@ -68,17 +68,17 @@ void Board::GenNextPlaneState() {
       else
         temp_plane[target.ToInt(width_)] =
             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
-
-      if(temp_plane[target.ToInt(width_)]->GetType() == BotType::FACTORY){
-        temp_plane[target.ToInt(width_)]->Ability();
-      }
-
     }
   }
 
   for (int i = 0; i < Size(); ++i)
     if (temp_plane[i] == nullptr)
       temp_plane[i] = new Empty();
+
+  for (int i = 0; i < Size(); ++i)
+    if (temp_plane[i]->GetType() == BotType::FACTORY)
+      ((Factory *)temp_plane[i])
+      ->Spawn(temp_plane, Coord(i % width_, i / width_), width_, height_);
 
   plane_.clear();
   plane_.reserve(Size());
