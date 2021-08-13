@@ -34,14 +34,15 @@ void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 Transposition Factory::GetMovement() const { return movement_; }
 
-void Factory::Ability(const std::vector<Bot *> &plane,
-                      const Coord &bot_position, unsigned int plane_width,
-                      unsigned int plane_height) {
+void Factory::Spawn(std::vector<Bot *> &plane, const Coord &bot_position,
+                    unsigned int plane_width, unsigned int plane_height) {
+
   Coord target = NextPosition(direction_, bot_position);
   Coord original = NextPosition(Opposite(direction_), bot_position);
-  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY and
-      plane[original.ToInt(plane_width)]->GetType() != BotType::EMPTY){
 
+  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY ){
+    delete plane[target.ToInt(plane_width)];
+    plane[target.ToInt(plane_width)] = plane[original.ToInt(plane_width)]->Clone();
   }
 
 }
