@@ -6,16 +6,27 @@
 #include <iostream>
 #include <memory>
 
+/// right hand rule
 const Direction r_h_r[2][2] = {
     //       			LEFT   RIGHT
     /* UP */ {Direction::LEFT, Direction::UP},
     /*DOWN */ {Direction::DOWN, Direction::RIGHT},
 };
 
+/// rotation rule
+const Direction r_r[4][2]{
+    //         clockwise      counterclockwise
+    /* UP */ {Direction::RIGHT, Direction::LEFT},
+    /*DOWN */ {Direction::LEFT, Direction::RIGHT},
+    /*LEFT */ {Direction::UP, Direction::DOWN},
+    /*RIGHT */ {Direction::DOWN, Direction::UP},
+
+};
+
 Direction RHR(Direction a, Direction b) {
 
   // UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3
-  if (a >= Direction::DOWN)
+  if (a > Direction::DOWN)
     std::swap(a, b);
 
   assert(a <= Direction::DOWN);
@@ -62,7 +73,6 @@ Coord Transposition::Collapse(const Coord &current_position) {
     empty_horizontal = false;
   }
 
-
   if (not empty_vertical and not empty_horizontal)
     return NextPosition(RHR(vertical, horizontal), current_position);
 
@@ -104,4 +114,36 @@ Direction Opposite(Direction target) {
 
   assert(false);
   return target;
+}
+Direction Rotate(Direction target, TurnDirection angle) {
+  return r_r[(int)target][(int)angle];
+}
+
+Coord NextPosition(Direction direction, const Coord &current_position) {
+  switch (direction) {
+  case Direction::UP:
+    return {current_position.x, current_position.y - 1};
+  case Direction::DOWN:
+    return {current_position.x, current_position.y + 1};
+  case Direction::LEFT:
+    return {current_position.x - 1, current_position.y};
+  case Direction::RIGHT:
+    return {current_position.x + 1, current_position.y};
+  }
+  assert(false);
+  return current_position;
+}
+Coord PreviousPosition(Direction direction, const Coord &current_position) {
+  switch (direction) {
+  case Direction::UP:
+    return {current_position.x, current_position.y + 1};
+  case Direction::DOWN:
+    return {current_position.x, current_position.y - 1};
+  case Direction::LEFT:
+    return {current_position.x + 1, current_position.y};
+  case Direction::RIGHT:
+    return {current_position.x - 1, current_position.y};
+  }
+  assert(false);
+  return current_position;
 }

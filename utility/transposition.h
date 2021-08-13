@@ -8,6 +8,9 @@
 #include "coord.h"
 #include <vector>
 
+/// rotation direction for turn cell
+enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
+
 /// direction witch bot might be facing
 enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
 
@@ -19,7 +22,9 @@ enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
 
 Direction RHR(Direction a,Direction b);
 Direction Opposite(Direction target);
+Direction Rotate(Direction target, TurnDirection angle);
 Coord NextPosition(Direction direction, const Coord &current_position);
+Coord PreviousPosition(Direction direction, const Coord &current_position);
 
 enum class TranspositionType {
   NONE,    // do nothing with the cell
