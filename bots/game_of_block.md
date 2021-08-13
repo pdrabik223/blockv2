@@ -26,4 +26,5 @@ to include all the bot classes
 | 7  | [engine](engine.h)   | orange| yes | yes | pushes blocks in front of itself in the way it's facing | 
 | 8  | [factory](factory.h) | green | yes | yes | copies cell from behind and spawns it in front, tan pushes it in front |
 | 9  | [tp](tp.h)           | rainbow | no | no | teleports cell that enters it to the exit it's exit, linked portals have the same color |
- 
+| 10 | piston               | orange-ish| yes| no| pushes blocks but doesn't move, kinda like factory, but without cloning stuff| 
+
