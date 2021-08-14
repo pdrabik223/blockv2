@@ -11,11 +11,11 @@
 #include "context.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <cassert>
+#include <fstream>
 #include <image_button.h>
+#include <image_toggle_button.h>
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <image_toggle_button.h>
 namespace sfml_window {
 
 enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
@@ -27,27 +27,6 @@ enum class RunSimulationButton {
   SIZE
 };
 
-enum class Assets {
-  BASIC, /// something like stone
-  BEDROCK,
-  ENEMY,
-  TP,
-  GOAL,
-
-  TURN_C,   /// clockwise
-  TURN_CC,  /// counterclockwise
-  ENGINE_U, /// up
-  ENGINE_D, /// down
-  ENGINE_L, /// left
-  ENGINE_R, /// right
-
-  FACTORY_U, /// up
-  FACTORY_D, /// down
-  FACTORY_L, /// left
-  FACTORY_R, /// right
-  BACKGROUND,
-  SIZE
-};
 
 class RunSimulation : public Context {
 public:
@@ -73,11 +52,20 @@ private:
 
   void LoadBackground(const std::string &level_name);
 
+  /// loads assets from file to memory
   void LoadAssets(const std::string &level_name);
 
-  void LoadCell(Assets cell, const std::string &asset_path);
-
+  /// creates copy of a given cell, used to generate assets by rotating already
+  /// existing ones
+  /// \param copy id of created cell
+  /// \param original original cell id
+  /// \param flip the transformation witch will bu used to create new cell
   void CopyCell(Assets copy, Assets original, FlipDirection flip);
+
+  /// loads cell from file to memory
+  /// \param cell cell id
+  /// \param asset_path path to the correct .png file
+  void LoadCell(Assets cell, const std::string &asset_path);
 
   void GenGrid();
 
