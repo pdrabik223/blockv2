@@ -16,6 +16,7 @@ class TextButton : public Button {
 
 public:
   TextButton() = default;
+  TextButton(const TextButton& other);
 
   ///
   /// \param structure  the position on screen and boundaries the text will fill

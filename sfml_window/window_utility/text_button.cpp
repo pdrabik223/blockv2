@@ -66,4 +66,13 @@ sfml_window::TextButton::TextButton(const Coord &position,
                           (float)structure_.placement.y);
   background_.setSize({(float)structure_.width, (float)structure_.height});
 }
+sfml_window::TextButton::TextButton(const sfml_window::TextButton& other) {
+  structure_ = other.structure_;
+  background_ = other.background_;
+  text_ = other.text_;
+  hover_ = other.hover_;
+  button_color_ = other.button_color_;
+  display_background_ = other.display_background_;
+}
+
 sfml_window::TextButton::~TextButton() = default;
