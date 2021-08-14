@@ -16,6 +16,15 @@ void sfml_window::LevelPicker::LoadColors() {
   color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
   color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
 }
+void sfml_window::LevelPicker::LoadButtons() {
+  std::string directory = "../sfml_window/assets/level_picker/";
+
+  buttons_[(unsigned)LevelPickerButton::EXIT] =
+      new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
+                      directory + "cancel-button.png",
+                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+}
+
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
                                       unsigned int window_height)
     : window_width_(window_width), window_height_(window_height) {}
@@ -29,6 +38,7 @@ void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
+
 sfml_window::ContextEvent
 sfml_window::LevelPicker::HandleEvent(sf::Event &event,
                                       const sf::RenderWindow &window) {
@@ -41,11 +51,43 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
-  return sfml_window::ContextEvent::NONE;
-}
-void sfml_window::LevelPicker::LoadLevelInfo() {}
+  if (event.type == sf::Event::MouseButtonReleased) {
 
-sfml_window::LevelInfo::LevelInfo(Coord position, std::string level_path,
+    for (unsigned id = 0; id < buttons_.size(); id++)
+
+      if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
+
+        switch ((LevelPickerButton)id) {
+      case LevelPickerButton::EXIT:
+        return ContextEvent::EXIT;
+
+      }
+  } else {
+    bool change = false;
+    for (auto &button : buttons_)
+      if (button->DetectHover({mouse_x, mouse_y}))
+        change = true;
+
+      if (change)
+        return ContextEvent::UPDATE_DISPLAY;
+  }
+  return ContextEvent::NONE;
+}
+
+
+void sfml_window::LevelPicker::LoadLevelInfo() {}
+void sfml_window::LevelPicker::LoadBackground() {
+
+  if (!background_texture_.loadFromFile("../sfml_window/assets/level_picker/background.png"))
+    throw "error";
+  background_texture_.setSmooth(true);
+  background_sprite_.setTexture(background_texture_);
+  background_sprite_.setScale(
+      (float)window_width_ / (float)background_texture_.getSize().x,
+      (float)window_height_ / (float)background_texture_.getSize().y);
+}
+
+sfml_window::ShortLevelInfo::ShortLevelInfo(const Coord& position, std::string level_path,
                                   unsigned int text_size, sf::Color color) {
 
   std::string level_name;

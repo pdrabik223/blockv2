@@ -19,9 +19,10 @@
 /// witch level they want to play
 
 namespace sfml_window {
-struct LevelInfo{
+struct ShortLevelInfo{
 
-  LevelInfo(Coord position,std::string level_path,unsigned text_size,sf::Color color);
+  ShortLevelInfo(const Coord& position,std::string level_path,unsigned text_size,sf::Color color);
+
   void DrawToWindow(sf::RenderWindow &window);
 
   TextButton level;
@@ -39,13 +40,14 @@ class LevelPicker : public Context {
   LevelPicker(unsigned int window_width, unsigned int window_height);
 
   void LoadColors() override;
+
   void DrawToWindow(sf::RenderWindow &window) override;
 
   sfml_window::ContextEvent HandleEvent(sf::Event &event,
                                         const sf::RenderWindow &window) override ;
 
   void LoadButtons();
-
+  void LoadBackground();
   void LoadLevelInfo();
 public:
   /// \format in pixels
