@@ -3,8 +3,7 @@
 //
 
 #include "run_simulation.h"
-#include <fstream>
-#include <image_toggle_button.h>
+
 
 /// replace with exists[(int)Assets::x]
 #define EXIST(x) exists[(int)Assets::x]

@@ -14,7 +14,8 @@
 #include <image_button.h>
 #include <iostream>
 #include <vector>
-
+#include <fstream>
+#include <image_toggle_button.h>
 namespace sfml_window {
 
 enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
