@@ -15,11 +15,11 @@
 namespace sfml_window {
 
 enum class MainMenuButton {
-  EXIT,
   PLAY_LEVEL,
   CREATE_LEVEL,
   MULTIPLAYER,
   CREDITS,
+  EXIT,
   SIZE
 };
 /// first screen player sees after lunching game

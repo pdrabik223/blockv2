@@ -71,28 +71,39 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
-  for (int id = 0; id < buttons_.size(); id++)
+  if (event.type == sf::Event::MouseButtonReleased) {
 
-    if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
+    for (unsigned id = 0; id < buttons_.size(); id++)
 
-      switch ((MainMenuButton)id) {
-      case MainMenuButton::EXIT:
+      if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
 
-        return ContextEvent::EXIT;
+        switch ((MainMenuButton)id) {
+        case MainMenuButton::EXIT:
 
-      case MainMenuButton::PLAY_LEVEL:
-        // switch context to play level
-        break;
-      case MainMenuButton::CREATE_LEVEL:
-        // switch context to create level
-        break;
-      case MainMenuButton::MULTIPLAYER:
-        // do nothing
-        break;
-      case MainMenuButton::CREDITS:
-        // switch context to display credits
-        break;
-      }
+          return ContextEvent::EXIT;
+        case MainMenuButton::PLAY_LEVEL:
+          // switch context to play level
+          break;
+        case MainMenuButton::CREATE_LEVEL:
+          // switch context to create level
+          break;
+        case MainMenuButton::MULTIPLAYER:
+          // do nothing
+          break;
+        case MainMenuButton::CREDITS:
+          // switch context to display credits
+          break;
+        }
+  } else {
+    bool change = false;
+    for (auto &button : buttons_)
+      if (button->DetectHover({mouse_x, mouse_y}))
+        change = true;
+
+    if (change)
+      return ContextEvent::UPDATE_DISPLAY;
+  }
+  return ContextEvent::NONE;
 }
 
 void sfml_window::MainMenu::LoadColors() {
@@ -122,7 +133,8 @@ Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
 }
 
 void sfml_window::MainMenu::LoadBackground() {
-  if (!background_texture_.loadFromFile("..\\sfml_window\\assets\\main_menu\\background.png"))
+  if (!background_texture_.loadFromFile(
+          "..\\sfml_window\\assets\\main_menu\\background.png"))
     throw "error";
   background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);
