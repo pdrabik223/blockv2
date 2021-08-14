@@ -79,14 +79,11 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
 
         switch ((MainMenuButton)id) {
         case MainMenuButton::EXIT:
-
           return ContextEvent::EXIT;
         case MainMenuButton::PLAY_LEVEL:
-          // switch context to play level
-          break;
+          return ContextEvent::SWITCH_TO_LEVEL_PICKER;
         case MainMenuButton::CREATE_LEVEL:
-          // switch context to create level
-          break;
+          return ContextEvent::SWITCH_TO_LEVEL_CREATOR;
         case MainMenuButton::MULTIPLAYER:
           // do nothing
           break;
