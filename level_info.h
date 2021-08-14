@@ -9,7 +9,7 @@
 #include <vector>
 class LevelInfo {
 public:
-  LevelInfo(const std::string &file_path);
+  explicit LevelInfo(const std::string &file_path);
   LevelInfo(unsigned int width, unsigned int height);
 
 
