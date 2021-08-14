@@ -76,8 +76,6 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   }
   return ContextEvent::NONE;
 }
-
-void sfml_window::LevelPicker::LoadLevelInfo() {}
 void sfml_window::LevelPicker::LoadBackground() {
 
   if (!background_texture_.loadFromFile(
@@ -90,10 +88,9 @@ void sfml_window::LevelPicker::LoadBackground() {
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
 
-
 void ReadDirectory(const std::string &name, std::vector<std::string> &output) {
   std::string pattern(name);
-//  pattern.append("*.txt");
+  //  pattern.append("*.txt");
   WIN32_FIND_DATA data;
   HANDLE hFind;
   if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
@@ -101,5 +98,16 @@ void ReadDirectory(const std::string &name, std::vector<std::string> &output) {
       output.emplace_back(data.cFileName);
     } while (FindNextFile(hFind, &data) != 0);
     FindClose(hFind);
+  }
+}
+
+void sfml_window::LevelPicker::LoadLevelInfo(
+    const std::vector<std::string> &file_paths) {
+
+  // simple
+
+  for (const auto& i : file_paths) {
+  //  levels_.push_back(ShortLevelInfo(ib));
+
   }
 }

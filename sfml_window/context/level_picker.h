@@ -9,12 +9,13 @@
 #include <Windows.h>
 #include <vector>
 
+#include "context.h"
+#include "image_button.h"
+#include "text_button.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "context.h"
-#include "text_button.h"
-#include "image_button.h"
+#include <short_level_info.h>
 /// displays the content of the levels directory, and enables user to choose
 /// witch level they want to play
 
@@ -41,7 +42,8 @@ public:
 
   void LoadButtons();
   void LoadBackground();
-  void LoadLevelInfo();
+  void LoadLevelInfo(const std::vector<std::string> &file_paths);
+
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -57,6 +59,8 @@ public:
   sf::Sprite background_sprite_;
 
   std::array<Button *, (unsigned)LevelPickerButton::SIZE> buttons_;
+
+  std::vector<ShortLevelInfo> levels_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
