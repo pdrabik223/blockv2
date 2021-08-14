@@ -4,9 +4,13 @@ project(block_v2)
 set(CMAKE_CXX_STANDARD 14)
 
 
-add_executable(block_v2  test.cpp
+add_executable(block_v2  blockv2_main.cpp
         game.cpp game.h
-        level_info.cpp level_info.h blockv2_main.cpp)
+        level_info.cpp level_info.h )
+
+add_executable(block_test  test.cpp
+        game.cpp game.h
+        level_info.cpp level_info.h)
 
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(sfml)
@@ -44,6 +48,31 @@ target_link_libraries(block_v2
         utility
         sfml_window
         window_utility)
+
+target_include_directories(block_test
+        PUBLIC ${PROJECT_SOURCE_DIR}/sfml/include
+        PUBLIC ${PROJECT_SOURCE_DIR}/bots
+        PUBLIC ${PROJECT_SOURCE_DIR}/utility
+        PUBLIC ${PROJECT_SOURCE_DIR}/sfml_window
+        PUBLIC ${PROJECT_SOURCE_DIR}/sfml_window/window_utility
+        )
+
+target_link_directories(block_test
+        PUBLIC sfml/src
+        PUBLIC bots
+        PUBLIC utility
+        PUBLIC sfml_window
+        PUBLIC window_utility)
+
+target_link_libraries(block_test
+        sfml-graphics
+        sfml-system
+        sfml-window
+        bot
+        utility
+        sfml_window
+        window_utility)
+
 
 #[=[
 add_library(block_v2 STATIC
