@@ -19,15 +19,7 @@
 /// witch level they want to play
 
 namespace sfml_window {
-struct ShortLevelInfo{
 
-  ShortLevelInfo(const Coord& position,std::string level_path,unsigned text_size,sf::Color color);
-
-  void DrawToWindow(sf::RenderWindow &window);
-
-  TextButton level;
-  // throfeas
-};
 
 
 enum class LevelPickerButton { EXIT, SIZE };

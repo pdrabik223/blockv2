@@ -62,27 +62,26 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
 
         switch ((LevelPickerButton)id) {
-      case LevelPickerButton::EXIT:
-        return ContextEvent::SWITCH_TO_MAIN_MENU;
-
-      }
+        case LevelPickerButton::EXIT:
+          return ContextEvent::SWITCH_TO_MAIN_MENU;
+        }
   } else {
     bool change = false;
     for (auto &button : buttons_)
       if (button->DetectHover({mouse_x, mouse_y}))
         change = true;
 
-      if (change)
-        return ContextEvent::UPDATE_DISPLAY;
+    if (change)
+      return ContextEvent::UPDATE_DISPLAY;
   }
   return ContextEvent::NONE;
 }
 
-
 void sfml_window::LevelPicker::LoadLevelInfo() {}
 void sfml_window::LevelPicker::LoadBackground() {
 
-  if (!background_texture_.loadFromFile("../sfml_window/assets/level_picker/background.png"))
+  if (!background_texture_.loadFromFile(
+          "../sfml_window/assets/level_picker/background.png"))
     throw "error";
   background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);
@@ -91,31 +90,13 @@ void sfml_window::LevelPicker::LoadBackground() {
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
 
-sfml_window::ShortLevelInfo::ShortLevelInfo(const Coord& position, std::string level_path,
-                                  unsigned int text_size, sf::Color color) {
-
-  std::string level_name;
-  std::string author_name;
-
-  std::ifstream my_file;
-  my_file.open(level_path);
-
-  if (!my_file.is_open()) {
-    throw "file_error";
-  }
-
-  my_file >> level_name;
-  level = TextButton(position,level_name,color,false,text_size);
-
-}
 
 void ReadDirectory(const std::string &name, std::vector<std::string> &output) {
   std::string pattern(name);
-  pattern.append("*.txt");
+//  pattern.append("*.txt");
   WIN32_FIND_DATA data;
   HANDLE hFind;
   if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
-
     do {
       output.emplace_back(data.cFileName);
     } while (FindNextFile(hFind, &data) != 0);
