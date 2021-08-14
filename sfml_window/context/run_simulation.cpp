@@ -96,7 +96,7 @@ void sfml_window::RunSimulation::LoadColors() {
 
 void sfml_window::RunSimulation::LoadButtons() {
 
-  std::string directory = "../sfml_window/assets/";
+  std::string directory = "../sfml_window/assets/run_simulation/";
 
   buttons_[(unsigned)RunSimulationButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
