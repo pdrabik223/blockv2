@@ -80,6 +80,7 @@ void Gui::SwitchContext(Contexts new_screen) {
     current_context_ = new LevelPicker(1200, 600);
     break;
   case Contexts::LEVEL_PLAYER:
+
     break;
   case Contexts::LEVEL_CREATOR:
     break;

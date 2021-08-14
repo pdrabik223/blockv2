@@ -63,7 +63,7 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
 
         switch ((LevelPickerButton)id) {
       case LevelPickerButton::EXIT:
-        return ContextEvent::EXIT;
+        return ContextEvent::SWITCH_TO_MAIN_MENU;
 
       }
   } else {
