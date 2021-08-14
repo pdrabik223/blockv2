@@ -117,3 +117,12 @@ Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
           width,
           height};
 }
+void sfml_window::MainMenu::LoadBackground() {
+  if (!background_texture_.loadFromFile("../assets/main_menu/background.png"))
+    throw "error";
+  background_texture_.setSmooth(true);
+  background_sprite_.setTexture(background_texture_);
+  background_sprite_.setScale(
+      (float)window_width_ / (float)background_texture_.getSize().x,
+      (float)window_height_ / (float)background_texture_.getSize().y);
+}

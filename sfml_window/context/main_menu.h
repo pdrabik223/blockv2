@@ -8,6 +8,7 @@
 #include "../window_utility/text_box.h"
 #include "../window_utility/text_button.h"
 #include "context.h"
+#include <SFML/Graphics/Sprite.hpp>
 #include <array>
 #include <vector>
 namespace sfml_window {
@@ -52,6 +53,7 @@ private:
   /// load pre-defined buttons to memory
   void LoadButtons();
 
+  void LoadBackground();
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -60,6 +62,11 @@ protected:
   /// \format in pixels
   /// y axis domain = <0,window_height_>
   unsigned window_height_;
+
+  /// background texture
+  sf::Texture background_texture_;
+  /// background sprite always provided by user
+  sf::Sprite background_sprite_;
 
   std::array<Button *, (unsigned)MainMenuButton::SIZE> buttons_;
   TextBox game_name_;
