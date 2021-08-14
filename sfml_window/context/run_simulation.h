@@ -6,8 +6,8 @@
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 
 #include "../../game.h"
-#include "bots_include.h"
 #include "../window_utility/button.h"
+#include "bots_include.h"
 #include "context.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <cassert>
@@ -16,8 +16,14 @@
 #include <vector>
 
 namespace sfml_window {
-enum class FlipDirection{HORIZONTAL,VERTICAL,BOTH };
-enum class RunSimulationButton { EXIT, STOP_SIMULATION, STEP_SIMULATION, SIZE };
+enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
+enum class RunSimulationButton {
+  STEP_SIMULATION,
+  STOP_START_SIMULATION,
+  EXIT,
+  SIZE
+};
+
 enum class Assets {
   BASIC, /// something like stone
   BEDROCK,
@@ -25,8 +31,8 @@ enum class Assets {
   TP,
   GOAL,
 
-  TURN_C,  /// clockwise
-  TURN_CC, /// counterclockwise
+  TURN_C,   /// clockwise
+  TURN_CC,  /// counterclockwise
   ENGINE_U, /// up
   ENGINE_D, /// down
   ENGINE_L, /// left
@@ -78,7 +84,8 @@ private:
 
   void DrawCells(sf::RenderWindow &window);
 
-  void DrawCell(sf::RenderWindow &window,sfml_window::Assets id,unsigned position);
+  void DrawCell(sf::RenderWindow &window, sfml_window::Assets id,
+                unsigned position);
 
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
@@ -99,8 +106,7 @@ protected:
 
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
 
-  std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE>
-      cells_;
+  std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
   Board local_board_;
 
   /// size of a square cell

@@ -52,17 +52,22 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
   if (event.type == sf::Event::MouseButtonReleased) {
+
     for (unsigned id = 0; id < buttons_.size(); id++)
+
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
+
         switch ((RunSimulationButton)id) {
         case RunSimulationButton::EXIT:
           return ContextEvent::EXIT;
-        case RunSimulationButton::STOP_SIMULATION:
+
+        case RunSimulationButton::STOP_START_SIMULATION:
           return ContextEvent::UPDATE_DISPLAY;
 
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
           return ContextEvent::UPDATE_DISPLAY;
+
         }
   } else {
     bool change = false;
@@ -98,7 +103,7 @@ void sfml_window::RunSimulation::LoadButtons() {
                       directory + "cancel-button.png",
                       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
 
-  buttons_[(unsigned)RunSimulationButton::STOP_SIMULATION] =
+  buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
       new ImageToggleButton(
           Rect(Coord(window_width_ - 74, 4), 32, 32),
           {directory + "run-button.png",
