@@ -33,6 +33,7 @@ struct ShortLevelInfo{
 enum class LevelPickerButton { EXIT, SIZE };
 
 class LevelPicker : public Context {
+public:
 
   /// open chose level screen
   /// \param window_height of the window
@@ -49,7 +50,7 @@ class LevelPicker : public Context {
   void LoadButtons();
   void LoadBackground();
   void LoadLevelInfo();
-public:
+
   /// \format in pixels
   /// x axis domain = <0,window_width_>
   unsigned window_width_;

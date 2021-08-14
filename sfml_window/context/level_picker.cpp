@@ -27,7 +27,11 @@ void sfml_window::LevelPicker::LoadButtons() {
 
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
                                       unsigned int window_height)
-    : window_width_(window_width), window_height_(window_height) {}
+    : window_width_(window_width), window_height_(window_height) {
+  LoadColors();
+  LoadButtons();
+  LoadBackground();
+}
 
 void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
   window.draw(background_sprite_);
