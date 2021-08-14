@@ -9,6 +9,9 @@
 #include <coord.h>
 #include <fstream>
 namespace sfml_window {
+/// stores info about level, when displaying in pick level window
+/// the position of the displayed text can change dynamically
+/// so do the color, and displayed buttons must correctly detect user interaction
 struct ShortLevelInfo {
 
   ShortLevelInfo(const Coord &position, std::string level_path,
