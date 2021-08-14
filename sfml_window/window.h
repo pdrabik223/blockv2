@@ -21,8 +21,9 @@ namespace sfml_window {
 enum class Contexts{
   MAIN_MENU,
   LEVEL_PLAYER,
-  LEVEL_EDITOR,
+  LEVEL_CREATOR,
   LEVEL_PICKER,
+  RUN_SIMULATION,
   SIZE
 };
 
@@ -36,10 +37,12 @@ public:
 private:
   void ThMainLoop();
   void SwitchContext(Contexts new_screen);
+  void HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event);
 protected:
 
   sfml_window::Context* current_context_;
   std::thread *window_thread_;
+  LevelInfo current_loaded_level_;
   sf::Event event_;
 
 };
