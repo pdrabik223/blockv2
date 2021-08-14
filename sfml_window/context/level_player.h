@@ -28,15 +28,16 @@ public:
   LevelPlayer(unsigned int window_width, unsigned int window_height, LevelInfo &level_info);
 
 public:
-  void LoadColors() override;
+  void LoadColors() override {};
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
   sfml_window::ContextEvent
-  HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
+  HandleEvent(sf::Event &event, const sf::RenderWindow &window) override{return ContextEvent::NONE;};
 
 private:
   void LoadButtons();
+
   void LoadBackground();
 
   /// \format in pixels
@@ -52,7 +53,7 @@ private:
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
 
-  std::array<Button *, (unsigned)LevelPickerButton::SIZE> buttons_;
+  std::array<Button *, (unsigned)LevelPlayerButton::SIZE> buttons_;
 };
 }
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
