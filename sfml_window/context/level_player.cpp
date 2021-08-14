@@ -3,3 +3,8 @@
 //
 
 #include "level_player.h"
+
+
+sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
+                                      unsigned int window_height,
+                                      LevelInfo &level_info) {}
