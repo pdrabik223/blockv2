@@ -35,6 +35,7 @@ public:
   ~MainMenu();
 
 private:
+
   void LoadColors() override;
   ///
   /// \param x the percentage value where object should be placed

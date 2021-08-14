@@ -25,25 +25,27 @@ sfml_window::MainMenu::~MainMenu() {
 
 void sfml_window::MainMenu::LoadButtons() {
 
+
+
   buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(
-      Align(10, 70), "EXIT", color_palette_[(unsigned)GuiColor::DANGER_COLOR],
+      Align(10, 70), "EXIT", Rainbow(Align(10, 70).y,window_height_),
       false, 24);
 
   buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
       Align(10, 30), "Play level",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
+      Rainbow(Align(10, 30).y,window_height_), false, 24);
 
   buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
       Align(10, 40), "Create level",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
+      Rainbow(Align(10, 40).y,window_height_), false, 24);
 
   buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(
       Align(10, 50), "Multiplayer mode",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
+      Rainbow(Align(10, 50).y,window_height_), false, 24);
 
   buttons_[(unsigned)MainMenuButton::CREDITS] = new TextButton(
       Align(10, 60), "Credits",
-      color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR], false, 24);
+      Rainbow(Align(10, 60).y,window_height_), false, 24);
 }
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
