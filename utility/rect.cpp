@@ -24,12 +24,12 @@ Rect::Rect() : placement(), width(0), height(0) {}
 Rect::Rect(const Rect &other) {
   placement = other.placement;
   width = other.width;
-  height = other.width;
+  height = other.height;
 }
 Rect &Rect::operator=(const Rect &other) {
   if(this == &other) return *this;
   placement = other.placement;
   width = other.width;
-  height = other.width;
+  height = other.height;
   return *this;
 }
