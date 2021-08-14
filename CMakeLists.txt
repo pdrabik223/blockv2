@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(block_v2  test.cpp
         game.cpp game.h
-        level_info.cpp level_info.h)
+        level_info.cpp level_info.h blockv2_main.cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(sfml)
