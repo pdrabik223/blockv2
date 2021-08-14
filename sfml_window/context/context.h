@@ -35,9 +35,12 @@ enum class GuiColor {
   SIZE
 };
 
-enum ContextEvent{
+enum class ContextEvent{
   EXIT,
-  BACK_TO_MAIN_MENU,
+  SWITCH_TO_MAIN_MENU,
+  SWITCH_TO_LEVEL_PICKER,
+  SWITCH_TO_LEVEL_CREATOR,
+  SWITCH_TO_LEVEL_PLAYER,
   NONE,
   UPDATE_DISPLAY,
   SIZE
