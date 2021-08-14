@@ -46,6 +46,28 @@ enum class ContextEvent{
   SIZE
   };
 
+enum class Assets {
+  BASIC, /// something like stone
+  BEDROCK,
+  ENEMY,
+  TP,
+  GOAL,
+
+  TURN_C,   /// clockwise
+  TURN_CC,  /// counterclockwise
+  ENGINE_U, /// up
+  ENGINE_D, /// down
+  ENGINE_L, /// left
+  ENGINE_R, /// right
+
+  FACTORY_U, /// up
+  FACTORY_D, /// down
+  FACTORY_L, /// left
+  FACTORY_R, /// right
+  BACKGROUND,
+  SIZE
+};
+
 class Context {
 public:
   virtual void LoadColors() = 0;
