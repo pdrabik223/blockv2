@@ -12,3 +12,30 @@ sf::Color Light(const sf::Color &color) {
   light_color.b = light_color.b > upper_break_point ? 255 : light_color.b + 90;
   return light_color;
 }
+
+sf::Color Rainbow(unsigned value, unsigned max_value) {
+
+  char witch_third = value / (max_value / 3);
+
+  double height_in_radians;
+  switch (witch_third) {
+  case 0:
+    height_in_radians = value * 3.1415 / (max_value / 3) / 2;
+
+    return sf::Color(cos(height_in_radians) * 255, sin(height_in_radians) * 255,
+                     0);
+  case 1:
+    value -= max_value / 3;
+    height_in_radians = value * 3.1415 / (max_value / 3) / 2;
+    return sf::Color(0, cos(height_in_radians) * 255,
+                     sin(height_in_radians) * 255);
+
+  case 2:
+    value -= 2 * max_value / 3;
+    height_in_radians = value * 3.1415 / (max_value / 3) / 2;
+    return sf::Color(sin(height_in_radians) * 255, 0,
+                     cos(height_in_radians) * 255);
+  }
+
+  return {255, 0, 0};
+}
