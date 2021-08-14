@@ -5,6 +5,10 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
 
+
+#include <Windows.h>
+#include <vector>
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>

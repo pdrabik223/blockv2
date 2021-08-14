@@ -62,3 +62,17 @@ sfml_window::LevelInfo::LevelInfo(Coord position, std::string level_path,
   level = TextButton(position,level_name,color,false,text_size);
 
 }
+
+void ReadDirectory(const std::string &name, std::vector<std::string> &output) {
+  std::string pattern(name);
+  pattern.append("*.txt");
+  WIN32_FIND_DATA data;
+  HANDLE hFind;
+  if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
+
+    do {
+      output.emplace_back(data.cFileName);
+    } while (FindNextFile(hFind, &data) != 0);
+    FindClose(hFind);
+  }
+}
