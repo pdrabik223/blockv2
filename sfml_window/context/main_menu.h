@@ -8,6 +8,7 @@
 #include "../window_utility/text_box.h"
 #include "../window_utility/text_button.h"
 #include "context.h"
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <array>
 #include <vector>

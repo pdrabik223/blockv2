@@ -120,8 +120,9 @@ Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
           width,
           height};
 }
+
 void sfml_window::MainMenu::LoadBackground() {
-  if (!background_texture_.loadFromFile("../assets/main_menu/background.png"))
+  if (!background_texture_.loadFromFile("..\\sfml_window\\assets\\main_menu\\background.png"))
     throw "error";
   background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);
