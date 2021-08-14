@@ -20,7 +20,12 @@ void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                       const unsigned plane_width,
                                       const unsigned plane_height,
                                       const Direction push_direction) {
+Coord pushing_block_position(NextPosition(push_direction,bot_position));
 
+Coord new_position = NextPosition(Rotate(push_direction,direction_),bot_position);
+
+plane[new_position.ToInt(plane_width)]->CalculateMovementDirection(
+    plane, new_position, plane_width, plane_height, push_direction);
 
 }
 void Turn::ClearMovementDirection() { movement_.Clear(); }
