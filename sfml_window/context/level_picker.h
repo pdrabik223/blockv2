@@ -10,20 +10,39 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "context.h"
 #include "text_button.h"
+#include "image_button.h"
 /// displays the content of the levels directory, and enables user to choose
 /// witch level they want to play
 
 namespace sfml_window {
+struct LevelInfo{
+
+  LevelInfo(Coord position,std::string level_path,unsigned text_size,sf::Color color);
+  void DrawToWindow(sf::RenderWindow &window);
+
+  TextButton level;
+  // throfeas
+};
+
+
 enum class LevelPickerButton { EXIT, SIZE };
+
 class LevelPicker : public Context {
 
-  void LoadColors() {}
-  void DrawToWindow(sf::RenderWindow &window) {}
-  sfml_window::ContextEvent HandleEvent(sf::Event &event,
-                                        const sf::RenderWindow &window) {
-    return sfml_window::ContextEvent::NONE;
-  }
+  /// open chose level screen
+  /// \param window_height of the window
+  /// \param window_width of the window
+  LevelPicker(unsigned int window_width, unsigned int window_height);
 
+  void LoadColors() override;
+  void DrawToWindow(sf::RenderWindow &window) override;
+
+  sfml_window::ContextEvent HandleEvent(sf::Event &event,
+                                        const sf::RenderWindow &window) override ;
+
+  void LoadButtons();
+
+  void LoadLevelInfo();
 public:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
