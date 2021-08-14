@@ -15,6 +15,7 @@ sfml_window::MainMenu::MainMenu(unsigned int window_width,
 
   LoadColors();
   LoadButtons();
+  LoadBackground();
 }
 
 sfml_window::MainMenu::~MainMenu() {
@@ -47,7 +48,8 @@ void sfml_window::MainMenu::LoadButtons() {
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
 
-  window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+  //  window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+  window.draw(background_sprite_);
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
@@ -108,7 +110,8 @@ void sfml_window::MainMenu::LoadColors() {
 
 Coord sfml_window::MainMenu::Align(double x, double y) {
 
-  return {(int)((x * window_width_) / 100.0), (int)((y * window_height_) / 100.0)};
+  return {(int)((x * window_width_) / 100.0),
+          (int)((y * window_height_) / 100.0)};
 }
 Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
                                   unsigned int height) {
