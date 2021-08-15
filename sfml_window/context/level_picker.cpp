@@ -50,7 +50,7 @@ void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 
-    DrawLevels(window);
+  DrawLevels(window);
 }
 
 sfml_window::ContextEvent
@@ -85,9 +85,9 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
     if (change)
       return ContextEvent::UPDATE_DISPLAY;
   }
-//  if (event.type == sf::Event::MouseButtonReleased) {
-//    // this level_path = short_level.GetPath()
-//    // return  ContextEvent::SWITCH_TO_LEVEL_PLAY;
+  //  if (event.type == sf::Event::MouseButtonReleased) {
+  //    // this level_path = short_level.GetPath()
+  //    // return  ContextEvent::SWITCH_TO_LEVEL_PLAY;
   //  }else {
   //      bool change = false;
   //    for (auto &button : buttons_)
@@ -148,15 +148,14 @@ void sfml_window::LevelPicker::LoadLevelInfo(
 
   std::string directory = "../levels/";
   int i = 0;
-  const int kLevelSize = file_paths.size();
-  levels_ = new ShortLevelInfo[kLevelSize];
+  //  const int kLevelSize = file_paths.size();
+  //  levels_ = new ShortLevelInfo[kLevelSize];
 
   for (const auto &f : file_paths) {
-    levels_[i] = ShortLevelInfo(directory + f + "/" + f, font_size_,
-                                     Rainbow(i, file_paths.size()));
+    levels_.emplace_back(ShortLevelInfo(directory + f + "/" + f, font_size_,
+                                        Rainbow(i, file_paths.size())));
     i++;
   }
-
 }
 
 void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
@@ -170,9 +169,9 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
 
   int py = (int)height;
 
-  for (int i = 0; i < 1; i++) {
-//    if (i == levels_.size())
-//      break;
+  for (int i = 0; i < kNumberOfLevelsOnScreen; i++) {
+    if (i == levels_.size())
+      break;
     levels_[i + kNumberOfLevelsOnScreen * page_].DrawToWindow(
         window, {kPx, py + i * py});
   }

@@ -79,7 +79,7 @@ private:
 
   /// current displayed levels
   unsigned page_ = 0;
-  ShortLevelInfo* levels_;
+  std::vector<ShortLevelInfo> levels_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
