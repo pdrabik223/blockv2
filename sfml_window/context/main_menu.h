@@ -29,6 +29,7 @@ public:
   MainMenu(unsigned int window_width, unsigned int window_height);
 
   void DrawToWindow(sf::RenderWindow &window) override;
+
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
 

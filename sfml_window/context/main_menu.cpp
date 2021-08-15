@@ -53,6 +53,7 @@ void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
   //  window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   window.draw(background_sprite_);
 
+
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 
