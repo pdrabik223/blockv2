@@ -38,7 +38,7 @@ public:
 private:
   void LoadButtons();
 
-  void LoadBackground();
+  void LoadBackground(const std::string &background_path);
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -52,6 +52,8 @@ private:
   sf::Texture background_texture_;
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
+
+  LevelInfo level_;
 
   std::array<Button *, (unsigned)LevelPlayerButton::SIZE> buttons_;
 };
