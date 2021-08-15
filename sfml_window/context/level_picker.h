@@ -20,7 +20,7 @@
 
 namespace sfml_window {
 
-enum class LevelPickerButton { EXIT, PAGE_UP,PAGE_DOWN,SIZE };
+enum class LevelPickerButton { EXIT, PAGE_UP, PAGE_DOWN, SIZE };
 
 class LevelPicker : public Context {
 public:
@@ -37,17 +37,27 @@ public:
 private:
   void LoadColors() override;
 
+  /// load buttons to memory
   void LoadButtons();
 
+  /// Loads background to memory
   void LoadBackground();
+
+  /// check for all subdirectories for leves
+  /// and load short Level info for existing ones to memory
+  void LoadLevels();
 
   /// calculate current positions and display levels
   /// that fit on the screen
   void DrawLevels(sf::RenderWindow &window);
 
+
   /// checks levels directory for existing levels and populates levels_ field
   /// wit results of search
+  /// created text field will have assigned color and size but not a position
+  /// position is calculated ad drawing time
   void LoadLevelInfo(const std::vector<std::string> &file_paths);
+
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -68,7 +78,7 @@ private:
   unsigned font_size_ = 24;
 
   /// current displayed levels
-  unsigned page_;
+  unsigned page_ = 0;
   std::vector<ShortLevelInfo> levels_;
 };
 } // namespace sfml_window
