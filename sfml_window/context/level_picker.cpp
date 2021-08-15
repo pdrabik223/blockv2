@@ -4,6 +4,7 @@
 
 #include "level_picker.h"
 #include <fstream>
+#include <iostream>
 void sfml_window::LevelPicker::LoadColors() {
   color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
   color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
@@ -40,16 +41,16 @@ sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
   LoadColors();
   LoadButtons();
   LoadBackground();
+  LoadLevels();
 }
 
 void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
   window.draw(background_sprite_);
 
-  // for (const auto &level_info : levels_)
-  // level_info->DrawToWindow(window);
-
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
+
+    DrawLevels(window);
 }
 
 sfml_window::ContextEvent
@@ -75,6 +76,7 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
           return ContextEvent::SWITCH_TO_MAIN_MENU;
         }
   } else {
+
     bool change = false;
     for (auto &button : buttons_)
       if (button->DetectHover({mouse_x, mouse_y}))
@@ -83,6 +85,16 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
     if (change)
       return ContextEvent::UPDATE_DISPLAY;
   }
+//  if (event.type == sf::Event::MouseButtonReleased) {
+//    // this level_path = short_level.GetPath()
+//    // return  ContextEvent::SWITCH_TO_LEVEL_PLAY;
+  //  }else {
+  //      bool change = false;
+  //    for (auto &button : buttons_)
+  //      if (level->DetectHover({mouse_x, mouse_y}))
+  //        change = true;
+  //  }
+
   return ContextEvent::NONE;
 }
 void sfml_window::LevelPicker::LoadBackground() {
@@ -97,27 +109,54 @@ void sfml_window::LevelPicker::LoadBackground() {
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
 
-void ReadDirectory(const std::string &name, std::vector<std::string> &output) {
-  std::string pattern(name);
-  //  pattern.append("*.txt");
+/// populates output with sub-directories for directory
+void ReadDirectory(const std::string &directory,
+                   std::vector<std::string> &output) {
+  std::string pattern(directory);
+  // if pattern  = "*" all files in the directory will be found
+  pattern.append("*");
   WIN32_FIND_DATA data;
   HANDLE hFind;
+
+  output.clear();
+
   if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
     do {
       output.emplace_back(data.cFileName);
     } while (FindNextFile(hFind, &data) != 0);
     FindClose(hFind);
   }
+
+  for (int i = output.size() - 1; i >= 0; --i) {
+    if (output[i] == "." or output[i] == ".." or output[i] == "default")
+      output.erase(output.begin() + i);
+  }
+}
+
+void sfml_window::LevelPicker::LoadLevels() {
+  std::vector<std::string> file_paths;
+
+  ReadDirectory("../levels/", file_paths);
+  LoadLevelInfo(file_paths);
+
+  for (auto &i : file_paths)
+    std::cout << i << "\n";
 }
 
 void sfml_window::LevelPicker::LoadLevelInfo(
     const std::vector<std::string> &file_paths) {
 
-  // simple
+  std::string directory = "../levels/";
+  int i = 0;
+  const int kLevelSize = file_paths.size();
+  levels_ = new ShortLevelInfo[kLevelSize];
 
-  for (const auto &i : file_paths) {
-    //  levels_.push_back(ShortLevelInfo(ib));
+  for (const auto &f : file_paths) {
+    levels_[i] = ShortLevelInfo(directory + f + "/" + f, font_size_,
+                                     Rainbow(i, file_paths.size()));
+    i++;
   }
+
 }
 
 void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
@@ -127,6 +166,14 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
 
   const int kPx = 40;
 
-  int py = height;
-  int py_max = window_height_ - height;
+  const int kNumberOfLevelsOnScreen = (int)(window_height_ / height) - 2;
+
+  int py = (int)height;
+
+  for (int i = 0; i < 1; i++) {
+//    if (i == levels_.size())
+//      break;
+    levels_[i + kNumberOfLevelsOnScreen * page_].DrawToWindow(
+        window, {kPx, py + i * py});
+  }
 }
