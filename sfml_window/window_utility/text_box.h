@@ -11,7 +11,6 @@ namespace sfml_window {
 class TextBox {
 public:
   TextBox() = default;
-
   /// create an handle text on screen
   /// \param position placement of the text
   /// \param raw_text displayed message
@@ -32,6 +31,8 @@ public:
 
   void SetFontSize(const Rect &boundaries);
 
+  void SetPosition(const Coord &position);
+
   void CenterText(const Rect &boundaries);
 
   Rect GetFontBoundaries();
@@ -40,7 +41,7 @@ protected:
   Coord position_;
   std::string raw_text_;
   sf::Text text_;
-  sf::Font font_;
+ static sf::Font font_ ;
   sf::Color text_color_;
   unsigned font_size_;
 };

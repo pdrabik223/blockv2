@@ -5,7 +5,10 @@
 #include "text_box.h"
 #include <cassert>
 #include <iostream>
+
+sf::Font sfml_window::TextBox::font_;
 void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
+
   window.draw(text_);
 }
 
@@ -72,4 +75,7 @@ void sfml_window::TextBox::CenterText(const Rect &boundaries) {
     position_.y += (unsigned)(boundaries.height - height) / 2;
   text_.setPosition(position_.x, position_.y);
 }
-
+void sfml_window::TextBox::SetPosition(const Coord &position) {
+  position_ = position;
+  text_.setPosition(position_.x, position_.y);
+}
