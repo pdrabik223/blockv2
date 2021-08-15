@@ -164,9 +164,9 @@ void sfml_window::RunSimulation::GenGrid() {
   }
 }
 
-void sfml_window::RunSimulation::LoadBackground(const std::string &level_path) {
+void sfml_window::RunSimulation::LoadBackground(const std::string &background_path) {
 
-  if (!background_texture_.loadFromFile(level_path))
+  if (!background_texture_.loadFromFile(background_path))
     throw "error";
   background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);

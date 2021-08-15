@@ -49,8 +49,9 @@ private:
 
   /// load pre-defined buttons to memory
   void LoadButtons();
-
-  void LoadBackground(const std::string &level_name);
+    /// load background to memory and scale it to screen
+    /// \param background_path path to wanted background
+  void LoadBackground(const std::string &background_path);
 
   /// loads assets from file to memory
   void LoadAssets(const std::string &level_name);
@@ -98,6 +99,7 @@ protected:
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
 
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
+
   Board local_board_;
 
   /// size of a square cell
