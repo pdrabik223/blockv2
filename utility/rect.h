@@ -12,6 +12,8 @@ struct Rect {
   Rect(const Rect &other);
   Rect&  operator=(const Rect &other);
 
+  void SetPlacement(const Coord &placement);
+
   bool CheckWBoundaries(const Coord& point) const;
 
 Coord placement;

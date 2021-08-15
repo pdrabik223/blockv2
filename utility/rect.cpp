@@ -33,3 +33,5 @@ Rect &Rect::operator=(const Rect &other) {
   height = other.height;
   return *this;
 }
+void Rect::SetPlacement(const Coord &placement) {
+  this->placement = placement; }
