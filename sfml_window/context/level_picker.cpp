@@ -16,6 +16,7 @@ void sfml_window::LevelPicker::LoadColors() {
   color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
   color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
 }
+
 void sfml_window::LevelPicker::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_picker/";
 
@@ -23,6 +24,14 @@ void sfml_window::LevelPicker::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "cancel-button.png",
                       color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+
+  buttons_[(unsigned)LevelPickerButton::PAGE_UP] =
+      new ImageButton(Rect(Coord((window_width_ / 4) - 36 * 2, 4), 32, 32),
+                      directory + "page_up.png", {255, 255, 255});
+
+  buttons_[(unsigned)LevelPickerButton::PAGE_DOWN] = new ImageButton(
+      Rect(Coord((window_width_ / 4) - 36 * 2, window_height_ - 36), 32, 32),
+      directory + "page_down.png", {255, 255, 255});
 }
 
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
@@ -106,8 +115,18 @@ void sfml_window::LevelPicker::LoadLevelInfo(
 
   // simple
 
-  for (const auto& i : file_paths) {
-  //  levels_.push_back(ShortLevelInfo(ib));
-
+  for (const auto &i : file_paths) {
+    //  levels_.push_back(ShortLevelInfo(ib));
   }
+}
+
+void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
+
+  // height of one displayed text
+  double height = font_size_ * 1.4;
+
+  const int kPx = 40;
+
+  int py = height;
+  int py_max = window_height_ - height;
 }

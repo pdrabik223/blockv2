@@ -5,7 +5,6 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
 
-
 #include <Windows.h>
 #include <vector>
 
@@ -21,29 +20,34 @@
 
 namespace sfml_window {
 
-
-
-enum class LevelPickerButton { EXIT, SIZE };
+enum class LevelPickerButton { EXIT, PAGE_UP,PAGE_DOWN,SIZE };
 
 class LevelPicker : public Context {
 public:
-
   /// open chose level screen
   /// \param window_height of the window
   /// \param window_width of the window
   LevelPicker(unsigned int window_width, unsigned int window_height);
 
-  void LoadColors() override;
-
   void DrawToWindow(sf::RenderWindow &window) override;
 
-  sfml_window::ContextEvent HandleEvent(sf::Event &event,
-                                        const sf::RenderWindow &window) override ;
+  sfml_window::ContextEvent
+  HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
+
+private:
+  void LoadColors() override;
 
   void LoadButtons();
-  void LoadBackground();
-  void LoadLevelInfo(const std::vector<std::string> &file_paths);
 
+  void LoadBackground();
+
+  /// calculate current positions and display levels
+  /// that fit on the screen
+  void DrawLevels(sf::RenderWindow &window);
+
+  /// checks levels directory for existing levels and populates levels_ field
+  /// wit results of search
+  void LoadLevelInfo(const std::vector<std::string> &file_paths);
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -60,6 +64,11 @@ public:
 
   std::array<Button *, (unsigned)LevelPickerButton::SIZE> buttons_;
 
+  /// level will be displayed with this font size
+  unsigned font_size_ = 24;
+
+  /// current displayed levels
+  unsigned page_;
   std::vector<ShortLevelInfo> levels_;
 };
 } // namespace sfml_window
