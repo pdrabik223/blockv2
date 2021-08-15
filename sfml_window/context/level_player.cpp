@@ -7,11 +7,10 @@
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
                                       LevelInfo &level_info)
-    : window_width_(window_width), window_height_(window_height), level_(level_info) {
-LoadColors();
-LoadBackground(<#initializer #>);
-LoadButtons();
-
+    : window_width_(window_width), window_height_(window_height),
+      level_(level_info) {
+  LoadColors();
+  LoadButtons();
 }
 
 void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {}
@@ -26,7 +25,7 @@ void sfml_window::LevelPlayer::LoadButtons() {
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] = new ImageButton(
       Rect(Coord(window_width_ - 74, 4), 32, 32), directory + "run-button.png",
       color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]);
-// more buttons will shortly follow
+  // more buttons will shortly follow
 }
 void sfml_window::LevelPlayer::LoadBackground(
     const std::string &background_path) {
@@ -39,4 +38,3 @@ void sfml_window::LevelPlayer::LoadBackground(
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
-
