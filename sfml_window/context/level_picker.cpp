@@ -65,6 +65,8 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
+  bool change = false; // if true window should be re-loaded to display change in appearance
+
   if (event.type == sf::Event::MouseButtonReleased) {
 
     for (unsigned id = 0; id < buttons_.size(); id++)
@@ -77,23 +79,25 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
         }
   } else {
 
-    bool change = false;
+
     for (auto &button : buttons_)
       if (button->DetectHover({mouse_x, mouse_y}))
         change = true;
 
-    if (change)
-      return ContextEvent::UPDATE_DISPLAY;
+
   }
-  //  if (event.type == sf::Event::MouseButtonReleased) {
-  //    // this level_path = short_level.GetPath()
-  //    // return  ContextEvent::SWITCH_TO_LEVEL_PLAY;
-  //  }else {
-  //      bool change = false;
-  //    for (auto &button : buttons_)
-  //      if (level->DetectHover({mouse_x, mouse_y}))
-  //        change = true;
-  //  }
+
+    if (event.type == sf::Event::MouseButtonReleased) {
+//       this level_path = short_level.GetPath()
+    return  ContextEvent::SWITCH_TO_LEVEL_PLAYER;
+    }else {
+      for (auto &level : levels_)
+        if (level.DetectHover({mouse_x, mouse_y}))
+          change = true;
+    }
+
+  if (change)
+    return ContextEvent::UPDATE_DISPLAY;
 
   return ContextEvent::NONE;
 }
@@ -148,8 +152,6 @@ void sfml_window::LevelPicker::LoadLevelInfo(
 
   std::string directory = "../levels/";
   int i = 0;
-  //  const int kLevelSize = file_paths.size();
-  //  levels_ = new ShortLevelInfo[kLevelSize];
 
   for (const auto &f : file_paths) {
     levels_.emplace_back(ShortLevelInfo(directory + f + "/" + f, font_size_,

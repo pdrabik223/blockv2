@@ -41,3 +41,6 @@ void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
 sfml_window::ShortLevelInfo::ShortLevelInfo(const sfml_window::ShortLevelInfo& other) {
   level_ = other.level_;
 }
+bool sfml_window::ShortLevelInfo::DetectHover(const Coord &mouse_position) {
+return level_.DetectHover(mouse_position);
+}

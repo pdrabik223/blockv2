@@ -21,6 +21,7 @@ public:
 
   ShortLevelInfo(const ShortLevelInfo& other);
   void DrawToWindow(sf::RenderWindow &window, Coord position);
+  bool DetectHover(const Coord& mouse_position);
 private:
   TextButton level_;
   // throfeas
