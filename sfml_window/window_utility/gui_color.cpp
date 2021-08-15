@@ -15,7 +15,7 @@ sf::Color Light(const sf::Color &color) {
 
 sf::Color Rainbow(unsigned value, unsigned max_value) {
 
-  char witch_third = value / (max_value / 3);
+  char witch_third = (double)value / (double)((double)max_value / 3.0);
 
   double height_in_radians;
   switch (witch_third) {
