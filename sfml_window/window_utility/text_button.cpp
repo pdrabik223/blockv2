@@ -59,11 +59,12 @@ sfml_window::TextButton::TextButton(const Coord &position,
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 
-  background_.setSize({(float)structure_.width, (float)structure_.height});
   structure_ = text_.GetFontBoundaries();
+  background_.setSize({(float)structure_.width, (float)structure_.height});
 
   background_.setPosition((float)structure_.placement.x,
                           (float)structure_.placement.y);
+
   background_.setSize({(float)structure_.width, (float)structure_.height});
 }
 sfml_window::TextButton::TextButton(const sfml_window::TextButton& other) {
@@ -73,6 +74,13 @@ sfml_window::TextButton::TextButton(const sfml_window::TextButton& other) {
   hover_ = other.hover_;
   button_color_ = other.button_color_;
   display_background_ = other.display_background_;
+}
+void sfml_window::TextButton::SetPosition(const Coord &position) {
+
+  structure_.SetPlacement(position);
+  background_.setPosition((float)structure_.placement.x,
+                          (float)structure_.placement.y);
+  text_.SetPosition(position);
 }
 
 sfml_window::TextButton::~TextButton() = default;
