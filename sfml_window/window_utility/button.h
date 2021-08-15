@@ -19,8 +19,6 @@ public:
   virtual void SetButtonColor(const sf::Color &button_color) = 0;
   virtual bool DetectHover(const Coord &press_point) = 0;
 
-protected:
-  Rect position_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_BUTTON_H_
