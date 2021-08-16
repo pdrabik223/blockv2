@@ -39,6 +39,7 @@ void sfml_window::LevelPlayer::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "run-button.png", sf::Color::Blue);
   // more buttons will shortly follow
+
 }
 
 void sfml_window::LevelPlayer::LoadBackground(
@@ -360,3 +361,5 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
   }
   return ContextEvent::NONE;
 }
+
+unsigned sfml_window::LevelPlayer::Align(double x) {  return (unsigned)((x * window_width_) / 100.0); }

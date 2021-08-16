@@ -16,7 +16,16 @@
 
 namespace sfml_window {
 
-enum class LevelPlayerButton { EXIT, RUN_SIMULATION, SIZE };
+enum class LevelPlayerButton { EXIT,
+                               RUN_SIMULATION,
+                               B_BASIC,
+                               B_BEDROCK,
+                               B_ENEMY,
+                               B_ENGINE,
+                               B_FACTORY,
+                               B_TURN,
+                               SIZE };
+
 
 class LevelPlayer : public Context {
 public:
@@ -68,6 +77,12 @@ private:
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
+  ///
+  /// \param x the percentage value where object should be placed
+  /// \param y the percentage value where object should be placed
+  /// \return the position on the screen corresponding to given relative
+  /// position
+  unsigned Align(double x);
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>
