@@ -59,6 +59,7 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event) {
     SwitchContext(Contexts::LEVEL_CREATOR);
     goto update_display;
   case ContextEvent::SWITCH_TO_LEVEL_PLAYER:
+    SwitchContext(Contexts::LEVEL_PLAYER);
     goto update_display;
   }
   return;
@@ -70,25 +71,29 @@ update_display:
 Gui::~Gui() { window_thread_->join(); }
 
 void Gui::SwitchContext(Contexts new_screen) {
-  delete current_context_;
 
   switch (new_screen) {
-  case Contexts::MAIN_MENU:
+  case Contexts::MAIN_MENU: {
+    delete current_context_;
     current_context_ = new MainMenu(1200, 600);
-    break;
-  case Contexts::LEVEL_PICKER:
+  } break;
+  case Contexts::LEVEL_PICKER: {
+    delete current_context_;
     current_context_ = new LevelPicker(1200, 600);
-    break;
-  case Contexts::LEVEL_PLAYER:
-
-    break;
-  case Contexts::LEVEL_CREATOR:
-    break;
-  case Contexts::RUN_SIMULATION:
+  } break;
+  case Contexts::LEVEL_PLAYER: {
+    std::string chosen_level_path =
+        ((LevelPicker *)current_context_)->GetPath();
+    delete current_context_;
+    current_context_ = new LevelPlayer(1200, 600, chosen_level_path);
+  } break;
+  case Contexts::LEVEL_CREATOR: {
+  } break;
+  case Contexts::RUN_SIMULATION: {
     current_context_ = new RunSimulation(1200, 600, current_loaded_level_);
-    break;
-  case Contexts::SIZE:
+  } break;
+  case Contexts::SIZE: {
     assert(false);
-    break;
+  } break;
   }
 }
