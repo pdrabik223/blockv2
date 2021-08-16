@@ -9,11 +9,15 @@ Bot *Board::GetCell(Coord position) { return plane_[position.ToInt(width_)]; }
 
 Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 
-Board::Board(LevelInfo &level_info) {
-  plane_ = level_info.GetPLane();
+Board::Board(const LevelInfo &level_info) {
+
+  plane_.clear();
+  for(const auto& b:level_info.GetPLane())
+    plane_.emplace_back(b->Clone());
 
   width_ = level_info.GetWidth();
   height_ = level_info.GetHeight();
+
 }
 
 unsigned int Board::GetWidth() const { return width_; }

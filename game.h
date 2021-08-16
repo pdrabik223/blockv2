@@ -13,7 +13,7 @@ class Board {
 public:
   Board() = delete;
 
-  Board(LevelInfo &level_info);
+  Board(const LevelInfo &level_info);
   Bot *GetCell(Coord position);
   Bot *GetCell(unsigned position);
   BotType GetBotType(const Coord &position) const;
