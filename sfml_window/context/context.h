@@ -77,5 +77,8 @@ public:
 protected:
   std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
 };
+
+std::string DirectoryPath(const std::string& level_path);
+std::string LevelPath(const std::string& directory_path);
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_H_
