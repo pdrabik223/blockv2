@@ -8,13 +8,13 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
                                       const std::string &level_path)
     : window_width_(window_width), window_height_(window_height),
-    level_directory_(level_path), level_(LevelInfo(LevelPath(level_path))) {
+      level_directory_(level_path), level_(LevelInfo(LevelPath(level_path))) {
   LoadColors();
   LoadButtons();
   GenGrid();
   LevelInfo temp_info(LevelPath(level_path));
   LoadAssets(temp_info.GetName());
-//  level_ = Board(temp_info);
+  //  level_ = Board(temp_info);
 }
 
 void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
@@ -33,12 +33,11 @@ void sfml_window::LevelPlayer::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_player/";
   buttons_[(unsigned)LevelPlayerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png",
-                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+                      directory + "cancel-button.png", sf::Color::Red);
 
-  buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] = new ImageButton(
-      Rect(Coord(window_width_ - 74, 4), 32, 32), directory + "run-button.png",
-      color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]);
+  buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
+      new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
+                      directory + "run-button.png", sf::Color::Blue);
   // more buttons will shortly follow
 }
 
@@ -101,9 +100,6 @@ void sfml_window::LevelPlayer::GenGrid() {
 void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
   // todo 2. finish load cells function
 
-  // todo 4. better assets
-
-  // todo 5. let ti move
   assert(grid_.size() == level_.GetHeight() * level_.GetWidth());
 
   for (unsigned p = 0; p < grid_.size(); ++p)
@@ -123,7 +119,6 @@ void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
     case BotType::TP:
       DrawCell(window, Assets::TP, p);
       break;
-
     case BotType::TURN:
       if (((Turn *)level_.GetCell(p)->Clone())->GetDirection() ==
           TurnDirection::CLOCKWISE)
@@ -174,6 +169,7 @@ void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
       throw "error";
     }
 }
+
 void sfml_window::LevelPlayer::DrawCell(sf::RenderWindow &window,
                                         sfml_window::Assets id,
                                         unsigned int position) {
