@@ -7,7 +7,8 @@
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
                                       const std::string &level_path)
-    : window_width_(window_width), window_height_(window_height), level_(level_path){
+    : window_width_(window_width), window_height_(window_height),
+      level_( level_path ) {
   LoadColors();
   LoadButtons();
 
