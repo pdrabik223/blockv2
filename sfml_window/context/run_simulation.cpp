@@ -4,9 +4,6 @@
 
 #include "run_simulation.h"
 
-
-
-
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
     delete button;
@@ -27,6 +24,8 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
   // window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   window.draw(background_sprite_);
+  window.draw(button_background_);
+
   if (display_grid_)
     DrawGrid(window);
 
@@ -65,7 +64,6 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
           return ContextEvent::UPDATE_DISPLAY;
-
         }
   } else {
     bool change = false;
@@ -122,30 +120,36 @@ void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
 
 void sfml_window::RunSimulation::GenGrid() {
 
+  // to accommodate top rectangle
+  unsigned real_window_height = window_height_ - 40;
+  button_background_.setPosition(0,0);
+  button_background_.setSize({(float)window_width_,40});
+  button_background_.setFillColor({0, 0, 0, 80});
+
   // all cells are squares so the width = height
   // between all cells and surrounding them is 3px wide border
-  double vertical_cell_size =
+  double horizontal_cell_size =
       ((window_width_ - 3) - 3 * local_board_.GetWidth()) /
       (double)(local_board_.GetWidth());
   //right border       /\        left border on every cell    /\
 
-  double horizontal_cell_size =
-      ((window_height_ - 3) - 3 * local_board_.GetHeight()) /
+  double vertical_cell_size =
+      ((real_window_height - 3) - 3 * local_board_.GetHeight()) /
       (double)(local_board_.GetHeight());
   //right border       /\        left border on every cell    /\
 
 
   // the actual cell size must be smaller of the two above
-  cell_size_ = vertical_cell_size < horizontal_cell_size
-                   ? (unsigned)vertical_cell_size
-                   : (unsigned)horizontal_cell_size;
+  cell_size_ = horizontal_cell_size < vertical_cell_size
+                   ? (unsigned)horizontal_cell_size
+                   : (unsigned)vertical_cell_size;
 
   unsigned pixel_shift = cell_size_ + 3;
   // generate grid
   for (int y = 0; y < local_board_.GetHeight(); ++y)
     for (int x = 0; x < local_board_.GetWidth(); ++x) {
       grid_.emplace_back();
-      grid_.back().setPosition(3 + x * pixel_shift, 3 + y * pixel_shift);
+      grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
       grid_.back().setOutlineColor(sf::Color::White);
@@ -155,15 +159,17 @@ void sfml_window::RunSimulation::GenGrid() {
   // center grid
   unsigned right_shift =
       (window_width_ - (3 + local_board_.GetWidth() * pixel_shift)) / 2;
+
   unsigned down_shift =
-      (window_height_ - (3 + local_board_.GetHeight() * pixel_shift)) / 2;
+      (real_window_height - (3 + local_board_.GetHeight() * pixel_shift)) / 2;
 
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
   }
 }
 
-void sfml_window::RunSimulation::LoadBackground(const std::string &background_path) {
+void sfml_window::RunSimulation::LoadBackground(
+    const std::string &background_path) {
 
   if (!background_texture_.loadFromFile(background_path))
     throw "error";
@@ -265,8 +271,7 @@ sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].first;
 }
 
-sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell)
-{
+sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].second;
 }
 

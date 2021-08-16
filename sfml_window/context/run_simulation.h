@@ -96,6 +96,8 @@ protected:
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
 
+  sf::RectangleShape button_background_;
+
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
 
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
