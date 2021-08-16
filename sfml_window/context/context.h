@@ -11,6 +11,11 @@
 #include <array>
 namespace sfml_window {
 
+/// replace with exists[(int)Assets::x]
+#define EXIST(x) exists[(int)Assets::x]
+
+enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
+
 /// all colors across whole platform must be unified
 /// all menus, and graphical elements must take one of these pre-defined colors
 /// this approach assures easy re-coloring of whole platform by simply editing
