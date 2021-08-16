@@ -33,7 +33,7 @@ public:
   void DrawToWindow(sf::RenderWindow &window) override;
 
   sfml_window::ContextEvent
-  HandleEvent(sf::Event &event, const sf::RenderWindow &window) override{return ContextEvent::NONE;};
+  HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
 
 

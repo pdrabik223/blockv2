@@ -310,3 +310,38 @@ void sfml_window::LevelPlayer::CopyCell(sfml_window::Assets copy,
   Sprite(copy).setScale((float)cell_size_ / (float)Texture(copy).getSize().x,
                         (float)cell_size_ / (float)Texture(copy).getSize().y);
 }
+sfml_window::ContextEvent
+sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
+                                      const sf::RenderWindow &window) {
+  int mouse_x = sf::Mouse::getPosition(window).x;
+  int mouse_y = sf::Mouse::getPosition(window).y;
+
+  mouse_x = mouse_x < 0 ? 0 : mouse_x;
+  mouse_y = mouse_y < 0 ? 0 : mouse_y;
+
+  mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
+  mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
+
+  if (event.type == sf::Event::MouseButtonReleased) {
+
+    for (unsigned id = 0; id < buttons_.size(); id++)
+
+      if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
+
+        switch ((LevelPlayerButton)id) {
+        case LevelPlayerButton::EXIT:
+          return ContextEvent::SWITCH_TO_LEVEL_PICKER;
+        case LevelPlayerButton::RUN_SIMULATION:
+          break;
+        }
+  } else {
+    bool change = false;
+    for (auto &button : buttons_)
+      if (button->DetectHover({mouse_x, mouse_y}))
+        change = true;
+
+    if (change)
+      return ContextEvent::UPDATE_DISPLAY;
+  }
+  return ContextEvent::NONE;
+}
