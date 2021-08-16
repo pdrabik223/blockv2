@@ -56,3 +56,11 @@ a.k.a. are placed on top of each other
 |custom assets| simply copy and paste to the level directory| 
 |ui colors| value box in rgb| customize ui colors for you level|
 
+# Questions to play and run sim and gen level
+
+1. Do we need to keep board info as LevelInfo
+    or should we keep directory path and game on their own  
+
+2. How high should load assets be declared 
+    I say let's implement it naively and one it works make it good 
+    
