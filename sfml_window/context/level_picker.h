@@ -79,8 +79,10 @@ private:
   unsigned font_size_ = 24;
 
   /// current displayed levels
-  unsigned page_ = 0;
+  int page_ = 0;
 
+  /// how many pages of levels can be found on drive
+  int max_page_ = 1;
   std::vector<ShortLevelInfo> levels_;
 
   std::string path_to_chosen_level_ = "none_chosen";

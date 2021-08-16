@@ -65,7 +65,8 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
-  bool change = false; // if true window should be re-loaded to display change in appearance
+  bool change = false; // if true window should be re-loaded to display change
+                       // in appearance
 
   if (event.type == sf::Event::MouseButtonReleased) {
 
@@ -76,28 +77,33 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
         switch ((LevelPickerButton)id) {
         case LevelPickerButton::EXIT:
           return ContextEvent::SWITCH_TO_MAIN_MENU;
+        case LevelPickerButton::PAGE_UP:
+          break;
+        case LevelPickerButton::PAGE_DOWN:
+        if(page_)
+          break;
+
         }
   } else {
-
 
     for (auto &button : buttons_)
       if (button->DetectHover({mouse_x, mouse_y}))
         change = true;
-
-
   }
 
-    if (event.type == sf::Event::MouseButtonReleased) {
-      for (auto & level : levels_)
-        if(level.DetectInteraction({mouse_x, mouse_y}, event)) {
-          path_to_chosen_level_ = level.GetPath();
-          return ContextEvent::SWITCH_TO_LEVEL_PLAYER;
-        }
-    }else {
-      for (auto &level : levels_)
-        if (level.DetectHover({mouse_x, mouse_y}))
-          change = true;
-    }
+  if (event.type == sf::Event::MouseButtonReleased) {
+    for (auto &level : levels_)
+      if (level.DetectInteraction({mouse_x, mouse_y}, event)) {
+
+        path_to_chosen_level_ = level.GetPath();
+        std::cout<<"lvl picker: "<<path_to_chosen_level_<<"\n";
+        return ContextEvent::SWITCH_TO_LEVEL_PLAYER;
+      }
+  } else {
+    for (auto &level : levels_)
+      if (level.DetectHover({mouse_x, mouse_y}))
+        change = true;
+  }
 
   if (change)
     return ContextEvent::UPDATE_DISPLAY;
@@ -157,7 +163,7 @@ void sfml_window::LevelPicker::LoadLevelInfo(
   int i = 0;
 
   for (const auto &f : file_paths) {
-    levels_.emplace_back(ShortLevelInfo(directory + f , font_size_,
+    levels_.emplace_back(ShortLevelInfo(directory + f, font_size_,
                                         Rainbow(i, file_paths.size())));
     i++;
   }
@@ -172,6 +178,8 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
 
   const int kNumberOfLevelsOnScreen = (int)(window_height_ / height) - 2;
 
+  max_page_ = 1 + levels_.size() / kNumberOfLevelsOnScreen;
+
   int py = (int)height;
 
   for (int i = 0; i < kNumberOfLevelsOnScreen; i++) {
@@ -182,4 +190,6 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
   }
 }
 
-std::string sfml_window::LevelPicker::GetPath() {return path_to_chosen_level_;}
+std::string sfml_window::LevelPicker::GetPath() {
+  return path_to_chosen_level_;
+}
