@@ -60,26 +60,36 @@ void sfml_window::LevelPlayer::DrawGrid(sf::RenderWindow &window) {
 }
 
 void sfml_window::LevelPlayer::GenGrid() {
+  // to accommodate top rectangle
+  unsigned real_window_height = window_height_ - 40;
+  button_background_.setPosition(0,0);
+  button_background_.setSize({(float)window_width_,40});
+  button_background_.setFillColor({0, 0, 0, 80});
+
   // all cells are squares so the width = height
   // between all cells and surrounding them is 3px wide border
-  double vertical_cell_size = ((window_width_ - 3) - 3 * level_.GetWidth()) /
-                              (double)(level_.GetWidth());
-
   double horizontal_cell_size =
-      ((window_height_ - 3) - 3 * level_.GetHeight()) /
+      ((window_width_ - 3) - 3 * level_.GetWidth()) /
+      (double)(level_.GetWidth());
+  //right border       /\        left border on every cell    /\
+
+  double vertical_cell_size =
+      ((real_window_height - 3) - 3 * level_.GetHeight()) /
       (double)(level_.GetHeight());
+  //right border       /\        left border on every cell    /\
+
 
   // the actual cell size must be smaller of the two above
-  cell_size_ = vertical_cell_size < horizontal_cell_size
-                   ? (unsigned)vertical_cell_size
-                   : (unsigned)horizontal_cell_size;
+  cell_size_ = horizontal_cell_size < vertical_cell_size
+      ? (unsigned)horizontal_cell_size
+      : (unsigned)vertical_cell_size;
 
   unsigned pixel_shift = cell_size_ + 3;
   // generate grid
   for (int y = 0; y < level_.GetHeight(); ++y)
     for (int x = 0; x < level_.GetWidth(); ++x) {
       grid_.emplace_back();
-      grid_.back().setPosition(3 + x * pixel_shift, 3 + y * pixel_shift);
+      grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
       grid_.back().setOutlineColor(sf::Color::White);
@@ -89,12 +99,13 @@ void sfml_window::LevelPlayer::GenGrid() {
   // center grid
   unsigned right_shift =
       (window_width_ - (3 + level_.GetWidth() * pixel_shift)) / 2;
-  unsigned down_shift =
-      (window_height_ - (3 + level_.GetHeight() * pixel_shift)) / 2;
 
-  for (auto &square : grid_) {
-    square.move(right_shift, down_shift);
-  }
+    unsigned down_shift =
+        (real_window_height - (3 + level_.GetHeight() * pixel_shift)) / 2;
+
+    for (auto &square : grid_) {
+      square.move(right_shift, down_shift);
+    }
 }
 
 void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
@@ -180,9 +191,11 @@ void sfml_window::LevelPlayer::DrawCell(sf::RenderWindow &window,
 sf::Texture &sfml_window::LevelPlayer::Texture(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].first;
 }
+
 sf::Sprite &sfml_window::LevelPlayer::Sprite(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].second;
 }
+
 void sfml_window::LevelPlayer::LoadAssets(const std::string &level_name) {
 
   bool exists[(unsigned)Assets::SIZE];
@@ -269,6 +282,7 @@ void sfml_window::LevelPlayer::LoadAssets(const std::string &level_name) {
     CopyCell(Assets::FACTORY_L, Assets::FACTORY_D, FlipDirection::HORIZONTAL);
   }
 }
+
 void sfml_window::LevelPlayer::LoadCell(sfml_window::Assets cell,
                                         const std::string &asset_path) {
 
@@ -285,6 +299,7 @@ void sfml_window::LevelPlayer::LoadCell(sfml_window::Assets cell,
   Sprite(cell).setOrigin(Texture(cell).getSize().x / 2,
                          Texture(cell).getSize().y / 2);
 }
+
 void sfml_window::LevelPlayer::CopyCell(sfml_window::Assets copy,
                                         sfml_window::Assets original,
                                         FlipDirection flip) {

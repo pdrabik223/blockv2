@@ -82,6 +82,9 @@ private:
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
 
+  sf::RectangleShape button_background_;
+
+
   std::string level_directory_;
 
   Board level_;
