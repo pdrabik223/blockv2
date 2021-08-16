@@ -6,11 +6,11 @@
 
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
-                                      LevelInfo &level_info)
-    : window_width_(window_width), window_height_(window_height),
-      level_(level_info) {
+                                      const std::string &level_path)
+    : window_width_(window_width), window_height_(window_height), level_(level_path){
   LoadColors();
   LoadButtons();
+
 }
 
 void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {}

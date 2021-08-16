@@ -25,7 +25,7 @@ public:
   /// \param level_info full level info object
   /// \param window_height of the window
   /// \param window_width of the window
-  LevelPlayer(unsigned int window_width, unsigned int window_height, LevelInfo &level_info);
+  LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
 
 public:
   void LoadColors() override {};
