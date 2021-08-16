@@ -18,7 +18,7 @@
 #include <vector>
 namespace sfml_window {
 
-enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
+
 
 enum class RunSimulationButton {
   STEP_SIMULATION,

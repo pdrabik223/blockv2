@@ -5,8 +5,7 @@
 #include "run_simulation.h"
 
 
-/// replace with exists[(int)Assets::x]
-#define EXIST(x) exists[(int)Assets::x]
+
 
 sfml_window::RunSimulation::~RunSimulation() {
   for (auto &button : buttons_) {
@@ -266,7 +265,8 @@ sf::Texture &sfml_window::RunSimulation::Texture(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].first;
 }
 
-sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell) {
+sf::Sprite &sfml_window::RunSimulation::Sprite(sfml_window::Assets cell)
+{
   return cells_[(unsigned)cell].second;
 }
 
