@@ -56,8 +56,10 @@ sfml_window::TextBox::TextBox(const Rect &position, const std::string &raw_text,
 }
 Rect sfml_window::TextBox::GetFontBoundaries() {
 
+
+  
   return {{position_.x, position_.y},
-          (unsigned)((font_size_ * raw_text_.size()) / 2),
+          (unsigned)((font_size_ * raw_text_.size()) / 1.8),
           (unsigned)(font_size_ * 1.4)};
 }
 void sfml_window::TextBox::CenterText(const Rect &boundaries) {
