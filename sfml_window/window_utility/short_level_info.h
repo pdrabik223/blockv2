@@ -20,6 +20,7 @@ public:
                  sf::Color color);
 
   ShortLevelInfo(const ShortLevelInfo& other);
+  ShortLevelInfo& operator=(const ShortLevelInfo& other);
   void DrawToWindow(sf::RenderWindow &window, Coord position);
   bool DetectHover(const Coord& mouse_position);
   bool DetectInteraction(const Coord &press_point, sf::Event &event);
