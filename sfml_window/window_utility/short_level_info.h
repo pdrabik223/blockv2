@@ -22,8 +22,12 @@ public:
   ShortLevelInfo(const ShortLevelInfo& other);
   void DrawToWindow(sf::RenderWindow &window, Coord position);
   bool DetectHover(const Coord& mouse_position);
+  bool DetectInteraction(const Coord &press_point, sf::Event &event);
+
+std::string GetPath();
 private:
   TextButton level_;
+  std::string path_;
   // throfeas
 };
 } // namespace sfml_window
