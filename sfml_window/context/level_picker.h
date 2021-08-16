@@ -34,6 +34,7 @@ public:
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
+  std::string GetPath();
 private:
   void LoadColors() override;
 
@@ -79,7 +80,10 @@ private:
 
   /// current displayed levels
   unsigned page_ = 0;
+
   std::vector<ShortLevelInfo> levels_;
+
+  std::string path_to_chosen_level_ = "none_chosen";
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_

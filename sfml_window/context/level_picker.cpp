@@ -88,8 +88,11 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   }
 
     if (event.type == sf::Event::MouseButtonReleased) {
-//       this level_path = short_level.GetPath()
-    return  ContextEvent::SWITCH_TO_LEVEL_PLAYER;
+      for (auto & level : levels_)
+        if(level.DetectInteraction({mouse_x, mouse_y}, event)) {
+          path_to_chosen_level_ = level.GetPath();
+          return ContextEvent::SWITCH_TO_LEVEL_PLAYER;
+        }
     }else {
       for (auto &level : levels_)
         if (level.DetectHover({mouse_x, mouse_y}))
@@ -154,7 +157,7 @@ void sfml_window::LevelPicker::LoadLevelInfo(
   int i = 0;
 
   for (const auto &f : file_paths) {
-    levels_.emplace_back(ShortLevelInfo(directory + f + "/" + f, font_size_,
+    levels_.emplace_back(ShortLevelInfo(directory + f , font_size_,
                                         Rainbow(i, file_paths.size())));
     i++;
   }
@@ -178,3 +181,5 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
         window, {kPx, py + i * py});
   }
 }
+
+std::string sfml_window::LevelPicker::GetPath() {return path_to_chosen_level_;}
