@@ -10,10 +10,14 @@
 class LevelInfo {
 public:
   explicit LevelInfo(const std::string &file_path);
+
   LevelInfo(unsigned int width, unsigned int height);
+
+
 
   /// copy constructor
   void LoadLevel(const std::string &file_path);
+
   /// save current level to file
   void SaveLevel();
 
