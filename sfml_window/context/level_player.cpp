@@ -21,6 +21,7 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
 void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
 
   window.draw(background_sprite_);
+  window.draw(button_background_);
   //  if (display_grid_)
   DrawGrid(window);
 
@@ -41,23 +42,23 @@ void sfml_window::LevelPlayer::LoadButtons() {
                       directory + "run-button.png", sf::Color::Blue);
   // more buttons will shortly follow
   buttons_[(unsigned)LevelPlayerButton::B_BASIC] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 - 106, 4), 32, 32), Texture(Assets::BASIC));
+      Rect(Coord(window_width_ / 2 - 106, 4), 32, 32), Texture(Assets::BASIC));
 
   buttons_[(unsigned)LevelPlayerButton::B_BEDROCK] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 - 70, 4), 32, 32), Texture(Assets::BEDROCK));
+      Rect(Coord(window_width_ / 2 - 70, 4), 32, 32), Texture(Assets::BEDROCK));
 
   buttons_[(unsigned)LevelPlayerButton::B_ENEMY] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 - 34, 4), 32, 32), Texture(Assets::ENEMY));
-
+      Rect(Coord(window_width_ / 2 - 34, 4), 32, 32), Texture(Assets::ENEMY));
 
   buttons_[(unsigned)LevelPlayerButton::B_ENGINE] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 + 2, 4), 32, 32), Texture(Assets::ENGINE_U));
+      Rect(Coord(window_width_ / 2 + 2, 4), 32, 32), Texture(Assets::ENGINE_U));
 
-  buttons_[(unsigned)LevelPlayerButton::B_FACTORY] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 + 36, 4), 32, 32), Texture(Assets::FACTORY_U));
+  buttons_[(unsigned)LevelPlayerButton::B_FACTORY] =
+      new ToggleSpriteButton(Rect(Coord(window_width_ / 2 + 36, 4), 32, 32),
+                             Texture(Assets::FACTORY_U));
 
   buttons_[(unsigned)LevelPlayerButton::B_TURN] = new ToggleSpriteButton(
-      Rect(Coord(window_width_/2 + 72, 4), 32, 32), Texture(Assets::TURN_C));
+      Rect(Coord(window_width_ / 2 + 72, 4), 32, 32), Texture(Assets::TURN_C));
 }
 
 void sfml_window::LevelPlayer::LoadBackground(
@@ -355,30 +356,72 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
+  bool change = false;
+
   if (event.type == sf::Event::MouseButtonReleased) {
-
     for (unsigned id = 0; id < buttons_.size(); id++)
-
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
-
         switch ((LevelPlayerButton)id) {
         case LevelPlayerButton::EXIT:
           return ContextEvent::SWITCH_TO_LEVEL_PICKER;
         case LevelPlayerButton::RUN_SIMULATION:
           break;
+        case LevelPlayerButton::B_BASIC:
+          brush_ = BotType::BASIC;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_BASIC);
+          break;
+        case LevelPlayerButton::B_BEDROCK:
+          brush_ = BotType::BEDROCK;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_BEDROCK);
+          break;
+        case LevelPlayerButton::B_ENEMY:
+          brush_ = BotType::ENEMY;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_ENEMY);
+          break;
+        case LevelPlayerButton::B_ENGINE:
+          brush_ = BotType::ENGINE;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_ENGINE);
+          break;
+        case LevelPlayerButton::B_FACTORY:
+          brush_ = BotType::FACTORY;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_FACTORY);
+          break;
+        case LevelPlayerButton::B_TURN:
+          brush_ = BotType::TURN;
+          change = true;
+          ClearBotButtonHighlight(LevelPlayerButton::B_TURN);
+          break;
         }
-  } else {
-    bool change = false;
+  }
+
     for (auto &button : buttons_)
       if (button->DetectHover({mouse_x, mouse_y}))
         change = true;
 
-    if (change)
-      return ContextEvent::UPDATE_DISPLAY;
-  }
+  if (change)
+    return ContextEvent::UPDATE_DISPLAY;
+
   return ContextEvent::NONE;
 }
 
 unsigned sfml_window::LevelPlayer::Align(double x) {
   return (unsigned)((x * window_width_) / 100.0);
+}
+
+void sfml_window::LevelPlayer::ClearBotButtonHighlight(
+    sfml_window::LevelPlayerButton stay_highlighted) {
+
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_BASIC])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_BEDROCK])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_ENEMY])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_ENGINE])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_FACTORY])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_TURN])->TurnOff();
+
+  ((ToggleSpriteButton *)buttons_[(int)stay_highlighted])->TurnOn();
 }

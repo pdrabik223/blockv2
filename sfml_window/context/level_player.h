@@ -68,6 +68,7 @@ private:
   void LoadBackground(const std::string &background_path);
   void GenGrid();
 
+  void ClearBotButtonHighlight(LevelPlayerButton stay_highlighted);
 
   void DrawGrid(sf::RenderWindow &window);
   void DrawCells(sf::RenderWindow &window);
@@ -99,17 +100,17 @@ private:
 
   sf::RectangleShape button_background_;
 
-
   std::string level_directory_;
 
   Board level_;
-
 
   /// size of a square cell
   unsigned cell_size_;
 
   std::array<Button *, (unsigned)LevelPlayerButton::SIZE> buttons_;
 
+  /// current bot user puts down
+  BotType brush_;
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;
