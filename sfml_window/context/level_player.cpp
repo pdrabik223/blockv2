@@ -27,6 +27,7 @@ void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
 
   DrawCells(window);
 
+  ClearBotButtonHighlight();
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
@@ -365,43 +366,43 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
         case LevelPlayerButton::EXIT:
           return ContextEvent::SWITCH_TO_LEVEL_PICKER;
         case LevelPlayerButton::RUN_SIMULATION:
+          change = true;
           break;
-        case LevelPlayerButton::B_BASIC:
+        case LevelPlayerButton::B_BASIC: {
           brush_ = BotType::BASIC;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_BASIC);
-          break;
-        case LevelPlayerButton::B_BEDROCK:
+        } break;
+        case LevelPlayerButton::B_BEDROCK: {
           brush_ = BotType::BEDROCK;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_BEDROCK);
-          break;
-        case LevelPlayerButton::B_ENEMY:
+
+        } break;
+        case LevelPlayerButton::B_ENEMY: {
           brush_ = BotType::ENEMY;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_ENEMY);
-          break;
-        case LevelPlayerButton::B_ENGINE:
+
+        } break;
+        case LevelPlayerButton::B_ENGINE: {
           brush_ = BotType::ENGINE;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_ENGINE);
-          break;
-        case LevelPlayerButton::B_FACTORY:
+
+        } break;
+        case LevelPlayerButton::B_FACTORY: {
           brush_ = BotType::FACTORY;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_FACTORY);
-          break;
-        case LevelPlayerButton::B_TURN:
+
+        } break;
+        case LevelPlayerButton::B_TURN: {
           brush_ = BotType::TURN;
           change = true;
-          ClearBotButtonHighlight(LevelPlayerButton::B_TURN);
-          break;
+
+        } break;
         }
   }
 
-    for (auto &button : buttons_)
-      if (button->DetectHover({mouse_x, mouse_y}))
-        change = true;
+  for (auto &button : buttons_)
+    if (button->DetectHover({mouse_x, mouse_y}))
+      change = true;
 
   if (change)
     return ContextEvent::UPDATE_DISPLAY;
@@ -413,15 +414,37 @@ unsigned sfml_window::LevelPlayer::Align(double x) {
   return (unsigned)((x * window_width_) / 100.0);
 }
 
-void sfml_window::LevelPlayer::ClearBotButtonHighlight(
-    sfml_window::LevelPlayerButton stay_highlighted) {
+void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BASIC])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BEDROCK])
+      ->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENEMY])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENGINE])->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_FACTORY])
+      ->TurnOff();
+  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_TURN])->TurnOff();
 
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_BASIC])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_BEDROCK])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_ENEMY])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_ENGINE])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_FACTORY])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int) LevelPlayerButton::B_TURN])->TurnOff();
-
-  ((ToggleSpriteButton *)buttons_[(int)stay_highlighted])->TurnOn();
+  switch (brush_) {
+  case BotType::BASIC:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BASIC])->TurnOn();
+    return;
+  case BotType::BEDROCK:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BEDROCK])
+        ->TurnOn();
+    return;
+  case BotType::TURN:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_TURN])->TurnOn();
+    return;
+  case BotType::ENEMY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENEMY])->TurnOn();
+    return;
+  case BotType::ENGINE:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENGINE])
+        ->TurnOn();
+    return;
+  case BotType::FACTORY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_FACTORY])
+        ->TurnOn();
+    return;
+  }
 }

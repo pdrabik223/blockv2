@@ -18,12 +18,12 @@ namespace sfml_window {
 
 enum class LevelPlayerButton { EXIT,
                                RUN_SIMULATION,
-                               B_BASIC,
-                               B_BEDROCK,
-                               B_ENEMY,
-                               B_ENGINE,
-                               B_FACTORY,
                                B_TURN,
+                               B_FACTORY,
+                               B_ENGINE,
+                               B_ENEMY,
+                               B_BEDROCK,
+                               B_BASIC,
                                SIZE };
 
 
@@ -68,7 +68,7 @@ private:
   void LoadBackground(const std::string &background_path);
   void GenGrid();
 
-  void ClearBotButtonHighlight(LevelPlayerButton stay_highlighted);
+  void ClearBotButtonHighlight();
 
   void DrawGrid(sf::RenderWindow &window);
   void DrawCells(sf::RenderWindow &window);
@@ -110,7 +110,7 @@ private:
   std::array<Button *, (unsigned)LevelPlayerButton::SIZE> buttons_;
 
   /// current bot user puts down
-  BotType brush_;
+  BotType brush_ = BotType::BASIC;
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;
