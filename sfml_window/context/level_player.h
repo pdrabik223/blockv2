@@ -18,6 +18,8 @@ namespace sfml_window {
 
 enum class LevelPlayerButton { EXIT,
                                RUN_SIMULATION,
+//                               CLEAR_BOTS,
+//                               B_EMPTY,
                                B_TURN,
                                B_FACTORY,
                                B_ENGINE,
@@ -78,7 +80,7 @@ private:
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
-  void AddBotToGame(const Coord &mouse_position);
+  bool AddBotToGame(const Coord &mouse_position);
 
   ///
   /// \param x the percentage value where object should be placed

@@ -3,6 +3,7 @@
 //
 
 #include "level_player.h"
+#include <iostream>
 #include <toggle_sprite_button.h>
 
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
@@ -360,6 +361,10 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
   bool change = false;
 
   if (event.type == sf::Event::MouseButtonReleased) {
+
+    if (AddBotToGame({mouse_x, mouse_y}))
+      return ContextEvent::UPDATE_DISPLAY;
+
     for (unsigned id = 0; id < buttons_.size(); id++)
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
         switch ((LevelPlayerButton)id) {
@@ -449,19 +454,24 @@ void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
   }
 }
 
-void sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
+bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
 
   int square_x;
   int square_y;
 
   for (int i = 0; i < grid_.size(); ++i) {
 
-    if (mouse_position.x >= grid_[i].getPosition().x and
-        mouse_position.y >= grid_[i].getPosition().y)
+    if (mouse_position.x > grid_[i].getPosition().x and
+        mouse_position.y > grid_[i].getPosition().y)
       if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
           mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
-        square_x = grid_[i].getPosition().x;
-        square_y = grid_[i].getPosition().y;
+        square_x = i % level_.GetWidth();
+        square_y = i / level_.GetWidth();
+
+        level_.AddCell(square_x, square_y, brush_);
+
+        return true;
       }
   }
+  return false;
 }
