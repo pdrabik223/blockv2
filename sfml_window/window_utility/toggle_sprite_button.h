@@ -6,20 +6,22 @@
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_SPRITE_BUTTON_H_
 
 #include "button.h"
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 namespace sfml_window {
+enum class State { DEFAULT, TOGGLE, SIZE };
 /// the sprite the button has is pre defined
 /// the button must react to being turned on by press
 /// and hovered by mouse
 class ToggleSpriteButton : public Button {
 public:
-  ToggleSpriteButton(const Rect &structure,std::pair<sf::Texture,sf::Sprite> sprite);
+  ToggleSpriteButton(const Rect &structure, const sf::Texture &sprite);
 
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
-  void SetButtonColor(const sf::Color &button_color) override;
+  void SetButtonColor(const sf::Color &button_color) override {};
 
   void TurnOn();
   void TurnOff();
@@ -31,10 +33,11 @@ private:
   bool hover_ = false;
 
   /// if true the button is turned on
-  bool state_ = false;
+  State state_ = State::DEFAULT;
 
   std::pair<sf::Texture,sf::Sprite> sprite_;
 
+  sf::RectangleShape background_;
 
 };
 } // namespace sfml_window
