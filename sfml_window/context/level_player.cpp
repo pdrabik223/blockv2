@@ -448,3 +448,20 @@ void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
     return;
   }
 }
+
+void sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
+
+  int square_x;
+  int square_y;
+
+  for (int i = 0; i < grid_.size(); ++i) {
+
+    if (mouse_position.x >= grid_[i].getPosition().x and
+        mouse_position.y >= grid_[i].getPosition().y)
+      if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
+          mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
+        square_x = grid_[i].getPosition().x;
+        square_y = grid_[i].getPosition().y;
+      }
+  }
+}

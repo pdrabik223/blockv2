@@ -78,6 +78,8 @@ private:
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
+  void AddBotToGame(const Coord &mouse_position);
+
   ///
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed
