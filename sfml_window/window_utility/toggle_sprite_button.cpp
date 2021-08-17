@@ -26,9 +26,10 @@ bool sfml_window::ToggleSpriteButton::DetectInteraction(
     const Coord &press_point, sf::Event &event) {
 
   bool hover = structure_.CheckWBoundaries(press_point);
+
   if (event.type == sf::Event::MouseButtonReleased &&
       event.mouseButton.button == sf::Mouse::Left)
-    state_ = state_ == State::TOGGLE ? State::DEFAULT : State::TOGGLE;
+    state_ = State::TOGGLE;
 
   return hover && (event.type == sf::Event::MouseButtonReleased &&
                    event.mouseButton.button == sf::Mouse::Left);
