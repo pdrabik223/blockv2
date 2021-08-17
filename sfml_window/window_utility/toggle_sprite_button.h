@@ -37,7 +37,6 @@ private:
 
   std::pair<sf::Texture,sf::Sprite> sprite_;
 
-  sf::RectangleShape background_;
 
 };
 } // namespace sfml_window

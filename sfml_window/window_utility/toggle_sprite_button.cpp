@@ -17,10 +17,6 @@ sfml_window::ToggleSpriteButton::ToggleSpriteButton(const Rect &structure,
   sprite_.second.setPosition((float)structure.placement.x,
                              (float)structure.placement.y);
 
-  background_.setPosition(structure.placement.x, structure.placement.y);
-  background_.setFillColor({255, 255, 255});
-  background_.setSize(
-      {(float)structure.width + 2, (float)structure.height + 2});
 }
 
 void sfml_window::ToggleSpriteButton::TurnOn() { state_ = State::TOGGLE; }
@@ -46,13 +42,12 @@ bool sfml_window::ToggleSpriteButton::DetectHover(const Coord &press_point) {
   return change;
 }
 void sfml_window::ToggleSpriteButton::DrawToWindow(sf::RenderWindow &window) {
-  if (state_ == State::TOGGLE)
-    window.draw(background_);
 
-  if (hover_)
-    sprite_.second.setColor(sf::Color::Transparent);
+
+  if (hover_ or state_ == State::TOGGLE)
+    sprite_.second.setColor({255, 255, 255, 255});
   else
-    sprite_.second.setColor({0, 0, 0, 80});
+    sprite_.second.setColor({255, 255, 255, 60});
 
   window.draw(sprite_.second);
 }
