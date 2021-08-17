@@ -192,6 +192,7 @@ void Board::AddCell(int x, int y, BotType type) {
   case BotType::NONE:
   case BotType::SIZE:
     assert(false);
+    throw "bad type";
   }
 }
 
