@@ -3,6 +3,7 @@
 //
 
 #include "level_player.h"
+#include <toggle_sprite_button.h>
 
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
@@ -10,10 +11,10 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
     : window_width_(window_width), window_height_(window_height),
       level_directory_(level_path), level_(LevelInfo(LevelPath(level_path))) {
   LoadColors();
-  LoadButtons();
   GenGrid();
   LevelInfo temp_info(LevelPath(level_path));
   LoadAssets(temp_info.GetName());
+  LoadButtons();
   //  level_ = Board(temp_info);
 }
 
@@ -39,7 +40,24 @@ void sfml_window::LevelPlayer::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "run-button.png", sf::Color::Blue);
   // more buttons will shortly follow
+  buttons_[(unsigned)LevelPlayerButton::B_BASIC] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 - 106, 4), 32, 32), Texture(Assets::BASIC));
 
+  buttons_[(unsigned)LevelPlayerButton::B_BEDROCK] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 - 70, 4), 32, 32), Texture(Assets::BEDROCK));
+
+  buttons_[(unsigned)LevelPlayerButton::B_ENEMY] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 - 34, 4), 32, 32), Texture(Assets::ENEMY));
+
+
+  buttons_[(unsigned)LevelPlayerButton::B_ENGINE] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 + 2, 4), 32, 32), Texture(Assets::ENGINE_U));
+
+  buttons_[(unsigned)LevelPlayerButton::B_FACTORY] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 + 36, 4), 32, 32), Texture(Assets::FACTORY_U));
+
+  buttons_[(unsigned)LevelPlayerButton::B_TURN] = new ToggleSpriteButton(
+      Rect(Coord(window_width_/2 + 72, 4), 32, 32), Texture(Assets::TURN_C));
 }
 
 void sfml_window::LevelPlayer::LoadBackground(
@@ -63,15 +81,14 @@ void sfml_window::LevelPlayer::DrawGrid(sf::RenderWindow &window) {
 void sfml_window::LevelPlayer::GenGrid() {
   // to accommodate top rectangle
   unsigned real_window_height = window_height_ - 40;
-  button_background_.setPosition(0,0);
-  button_background_.setSize({(float)window_width_,40});
+  button_background_.setPosition(0, 0);
+  button_background_.setSize({(float)window_width_, 40});
   button_background_.setFillColor({0, 0, 0, 80});
 
   // all cells are squares so the width = height
   // between all cells and surrounding them is 3px wide border
-  double horizontal_cell_size =
-      ((window_width_ - 3) - 3 * level_.GetWidth()) /
-      (double)(level_.GetWidth());
+  double horizontal_cell_size = ((window_width_ - 3) - 3 * level_.GetWidth()) /
+                                (double)(level_.GetWidth());
   //right border       /\        left border on every cell    /\
 
   double vertical_cell_size =
@@ -82,8 +99,8 @@ void sfml_window::LevelPlayer::GenGrid() {
 
   // the actual cell size must be smaller of the two above
   cell_size_ = horizontal_cell_size < vertical_cell_size
-      ? (unsigned)horizontal_cell_size
-      : (unsigned)vertical_cell_size;
+                   ? (unsigned)horizontal_cell_size
+                   : (unsigned)vertical_cell_size;
 
   unsigned pixel_shift = cell_size_ + 3;
   // generate grid
@@ -101,12 +118,12 @@ void sfml_window::LevelPlayer::GenGrid() {
   unsigned right_shift =
       (window_width_ - (3 + level_.GetWidth() * pixel_shift)) / 2;
 
-    unsigned down_shift =
-        (real_window_height - (3 + level_.GetHeight() * pixel_shift)) / 2;
+  unsigned down_shift =
+      (real_window_height - (3 + level_.GetHeight() * pixel_shift)) / 2;
 
-    for (auto &square : grid_) {
-      square.move(right_shift, down_shift);
-    }
+  for (auto &square : grid_) {
+    square.move(right_shift, down_shift);
+  }
 }
 
 void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
@@ -362,4 +379,6 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
   return ContextEvent::NONE;
 }
 
-unsigned sfml_window::LevelPlayer::Align(double x) {  return (unsigned)((x * window_width_) / 100.0); }
+unsigned sfml_window::LevelPlayer::Align(double x) {
+  return (unsigned)((x * window_width_) / 100.0);
+}
