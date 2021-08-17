@@ -88,6 +88,7 @@ void Gui::SwitchContext(Contexts new_screen) {
     current_context_ = new LevelPlayer(1200, 600, chosen_level_path);
   } break;
   case Contexts::LEVEL_CREATOR: {
+    current_context_ = new LevelCreator(1200,600);
   } break;
   case Contexts::RUN_SIMULATION: {
     current_context_ = new RunSimulation(1200, 600, current_loaded_level_);
