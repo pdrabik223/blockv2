@@ -28,7 +28,9 @@ public:
   bool IsWon();
   size_t Size() const;
 
+void AddCell(int x, int y, BotType type);
 private:
+
   /// if two bots want to be in the same place this function resolves this
   /// conflict
   /// \param bot_a bot a

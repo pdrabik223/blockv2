@@ -12,12 +12,11 @@ Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 Board::Board(const LevelInfo &level_info) {
 
   plane_.clear();
-  for(const auto& b:level_info.GetPLane())
+  for (const auto &b : level_info.GetPLane())
     plane_.emplace_back(b->Clone());
 
   width_ = level_info.GetWidth();
   height_ = level_info.GetHeight();
-
 }
 
 unsigned int Board::GetWidth() const { return width_; }
@@ -82,7 +81,7 @@ void Board::GenNextPlaneState() {
   for (int i = 0; i < Size(); ++i)
     if (temp_plane[i]->GetType() == BotType::FACTORY)
       ((Factory *)temp_plane[i])
-      ->Spawn(temp_plane, Coord(i % width_, i / width_), width_, height_);
+          ->Spawn(temp_plane, Coord(i % width_, i / width_), width_, height_);
 
   plane_.clear();
   plane_.reserve(Size());
@@ -159,3 +158,40 @@ bool Board::IsWon() {
 
   return true;
 }
+void Board::AddCell(int x, int y, BotType type) {
+  assert(x < width_ and y < height_);
+  delete plane_[y * width_ + x];
+  switch (type) {
+  case BotType::EMPTY:
+    plane_[y * width_ + x] = new Empty();
+    break;
+  case BotType::BASIC:
+    plane_[y * width_ + x] = new Basic();
+    break;
+  case BotType::BEDROCK:
+    plane_[y * width_ + x] = new Bedrock();
+    break;
+  case BotType::GOAL:
+    plane_[y * width_ + x] = new Goal();
+    break;
+  case BotType::ENEMY:
+    plane_[y * width_ + x] = new Enemy();
+    break;
+  case BotType::ENGINE:
+    plane_[y * width_ + x] = new Engine(Direction::UP);
+    break;
+  case BotType::FACTORY:
+    plane_[y * width_ + x] = new Factory(Direction::UP);
+    break;
+  case BotType::TP:
+    plane_[y * width_ + x] = new Tp(1);
+    break;
+  case BotType::TURN:
+    plane_[y * width_ + x] = new Turn(TurnDirection::CLOCKWISE);
+    break;
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert(false);
+  }
+}
+
