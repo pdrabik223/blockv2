@@ -22,7 +22,8 @@ public:
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual void SetButtonColor(const sf::Color &button_color) = 0;
   virtual bool DetectHover(const Coord &press_point) = 0;
-
+  virtual ~Button() = 0;
+  virtual Button* Clone() = 0;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_BUTTON_H_

@@ -24,6 +24,8 @@ public:
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override {};
 
+  ~ToggleSpriteButton() override = default;
+  ToggleSpriteButton  *Clone() override;
   void TurnOn();
   void TurnOff();
 

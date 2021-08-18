@@ -25,6 +25,9 @@ public:
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override;
 
+  ~ImageToggleButton() override = default;
+  ImageToggleButton *Clone() override;
+
 protected:
   Rect structure_;
   bool hover_ = false;

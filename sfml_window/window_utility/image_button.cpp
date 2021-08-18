@@ -48,3 +48,4 @@ bool sfml_window::ImageButton::DetectHover(const Coord &press_point) {
   return change;
 }
 
+sfml_window::ImageButton *sfml_window::ImageButton::Clone() { return new ImageButton(*this); }

@@ -51,3 +51,7 @@ void sfml_window::ToggleSpriteButton::DrawToWindow(sf::RenderWindow &window) {
 
   window.draw(sprite_.second);
 }
+
+sfml_window::ToggleSpriteButton *sfml_window::ToggleSpriteButton::Clone() {
+  return ToggleSpriteButton(*this);
+}

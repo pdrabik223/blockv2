@@ -67,3 +67,5 @@ bool sfml_window::ImageToggleButton::DetectInteraction(const Coord &press_point,
 }
 void sfml_window::ImageToggleButton::SetButtonColor(
     const sf::Color &button_color) {}
+
+    sfml_window::ImageToggleButton *sfml_window::ImageToggleButton::Clone() { return ImageToggleButton(*this); }
