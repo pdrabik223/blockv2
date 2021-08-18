@@ -56,7 +56,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
 
         switch ((RunSimulationButton)id) {
         case RunSimulationButton::EXIT:
-          return ContextEvent::EXIT;
+          return ContextEvent::SWITCH_TO_PREVIOUS;
 
         case RunSimulationButton::STOP_START_SIMULATION:
           return ContextEvent::UPDATE_DISPLAY;
