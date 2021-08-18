@@ -19,7 +19,7 @@ namespace sfml_window {
 enum class LevelPlayerButton { EXIT,
                                RUN_SIMULATION,
 //                               CLEAR_BOTS,
-//                               B_EMPTY,
+                               B_EMPTY,
                                B_TURN,
                                B_FACTORY,
                                B_ENGINE,

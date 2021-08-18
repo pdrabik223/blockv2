@@ -61,6 +61,14 @@ void sfml_window::LevelPlayer::LoadButtons() {
 
   buttons_[(unsigned)LevelPlayerButton::B_TURN] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 + 72, 4), 32, 32), Texture(Assets::TURN_C));
+
+  sf::Texture empty;
+  if (!empty.loadFromFile(directory + "empty_cell.png")) {
+    assert(false);
+  }
+
+  buttons_[(unsigned)LevelPlayerButton::B_EMPTY] = new ToggleSpriteButton(
+      Rect(Coord(window_width_ / 2 + 108, 4), 32, 32), empty);
 }
 
 void sfml_window::LevelPlayer::LoadBackground(
@@ -402,6 +410,10 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
           change = true;
 
         } break;
+        case LevelPlayerButton::B_EMPTY: {
+          brush_ = BotType::EMPTY;
+          change = true;
+        } break;
         }
   }
 
@@ -420,15 +432,11 @@ unsigned sfml_window::LevelPlayer::Align(double x) {
 }
 
 void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BASIC])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BEDROCK])
-      ->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENEMY])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_ENGINE])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_FACTORY])
-      ->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_TURN])->TurnOff();
 
+  for (int i = (int)LevelPlayerButton::B_EMPTY;
+       i <= (int)LevelPlayerButton::B_BASIC; i++) {
+    ((ToggleSpriteButton *)buttons_[i])->TurnOff();
+  }
   switch (brush_) {
   case BotType::BASIC:
     ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_BASIC])->TurnOn();
@@ -451,6 +459,8 @@ void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
     ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_FACTORY])
         ->TurnOn();
     return;
+  case BotType::EMPTY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelPlayerButton::B_EMPTY])->TurnOn();
   }
 }
 
