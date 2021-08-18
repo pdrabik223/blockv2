@@ -3,8 +3,6 @@
 //
 
 #include "transposition.h"
-#include <iostream>
-#include <memory>
 
 /// right hand rule
 const Direction r_h_r[2][2] = {

@@ -6,6 +6,7 @@
 #define BLOCK_V2_UTILITY_TRANSPOSITION_H_
 
 #include "coord.h"
+#include <memory>
 #include <vector>
 
 /// rotation direction for turn cell
@@ -14,34 +15,29 @@ enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
 /// direction witch bot might be facing
 enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
 
+/// bool that can be not defined
+enum class TriState { NONE , FALSE , TRUE };
+
 /// right hand rule
 /// \rule the  direction on the right goes first
 /// \param a first direction to compare
 /// \param b second direction to compare
 /// \return  returns the correct direction according to the right hand rule
+Direction RHR(Direction a, Direction b);
 
-Direction RHR(Direction a,Direction b);
 Direction Opposite(Direction target);
+
 Direction Rotate(Direction target, TurnDirection angle);
+
 Coord NextPosition(Direction direction, const Coord &current_position);
+
 Coord PreviousPosition(Direction direction, const Coord &current_position);
-
-enum class TranspositionType {
-  NONE,    // do nothing with the cell
-  CREATE,  // factory
-  MOVE_TO, // every movable cell
-  TURN,    // turn cell
-  DELETE,  // kill cell
-  SIZE
-};
-
-enum class TriState { NONE = -1, FALSE = 0, TRUE = 1 };
 
 struct Transposition {
   Transposition();
   Transposition(const Transposition &other);
   Transposition &operator=(const Transposition &other);
-  Coord Collapse(const Coord& current_position);
+  Coord Collapse(const Coord &current_position);
   void LockEdge(const Direction &direction);
   void AddDirection(const Direction &direction);
   void Clear();
