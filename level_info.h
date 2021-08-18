@@ -38,6 +38,7 @@ public:
   /// <li>BotType::GOAL
   /// <li>BotType::ENEMY
   void AddBot(const Coord &position, BotType type);
+
   /// creates specified bot object in given position
   /// \param position position on plane the bot should be created at
   /// \param type type of the created object<br>
@@ -47,8 +48,10 @@ public:
   /// <li> BotType::ENGINE
   /// <li> BotType::FACTORY
   void AddBot(const Coord &position, BotType type, Direction direction);
+
   void AddBot(const Coord &position, BotType type,
               TurnDirection turn_direction);
+
   void AddBot(const Coord &position, BotType type, int id);
 
   void Lock(Coord position);

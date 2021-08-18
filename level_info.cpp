@@ -75,6 +75,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
     my_file >> info;
     locked_fields_.emplace_back(info);
   }
+
 }
 /// creates bot object and returns ptr to it
 /// \important the returned hanging pointer must be deleted manually!
@@ -91,7 +92,7 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
   case BotType::BASIC:
     return new Basic();
   case BotType::BEDROCK:
-    return new Empty();
+    return new Bedrock();
   case BotType::TURN:
     in >> temp_int;
     return new Turn((TurnDirection)temp_int);
