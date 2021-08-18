@@ -8,8 +8,10 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "SFML/Window/Event.hpp"
-#include "gui_color.h"
+
 #include <rect.h>
+#include "gui_color.h"
+
 namespace sfml_window {
 class Button {
 
