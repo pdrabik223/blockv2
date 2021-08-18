@@ -24,6 +24,5 @@ target_link_libraries(tests
         utility
         )
 
-
 add_test(NAME google_tests
         COMMAND google_tests)
