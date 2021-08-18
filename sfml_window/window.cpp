@@ -70,17 +70,19 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     SwitchContext(Contexts::LEVEL_PLAYER);
     goto update_display;
   case ContextEvent::RUN_SIMULATION: {
-   if(context_storage)
-     delete context_storage;
+    delete context_storage;
 
    context_storage = current_context_->Clone();
     SwitchContext(Contexts::RUN_SIMULATION);
     goto update_display;
   }
   case ContextEvent::SWITCH_TO_PREVIOUS:
+
     delete current_context_;
     current_context_ = context_storage->Clone();
     delete context_storage;
+    context_storage = nullptr;
+
     goto update_display;
   }
   return;
@@ -116,6 +118,6 @@ void Gui::SwitchContext(Contexts new_screen) {
   } break;
   case Contexts::SIZE: {
     assert(false);
-  } break;
+  }
   }
 }
