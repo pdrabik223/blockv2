@@ -33,18 +33,18 @@ Direction RHR(Direction a, Direction b) {
 }
 
 Transposition::Transposition() {
-  for (TriState &i : encounter_counter)
-    i = TriState::NONE;
+  for (TriState &i : encounter_counter_)
+    i = TriState::UNDEFINED;
 }
 Transposition::Transposition(const Transposition &other) {
   for (int i = 0; i < 4; i++)
-    this->encounter_counter[i] = other.encounter_counter[i];
+    this->encounter_counter_[i] = other.encounter_counter_[i];
 }
 Transposition &Transposition::operator=(const Transposition &other) {
   if (this == &other)
     return *this;
   for (int i = 0; i < 4; i++)
-    this->encounter_counter[i] = other.encounter_counter[i];
+    this->encounter_counter_[i] = other.encounter_counter_[i];
   return *this;
 }
 Coord Transposition::Collapse(const Coord &current_position) {
@@ -54,19 +54,19 @@ Coord Transposition::Collapse(const Coord &current_position) {
   Direction horizontal;
   bool empty_horizontal = true;
 
-  if (encounter_counter[(int)Direction::UP] == TriState::TRUE) {
+  if (encounter_counter_[(int)Direction::UP] == TriState::T_TRUE) {
     vertical = Direction::UP;
     empty_vertical = false;
   }
-  if (encounter_counter[(int)Direction::DOWN] == TriState::TRUE) {
+  if (encounter_counter_[(int)Direction::DOWN] == TriState::T_TRUE) {
     vertical = Direction::DOWN;
     empty_vertical = false;
   }
-  if (encounter_counter[(int)Direction::LEFT] == TriState::TRUE) {
+  if (encounter_counter_[(int)Direction::LEFT] == TriState::T_TRUE) {
     horizontal = Direction::LEFT;
     empty_horizontal = false;
   }
-  if (encounter_counter[(int)Direction::RIGHT] == TriState::TRUE) {
+  if (encounter_counter_[(int)Direction::RIGHT] == TriState::T_TRUE) {
     horizontal = Direction::RIGHT;
     empty_horizontal = false;
   }
@@ -83,20 +83,20 @@ Coord Transposition::Collapse(const Coord &current_position) {
   return current_position;
 }
 void Transposition::LockEdge(const Direction &direction) {
-  encounter_counter[(int)direction] = TriState::FALSE;
+  encounter_counter_[(int)direction] = TriState::T_FALSE;
 }
 
 bool Transposition::CheckDirection(const Direction &direction) {
-  return encounter_counter[(int)direction] not_eq TriState::FALSE;
+  return encounter_counter_[(int)direction] not_eq TriState::T_FALSE;
 }
 void Transposition::Clear() {
-  for (auto &i : encounter_counter)
-    i = TriState::NONE;
+  for (auto &i : encounter_counter_)
+    i = TriState::UNDEFINED;
 }
 void Transposition::AddDirection(const Direction &direction) {
-  if (encounter_counter[(int)direction] != TriState::NONE)
+  if (encounter_counter_[(int)direction] != TriState::UNDEFINED)
     return;
-  encounter_counter[(int)direction] = TriState::TRUE;
+  encounter_counter_[(int)direction] = TriState::T_TRUE;
 }
 Direction Opposite(Direction target) {
   switch (target) {

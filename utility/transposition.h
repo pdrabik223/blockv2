@@ -1,5 +1,5 @@
-// Created by studio25 on 29.07.2021.
 //
+// Created by studio25 on 29.07.2021.
 //
 
 #ifndef BLOCK_V2_UTILITY_TRANSPOSITION_H_
@@ -9,14 +9,19 @@
 #include <memory>
 #include <vector>
 
+
+/// bool that can be not defined
+enum class TriState {
+  T_FALSE = 2,
+  UNDEFINED = 1,
+  T_TRUE = 3,
+};
+
 /// rotation direction for turn cell
 enum class TurnDirection { CLOCKWISE, COUNTER_CLOCKWISE };
 
 /// direction witch bot might be facing
 enum class Direction { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
-
-/// bool that can be not defined
-enum class TriState { NONE , FALSE , TRUE };
 
 /// right hand rule
 /// \rule the  direction on the right goes first
@@ -33,7 +38,9 @@ Coord NextPosition(Direction direction, const Coord &current_position);
 
 Coord PreviousPosition(Direction direction, const Coord &current_position);
 
-struct Transposition {
+
+class Transposition {
+public:
   Transposition();
   Transposition(const Transposition &other);
   Transposition &operator=(const Transposition &other);
@@ -43,7 +50,7 @@ struct Transposition {
   void Clear();
   bool CheckDirection(const Direction &direction);
 
-  TriState encounter_counter[4];
+  TriState encounter_counter_[4];
 };
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_
