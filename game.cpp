@@ -33,6 +33,7 @@ Board &Board::operator=(const Board &other) {
 
   width_ = other.width_;
   height_ = other.height_;
+  return *this;
 }
 
 unsigned int Board::GetWidth() const { return width_; }
