@@ -87,6 +87,7 @@ public:
   virtual Context* Clone() = 0;
 
   virtual LevelInfo GetLevelInfo() = 0;
+  virtual ~Context() = default;
 protected:
   std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
 };

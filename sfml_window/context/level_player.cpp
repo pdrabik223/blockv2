@@ -491,3 +491,9 @@ sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() { return new LevelPl
 LevelInfo sfml_window::LevelPlayer::GetLevelInfo() {
   return LevelInfo(LevelPath(level_directory_));
 }
+sfml_window::LevelPlayer::~LevelPlayer() {
+
+  for(auto &b:buttons_)
+    delete b;
+
+}

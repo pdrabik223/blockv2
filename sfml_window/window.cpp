@@ -49,7 +49,7 @@ void Gui::ThMainLoop() {
   delete context_storage;
 }
 void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
-                               Context *context_storage) {
+                               Context *&context_storage) {
   switch (event) {
   case ContextEvent::EXIT:
     window.close();
@@ -70,8 +70,10 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     SwitchContext(Contexts::LEVEL_PLAYER);
     goto update_display;
   case ContextEvent::RUN_SIMULATION: {
-    delete context_storage;
-    context_storage = current_context_->Clone();
+   if(context_storage)
+     delete context_storage;
+
+   context_storage = current_context_->Clone();
     SwitchContext(Contexts::RUN_SIMULATION);
     goto update_display;
   }

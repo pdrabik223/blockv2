@@ -37,7 +37,7 @@ private:
   void ThMainLoop();
   void SwitchContext(Contexts new_screen);
   void HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
-                            Context *context_storage);
+                            Context *&context_storage);
 protected:
 
   sfml_window::Context* current_context_;

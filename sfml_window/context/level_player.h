@@ -56,6 +56,7 @@ public:
 
   LevelInfo GetLevelInfo();
 
+  ~LevelPlayer() override ;
 
 private:
   void LoadButtons();

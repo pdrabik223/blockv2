@@ -196,3 +196,9 @@ sfml_window::LevelPicker *sfml_window::LevelPicker::Clone() { return new LevelPi
 LevelInfo sfml_window::LevelPicker::GetLevelInfo() {
   return LevelInfo(2,1);
 }
+sfml_window::LevelPicker::~LevelPicker() {
+  for(auto &b:buttons_)
+    delete b;
+
+
+}

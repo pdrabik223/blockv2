@@ -46,6 +46,8 @@ public:
 
   LevelInfo GetLevelInfo() override;
 
+  ~LevelCreator() override ;
+
 private:
   void LoadButtons();
   /// loads assets from file to memory

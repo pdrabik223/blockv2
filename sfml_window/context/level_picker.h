@@ -43,6 +43,7 @@ public:
   std::string GetPath();
 
   LevelInfo GetLevelInfo() override;
+  ~LevelPicker() override ;
 
 private:
   void LoadColors() override;

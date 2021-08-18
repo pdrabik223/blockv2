@@ -430,3 +430,10 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight(
 }
 sfml_window::LevelCreator* sfml_window::LevelCreator::Clone() { return new LevelCreator(*this);  }
 LevelInfo sfml_window::LevelCreator::GetLevelInfo() { return {2,1}; }
+
+sfml_window::LevelCreator::~LevelCreator() {
+  for (auto &b : buttons_)
+    delete b;
+
+
+}
