@@ -21,6 +21,11 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
+
+  void Lock(Coord position);
+  bool IsLocked(Coord position);
+  bool IsLocked(int position);
+
   void GenPosition();
 
   bool CompareGameState(const Board &other);
@@ -56,6 +61,7 @@ private:
   unsigned height_;
 
   std::vector<Bot *> plane_;
+  std::vector<bool> locked_fields_;
 };
 
 #endif // BLOCK_V2__GAME_H_

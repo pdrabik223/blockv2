@@ -15,6 +15,8 @@ Board::Board(const LevelInfo &level_info) {
   for (const auto &b : level_info.GetPLane())
     plane_.emplace_back(b->Clone());
 
+  locked_fields_ = level_info.GetLockedFields();
+
   width_ = level_info.GetWidth();
   height_ = level_info.GetHeight();
 }
@@ -158,8 +160,12 @@ bool Board::IsWon() {
 
   return true;
 }
+
 void Board::AddCell(int x, int y, BotType type) {
   assert(x < width_ and y < height_);
+  if (IsLocked(y * width_ + x))
+    return;
+
   delete plane_[y * width_ + x];
   switch (type) {
   case BotType::EMPTY:
@@ -196,3 +202,10 @@ void Board::AddCell(int x, int y, BotType type) {
   }
 }
 
+void Board::Lock(Coord position) {
+  locked_fields_[position.ToInt(width_)] = true;
+}
+bool Board::IsLocked(Coord position) {
+  return locked_fields_[position.ToInt(width_)];
+}
+bool Board::IsLocked(int position) { return locked_fields_[position]; }
