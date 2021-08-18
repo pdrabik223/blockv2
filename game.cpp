@@ -12,6 +12,7 @@ Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 Board::Board(const LevelInfo &level_info) {
 
   plane_.clear();
+
   for (const auto &b : level_info.GetPLane())
     plane_.emplace_back(b->Clone());
 
@@ -19,6 +20,19 @@ Board::Board(const LevelInfo &level_info) {
 
   width_ = level_info.GetWidth();
   height_ = level_info.GetHeight();
+}
+
+Board &Board::operator=(const Board &other) {
+  if (&other == this)
+    return *this;
+
+  for (const auto &b : other.plane_)
+    plane_.emplace_back(b->Clone());
+
+  locked_fields_ = other.locked_fields_;
+
+  width_ = other.width_;
+  height_ = other.height_;
 }
 
 unsigned int Board::GetWidth() const { return width_; }

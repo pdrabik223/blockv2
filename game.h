@@ -12,6 +12,7 @@ public:
   Board() = delete;
 
   Board(const LevelInfo &level_info);
+  Board & operator=(const Board & other);
   Bot *GetCell(Coord position);
   Bot *GetCell(unsigned position);
   BotType GetBotType(const Coord &position) const;
@@ -25,9 +26,7 @@ public:
   bool IsLocked(int position);
 
   void GenPosition();
-
   bool CompareGameState(const Board &other);
-
   bool IsWon();
   size_t Size() const;
 
