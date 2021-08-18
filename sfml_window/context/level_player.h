@@ -38,6 +38,7 @@ public:
   /// \param window_width of the window
   LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
 
+  LevelPlayer *Clone() override;
 
   void LoadColors() override {};
 
@@ -45,8 +46,6 @@ public:
 
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
-
-
 
 private:
   void LoadButtons();

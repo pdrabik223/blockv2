@@ -142,3 +142,5 @@ void sfml_window::MainMenu::LoadBackground() {
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
+
+sfml_window::MainMenu *sfml_window::MainMenu::Clone() { return new MainMenu(*this); }

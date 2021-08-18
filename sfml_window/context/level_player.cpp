@@ -382,8 +382,8 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
         case LevelPlayerButton::EXIT:
           return ContextEvent::SWITCH_TO_LEVEL_PICKER;
         case LevelPlayerButton::RUN_SIMULATION:
-          change = true;
-          break;
+          return ContextEvent::RUN_SIMULATION;
+
         case LevelPlayerButton::B_BASIC: {
           brush_ = BotType::BASIC;
           change = true;
@@ -488,3 +488,4 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
   }
   return false;
 }
+sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() { return new LevelPlayer(*this); }

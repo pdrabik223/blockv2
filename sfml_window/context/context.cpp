@@ -16,3 +16,4 @@ std::string sfml_window::LevelPath(const std::string &directory_path) {
 
   return directory_path + "/" + level_name;
 }
+

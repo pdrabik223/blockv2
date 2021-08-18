@@ -34,6 +34,7 @@ public:
   /// \param window_width of the window
   LevelCreator(unsigned int window_width, unsigned int window_height);
 
+  LevelCreator *Clone() override;
 
   void LoadColors() override {};
 

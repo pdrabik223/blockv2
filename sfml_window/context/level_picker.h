@@ -29,12 +29,14 @@ public:
   /// \param window_width of the window
   LevelPicker(unsigned int window_width, unsigned int window_height);
 
+  LevelPicker *Clone() override;
   void DrawToWindow(sf::RenderWindow &window) override;
 
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
   std::string GetPath();
+  
 private:
   void LoadColors() override;
 

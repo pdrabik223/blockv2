@@ -32,6 +32,7 @@ public:
 
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
+  MainMenu *Clone() override;
 
   ~MainMenu();
 

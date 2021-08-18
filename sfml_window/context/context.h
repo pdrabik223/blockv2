@@ -46,8 +46,11 @@ enum class ContextEvent{
   SWITCH_TO_LEVEL_PICKER,
   SWITCH_TO_LEVEL_CREATOR,
   SWITCH_TO_LEVEL_PLAYER,
-  NONE,
+  SWITCH_TO_PREVIOUS,
+  RUN_SIMULATION,
+
   UPDATE_DISPLAY,
+  NONE,
   SIZE
   };
 
@@ -78,6 +81,7 @@ public:
   virtual void LoadColors() = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
+  virtual Context* Clone() = 0;
 
 protected:
   std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;

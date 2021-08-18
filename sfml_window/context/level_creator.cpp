@@ -428,3 +428,4 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight(
 
   ((ToggleSpriteButton *)buttons_[(int)stay_highlighted])->TurnOn();
 }
+sfml_window::LevelCreator* sfml_window::LevelCreator::Clone() { return new LevelCreator(*this);  }

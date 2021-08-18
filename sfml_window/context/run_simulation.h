@@ -41,6 +41,7 @@ public:
 
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
+  RunSimulation *Clone() override;
 
   virtual ~RunSimulation();
 

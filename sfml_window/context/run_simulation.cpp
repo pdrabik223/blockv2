@@ -400,3 +400,4 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
       throw "error";
     }
 }
+sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() { return new RunSimulation(*this); }

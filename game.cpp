@@ -205,7 +205,9 @@ void Board::AddCell(int x, int y, BotType type) {
 void Board::Lock(Coord position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
+
 bool Board::IsLocked(Coord position) {
   return locked_fields_[position.ToInt(width_)];
 }
+
 bool Board::IsLocked(int position) { return locked_fields_[position]; }
