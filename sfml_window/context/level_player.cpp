@@ -487,7 +487,9 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
   }
   return false;
 }
+
 sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() { return new LevelPlayer(*this); }
+
 LevelInfo sfml_window::LevelPlayer::GetLevelInfo() {
   return LevelInfo(LevelPath(level_directory_));
 }
