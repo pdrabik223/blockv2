@@ -23,6 +23,9 @@ LevelInfo::LevelInfo(unsigned int width, unsigned int height)
 
   for (auto i = 0; i < plane_.capacity(); i++)
     plane_.emplace_back(new Empty());
+
+  for (auto i = 0; i < plane_.capacity(); i++)
+    locked_fields_.emplace_back(false);
 }
 void LevelInfo::SaveLevel() {
 
@@ -49,6 +52,9 @@ void LevelInfo::SaveLevel() {
   for (const Bot *bot : plane_)
     bot->OutputToFile(my_file);
 
+  for (const auto l : locked_fields_)
+    my_file << l << " ";
+
   my_file.close();
 }
 void LevelInfo::LoadLevel(const std::string &file_path) {
@@ -66,6 +72,12 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
   for (unsigned x = 0; x < width_; ++x)
     for (unsigned y = 0; y < height_; ++y)
       plane_.emplace_back(PushBot(my_file, Coord(x, y)));
+
+  for (unsigned x = 0; x < height_ * width_; ++x) {
+    bool info;
+    my_file >> info;
+    locked_fields_.emplace_back(info);
+  }
 }
 /// creates bot object and returns ptr to it
 /// \important the returned hanging pointer must be deleted manually!
@@ -73,7 +85,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
 /// \param position position of the bot on the plane (may be unnecessary but for
 /// now it stays) \return the pointer to new bot object
 Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
-  assert(position.x<width_ and position.y<height_);
+  assert(position.x < width_ and position.y < height_);
   int temp_int;
   in >> temp_int;
   switch ((BotType)temp_int) {
@@ -92,13 +104,13 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
     return new Enemy();
   case BotType::ENGINE:
     in >> temp_int;
-    return new Engine( (Direction)temp_int);
+    return new Engine((Direction)temp_int);
   case BotType::FACTORY:
     in >> temp_int;
-    return new Factory( (Direction)temp_int);
+    return new Factory((Direction)temp_int);
   case BotType::TP:
     in >> temp_int;
-    return new Tp( temp_int);
+    return new Tp(temp_int);
   case BotType::NONE:
   case BotType::SIZE:
     throw "error";
@@ -107,7 +119,7 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
 }
 
 void LevelInfo::AddBot(const Coord &position, BotType type) {
-  assert(position.x<width_ and position.y<height_);
+  assert(position.x < width_ and position.y < height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::EMPTY:
@@ -134,7 +146,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type,
 
   delete plane_[position.ToInt(width_)];
 
-  assert(position.x<width_ and position.y<height_);
+  assert(position.x < width_ and position.y < height_);
   switch (type) {
   case BotType::ENGINE:
     plane_[position.ToInt(width_)] = new Engine(direction);
@@ -148,22 +160,22 @@ void LevelInfo::AddBot(const Coord &position, BotType type,
 }
 void LevelInfo::AddBot(const Coord &position, BotType type,
                        TurnDirection turn_direction) {
-  assert(position.x<width_ and position.y<height_);
+  assert(position.x < width_ and position.y < height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::TURN:
-    plane_[position.ToInt(width_)] = new Turn( turn_direction);
+    plane_[position.ToInt(width_)] = new Turn(turn_direction);
     break;
   default:
     throw "bad type";
   }
 }
 void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
-  assert(position.x<width_ and position.y<height_);
+  assert(position.x < width_ and position.y < height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
   case BotType::TP:
-    plane_[position.ToInt(width_)] = new Tp( id);
+    plane_[position.ToInt(width_)] = new Tp(id);
     break;
   default:
     throw "bad type";
@@ -172,3 +184,11 @@ void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
 unsigned int LevelInfo::GetWidth() const { return width_; }
 unsigned int LevelInfo::GetHeight() const { return height_; }
 const std::string &LevelInfo::GetName() const { return name_; }
+
+void LevelInfo::Lock(Coord position) {
+  locked_fields_[position.ToInt(width_)] = true;
+}
+bool LevelInfo::IsLocked(Coord position) {
+  return locked_fields_[position.ToInt(width_)];
+}
+const std::vector<bool>& LevelInfo::GetLockedFields()const  { return locked_fields_; }

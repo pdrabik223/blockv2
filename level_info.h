@@ -13,8 +13,6 @@ public:
 
   LevelInfo(unsigned int width, unsigned int height);
 
-
-
   /// copy constructor
   void LoadLevel(const std::string &file_path);
 
@@ -48,11 +46,16 @@ public:
               TurnDirection turn_direction);
   void AddBot(const Coord &position, BotType type, int id);
 
-  const std::vector<Bot *> &GetPLane()const { return plane_; };
+  void Lock(Coord position);
+  bool IsLocked(Coord position);
+
+  const std::vector<Bot *> &GetPLane() const { return plane_; };
 
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
   const std::string &GetName() const;
+
+  const std::vector<bool> &GetLockedFields() const;
 
 private:
   /// creates bot object and returns ptr to it
@@ -67,6 +70,7 @@ protected:
   unsigned width_;
   unsigned height_;
   std::vector<Bot *> plane_;
+  std::vector<bool> locked_fields_;
 };
 
 #endif // BLOCK_V2__LEVEL_INFO_H_
