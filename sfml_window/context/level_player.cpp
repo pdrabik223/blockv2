@@ -215,6 +215,9 @@ void sfml_window::LevelPlayer::DrawCell(sf::RenderWindow &window,
                                         unsigned int position) {
   Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_ / 2,
                          grid_[position].getPosition().y + cell_size_ / 2);
+  if (level_.IsLocked(position))
+    Sprite(id).setColor({225, 225, 225, 180});
+
   window.draw(Sprite(id));
 }
 sf::Texture &sfml_window::LevelPlayer::Texture(sfml_window::Assets cell) {
