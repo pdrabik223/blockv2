@@ -4,8 +4,8 @@
 
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
+#include "transposition.h"
 #include <ostream>
-#include "../utility/transposition.h"
 
 /// contains all used cell types
 enum class BotType {
