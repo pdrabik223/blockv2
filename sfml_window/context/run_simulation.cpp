@@ -12,7 +12,7 @@ sfml_window::RunSimulation::~RunSimulation() {
 
 sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           unsigned int window_height,
-                                          LevelInfo &level_info)
+                                          const LevelInfo &level_info)
     : local_board_(level_info), window_width_(window_width),
       window_height_(window_height) {
   LoadColors();
@@ -401,3 +401,6 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
     }
 }
 sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() { return new RunSimulation(*this); }
+LevelInfo sfml_window::RunSimulation::GetLevelInfo() {
+  return LevelInfo(2,1);
+}
