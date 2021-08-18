@@ -3,8 +3,6 @@
 //
 
 #include "level_picker.h"
-#include <fstream>
-#include <iostream>
 void sfml_window::LevelPicker::LoadColors() {
   color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
   color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
@@ -195,3 +193,6 @@ std::string sfml_window::LevelPicker::GetPath() {
 }
 
 sfml_window::LevelPicker *sfml_window::LevelPicker::Clone() { return new LevelPicker(*this); }
+LevelInfo sfml_window::LevelPicker::GetLevelInfo() {
+  return LevelInfo(2,1);
+}

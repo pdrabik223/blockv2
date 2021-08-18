@@ -3,8 +3,7 @@
 //
 
 #include "level_player.h"
-#include <iostream>
-#include <toggle_sprite_button.h>
+
 
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
@@ -489,3 +488,6 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
   return false;
 }
 sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() { return new LevelPlayer(*this); }
+LevelInfo sfml_window::LevelPlayer::GetLevelInfo() {
+  return LevelInfo(LevelPath(level_directory_));
+}

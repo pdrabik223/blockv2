@@ -3,10 +3,7 @@
 //
 
 #include "level_info.h"
-#include <cassert>
-#include <fstream>
-#include <iostream>
-#include <windows.h>
+
 
 LevelInfo::LevelInfo(const std::string &file_path) { LoadLevel(file_path); }
 

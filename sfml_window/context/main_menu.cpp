@@ -3,6 +3,7 @@
 //
 
 #include "main_menu.h"
+#include "../../level_info.h"
 #include <cassert>
 #include <iostream>
 
@@ -134,7 +135,7 @@ Rect sfml_window::MainMenu::Align(double x, double y, unsigned int width,
 
 void sfml_window::MainMenu::LoadBackground() {
   if (!background_texture_.loadFromFile(
-          "..\\sfml_window\\assets\\main_menu\\background.png"))
+          "../sfml_window/assets/main_menu/background.png"))
     throw "error";
   background_texture_.setSmooth(true);
   background_sprite_.setTexture(background_texture_);
@@ -144,3 +145,6 @@ void sfml_window::MainMenu::LoadBackground() {
 }
 
 sfml_window::MainMenu *sfml_window::MainMenu::Clone() { return new MainMenu(*this); }
+LevelInfo sfml_window::MainMenu::GetLevelInfo() {
+  return LevelInfo(2,1);
+}

@@ -13,7 +13,7 @@
 #include "factory.h"
 #include "goal.h"
 #include "turn.h"
-#include "bot.h"
+//#include "bot.h"
 #include "empty.h"
 #include "tp.h"
 

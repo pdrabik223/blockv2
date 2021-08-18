@@ -4,7 +4,6 @@
 
 #include "toggle_sprite_button.h"
 
-#include <utility>
 sfml_window::ToggleSpriteButton::ToggleSpriteButton(const Rect &structure,
                                                     const sf::Texture &sprite)
     : structure_(structure) {

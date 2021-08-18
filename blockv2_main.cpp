@@ -1,8 +1,7 @@
 //
 // Created by studio25 on 14.08.2021.
 //
-#include "bot.h"
-#include "level_info.h"
+
 #include "sfml_window/window.h"
 
 int main() {

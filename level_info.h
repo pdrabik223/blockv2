@@ -7,6 +7,11 @@
 #include "bots_include.h"
 #include <string>
 #include <vector>
+#include <cassert>
+#include <fstream>
+#include <iostream>
+#include <windows.h>
+
 class LevelInfo {
 public:
   explicit LevelInfo(const std::string &file_path);

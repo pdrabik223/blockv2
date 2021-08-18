@@ -10,13 +10,13 @@ TEST(Transposition, LockEdge_and_AddDirection) {
   Transposition test_unit;
   test_unit.LockEdge(Direction::DOWN);
 
-  EXPECT_TRUE(test_unit.encounter_counter[(int)Direction::DOWN] ==
-              TriState::FALSE);
+  EXPECT_TRUE(test_unit.encounter_counter_[(int)Direction::DOWN] ==
+              TriState::T_FALSE);
 
   test_unit.LockEdge(Direction::LEFT);
   EXPECT_TRUE(
-      test_unit.encounter_counter[(int)Direction::DOWN] == TriState::FALSE &&
-      test_unit.encounter_counter[(int)Direction::LEFT] == TriState::FALSE);
+      test_unit.encounter_counter_[(int)Direction::DOWN] == TriState::T_FALSE &&
+      test_unit.encounter_counter_[(int)Direction::LEFT] == TriState::T_FALSE);
 
   test_unit.LockEdge(Direction::UP);
   test_unit.LockEdge(Direction::DOWN);
@@ -27,10 +27,10 @@ TEST(Transposition, LockEdge_and_AddDirection) {
   test_unit.AddDirection(Direction::RIGHT);
 
   EXPECT_TRUE(
-      test_unit.encounter_counter[(int)Direction::DOWN] == TriState::FALSE &&
-      test_unit.encounter_counter[(int)Direction::UP] == TriState::FALSE &&
-      test_unit.encounter_counter[(int)Direction::LEFT] == TriState::FALSE &&
-      test_unit.encounter_counter[(int)Direction::RIGHT] == TriState::TRUE);
+      test_unit.encounter_counter_[(int)Direction::DOWN] == TriState::T_FALSE &&
+      test_unit.encounter_counter_[(int)Direction::UP] == TriState::T_FALSE &&
+      test_unit.encounter_counter_[(int)Direction::LEFT] == TriState::T_FALSE &&
+      test_unit.encounter_counter_[(int)Direction::RIGHT] == TriState::T_TRUE);
 }
 TEST(Transposition, Collapse) {
   Coord test_coord(1, 1);

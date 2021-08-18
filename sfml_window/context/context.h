@@ -7,8 +7,11 @@
 
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Event.hpp"
-#include "coord.h"
+
 #include <array>
+
+#include "../../game.h"
+
 namespace sfml_window {
 
 /// replace with exists[(int)Assets::x]
@@ -83,6 +86,7 @@ public:
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
   virtual Context* Clone() = 0;
 
+  virtual LevelInfo GetLevelInfo() = 0;
 protected:
   std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
 };

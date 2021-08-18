@@ -5,11 +5,11 @@
 #ifndef BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
 #define BLOCK_V2_SFML_WINDOW_TEXT_BUTTON_H_
 
-#include "../window_utility/button.h"
-#include "../window_utility/text_box.h"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include "button.h"
+#include "text_box.h"
 namespace sfml_window {
 /// the size of the button depends on the text within
 class TextButton : public Button {

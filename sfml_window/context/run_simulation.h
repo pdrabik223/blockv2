@@ -5,20 +5,19 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 
-#include "../../game.h"
-#include "../window_utility/button.h"
-#include "bots_include.h"
+
 #include "context.h"
-#include <SFML/Graphics/RectangleShape.hpp>
+
 #include <cassert>
 #include <fstream>
-#include <image_button.h>
-#include <image_toggle_button.h>
 #include <iostream>
 #include <vector>
+
+#include <SFML/Graphics/RectangleShape.hpp>
+
+#include <image_button.h>
+#include <image_toggle_button.h>
 namespace sfml_window {
-
-
 
 enum class RunSimulationButton {
   STEP_SIMULATION,
@@ -35,14 +34,14 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   RunSimulation(unsigned int window_width, unsigned int window_height,
-                LevelInfo &level_info);
+                const LevelInfo &level_info);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
   RunSimulation *Clone() override;
-
+  LevelInfo GetLevelInfo() override;
   virtual ~RunSimulation();
 
 private:

@@ -5,13 +5,16 @@
 #ifndef BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 #define BLOCK_V2_SFML_WINDOW_MAIN_MENU_H_
 
-#include "../window_utility/text_box.h"
-#include "../window_utility/text_button.h"
 #include "context.h"
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+
 #include <array>
 #include <vector>
+
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
+#include "text_button.h"
+
 namespace sfml_window {
 
 enum class MainMenuButton {
@@ -33,6 +36,8 @@ public:
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
   MainMenu *Clone() override;
+
+  LevelInfo GetLevelInfo() override;
 
   ~MainMenu();
 

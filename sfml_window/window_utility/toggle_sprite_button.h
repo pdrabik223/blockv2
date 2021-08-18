@@ -6,11 +6,12 @@
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_SPRITE_BUTTON_H_
 
 #include "button.h"
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 namespace sfml_window {
-enum class State { DEFAULT, TOGGLE, SIZE };
+
 /// the sprite the button has is pre defined
 /// the button must react to being turned on by press
 /// and hovered by mouse

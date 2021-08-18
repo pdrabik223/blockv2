@@ -5,14 +5,21 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
 
-#include "../../game.h"
+
 #include "context.h"
-#include "image_button.h"
-#include "text_button.h"
+
+#include <iostream>
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+
+#include "image_button.h"
+#include "text_button.h"
 #include <short_level_info.h>
+
+
+#include <toggle_sprite_button.h>
 
 namespace sfml_window {
 
@@ -46,6 +53,9 @@ public:
 
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
+
+  LevelInfo GetLevelInfo();
+
 
 private:
   void LoadButtons();

@@ -11,10 +11,15 @@
 #include "context.h"
 #include "image_button.h"
 #include "text_button.h"
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+
 #include <short_level_info.h>
+#include <fstream>
+#include <iostream>
+
 /// displays the content of the levels directory, and enables user to choose
 /// witch level they want to play
 
@@ -36,7 +41,9 @@ public:
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
   std::string GetPath();
-  
+
+  LevelInfo GetLevelInfo() override;
+
 private:
   void LoadColors() override;
 

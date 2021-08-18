@@ -5,10 +5,11 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_
 
-#include "../../game.h"
 #include "context.h"
+
 #include "image_button.h"
 #include "text_button.h"
+
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -25,7 +26,7 @@ enum class LevelCreatorButton { EXIT,
     B_TURN,
     SIZE };
 
-class LevelCreator :public Context{
+class LevelCreator : public Context{
 public:
 
   /// run provided simulation
@@ -43,7 +44,7 @@ public:
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
-
+  LevelInfo GetLevelInfo() override;
 
 private:
   void LoadButtons();
