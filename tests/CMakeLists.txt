@@ -3,7 +3,7 @@ project(tests)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(tests transposition_class_tests.cpp movement_direction_test.cpp)
+add_executable(tests transposition_class_tests.cpp)
 
 #add_subdirectory(../googletest)
 
