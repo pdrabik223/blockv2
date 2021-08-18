@@ -5,9 +5,8 @@
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_H_
 
-#include "../bots/bots_include.h"
+
 #include "context/context_include.h"
-#include "../level_info.h"
 
 #include <SFML/Graphics/Shape.hpp>
 #include <iostream>
@@ -37,7 +36,8 @@ public:
 private:
   void ThMainLoop();
   void SwitchContext(Contexts new_screen);
-  void HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event);
+  void HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
+                            Context *context_storage);
 protected:
 
   sfml_window::Context* current_context_;

@@ -15,6 +15,7 @@ Gui::Gui(LevelInfo &level) : current_loaded_level_(level) {
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
+Gui::~Gui() { window_thread_->join(); }
 void Gui::ThMainLoop() {
 
   sf::ContextSettings settings;
@@ -28,6 +29,7 @@ void Gui::ThMainLoop() {
   // run the program as long as the window is open
   current_context_->DrawToWindow(window);
   window.display();
+  Context *context_storage = nullptr;
   while (window.isOpen()) {
 
     // check all the window's events that were triggered since the last
@@ -36,13 +38,18 @@ void Gui::ThMainLoop() {
 
       if (event_.type == sf::Event::Closed)
         window.close();
-      else
+      else {
+
         HandleIncomingEvents(window,
-                             current_context_->HandleEvent(event_, window));
+                             current_context_->HandleEvent(event_, window),
+                             context_storage);
+      }
     }
   }
+  delete context_storage;
 }
-void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event) {
+void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
+                               Context *context_storage) {
   switch (event) {
   case ContextEvent::EXIT:
     window.close();
@@ -56,10 +63,22 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event) {
     SwitchContext(Contexts::MAIN_MENU);
     goto update_display;
   case ContextEvent::SWITCH_TO_LEVEL_CREATOR:
+
     SwitchContext(Contexts::LEVEL_CREATOR);
     goto update_display;
   case ContextEvent::SWITCH_TO_LEVEL_PLAYER:
     SwitchContext(Contexts::LEVEL_PLAYER);
+    goto update_display;
+  case ContextEvent::RUN_SIMULATION: {
+    delete context_storage;
+    context_storage = current_context_->Clone();
+    SwitchContext(Contexts::RUN_SIMULATION);
+    goto update_display;
+  }
+  case ContextEvent::SWITCH_TO_PREVIOUS:
+    delete current_context_;
+    current_context_ = context_storage->Clone();
+    delete context_storage;
     goto update_display;
   }
   return;
@@ -68,7 +87,6 @@ update_display:
   current_context_->DrawToWindow(window);
   window.display();
 }
-Gui::~Gui() { window_thread_->join(); }
 
 void Gui::SwitchContext(Contexts new_screen) {
 
@@ -88,10 +106,11 @@ void Gui::SwitchContext(Contexts new_screen) {
     current_context_ = new LevelPlayer(1200, 600, chosen_level_path);
   } break;
   case Contexts::LEVEL_CREATOR: {
-    current_context_ = new LevelCreator(1200,600);
+    current_context_ = new LevelCreator(1200, 600);
   } break;
   case Contexts::RUN_SIMULATION: {
-    current_context_ = new RunSimulation(1200, 600, current_loaded_level_);
+    LevelInfo chosen_level = current_context_->GetLevelInfo();
+    current_context_ = new RunSimulation(1200, 600, chosen_level);
   } break;
   case Contexts::SIZE: {
     assert(false);
