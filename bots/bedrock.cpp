@@ -6,11 +6,13 @@
 
 Bedrock::Bedrock() = default;
 
-Bedrock *Bedrock::Clone() { return this; }
+Bedrock *Bedrock::Clone() { return new Bedrock(*this); }
+
 void Bedrock::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::BEDROCK << "\n";
 }
 BotType Bedrock::GetType() const { return type_; }
+
 void Bedrock::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                          const Coord &bot_position,
                                          const unsigned plane_width,
@@ -29,6 +31,7 @@ void Bedrock::ClearMovementDirection() {
 void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      unsigned plane_width,
                      unsigned plane_height) { /*do nothing*/}
+
 Bedrock::Bedrock(const Bedrock &other) : Bot(other) {
   movement_ = other.movement_;
 }
