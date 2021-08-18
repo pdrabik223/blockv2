@@ -11,7 +11,7 @@
 #include "button.h"
 #include <array>
 namespace sfml_window {
-enum class State { DEFAULT, TOGGLE,SIZE };
+
 class ImageToggleButton : public Button {
 
 public:

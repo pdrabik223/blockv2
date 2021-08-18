@@ -13,6 +13,8 @@
 #include "gui_color.h"
 
 namespace sfml_window {
+
+enum class State { DEFAULT, TOGGLE, SIZE };
 class Button {
 
 public:
