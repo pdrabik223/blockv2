@@ -82,5 +82,6 @@ void sfml_window::TextButton::SetPosition(const Coord &position) {
                           (float)structure_.placement.y);
   text_.SetPosition(position);
 }
+sfml_window::TextButton *sfml_window::TextButton::Clone() { return new TextButton(*this); }
 
 sfml_window::TextButton::~TextButton() = default;

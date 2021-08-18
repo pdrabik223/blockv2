@@ -68,4 +68,16 @@ bool sfml_window::ImageToggleButton::DetectInteraction(const Coord &press_point,
 void sfml_window::ImageToggleButton::SetButtonColor(
     const sf::Color &button_color) {}
 
-    sfml_window::ImageToggleButton *sfml_window::ImageToggleButton::Clone() { return ImageToggleButton(*this); }
+sfml_window::ImageToggleButton::ImageToggleButton(
+    const ImageToggleButton &other) {
+  structure_ = other.structure_;
+  hover_ = other.hover_;
+
+  state_ = other.state_;
+  textures_ = other.textures_; // this one for sure tho
+  sprites_ = other.sprites_;
+  colors_ = other.colors_;
+}
+sfml_window::ImageToggleButton *sfml_window::ImageToggleButton::Clone() {
+  return new ImageToggleButton(*this);
+}

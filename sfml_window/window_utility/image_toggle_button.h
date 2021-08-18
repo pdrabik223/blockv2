@@ -19,7 +19,7 @@ public:
       const Rect &structure,
       std::pair<const std::string &, const sf::Color &> default_image,
       std::pair<const std::string &, const sf::Color &> toggle_image);
-
+  ImageToggleButton(const ImageToggleButton& other);
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;

@@ -47,7 +47,8 @@ public:
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override;
   void SetPosition(const Coord& position);
-  ~TextButton();
+  TextButton *Clone() override;
+  ~TextButton() override;
 
 protected:
   Rect structure_;
