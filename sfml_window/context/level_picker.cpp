@@ -78,9 +78,8 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
         case LevelPickerButton::PAGE_UP:
           break;
         case LevelPickerButton::PAGE_DOWN:
-        if(page_)
-          break;
-
+          if (page_)
+            break;
         }
   } else {
 
@@ -94,7 +93,7 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
       if (level.DetectInteraction({mouse_x, mouse_y}, event)) {
 
         path_to_chosen_level_ = level.GetPath();
-        std::cout<<"lvl picker: "<<path_to_chosen_level_<<"\n";
+        std::cout << "lvl picker: " << path_to_chosen_level_ << "\n";
         return ContextEvent::SWITCH_TO_LEVEL_PLAYER;
       }
   } else {
@@ -192,13 +191,28 @@ std::string sfml_window::LevelPicker::GetPath() {
   return path_to_chosen_level_;
 }
 
-sfml_window::LevelPicker *sfml_window::LevelPicker::Clone() { return new LevelPicker(*this); }
-LevelInfo sfml_window::LevelPicker::GetLevelInfo() {
-  return LevelInfo(2,1);
+sfml_window::LevelPicker *sfml_window::LevelPicker::Clone() {
+  return new LevelPicker(*this);
 }
+LevelInfo sfml_window::LevelPicker::GetLevelInfo() { return LevelInfo(2, 1); }
 sfml_window::LevelPicker::~LevelPicker() {
-  for(auto &b:buttons_)
+  for (auto &b : buttons_)
     delete b;
+}
+sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
 
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
 
+  font_size_ = other.font_size_;
+
+  page_ = other.page_;
+  max_page_ = other.max_page_;
+
+  levels_ = other.levels_;
+  path_to_chosen_level_ = other.path_to_chosen_level_;
 }

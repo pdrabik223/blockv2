@@ -434,6 +434,21 @@ LevelInfo sfml_window::LevelCreator::GetLevelInfo() { return {2,1}; }
 sfml_window::LevelCreator::~LevelCreator() {
   for (auto &b : buttons_)
     delete b;
+}
+sfml_window::LevelCreator::LevelCreator(const LevelCreator& other):level_(other.level_) {
+    window_width_ = other.window_width_;
+    window_height_ = other.window_height_;
+    background_texture_ = other.background_texture_;
+    background_sprite_ = other.background_sprite_;
+    button_background_ = other.button_background_;
+    level_directory_ = other.level_directory_;
 
+    cell_size_ = other.cell_size_;
 
+    for(int i = 0 ;i<other.buttons_.size();i++)
+      buttons_[i] = other.buttons_[ i]->Clone();
+
+    brush_ = other.brush_;
+    cells_ = other.cells_;
+    grid_ = other.grid_;
 }

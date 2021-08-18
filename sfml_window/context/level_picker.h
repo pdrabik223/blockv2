@@ -34,6 +34,8 @@ public:
   /// \param window_width of the window
   LevelPicker(unsigned int window_width, unsigned int window_height);
 
+  LevelPicker(const LevelPicker & other);
+
   LevelPicker *Clone() override;
   void DrawToWindow(sf::RenderWindow &window) override;
 

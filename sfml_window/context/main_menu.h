@@ -33,6 +33,7 @@ public:
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
+  
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
   MainMenu *Clone() override;

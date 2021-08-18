@@ -34,6 +34,7 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   LevelCreator(unsigned int window_width, unsigned int window_height);
+  LevelCreator(const LevelCreator & other);
 
   LevelCreator *Clone() override;
 
@@ -46,7 +47,7 @@ public:
 
   LevelInfo GetLevelInfo() override;
 
-  ~LevelCreator() override ;
+  ~LevelCreator() override;
 
 private:
   void LoadButtons();
