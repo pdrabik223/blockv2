@@ -45,6 +45,9 @@ public:
   /// \param window_width of the window
   LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
 
+  LevelPlayer(const LevelPlayer & other );
+
+
   LevelPlayer *Clone() override;
 
   void LoadColors() override {};
