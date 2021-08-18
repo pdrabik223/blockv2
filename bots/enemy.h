@@ -31,10 +31,10 @@ public:
 
   Transposition GetMovement() const override;
 
-  const BotType type_ = BotType::ENEMY;
   BotType GetType() const override;
 
 protected:
+  const BotType type_ = BotType::ENEMY;
   Transposition movement_;
 };
 

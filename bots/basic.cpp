@@ -3,7 +3,7 @@
 //
 
 #include "basic.h"
-#include "../game.h"
+
 
 Basic::Basic() = default;
 
