@@ -20,6 +20,7 @@ namespace sfml_window {
 enum class LevelCreatorButton {
   EXIT,
   RUN_SIMULATION,
+  CREATE_BORDER,
   B_EMPTY,
   B_BEDROCK,
   B_ENEMY,
@@ -58,6 +59,8 @@ private:
   void LoadButtons();
   /// loads assets from file to memory
   void LoadAssets();
+
+  void DrawBorder();
 
   /// creates copy of a given cell, used to generate assets by rotating already
   /// existing ones

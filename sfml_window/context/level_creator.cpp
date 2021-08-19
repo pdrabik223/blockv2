@@ -39,6 +39,9 @@ void sfml_window::LevelCreator::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "run-button.png", sf::Color::Blue);
 
+  buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] =
+      new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
+                      directory + "add-border.png", sf::Color::Blue);
 
   buttons_[(unsigned)LevelCreatorButton::B_TP] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 178, 4), 32, 32), Texture(Assets::TP));
@@ -362,6 +365,10 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
         case LevelCreatorButton::RUN_SIMULATION:
           return ContextEvent::RUN_SIMULATION;
 
+        case LevelCreatorButton::CREATE_BORDER: {
+          DrawBorder();
+          return ContextEvent::UPDATE_DISPLAY;
+        }
         case LevelCreatorButton::B_BASIC: {
           brush_ = BotType::BASIC;
           change = true;
@@ -424,6 +431,7 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight() {
 
   for (int i = (int)LevelCreatorButton::B_EMPTY;
        i <= (int)LevelCreatorButton::B_BASIC; i++) {
+
     ((ToggleSpriteButton *)buttons_[i])->TurnOff();
   }
   switch (brush_) {
@@ -453,6 +461,12 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight() {
   case BotType::EMPTY:
     ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_EMPTY])
         ->TurnOn();
+  case BotType::TP:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_TP])->TurnOn();
+    return;
+  case BotType::GOAL:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_GOAL])->TurnOn();
+    return;
   }
 }
 
@@ -578,4 +592,24 @@ bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
       }
   }
   return false;
+}
+void sfml_window::LevelCreator::DrawBorder() {
+
+
+//  for (unsigned y = 0; y < level_.GetHeight(); y++) {
+//      level_.AddBot(Coord(0, y), BotType::BEDROCK);
+//
+//      level_.AddBot(Coord(level_.GetWidth() - 1, y),
+//                          BotType::BEDROCK);
+//    }
+//
+//  for (unsigned x = 0; x < level_.GetWidth(); x++) {
+//      level_.AddBot(Coord(x, 0), BotType::BEDROCK);
+//
+//      level_.AddBot(Coord(x, level_.GetHeight() - 1),
+//                          BotType::BEDROCK);
+//    }
+//
+//
+
 }
