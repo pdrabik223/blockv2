@@ -22,6 +22,7 @@ public:
 
 
   void Lock(Coord position);
+  void UnLock(Coord position);
   bool IsLocked(Coord position);
   bool IsLocked(int position);
 

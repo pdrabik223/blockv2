@@ -178,8 +178,7 @@ bool Board::IsWon() {
 
 void Board::AddCell(int x, int y, BotType type) {
   assert(x < width_ and y < height_);
-  if (IsLocked(y * width_ + x))
-    return;
+
 
   delete plane_[y * width_ + x];
   switch (type) {
@@ -219,8 +218,7 @@ void Board::AddCell(int x, int y, BotType type) {
 
 void Board::RotateCell(int x, int y) {
   assert(x < width_ and y < height_);
-  if (IsLocked(y * width_ + x))
-    return;
+
   switch (plane_[y * width_ + x]->GetType()) {
   case BotType::BASIC:
   case BotType::BEDROCK:
@@ -245,6 +243,7 @@ void Board::RotateCell(int x, int y) {
     return;
   }
 }
+
 void Board::Lock(Coord position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
@@ -254,3 +253,4 @@ bool Board::IsLocked(Coord position) {
 }
 
 bool Board::IsLocked(int position) { return locked_fields_[position]; }
+void Board::UnLock(Coord position) {locked_fields_[position.ToInt(width_)] = false;}
