@@ -79,9 +79,7 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
   if (event.type == sf::Event::MouseButtonReleased) {
     for (auto &level : levels_)
       if (level.DetectInteraction({mouse_x, mouse_y}, event)) {
-
         path_to_chosen_level_ = level.GetPath();
-        std::cout << "lvl picker: " << path_to_chosen_level_ << "\n";
         return ContextEvent::SWITCH_TO_LEVEL_PLAYER;
       }
   } else {
