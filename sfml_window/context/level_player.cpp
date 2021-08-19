@@ -486,7 +486,8 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position,
           mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
         square_x = i % level_.GetWidth();
         square_y = i / level_.GetWidth();
-
+        if (level_.IsLocked(square_y * level_.GetWidth() + square_x))
+          return false;
         level_.AddCell(square_x, square_y, brush_);
 
         return true;
@@ -510,6 +511,9 @@ bool sfml_window::LevelPlayer::RotateBot(const Coord &mouse_position,
           mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
         square_x = i % level_.GetWidth();
         square_y = i / level_.GetWidth();
+
+        if (level_.IsLocked(square_y * level_.GetWidth() + square_x))
+          return false;
         level_.RotateCell(square_x, square_y);
 
         return true;
