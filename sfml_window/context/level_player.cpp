@@ -216,8 +216,7 @@ void sfml_window::LevelPlayer::DrawCell(sf::RenderWindow &window,
                                         unsigned int position) {
   Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_ / 2,
                          grid_[position].getPosition().y + cell_size_ / 2);
-  if (level_.IsLocked(position))
-    Sprite(id).setColor({225, 225, 225, 180});
+
 
   window.draw(Sprite(id));
 }
@@ -475,6 +474,7 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position,
   if(event.type != sf::Event::MouseButtonReleased or
   event.mouseButton.button != sf::Mouse::Left)
     return false;
+
   int square_x;
   int square_y;
 
