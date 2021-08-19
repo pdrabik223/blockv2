@@ -283,12 +283,12 @@ void sfml_window::LevelPlayer::LoadAssets(const std::string &level_name) {
     }
 
   if (EXIST(TURN_C) and not EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::VERTICAL);
   } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
+    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::VERTICAL);
   } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
     LoadCell(Assets::TURN_C, kDefaultDir + file_names[(int)Assets::TURN_C]);
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::VERTICAL);
   } else
     throw "error";
   // todo these  need to be done better
