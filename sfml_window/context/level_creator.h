@@ -9,6 +9,7 @@
 
 #include "image_button.h"
 #include "text_button.h"
+#include <toggle_sprite_button.h>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -25,6 +26,7 @@ enum class LevelCreatorButton {
   B_ENGINE,
   B_FACTORY,
   B_TURN,
+  B_EMPTY,
   SIZE
 };
 
@@ -53,7 +55,7 @@ public:
 private:
   void LoadButtons();
   /// loads assets from file to memory
-  void LoadAssets(const std::string &level_name);
+  void LoadAssets();
 
   /// creates copy of a given cell, used to generate assets by rotating already
   /// existing ones
@@ -72,7 +74,7 @@ private:
   void LoadBackground(const std::string &background_path);
   void GenGrid();
 
-  void ClearBotButtonHighlight(LevelCreatorButton stay_highlighted);
+  void ClearBotButtonHighlight();
 
   void DrawGrid(sf::RenderWindow &window);
   void DrawCells(sf::RenderWindow &window);
@@ -81,6 +83,10 @@ private:
 
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
+
+  bool AddBotToGame(const Coord &mouse_position, const sf::Event &event);
+
+  bool RotateBot(const Coord &mouse_position,const sf::Event &event);
 
   ///
   /// \param x the percentage value where object should be placed

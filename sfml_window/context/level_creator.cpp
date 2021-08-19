@@ -3,7 +3,6 @@
 //
 
 #include "level_creator.h"
-#include <toggle_sprite_button.h>
 
 sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
                                         unsigned int window_height)
@@ -11,10 +10,9 @@ sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
       level_(LevelInfo(20, 10)) {
 
   GenGrid();
-  LevelInfo temp_info(20, 10);
-  LoadAssets(temp_info.GetName());
+  LoadAssets();
   LoadButtons();
-  level_ = Board(temp_info);
+  //  level_ = Board(temp_info);
 }
 
 void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
@@ -26,6 +24,7 @@ void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
 
   DrawCells(window);
 
+  ClearBotButtonHighlight();
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
@@ -58,6 +57,14 @@ void sfml_window::LevelCreator::LoadButtons() {
 
   buttons_[(unsigned)LevelCreatorButton::B_TURN] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 + 72, 4), 32, 32), Texture(Assets::TURN_C));
+
+  sf::Texture empty;
+  if (!empty.loadFromFile(directory + "empty_cell.png")) {
+    assert(false);
+  }
+
+  buttons_[(unsigned)LevelCreatorButton::B_EMPTY] = new ToggleSpriteButton(
+      Rect(Coord(window_width_ / 2 + 108, 4), 32, 32), empty);
 }
 
 void sfml_window::LevelCreator::LoadBackground(
@@ -89,13 +96,10 @@ void sfml_window::LevelCreator::GenGrid() {
   // between all cells and surrounding them is 3px wide border
   double horizontal_cell_size = ((window_width_ - 3) - 3 * level_.GetWidth()) /
                                 (double)(level_.GetWidth());
-  //right border       /\        left border on every cell    /\
 
   double vertical_cell_size =
       ((real_window_height - 3) - 3 * level_.GetHeight()) /
       (double)(level_.GetHeight());
-  //right border       /\        left border on every cell    /\
-
 
   // the actual cell size must be smaller of the two above
   cell_size_ = horizontal_cell_size < vertical_cell_size
@@ -110,8 +114,8 @@ void sfml_window::LevelCreator::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor(sf::Color::White);
-      grid_.back().setOutlineThickness(1);
+      grid_.back().setOutlineColor({250, 80, 0});
+      grid_.back().setOutlineThickness(1.5);
     }
 
   // center grid
@@ -124,6 +128,12 @@ void sfml_window::LevelCreator::GenGrid() {
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
   }
+
+  for (int i = 0; i < grid_.size(); i++)
+    if (!level_.IsLocked(i)) {
+      grid_[i].setOutlineColor({0, 200, 80});
+      grid_[i].setOutlineThickness(2);
+    }
 }
 
 void sfml_window::LevelCreator::DrawCells(sf::RenderWindow &window) {
@@ -204,6 +214,7 @@ void sfml_window::LevelCreator::DrawCell(sf::RenderWindow &window,
                                          unsigned int position) {
   Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_ / 2,
                          grid_[position].getPosition().y + cell_size_ / 2);
+
   window.draw(Sprite(id));
 }
 sf::Texture &sfml_window::LevelCreator::Texture(sfml_window::Assets cell) {
@@ -214,7 +225,7 @@ sf::Sprite &sfml_window::LevelCreator::Sprite(sfml_window::Assets cell) {
   return cells_[(unsigned)cell].second;
 }
 
-void sfml_window::LevelCreator::LoadAssets(const std::string &level_name) {
+void sfml_window::LevelCreator::LoadAssets() {
 
   bool exists[(unsigned)Assets::SIZE];
   static std::string file_names[(unsigned)Assets::SIZE];
@@ -237,49 +248,23 @@ void sfml_window::LevelCreator::LoadAssets(const std::string &level_name) {
     file_names[(unsigned)Assets::BACKGROUND] = "background.png";
   } // set filenames
 
-  const std::string kDir = "../levels/" + level_name + "/";
   const std::string kDefaultDir = "../levels/default/";
 
-  // detect custom assets
-  std::fstream file;
-  for (int i = 0; i < (unsigned)Assets::SIZE; i++) {
-    std::string full_path = kDir + file_names[i];
-    file.open(full_path.c_str());
-    exists[i] = file.good();
-    file.close();
-  }
-
-  // for background
-  if (exists[(unsigned)Assets::BACKGROUND])
-    LoadBackground(kDir + file_names[(unsigned)Assets::BACKGROUND]);
-  else
-    LoadBackground(kDefaultDir + file_names[(unsigned)Assets::BACKGROUND]);
+  LoadBackground(kDefaultDir + file_names[(unsigned)Assets::BACKGROUND]);
 
   // load custom assets (if one exist)
   // all loaded this way assets are simple meaning they have defined counterpart
   // in default directory
-  for (int i = 0; i < (unsigned)Assets::TURN_C; i++)
-    if (exists[i]) {
-      std::string full_path = kDir + file_names[i];
-      LoadCell((Assets)i, full_path);
-    } else {
-      std::string full_path = kDefaultDir + file_names[i];
-      LoadCell((Assets)i, full_path);
-    }
+  for (int i = 0; i < (unsigned)Assets::TURN_C; i++) {
+    std::string full_path = kDefaultDir + file_names[i];
+    LoadCell((Assets)i, full_path);
+  }
 
-  if (EXIST(TURN_C) and not EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
-  } else if (not EXIST(TURN_C) and EXIST(TURN_CC)) {
-    CopyCell(Assets::TURN_C, Assets::TURN_CC, FlipDirection::HORIZONTAL);
-  } else if (not EXIST(TURN_C) and not EXIST(TURN_CC)) {
+
     LoadCell(Assets::TURN_C, kDefaultDir + file_names[(int)Assets::TURN_C]);
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::HORIZONTAL);
-  } else
-    throw "error";
-  // todo these  need to be done better
+    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::VERTICAL);
 
-  if (not EXIST(ENGINE_U) and not EXIST(ENGINE_D) and not EXIST(ENGINE_L) and
-      not EXIST(ENGINE_R)) {
+
     LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
 
     CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, FlipDirection::BOTH);
@@ -287,9 +272,8 @@ void sfml_window::LevelCreator::LoadAssets(const std::string &level_name) {
     CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
 
     CopyCell(Assets::ENGINE_L, Assets::ENGINE_D, FlipDirection::HORIZONTAL);
-  }
-  if (not EXIST(FACTORY_U) and not EXIST(FACTORY_D) and not EXIST(FACTORY_L) and
-      not EXIST(FACTORY_R)) {
+
+
 
     LoadCell(Assets::FACTORY_U,
              kDefaultDir + file_names[(int)Assets::FACTORY_U]);
@@ -298,7 +282,7 @@ void sfml_window::LevelCreator::LoadAssets(const std::string &level_name) {
     CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
 
     CopyCell(Assets::FACTORY_L, Assets::FACTORY_D, FlipDirection::HORIZONTAL);
-  }
+
 }
 
 void sfml_window::LevelCreator::LoadCell(sfml_window::Assets cell,
@@ -358,44 +342,53 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
   bool change = false;
 
   if (event.type == sf::Event::MouseButtonReleased) {
+
+    if (AddBotToGame({mouse_x, mouse_y}, event))
+      return ContextEvent::UPDATE_DISPLAY;
+    if (RotateBot({mouse_x, mouse_y}, event))
+      return ContextEvent::UPDATE_DISPLAY;
+
     for (unsigned id = 0; id < buttons_.size(); id++)
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
         switch ((LevelCreatorButton)id) {
         case LevelCreatorButton::EXIT:
-          return ContextEvent::SWITCH_TO_MAIN_MENU;
+          return ContextEvent::SWITCH_TO_LEVEL_PICKER;
         case LevelCreatorButton::RUN_SIMULATION:
-          change = true;
-          break;
-        case LevelCreatorButton::B_BASIC:
+          return ContextEvent::RUN_SIMULATION;
+
+        case LevelCreatorButton::B_BASIC: {
           brush_ = BotType::BASIC;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_BASIC);
-          break;
-        case LevelCreatorButton::B_BEDROCK:
+        } break;
+        case LevelCreatorButton::B_BEDROCK: {
           brush_ = BotType::BEDROCK;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_BEDROCK);
-          break;
-        case LevelCreatorButton::B_ENEMY:
+
+        } break;
+        case LevelCreatorButton::B_ENEMY: {
           brush_ = BotType::ENEMY;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_ENEMY);
-          break;
-        case LevelCreatorButton::B_ENGINE:
+
+        } break;
+        case LevelCreatorButton::B_ENGINE: {
           brush_ = BotType::ENGINE;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_ENGINE);
-          break;
-        case LevelCreatorButton::B_FACTORY:
+
+        } break;
+        case LevelCreatorButton::B_FACTORY: {
           brush_ = BotType::FACTORY;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_FACTORY);
-          break;
-        case LevelCreatorButton::B_TURN:
+
+        } break;
+        case LevelCreatorButton::B_TURN: {
           brush_ = BotType::TURN;
           change = true;
-          ClearBotButtonHighlight(LevelCreatorButton::B_TURN);
-          break;
+
+        } break;
+        case LevelCreatorButton::B_EMPTY: {
+          brush_ = BotType::EMPTY;
+          change = true;
+        } break;
         }
   }
 
@@ -413,46 +406,126 @@ unsigned sfml_window::LevelCreator::Align(double x) {
   return (unsigned)((x * window_width_) / 100.0);
 }
 
-void sfml_window::LevelCreator::ClearBotButtonHighlight(
-    sfml_window::LevelCreatorButton stay_highlighted) {
+void sfml_window::LevelCreator::ClearBotButtonHighlight() {
 
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_BASIC])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_BEDROCK])
-      ->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_ENEMY])->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_ENGINE])
-      ->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_FACTORY])
-      ->TurnOff();
-  ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_TURN])->TurnOff();
-
-  ((ToggleSpriteButton *)buttons_[(int)stay_highlighted])->TurnOn();
+  for (int i = (int)LevelCreatorButton::B_EMPTY;
+       i <= (int)LevelCreatorButton::B_BASIC; i++) {
+    ((ToggleSpriteButton *)buttons_[i])->TurnOff();
+  }
+  switch (brush_) {
+  case BotType::BASIC:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_BASIC])
+        ->TurnOn();
+    return;
+  case BotType::BEDROCK:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_BEDROCK])
+        ->TurnOn();
+    return;
+  case BotType::TURN:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_TURN])->TurnOn();
+    return;
+  case BotType::ENEMY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_ENEMY])
+        ->TurnOn();
+    return;
+  case BotType::ENGINE:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_ENGINE])
+        ->TurnOn();
+    return;
+  case BotType::FACTORY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_FACTORY])
+        ->TurnOn();
+    return;
+  case BotType::EMPTY:
+    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_EMPTY])
+        ->TurnOn();
+  }
 }
 
-sfml_window::LevelCreator* sfml_window::LevelCreator::Clone() { return new LevelCreator(*this);  }
+bool sfml_window::LevelCreator::AddBotToGame(const Coord &mouse_position,
+                                             const sf::Event &event) {
+  if (event.type != sf::Event::MouseButtonReleased or
+      event.mouseButton.button != sf::Mouse::Left)
+    return false;
 
-LevelInfo sfml_window::LevelCreator::GetLevelInfo() { return {2,1}; }
+  int square_x;
+  int square_y;
+
+  for (int i = 0; i < grid_.size(); ++i) {
+
+    if (mouse_position.x > grid_[i].getPosition().x and
+        mouse_position.y > grid_[i].getPosition().y)
+      if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
+          mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
+        square_x = i % level_.GetWidth();
+        square_y = i / level_.GetWidth();
+
+        level_.AddCell(square_x, square_y, brush_);
+
+        return true;
+      }
+  }
+  return false;
+}
+bool sfml_window::LevelCreator::RotateBot(const Coord &mouse_position,
+                                          const sf::Event &event) {
+  if (event.type != sf::Event::MouseButtonReleased or
+      event.mouseButton.button != sf::Mouse::Right)
+    return false;
+
+  int square_x;
+  int square_y;
+
+  for (int i = 0; i < grid_.size(); ++i) {
+    if (mouse_position.x > grid_[i].getPosition().x and
+        mouse_position.y > grid_[i].getPosition().y)
+      if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
+          mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
+        square_x = i % level_.GetWidth();
+        square_y = i / level_.GetWidth();
+        level_.RotateCell(square_x, square_y);
+
+        return true;
+      }
+  }
+  return false;
+}
+
+sfml_window::LevelCreator *sfml_window::LevelCreator::Clone() {
+  return new LevelCreator(*this);
+}
+
+LevelInfo sfml_window::LevelCreator::GetLevelInfo() {
+  return LevelInfo(LevelPath(level_directory_));
+}
 
 sfml_window::LevelCreator::~LevelCreator() {
+
   for (auto &b : buttons_)
     delete b;
 }
-sfml_window::LevelCreator::LevelCreator(const LevelCreator& other):level_(other.level_) {
-    window_width_ = other.window_width_;
-    window_height_ = other.window_height_;
-    background_texture_ = other.background_texture_;
-    background_sprite_ = other.background_sprite_;
-    button_background_ = other.button_background_;
-    level_directory_ = other.level_directory_;
 
-    cell_size_ = other.cell_size_;
+sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
+    : level_(other.level_) {
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+  button_background_ = other.button_background_;
+  level_directory_ = other.level_directory_;
 
-    for(int i = 0 ;i<other.buttons_.size();i++)
-      buttons_[i] = other.buttons_[ i]->Clone();
+  cell_size_ = other.cell_size_;
 
-    brush_ = other.brush_;
-    cells_ = other.cells_;
-    grid_ = other.grid_;
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  brush_ = other.brush_;
+  cells_ = other.cells_;
+  grid_ = other.grid_;
 }
-Board sfml_window::LevelCreator::GetLevel() { return Board(LevelInfo(2,1));; }
-std::string sfml_window::LevelCreator::GetLevelDirectory() { return std::string(); }
+
+Board sfml_window::LevelCreator::GetLevel() { return level_; }
+
+std::string sfml_window::LevelCreator::GetLevelDirectory() {
+  return level_directory_;
+}
