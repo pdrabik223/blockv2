@@ -38,7 +38,14 @@ void sfml_window::LevelCreator::LoadButtons() {
   buttons_[(unsigned)LevelCreatorButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "run-button.png", sf::Color::Blue);
-  // more buttons will shortly follow
+
+
+  buttons_[(unsigned)LevelCreatorButton::B_TP] = new ToggleSpriteButton(
+      Rect(Coord(window_width_ / 2 - 178, 4), 32, 32), Texture(Assets::TP));
+
+  buttons_[(unsigned)LevelCreatorButton::B_GOAL] = new ToggleSpriteButton(
+      Rect(Coord(window_width_ / 2 - 142, 4), 32, 32), Texture(Assets::GOAL));
+
   buttons_[(unsigned)LevelCreatorButton::B_BASIC] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 106, 4), 32, 32), Texture(Assets::BASIC));
 
@@ -388,6 +395,14 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
           brush_ = BotType::EMPTY;
           change = true;
         } break;
+        case LevelCreatorButton::B_TP: {
+          brush_ = BotType::TP;
+          change = true;
+        } break;
+        case LevelCreatorButton::B_GOAL: {
+          brush_ = BotType::GOAL;
+          change = true;
+        } break;
         }
   }
 
@@ -527,6 +542,7 @@ Board sfml_window::LevelCreator::GetLevel() { return level_; }
 std::string sfml_window::LevelCreator::GetLevelDirectory() {
   return level_directory_;
 }
+
 bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
                                                const sf::Event &event) {
   if (event.type != sf::Event::MouseButtonReleased or

@@ -26,6 +26,8 @@ enum class LevelCreatorButton {
   B_ENGINE,
   B_FACTORY,
   B_TURN,
+  B_GOAL,
+  B_TP,
   B_BASIC,
   SIZE
 };
