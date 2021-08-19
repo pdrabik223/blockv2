@@ -35,7 +35,7 @@ public:
   Transposition GetMovement() const override;
   Direction GetDirection() const;
   BotType GetType() const override;
-
+  void RotateCell();
 protected:
   const BotType type_ = BotType::FACTORY;
   Transposition movement_;

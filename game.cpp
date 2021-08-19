@@ -217,6 +217,34 @@ void Board::AddCell(int x, int y, BotType type) {
   }
 }
 
+void Board::RotateCell(int x, int y) {
+  assert(x < width_ and y < height_);
+  if (IsLocked(y * width_ + x))
+    return;
+  switch (plane_[y * width_ + x]->GetType()) {
+  case BotType::BASIC:
+  case BotType::BEDROCK:
+  case BotType::GOAL:
+  case BotType::ENEMY:
+  case BotType::TP:
+  case BotType::EMPTY:
+    return;
+  case BotType::TURN:
+    ((Turn *)plane_[y * width_ + x])->RotateCell();
+    return;
+  case BotType::ENGINE:
+    ((Engine *)plane_[y * width_ + x])->RotateCell();
+    return;
+  case BotType::FACTORY:
+    ((Factory *)plane_[y * width_ + x])->RotateCell();
+    return;
+
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert(false);
+    return;
+  }
+}
 void Board::Lock(Coord position) {
   locked_fields_[position.ToInt(width_)] = true;
 }

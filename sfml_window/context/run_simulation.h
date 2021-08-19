@@ -46,7 +46,7 @@ public:
   Board GetLevel() override;
   std::string GetLevelDirectory() override;
 
-  virtual ~RunSimulation();
+  ~RunSimulation() override;
 
 private:
   /// load pre-defined buttons to memory

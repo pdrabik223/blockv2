@@ -14,7 +14,6 @@ Direction Engine::GetDirection() const { return direction_; }
 
 BotType Engine::GetType() const { return type_; }
 
-
 void Engine::CalculateMovementDirection(const std::vector<Bot *> &plane,
                                         const Coord &bot_position,
                                         unsigned plane_width,
@@ -62,3 +61,19 @@ Engine::Engine(const Engine &other) : Bot(other) {
 }
 Engine::Engine(Direction direction) : direction_(direction) {}
 Transposition Engine::GetMovement() const { return movement_; }
+void Engine::RotateCell() {
+  switch (direction_) {
+  case Direction::UP:
+    direction_ = Direction::RIGHT;
+    return;
+  case Direction::DOWN:
+    direction_ = Direction::LEFT;
+    return;
+  case Direction::LEFT:
+    direction_ = Direction::UP;
+    return;
+  case Direction::RIGHT:
+    direction_ = Direction::DOWN;
+    return;
+  }
+}

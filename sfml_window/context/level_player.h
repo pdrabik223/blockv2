@@ -44,12 +44,11 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
-
+  ///  copy constructor
+  /// \param other copied object
   LevelPlayer(const LevelPlayer & other );
 
-
   LevelPlayer *Clone() override;
-
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
@@ -94,7 +93,9 @@ private:
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
-  bool AddBotToGame(const Coord &mouse_position);
+  bool AddBotToGame(const Coord &mouse_position, const sf::Event &event);
+
+  bool RotateBot(const Coord &mouse_position,const sf::Event &event);
 
   ///
   /// \param x the percentage value where object should be placed

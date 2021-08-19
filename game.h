@@ -31,6 +31,8 @@ public:
   size_t Size() const;
 
 void AddCell(int x, int y, BotType type);
+  void RotateCell(int x, int y);
+
 private:
 
   /// if two bots want to be in the same place this function resolves this

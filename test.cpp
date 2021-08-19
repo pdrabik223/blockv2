@@ -10,36 +10,42 @@ void FillWithBots(LevelInfo &target_level, double fill_level);
 void Border(LevelInfo &target_level);
 
 int main() {
-  //  srand(time(NULL));
+    srand(time(NULL));
   LevelInfo game(20, 10);
 
-//   FillWithBots(game, 0.3);
-Border(game);
+  FillWithBots(game, 0.3);
+  Border(game);
+  //
+  //  game.AddBot({1, 1}, BotType::ENGINE, Direction::RIGHT);
+  //  game.AddBot({2, 1}, BotType::BASIC);
+  //  game.AddBot({3, 1}, BotType::BASIC);
+  //  game.AddBot({4, 1}, BotType::GOAL);
+  //
+  //  game.AddBot({18, 1}, BotType::ENGINE, Direction::DOWN);
+  //  game.AddBot({18, 2}, BotType::BASIC);
+  //  game.AddBot({18, 3}, BotType::BASIC);
+  //  game.AddBot({18, 4}, BotType::GOAL);
+  //
+  //  game.AddBot({17, 2}, BotType::ENGINE, Direction::LEFT);
+  //  game.AddBot({16, 2}, BotType::BASIC);
+  //  game.AddBot({15, 2}, BotType::BASIC);
+  //  game.AddBot({14, 2}, BotType::GOAL);
+  //
+  //
+  //
+  //  game.AddBot({18, 8}, BotType::FACTORY, Direction::UP);
+  //  game.AddBot({18, 9}, BotType::ENGINE,Direction::LEFT);
+  //
+  //
 
-  game.AddBot({1, 1}, BotType::ENGINE, Direction::RIGHT);
-  game.AddBot({2, 1}, BotType::BASIC);
-  game.AddBot({3, 1}, BotType::BASIC);
-  game.AddBot({4, 1}, BotType::GOAL);
-
-  game.AddBot({18, 1}, BotType::ENGINE, Direction::DOWN);
-  game.AddBot({18, 2}, BotType::BASIC);
-  game.AddBot({18, 3}, BotType::BASIC);
-  game.AddBot({18, 4}, BotType::GOAL);
-
-  game.AddBot({17, 2}, BotType::ENGINE, Direction::LEFT);
-  game.AddBot({16, 2}, BotType::BASIC);
-  game.AddBot({15, 2}, BotType::BASIC);
-  game.AddBot({14, 2}, BotType::GOAL);
-
-
-
-  game.AddBot({18, 8}, BotType::FACTORY, Direction::UP);
-  game.AddBot({18, 9}, BotType::ENGINE,Direction::LEFT);
-
+  game.Lock({2,2});
+  game.Lock({1,2});
+  game.Lock({2,1});
+  game.Lock({1,1});
 
   game.SaveLevel();
 
-  sfml_window::Gui sin(game);
+//  sfml_window::Gui sin(game);
 
   return 0;
 }
@@ -93,3 +99,4 @@ void Border(LevelInfo &target_level) {
                         BotType::BEDROCK);
   }
 }
+

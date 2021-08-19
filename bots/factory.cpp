@@ -40,9 +40,25 @@ void Factory::Spawn(std::vector<Bot *> &plane, const Coord &bot_position,
   Coord target = NextPosition(direction_, bot_position);
   Coord original = NextPosition(Opposite(direction_), bot_position);
 
-  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY ){
+  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY) {
     delete plane[target.ToInt(plane_width)];
-    plane[target.ToInt(plane_width)] = plane[original.ToInt(plane_width)]->Clone();
+    plane[target.ToInt(plane_width)] =
+        plane[original.ToInt(plane_width)]->Clone();
   }
-
+}
+void Factory::RotateCell() {
+  switch (direction_) {
+  case Direction::UP:
+    direction_ = Direction::RIGHT;
+    return;
+  case Direction::DOWN:
+    direction_ = Direction::LEFT;
+    return;
+  case Direction::LEFT:
+    direction_ = Direction::UP;
+    return;
+  case Direction::RIGHT:
+    direction_ = Direction::DOWN;
+    return;
+  }
 }

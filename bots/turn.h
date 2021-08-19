@@ -28,6 +28,7 @@ public:
   TurnDirection GetDirection() const;
   BotType GetType() const override;
   Transposition GetMovement() const override;
+  void RotateCell();
 
 protected:
   const BotType type_ = BotType::TURN;

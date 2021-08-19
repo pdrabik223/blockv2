@@ -83,9 +83,8 @@ void sfml_window::LevelPlayer::LoadBackground(
 
 void sfml_window::LevelPlayer::DrawGrid(sf::RenderWindow &window) {
 
-
-    for (const auto &box : grid_)
-      window.draw(box);
+  for (const auto &box : grid_)
+    window.draw(box);
 }
 
 void sfml_window::LevelPlayer::GenGrid() {
@@ -104,8 +103,6 @@ void sfml_window::LevelPlayer::GenGrid() {
       ((real_window_height - 3) - 3 * level_.GetHeight()) /
       (double)(level_.GetHeight());
 
-
-
   // the actual cell size must be smaller of the two above
   cell_size_ = horizontal_cell_size < vertical_cell_size
                    ? (unsigned)horizontal_cell_size
@@ -119,7 +116,7 @@ void sfml_window::LevelPlayer::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor({250,80,0});
+      grid_.back().setOutlineColor({250, 80, 0});
       grid_.back().setOutlineThickness(1.5);
     }
 
@@ -135,7 +132,7 @@ void sfml_window::LevelPlayer::GenGrid() {
   }
 
   for (int i = 0; i < grid_.size(); i++)
-    if(!level_.IsLocked(i)) {
+    if (!level_.IsLocked(i)) {
       grid_[i].setOutlineColor({0, 200, 80});
       grid_[i].setOutlineThickness(2);
     }
@@ -377,7 +374,9 @@ sfml_window::LevelPlayer::HandleEvent(sf::Event &event,
 
   if (event.type == sf::Event::MouseButtonReleased) {
 
-    if (AddBotToGame({mouse_x, mouse_y}))
+    if (AddBotToGame({mouse_x, mouse_y}, event))
+      return ContextEvent::UPDATE_DISPLAY;
+    if (RotateBot({mouse_x, mouse_y}, event))
       return ContextEvent::UPDATE_DISPLAY;
 
     for (unsigned id = 0; id < buttons_.size(); id++)
@@ -471,8 +470,11 @@ void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
   }
 }
 
-bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
-
+bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position,
+                                            const sf::Event &event) {
+  if(event.type != sf::Event::MouseButtonReleased or
+  event.mouseButton.button != sf::Mouse::Left)
+    return false;
   int square_x;
   int square_y;
 
@@ -492,6 +494,29 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
   }
   return false;
 }
+bool sfml_window::LevelPlayer::RotateBot(const Coord &mouse_position,
+                                         const sf::Event &event) {
+  if(event.type != sf::Event::MouseButtonReleased or
+  event.mouseButton.button != sf::Mouse::Right)
+   return false;
+
+  int square_x;
+  int square_y;
+
+  for (int i = 0; i < grid_.size(); ++i) {
+    if (mouse_position.x > grid_[i].getPosition().x and
+        mouse_position.y > grid_[i].getPosition().y)
+      if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
+          mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
+        square_x = i % level_.GetWidth();
+        square_y = i / level_.GetWidth();
+        level_.RotateCell(square_x, square_y);
+
+        return true;
+      }
+  }
+  return false;
+}
 
 sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() {
   return new LevelPlayer(*this);
@@ -500,11 +525,13 @@ sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() {
 LevelInfo sfml_window::LevelPlayer::GetLevelInfo() {
   return LevelInfo(LevelPath(level_directory_));
 }
+
 sfml_window::LevelPlayer::~LevelPlayer() {
 
   for (auto &b : buttons_)
     delete b;
 }
+
 sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
     : level_(other.level_) {
   window_width_ = other.window_width_;
