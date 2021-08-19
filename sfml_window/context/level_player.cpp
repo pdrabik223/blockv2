@@ -119,7 +119,7 @@ void sfml_window::LevelPlayer::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor(sf::Color::White);
+      grid_.back().setOutlineColor({250,80,0});
       grid_.back().setOutlineThickness(1.5);
     }
 
@@ -135,8 +135,10 @@ void sfml_window::LevelPlayer::GenGrid() {
   }
 
   for (int i = 0; i < grid_.size(); i++)
-    if(!level_.IsLocked(i))
+    if(!level_.IsLocked(i)) {
       grid_[i].setOutlineColor({0, 200, 80});
+      grid_[i].setOutlineThickness(2);
+    }
 }
 
 void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
