@@ -5,7 +5,7 @@ add_library(context
         run_simulation.cpp run_simulation.h
         level_creator.cpp level_creator.h
         level_player.cpp level_player.h
-        level_picker.cpp level_picker.h)
+        level_picker.cpp level_picker.h creator_input_panel.cpp creator_input_panel.h)
 
 target_include_directories(context
         PUBLIC ${PROJECT_SOURCE_DIR}/sfml/include
