@@ -14,7 +14,7 @@ sfml_window::MainMenu::MainMenu(unsigned int window_width,
       author_name_(Align(90, 90, 200, 50),
                    "author: piotr233\nversion: alpha 0.1", sf::Color::Red) {
 
-  LoadColors();
+
   LoadButtons();
   LoadBackground();
 }
@@ -105,19 +105,6 @@ sfml_window::MainMenu::HandleEvent(sf::Event &event,
       return ContextEvent::UPDATE_DISPLAY;
   }
   return ContextEvent::NONE;
-}
-
-void sfml_window::MainMenu::LoadColors() {
-  color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
-  color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
-      sf::Color(0xa000d6);
-  color_palette_[(unsigned)GuiColor::MENU_TERTIARY_COLOR] = sf::Color(0xd6a000);
-  color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR] =
-      sf::Color(27, 27, 27);
-  color_palette_[(unsigned)GuiColor::DANGER_COLOR] = sf::Color(255, 0, 0);
-  color_palette_[(unsigned)GuiColor::WARNING_COLOR] = sf::Color(255, 255, 0);
-  color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
-  color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
 }
 
 Coord sfml_window::MainMenu::Align(double x, double y) {

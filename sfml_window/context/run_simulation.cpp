@@ -12,13 +12,14 @@ sfml_window::RunSimulation::~RunSimulation() {
 
 sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           unsigned int window_height,
-                                          const LevelInfo &level_info)
+                                          const Board &level_info,
+                                          const std::string &directory_path)
     : local_board_(level_info), window_width_(window_width),
       window_height_(window_height) {
-  LoadColors();
+
   LoadButtons();
   GenGrid();
-  LoadAssets(level_info.GetName());
+  LoadAssets(directory_path);
 }
 
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
@@ -77,39 +78,24 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   return ContextEvent::NONE;
 }
 
-void sfml_window::RunSimulation::LoadColors() {
-  color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
-  color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
-      sf::Color(0xa000d6);
-  color_palette_[(unsigned)GuiColor::MENU_TERTIARY_COLOR] = sf::Color(0xd6a000);
-  color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR] =
-      sf::Color(27, 27, 27);
-  color_palette_[(unsigned)GuiColor::DANGER_COLOR] = sf::Color(255, 0, 0);
-  color_palette_[(unsigned)GuiColor::WARNING_COLOR] = sf::Color(255, 255, 0);
-  color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
-  color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
-}
-
 void sfml_window::RunSimulation::LoadButtons() {
 
   std::string directory = "../sfml_window/assets/run_simulation/";
 
   buttons_[(unsigned)RunSimulationButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png",
-                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+                      directory + "cancel-button.png",sf::Color::Red);
 
   buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
       new ImageToggleButton(
           Rect(Coord(window_width_ - 74, 4), 32, 32),
           {directory + "run-button.png",
-           color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR]},
-          {directory + "pause-button.png",
-           color_palette_[(unsigned)GuiColor::WARNING_COLOR]});
+           sf::Color::Blue},
+          {directory + "pause-button.png",sf::Color::Yellow});
 
   buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] = new ImageButton(
       Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png",
-      color_palette_[(unsigned)GuiColor::SAFE_COLOR]);
+      sf::Color::Green);
 }
 
 void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {

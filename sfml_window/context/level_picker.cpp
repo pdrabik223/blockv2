@@ -3,18 +3,6 @@
 //
 
 #include "level_picker.h"
-void sfml_window::LevelPicker::LoadColors() {
-  color_palette_[(unsigned)GuiColor::MENU_PRIMARY_COLOR] = sf::Color(0x0035d6);
-  color_palette_[(unsigned)GuiColor::MENU_SECONDARY_COLOR] =
-      sf::Color(0xa000d6);
-  color_palette_[(unsigned)GuiColor::MENU_TERTIARY_COLOR] = sf::Color(0xd6a000);
-  color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR] =
-      sf::Color(27, 27, 27);
-  color_palette_[(unsigned)GuiColor::DANGER_COLOR] = sf::Color(255, 0, 0);
-  color_palette_[(unsigned)GuiColor::WARNING_COLOR] = sf::Color(255, 255, 0);
-  color_palette_[(unsigned)GuiColor::INFORMATIVE_COLOR] = sf::Color(0, 0, 255);
-  color_palette_[(unsigned)GuiColor::SAFE_COLOR] = sf::Color(0, 255, 0);
-}
 
 void sfml_window::LevelPicker::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_picker/";
@@ -22,7 +10,7 @@ void sfml_window::LevelPicker::LoadButtons() {
   buttons_[(unsigned)LevelPickerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "cancel-button.png",
-                      color_palette_[(unsigned)GuiColor::DANGER_COLOR]);
+                      sf::Color::Red);
 
   buttons_[(unsigned)LevelPickerButton::PAGE_UP] =
       new ImageButton(Rect(Coord((window_width_ / 4) - 36 * 2, 4), 32, 32),
@@ -36,7 +24,7 @@ void sfml_window::LevelPicker::LoadButtons() {
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
                                       unsigned int window_height)
     : window_width_(window_width), window_height_(window_height) {
-  LoadColors();
+
   LoadButtons();
   LoadBackground();
   LoadLevels();

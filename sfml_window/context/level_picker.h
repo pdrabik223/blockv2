@@ -48,8 +48,6 @@ public:
   ~LevelPicker() override ;
 
 private:
-  void LoadColors() override;
-
   /// load buttons to memory
   void LoadButtons();
 

@@ -50,7 +50,7 @@ public:
 
   LevelPlayer *Clone() override;
 
-  void LoadColors() override {};
+  ;
 
   void DrawToWindow(sf::RenderWindow &window) override;
 

@@ -34,7 +34,7 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   RunSimulation(unsigned int window_width, unsigned int window_height,
-                const LevelInfo &level_info);
+                const Board &level_info, const std::string &directory_path);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
@@ -45,8 +45,6 @@ public:
   virtual ~RunSimulation();
 
 private:
-  void LoadColors() override;
-
   /// load pre-defined buttons to memory
   void LoadButtons();
     /// load background to memory and scale it to screen

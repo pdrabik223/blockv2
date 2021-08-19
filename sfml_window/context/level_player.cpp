@@ -10,7 +10,7 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       const std::string &level_path)
     : window_width_(window_width), window_height_(window_height),
       level_directory_(level_path), level_(LevelInfo(LevelPath(level_path))) {
-  LoadColors();
+
   GenGrid();
   LevelInfo temp_info(LevelPath(level_path));
   LoadAssets(temp_info.GetName());

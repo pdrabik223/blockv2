@@ -81,15 +81,13 @@ enum class Assets {
 
 class Context {
 public:
-  virtual void LoadColors() = 0;
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
   virtual Context* Clone() = 0;
 
   virtual LevelInfo GetLevelInfo() = 0;
   virtual ~Context() = default;
-protected:
-  std::array<sf::Color, (size_t)GuiColor::SIZE> color_palette_;
+
 };
 
 std::string DirectoryPath(const std::string& level_path);

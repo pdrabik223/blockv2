@@ -9,7 +9,7 @@ sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
                                         unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
       level_(LevelInfo(20, 10)) {
-  LoadColors();
+
   GenGrid();
   LevelInfo temp_info(20, 10);
   LoadAssets(temp_info.GetName());
@@ -428,7 +428,9 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight(
 
   ((ToggleSpriteButton *)buttons_[(int)stay_highlighted])->TurnOn();
 }
+
 sfml_window::LevelCreator* sfml_window::LevelCreator::Clone() { return new LevelCreator(*this);  }
+
 LevelInfo sfml_window::LevelCreator::GetLevelInfo() { return {2,1}; }
 
 sfml_window::LevelCreator::~LevelCreator() {
