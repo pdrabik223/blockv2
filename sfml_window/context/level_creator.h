@@ -20,13 +20,13 @@ namespace sfml_window {
 enum class LevelCreatorButton {
   EXIT,
   RUN_SIMULATION,
-  B_BASIC,
+  B_EMPTY,
   B_BEDROCK,
   B_ENEMY,
   B_ENGINE,
   B_FACTORY,
   B_TURN,
-  B_EMPTY,
+  B_BASIC,
   SIZE
 };
 
@@ -88,6 +88,8 @@ private:
 
   bool RotateBot(const Coord &mouse_position,const sf::Event &event);
 
+  bool FlipSquareLock(const Coord &mouse_position,const sf::Event &event);
+
   ///
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed
@@ -120,7 +122,8 @@ private:
   std::array<Button *, (unsigned)LevelCreatorButton::SIZE> buttons_;
 
   /// current bot user puts down
-  BotType brush_;
+  BotType brush_ = BotType::EMPTY;
+
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;
