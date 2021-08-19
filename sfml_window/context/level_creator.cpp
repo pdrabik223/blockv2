@@ -30,7 +30,7 @@ void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
 }
 
 void sfml_window::LevelCreator::LoadButtons() {
-  std::string directory = "../sfml_window/assets/level_player/";
+  std::string directory = "../sfml_window/assets/level_creator/";
   buttons_[(unsigned)LevelCreatorButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "cancel-button.png", sf::Color::Red);
@@ -260,29 +260,23 @@ void sfml_window::LevelCreator::LoadAssets() {
     LoadCell((Assets)i, full_path);
   }
 
+  LoadCell(Assets::TURN_C, kDefaultDir + file_names[(int)Assets::TURN_C]);
+  CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::VERTICAL);
 
-    LoadCell(Assets::TURN_C, kDefaultDir + file_names[(int)Assets::TURN_C]);
-    CopyCell(Assets::TURN_CC, Assets::TURN_C, FlipDirection::VERTICAL);
+  LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
 
+  CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, FlipDirection::BOTH);
 
-    LoadCell(Assets::ENGINE_U, kDefaultDir + file_names[(int)Assets::ENGINE_U]);
+  CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
 
-    CopyCell(Assets::ENGINE_R, Assets::ENGINE_U, FlipDirection::BOTH);
+  CopyCell(Assets::ENGINE_L, Assets::ENGINE_D, FlipDirection::HORIZONTAL);
 
-    CopyCell(Assets::ENGINE_D, Assets::ENGINE_U, FlipDirection::VERTICAL);
+  LoadCell(Assets::FACTORY_U, kDefaultDir + file_names[(int)Assets::FACTORY_U]);
+  CopyCell(Assets::FACTORY_R, Assets::FACTORY_U, FlipDirection::BOTH);
 
-    CopyCell(Assets::ENGINE_L, Assets::ENGINE_D, FlipDirection::HORIZONTAL);
+  CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
 
-
-
-    LoadCell(Assets::FACTORY_U,
-             kDefaultDir + file_names[(int)Assets::FACTORY_U]);
-    CopyCell(Assets::FACTORY_R, Assets::FACTORY_U, FlipDirection::BOTH);
-
-    CopyCell(Assets::FACTORY_D, Assets::FACTORY_U, FlipDirection::VERTICAL);
-
-    CopyCell(Assets::FACTORY_L, Assets::FACTORY_D, FlipDirection::HORIZONTAL);
-
+  CopyCell(Assets::FACTORY_L, Assets::FACTORY_D, FlipDirection::HORIZONTAL);
 }
 
 void sfml_window::LevelCreator::LoadCell(sfml_window::Assets cell,
@@ -327,6 +321,7 @@ void sfml_window::LevelCreator::CopyCell(sfml_window::Assets copy,
   Sprite(copy).setScale((float)cell_size_ / (float)Texture(copy).getSize().x,
                         (float)cell_size_ / (float)Texture(copy).getSize().y);
 }
+
 sfml_window::ContextEvent
 sfml_window::LevelCreator::HandleEvent(sf::Event &event,
                                        const sf::RenderWindow &window) {
@@ -342,17 +337,21 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
   bool change = false;
 
   if (event.type == sf::Event::MouseButtonReleased) {
-
     if (AddBotToGame({mouse_x, mouse_y}, event))
       return ContextEvent::UPDATE_DISPLAY;
+
     if (RotateBot({mouse_x, mouse_y}, event))
+      return ContextEvent::UPDATE_DISPLAY;
+
+    if (FlipSquareLock({mouse_x, mouse_y}, event))
       return ContextEvent::UPDATE_DISPLAY;
 
     for (unsigned id = 0; id < buttons_.size(); id++)
       if (buttons_[id]->DetectInteraction({mouse_x, mouse_y}, event))
         switch ((LevelCreatorButton)id) {
         case LevelCreatorButton::EXIT:
-          return ContextEvent::SWITCH_TO_LEVEL_PICKER;
+          return ContextEvent::SWITCH_TO_MAIN_MENU;
+
         case LevelCreatorButton::RUN_SIMULATION:
           return ContextEvent::RUN_SIMULATION;
 
@@ -461,7 +460,6 @@ bool sfml_window::LevelCreator::AddBotToGame(const Coord &mouse_position,
         square_y = i / level_.GetWidth();
 
         level_.AddCell(square_x, square_y, brush_);
-
         return true;
       }
   }
@@ -483,8 +481,8 @@ bool sfml_window::LevelCreator::RotateBot(const Coord &mouse_position,
           mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
         square_x = i % level_.GetWidth();
         square_y = i / level_.GetWidth();
-        level_.RotateCell(square_x, square_y);
 
+        level_.RotateCell(square_x, square_y);
         return true;
       }
   }
@@ -528,4 +526,40 @@ Board sfml_window::LevelCreator::GetLevel() { return level_; }
 
 std::string sfml_window::LevelCreator::GetLevelDirectory() {
   return level_directory_;
+}
+bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
+                                               const sf::Event &event) {
+  if (event.type != sf::Event::MouseButtonReleased or
+      event.mouseButton.button != sf::Mouse::Middle)
+    return false;
+  std::cout << "press";
+  //    if (event.type != sf::Event::KeyPressed or
+  //        event.key.code != sf::Keyboard::L)
+
+  int square_x;
+  int square_y;
+
+  for (int i = 0; i < grid_.size(); ++i) {
+    if (mouse_position.x > grid_[i].getPosition().x and
+        mouse_position.y > grid_[i].getPosition().y)
+      if (mouse_position.x - grid_[i].getPosition().x < grid_[i].getSize().x and
+          mouse_position.y - grid_[i].getPosition().y < grid_[i].getSize().y) {
+        square_x = i % level_.GetWidth();
+        square_y = i / level_.GetWidth();
+
+        if (level_.IsLocked({(int)square_x, (int)square_y}))
+          level_.UnLock({(int)square_x, (int)square_y});
+        else
+          level_.Lock({(int)square_x, (int)square_y});
+
+        if (!level_.IsLocked({(int)square_x, (int)square_y})) {
+          grid_[i].setOutlineColor({0, 200, 80});
+        } else {
+          grid_[i].setOutlineColor({250, 80, 0});
+        }
+
+        return true;
+      }
+  }
+  return false;
 }
