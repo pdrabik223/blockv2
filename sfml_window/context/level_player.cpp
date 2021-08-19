@@ -4,7 +4,6 @@
 
 #include "level_player.h"
 
-
 sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
                                       unsigned int window_height,
                                       const std::string &level_path)
@@ -84,8 +83,9 @@ void sfml_window::LevelPlayer::LoadBackground(
 
 void sfml_window::LevelPlayer::DrawGrid(sf::RenderWindow &window) {
 
-  for (const auto &box : grid_)
-    window.draw(box);
+
+    for (const auto &box : grid_)
+      window.draw(box);
 }
 
 void sfml_window::LevelPlayer::GenGrid() {
@@ -99,12 +99,11 @@ void sfml_window::LevelPlayer::GenGrid() {
   // between all cells and surrounding them is 3px wide border
   double horizontal_cell_size = ((window_width_ - 3) - 3 * level_.GetWidth()) /
                                 (double)(level_.GetWidth());
-  //right border       /\        left border on every cell    /\
 
   double vertical_cell_size =
       ((real_window_height - 3) - 3 * level_.GetHeight()) /
       (double)(level_.GetHeight());
-  //right border       /\        left border on every cell    /\
+
 
 
   // the actual cell size must be smaller of the two above
@@ -121,7 +120,7 @@ void sfml_window::LevelPlayer::GenGrid() {
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
       grid_.back().setOutlineColor(sf::Color::White);
-      grid_.back().setOutlineThickness(1);
+      grid_.back().setOutlineThickness(1.5);
     }
 
   // center grid
@@ -134,6 +133,10 @@ void sfml_window::LevelPlayer::GenGrid() {
   for (auto &square : grid_) {
     square.move(right_shift, down_shift);
   }
+
+  for (int i = 0; i < grid_.size(); i++)
+    if(!level_.IsLocked(i))
+      grid_[i].setOutlineColor({0, 200, 80});
 }
 
 void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
@@ -488,19 +491,20 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position) {
   return false;
 }
 
-sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() { return new LevelPlayer(*this); }
+sfml_window::LevelPlayer *sfml_window::LevelPlayer::Clone() {
+  return new LevelPlayer(*this);
+}
 
 LevelInfo sfml_window::LevelPlayer::GetLevelInfo() {
   return LevelInfo(LevelPath(level_directory_));
 }
 sfml_window::LevelPlayer::~LevelPlayer() {
 
-  for(auto &b:buttons_)
+  for (auto &b : buttons_)
     delete b;
-
 }
 sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
-    :level_(other.level_) {
+    : level_(other.level_) {
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
   background_texture_ = other.background_texture_;
@@ -510,15 +514,16 @@ sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
 
   cell_size_ = other.cell_size_;
 
-  for(int i = 0 ;i<other.buttons_.size();i++)
-    buttons_[i] = other.buttons_[ i]->Clone();
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
 
   brush_ = other.brush_;
   cells_ = other.cells_;
   grid_ = other.grid_;
-
 }
 
 Board sfml_window::LevelPlayer::GetLevel() { return level_; }
 
-std::string sfml_window::LevelPlayer::GetLevelDirectory() { return level_directory_; }
+std::string sfml_window::LevelPlayer::GetLevelDirectory() {
+  return level_directory_;
+}
