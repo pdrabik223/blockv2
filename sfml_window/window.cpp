@@ -11,7 +11,8 @@ Gui::Gui() : current_loaded_level_(2, 1) {
 }
 
 Gui::Gui(LevelInfo &level) : current_loaded_level_(level) {
-  current_context_ = new RunSimulation(1200, 600, current_loaded_level_);
+  current_context_ =
+      new RunSimulation(1200, 600, current_loaded_level_, "../levels/no_name_given/no_name_given");
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
@@ -72,7 +73,7 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
   case ContextEvent::RUN_SIMULATION: {
     delete context_storage;
 
-   context_storage = current_context_->Clone();
+    context_storage = current_context_->Clone();
     SwitchContext(Contexts::RUN_SIMULATION);
     goto update_display;
   }
@@ -105,7 +106,7 @@ void Gui::SwitchContext(Contexts new_screen) {
   } break;
   case Contexts::LEVEL_PLAYER: {
     std::string chosen_level_path =
-        ((LevelPicker *)current_context_)->GetPath();
+        ((LevelPicker *)current_context_)->GetLevelDirectory();
     delete current_context_;
     current_context_ = new LevelPlayer(1200, 600, chosen_level_path);
   } break;
@@ -113,8 +114,10 @@ void Gui::SwitchContext(Contexts new_screen) {
     current_context_ = new LevelCreator(1200, 600);
   } break;
   case Contexts::RUN_SIMULATION: {
-    LevelInfo chosen_level = current_context_->GetLevelInfo();
-    current_context_ = new RunSimulation(1200, 600, chosen_level);
+    Board chosen_level = current_context_->GetLevel();
+    std::string level_path = current_context_->GetLevelDirectory(); // for assets
+    current_context_ =
+        new RunSimulation(1200, 600, chosen_level, level_path);
   } break;
   case Contexts::SIZE: {
     assert(false);
