@@ -17,13 +17,15 @@
 #include <short_level_info.h>
 
 namespace sfml_window {
-enum class CreatorInputPanelButtons{
+enum class CreatorInputPanelButton {
   EXIT,
   SIZE
 };
 
 class CreatorInputPanel : public Context {
 public:
+  CreatorInputPanel(unsigned int window_width, unsigned int window_height,
+                    const LevelInfo &target);
   void DrawToWindow(sf::RenderWindow &window) override;
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
@@ -32,6 +34,14 @@ public:
   LevelInfo GetLevelInfo() override;
   std::string GetLevelDirectory() override;
   ~CreatorInputPanel() override;
+private:
+  /// load buttons to memory
+  void LoadButtons();
+
+  /// Loads background to memory
+  void LoadBackground();
+
+
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>
@@ -48,7 +58,7 @@ protected:
 
   sf::RectangleShape button_background_;
 
-  std::array<Button *, (unsigned)CreatorInputPanelButtons::SIZE> buttons_;
+  std::array<Button *, (unsigned)CreatorInputPanelButton::SIZE> buttons_;
 
   LevelInfo target_;
 
