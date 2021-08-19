@@ -12,14 +12,13 @@ public:
   Board() = delete;
 
   Board(const LevelInfo &level_info);
-  Board & operator=(const Board & other);
+  Board &operator=(const Board &other);
   Bot *GetCell(Coord position);
   Bot *GetCell(unsigned position);
   BotType GetBotType(const Coord &position) const;
   BotType GetBotType(unsigned position) const;
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
-
 
   void Lock(Coord position);
   void UnLock(Coord position);
@@ -31,11 +30,10 @@ public:
   bool IsWon();
   size_t Size() const;
 
-void AddCell(int x, int y, BotType type);
+  void AddCell(int x, int y, BotType type);
   void RotateCell(int x, int y);
 
 private:
-
   /// if two bots want to be in the same place this function resolves this
   /// conflict
   /// \param bot_a bot a
