@@ -21,6 +21,13 @@ enum class CreatorInputPanelButton {
   EXIT,
   SIZE
 };
+enum class CreatorInputPanelTextField {
+  LEVEL_NAME,
+  AUTHOR_NAME,
+  WIDTH,
+  HEIGHT,
+  SIZE
+};
 
 class CreatorInputPanel : public Context {
 public:
@@ -61,6 +68,9 @@ protected:
   std::array<Button *, (unsigned)CreatorInputPanelButton::SIZE> buttons_;
 
   LevelInfo target_;
+
+  CreatorInputPanelTextField in_focus_ = CreatorInputPanelTextField::LEVEL_NAME;
+
 
 };
 } // namespace sfml_window
