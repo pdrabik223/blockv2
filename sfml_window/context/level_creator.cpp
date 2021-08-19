@@ -454,3 +454,5 @@ sfml_window::LevelCreator::LevelCreator(const LevelCreator& other):level_(other.
     cells_ = other.cells_;
     grid_ = other.grid_;
 }
+Board sfml_window::LevelCreator::GetLevel() { return Board(LevelInfo(2,1));; }
+std::string sfml_window::LevelCreator::GetLevelDirectory() { return std::string(); }

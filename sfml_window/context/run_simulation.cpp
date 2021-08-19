@@ -189,7 +189,7 @@ void sfml_window::RunSimulation::LoadAssets(const std::string &level_name) {
     file_names[(unsigned)Assets::BACKGROUND] = "background.png";
   } // set filenames
 
-  const std::string kDir = "../levels/" + level_name + "/";
+  const std::string kDir = level_name + "/";
   const std::string kDefaultDir = "../levels/default/";
 
   // detect custom assets
@@ -390,3 +390,5 @@ sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() { return new Run
 LevelInfo sfml_window::RunSimulation::GetLevelInfo() {
   return LevelInfo(2,1);
 }
+Board sfml_window::RunSimulation::GetLevel() { return local_board_; }
+std::string sfml_window::RunSimulation::GetLevelDirectory() { return std::string(); }

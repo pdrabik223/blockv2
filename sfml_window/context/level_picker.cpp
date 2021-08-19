@@ -175,7 +175,7 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
   }
 }
 
-std::string sfml_window::LevelPicker::GetPath() {
+std::string sfml_window::LevelPicker::GetLevelDirectory() {
   return path_to_chosen_level_;
 }
 
@@ -204,3 +204,4 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
   levels_ = other.levels_;
   path_to_chosen_level_ = other.path_to_chosen_level_;
 }
+Board sfml_window::LevelPicker::GetLevel() { return Board(LevelInfo(2,1));; }

@@ -519,3 +519,6 @@ sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
 
 }
 
+Board sfml_window::LevelPlayer::GetLevel() { return level_; }
+
+std::string sfml_window::LevelPlayer::GetLevelDirectory() { return level_directory_; }

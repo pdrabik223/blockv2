@@ -41,7 +41,11 @@ public:
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
   RunSimulation *Clone() override;
+
   LevelInfo GetLevelInfo() override;
+  Board GetLevel() override;
+  std::string GetLevelDirectory() override;
+
   virtual ~RunSimulation();
 
 private:

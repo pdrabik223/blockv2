@@ -85,7 +85,13 @@ public:
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
   virtual Context* Clone() = 0;
 
+  /// get game object
+  virtual Board GetLevel() = 0;
+  /// get Full level info object
   virtual LevelInfo GetLevelInfo() = 0;
+  /// get level directory path (path to assets)
+  virtual std::string GetLevelDirectory() = 0;
+
   virtual ~Context() = default;
 
 };

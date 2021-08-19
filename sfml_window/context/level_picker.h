@@ -42,9 +42,10 @@ public:
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
-  std::string GetPath();
-
+  std::string GetLevelDirectory() override;
+  Board GetLevel() override;
   LevelInfo GetLevelInfo() override;
+
   ~LevelPicker() override ;
 
 private:

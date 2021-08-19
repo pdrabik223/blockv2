@@ -50,14 +50,15 @@ public:
 
   LevelPlayer *Clone() override;
 
-  ;
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
-  LevelInfo GetLevelInfo();
+  LevelInfo GetLevelInfo() override;
+  Board GetLevel() override;
+  std::string GetLevelDirectory() override;
 
   ~LevelPlayer() override ;
 

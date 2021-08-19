@@ -16,29 +16,29 @@
 #include <short_level_info.h>
 namespace sfml_window {
 
-enum class LevelCreatorButton { EXIT,
-    RUN_SIMULATION,
-    B_BASIC,
-    B_BEDROCK,
-    B_ENEMY,
-    B_ENGINE,
-    B_FACTORY,
-    B_TURN,
-    SIZE };
+enum class LevelCreatorButton {
+  EXIT,
+  RUN_SIMULATION,
+  B_BASIC,
+  B_BEDROCK,
+  B_ENEMY,
+  B_ENGINE,
+  B_FACTORY,
+  B_TURN,
+  SIZE
+};
 
-class LevelCreator : public Context{
+class LevelCreator : public Context {
 public:
-
   /// run provided simulation
   /// \param level_info full level info object
   /// \param window_height of the window
   /// \param window_width of the window
   LevelCreator(unsigned int window_width, unsigned int window_height);
-  LevelCreator(const LevelCreator & other);
+
+  LevelCreator(const LevelCreator &other);
 
   LevelCreator *Clone() override;
-
-  ;
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
@@ -46,7 +46,8 @@ public:
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
   LevelInfo GetLevelInfo() override;
-
+  Board GetLevel() override;
+  std::string GetLevelDirectory() override;
   ~LevelCreator() override;
 
 private:
@@ -117,7 +118,6 @@ private:
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;
-
 };
-}
+} // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_CREATOR_H_
