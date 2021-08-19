@@ -11,8 +11,8 @@ Gui::Gui() : current_loaded_level_(2, 1) {
 }
 
 Gui::Gui(LevelInfo &level) : current_loaded_level_(level) {
-  current_context_ =
-      new RunSimulation(1200, 600, current_loaded_level_, "../levels/no_name_given/no_name_given");
+  current_context_ = new RunSimulation(1200, 600, current_loaded_level_,
+                                       "../levels/no_name_given/no_name_given");
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
@@ -64,7 +64,6 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     SwitchContext(Contexts::MAIN_MENU);
     goto update_display;
   case ContextEvent::SWITCH_TO_LEVEL_CREATOR:
-
     SwitchContext(Contexts::LEVEL_CREATOR);
     goto update_display;
   case ContextEvent::SWITCH_TO_LEVEL_PLAYER:
@@ -72,9 +71,20 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     goto update_display;
   case ContextEvent::RUN_SIMULATION: {
     delete context_storage;
-
     context_storage = current_context_->Clone();
     SwitchContext(Contexts::RUN_SIMULATION);
+    goto update_display;
+  }
+  case ContextEvent::SWITCH_TO_CREATOR_INPUT_PANEL: {
+    delete context_storage;
+    context_storage = current_context_->Clone();
+    SwitchContext(Contexts::CREATOR_INPUT_PANEL);
+    goto update_display;
+  }
+  case ContextEvent::SWITCH_BACK_TO_CREATOR: {
+    delete context_storage;
+    context_storage = current_context_->Clone();
+    SwitchContext(Contexts::CREATOR_INPUT_PANEL);
     goto update_display;
   }
   case ContextEvent::SWITCH_TO_PREVIOUS:
@@ -115,10 +125,17 @@ void Gui::SwitchContext(Contexts new_screen) {
   } break;
   case Contexts::RUN_SIMULATION: {
     Board chosen_level = current_context_->GetLevel();
-    std::string level_path = current_context_->GetLevelDirectory(); // for assets
-    current_context_ =
-        new RunSimulation(1200, 600, chosen_level, level_path);
+    std::string level_path =
+        current_context_->GetLevelDirectory(); // for assets
+    current_context_ = new RunSimulation(1200, 600, chosen_level, level_path);
   } break;
+  case Contexts::CREATOR_INPUT_PANEL: {
+
+    LevelInfo edited_level = current_context_->GetLevelInfo();
+    current_context_ = new CreatorInputPanel(1200, 600, edited_level);
+
+  } break;
+
   case Contexts::SIZE: {
     assert(false);
   }
