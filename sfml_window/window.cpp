@@ -69,25 +69,31 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
   case ContextEvent::SWITCH_TO_LEVEL_PLAYER:
     SwitchContext(Contexts::LEVEL_PLAYER);
     goto update_display;
+
   case ContextEvent::RUN_SIMULATION: {
     delete context_storage;
     context_storage = current_context_->Clone();
     SwitchContext(Contexts::RUN_SIMULATION);
     goto update_display;
   }
+
   case ContextEvent::SWITCH_TO_CREATOR_INPUT_PANEL: {
     delete context_storage;
-    context_storage = current_context_->Clone();
     SwitchContext(Contexts::CREATOR_INPUT_PANEL);
     goto update_display;
   }
+
   case ContextEvent::SWITCH_BACK_TO_CREATOR: {
-    delete context_storage;
-    context_storage = current_context_->Clone();
-    SwitchContext(Contexts::CREATOR_INPUT_PANEL);
+
+    LevelInfo chosen_level = current_context_->GetLevelInfo();
+
+    delete current_context_;
+    current_context_ = new LevelCreator(1200, 600, chosen_level);
+
     goto update_display;
   }
-  case ContextEvent::SWITCH_TO_PREVIOUS:
+
+  case ContextEvent::SWITCH_TO_PREVIOUS: {
 
     delete current_context_;
     current_context_ = context_storage->Clone();
@@ -96,11 +102,12 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
 
     goto update_display;
   }
-  return;
+    return;
 
-update_display:
-  current_context_->DrawToWindow(window);
-  window.display();
+  update_display:
+    current_context_->DrawToWindow(window);
+    window.display();
+  }
 }
 
 void Gui::SwitchContext(Contexts new_screen) {
@@ -119,19 +126,27 @@ void Gui::SwitchContext(Contexts new_screen) {
         ((LevelPicker *)current_context_)->GetLevelDirectory();
     delete current_context_;
     current_context_ = new LevelPlayer(1200, 600, chosen_level_path);
+
   } break;
+
   case Contexts::LEVEL_CREATOR: {
+    delete current_context_;
     current_context_ = new LevelCreator(1200, 600);
   } break;
+
   case Contexts::RUN_SIMULATION: {
     Board chosen_level = current_context_->GetLevel();
+
     std::string level_path =
         current_context_->GetLevelDirectory(); // for assets
+
+    delete current_context_;
     current_context_ = new RunSimulation(1200, 600, chosen_level, level_path);
   } break;
-  case Contexts::CREATOR_INPUT_PANEL: {
 
+  case Contexts::CREATOR_INPUT_PANEL: {
     LevelInfo edited_level = current_context_->GetLevelInfo();
+
     current_context_ = new CreatorInputPanel(1200, 600, edited_level);
 
   } break;
