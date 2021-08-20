@@ -33,14 +33,20 @@ class CreatorInputPanel : public Context {
 public:
   CreatorInputPanel(unsigned int window_width, unsigned int window_height,
                     const LevelInfo &target);
+  CreatorInputPanel(const CreatorInputPanel& other);
+
+
   void DrawToWindow(sf::RenderWindow &window) override;
+
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
+
   CreatorInputPanel *Clone() override;
   Board GetLevel() override;
   LevelInfo GetLevelInfo() override;
   std::string GetLevelDirectory() override;
   ~CreatorInputPanel() override;
+
 private:
   /// load buttons to memory
   void LoadButtons();

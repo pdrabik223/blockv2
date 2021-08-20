@@ -9,10 +9,22 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(unsigned int window_width,
                                                   const LevelInfo &target)
     : window_width_(window_width), window_height_(window_height),
       target_(target) {
+
   LoadButtons();
   LoadBackground();
 }
+sfml_window::CreatorInputPanel::CreatorInputPanel(const CreatorInputPanel& other): target_(other.target_){
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+  button_background_ = other.button_background_;
 
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  in_focus_ = other.in_focus_;
+}
 
 void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
   window.draw(background_sprite_);
@@ -20,6 +32,7 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
+
 sfml_window::ContextEvent
 sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
                                             const sf::RenderWindow &window) {
@@ -43,7 +56,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
 
         switch ((CreatorInputPanelButton)id) {
       case CreatorInputPanelButton::EXIT:
-        return ContextEvent::SWITCH_TO_PREVIOUS;
+        return ContextEvent::SWITCH_BACK_TO_CREATOR;
       }
   } else {
 
@@ -62,7 +75,9 @@ sfml_window::CreatorInputPanel *sfml_window::CreatorInputPanel::Clone() {
 }
 
 Board sfml_window::CreatorInputPanel::GetLevel() { return Board(target_); }
+
 LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() { return target_; }
+
 std::string sfml_window::CreatorInputPanel::GetLevelDirectory() {
   return std::string("../levels/" + target_.GetName());
 }
@@ -81,7 +96,7 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
 }
 void sfml_window::CreatorInputPanel::LoadBackground() {
   if (!background_texture_.loadFromFile(
-      "../sfml_window/assets/level_creator/background.png"))
+      "../levels/default/background.png"))
     throw "error";
 
   background_texture_.setSmooth(true);
@@ -90,3 +105,4 @@ void sfml_window::CreatorInputPanel::LoadBackground() {
       (float)window_width_ / (float)background_texture_.getSize().x,
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
+
