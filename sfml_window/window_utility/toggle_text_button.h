@@ -58,10 +58,12 @@ protected:
   sf::RectangleShape background_;
   TextBox text_;
 
-  /// if mouse is hovering over the button the font is larger
-  bool hover_ = false;
   sf::Color button_color_;
+  /// if mouse is hovering over the background is displaying
+  bool hover_ = false;
+  State state_ = State::DEFAULT;
   bool display_background_ = false ;
+
 
   };
 }
