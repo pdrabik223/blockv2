@@ -3,13 +3,14 @@
 //
 
 #include "creator_input_panel.h"
+#include <toggle_text_button.h>
 
 sfml_window::CreatorInputPanel::CreatorInputPanel(unsigned int window_width,
                                                   unsigned int window_height,
                                                   const LevelInfo &target)
     : window_width_(window_width), window_height_(window_height),
       target_(target) {
-
+  LoadCreatorInputPanelTexts();
   LoadButtons();
   LoadBackground();
 }
@@ -24,6 +25,11 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(const CreatorInputPanel& other
     buttons_[i] = other.buttons_[i]->Clone();
 
   in_focus_ = other.in_focus_;
+
+  for (int i = 0; i < other.buttons_.size(); i++)
+    input_panels_[i] = other.input_panels_[i];
+
+
 }
 
 void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
@@ -31,6 +37,10 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
+
+  for (ToggleTextButton& i : input_panels_)
+    i.DrawToWindow(window);
+
 }
 
 sfml_window::ContextEvent
@@ -72,6 +82,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
 
   return ContextEvent::NONE;
 }
+
 sfml_window::CreatorInputPanel *sfml_window::CreatorInputPanel::Clone() {
   return new CreatorInputPanel(*this);
 }
@@ -83,10 +94,12 @@ LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() { return target_; }
 std::string sfml_window::CreatorInputPanel::GetLevelDirectory() {
   return std::string("../levels/" + target_.GetName());
 }
+
 sfml_window::CreatorInputPanel::~CreatorInputPanel() {
   for (const auto &button : buttons_)
     delete button;
 }
+
 void sfml_window::CreatorInputPanel::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_creator/";
 
@@ -99,6 +112,7 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
                       directory + "floppy-disk.png", sf::Color::Blue);
 
 }
+
 void sfml_window::CreatorInputPanel::LoadBackground() {
   if (!background_texture_.loadFromFile(
       "../levels/default/background.png"))
@@ -111,3 +125,12 @@ void sfml_window::CreatorInputPanel::LoadBackground() {
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
 
+void sfml_window::CreatorInputPanel::LoadCreatorInputPanelTexts() {
+
+  input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME] = ToggleTextButton({{40,100}, 400, 30},"some_text",sf::Color::Blue,true);
+  input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME] = ToggleTextButton({{40, 150}, 400, 30},"some_text",sf::Color::Blue,true);
+  input_panels_[(int)CreatorInputPanelTextField::WIDTH] = ToggleTextButton({{40, 200}, 400, 30},"some_text",sf::Color::Blue,true);
+  input_panels_[(int)CreatorInputPanelTextField::HEIGHT] = ToggleTextButton({{40, 250}, 400, 30},"some_text",sf::Color::Blue,true);
+
+
+}

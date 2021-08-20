@@ -15,6 +15,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <short_level_info.h>
+#include <toggle_text_button.h>
 
 namespace sfml_window {
 enum class CreatorInputPanelButton {
@@ -55,6 +56,9 @@ private:
   /// Loads background to memory
   void LoadBackground();
 
+  /// Load Text Boxes
+  void LoadCreatorInputPanelTexts();
+
 
 protected:
   /// \format in pixels
@@ -73,6 +77,9 @@ protected:
   sf::RectangleShape button_background_;
 
   std::array<Button *, (unsigned)CreatorInputPanelButton::SIZE> buttons_;
+
+  std::array<ToggleTextButton, (unsigned)CreatorInputPanelTextField::SIZE> input_panels_;
+
 
   LevelInfo target_;
 
