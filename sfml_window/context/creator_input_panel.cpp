@@ -42,6 +42,8 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 
+  ClearHighlight();
+
   for (ToggleTextButton &i : input_panels_)
     i.DrawToWindow(window);
 
@@ -79,8 +81,10 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         }
 
     for (auto id = 0; id < input_panels_.size(); id++)
-      if (input_panels_[id].DetectInteraction({mouse_x, mouse_y}, event))
+      if (input_panels_[id].DetectInteraction({mouse_x, mouse_y}, event)) {
         in_focus_ = (CreatorInputPanelTextField)id;
+        return ContextEvent::UPDATE_DISPLAY;
+      }
 
   } else {
 
@@ -163,4 +167,10 @@ void sfml_window::CreatorInputPanel::LoadLabels() {
       TextBox({40, 200}, "level width:", sf::Color::Blue, 24);
   input_panels_labels_[(int)CreatorInputPanelTextField::HEIGHT] =
       TextBox({40, 250}, "level height:", sf::Color::Blue, 24);
+}
+void sfml_window::CreatorInputPanel::ClearHighlight() {
+  for (ToggleTextButton & i:input_panels_)
+    i.TurnOff();
+  input_panels_[(int)in_focus_].TurnOn();
+
 }
