@@ -65,8 +65,6 @@ sfml_window::LevelCreator &sfml_window::LevelCreator::operator=(const LevelCreat
   return *this;
 }
 
-
-
 void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
 
   window.draw(background_sprite_);
