@@ -26,9 +26,13 @@ void Gui::ThMainLoop() {
                           sf::Style::None, settings);
 
   window.setPosition(sf::Vector2i(0, 0));
+  window.setKeyRepeatEnabled(false);
+
 
   // run the program as long as the window is open
   current_context_->DrawToWindow(window);
+
+
   window.display();
   Context *context_storage = nullptr;
   while (window.isOpen()) {
