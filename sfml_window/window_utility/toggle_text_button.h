@@ -53,6 +53,9 @@ public:
 
   void SetText(const std::string &text);
 
+  void TurnOff();
+  void TurnOn();
+
 protected:
   Rect structure_;
   sf::RectangleShape background_;
