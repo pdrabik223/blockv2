@@ -71,11 +71,11 @@ bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
       return true;
     } else if (event.key.code == sf::Keyboard::Space) {
       std::string text = input_panels_[(int)in_focus_].GetText();
-      text += ' ';
+      text += '_';
       input_panels_[(int)in_focus_].SetText(text);
       return true;
-    } else  if (event.key.code >= sf::Keyboard::Num0 and
-    event.key.code <= sf::Keyboard::Num9) {
+    } else if (event.key.code >= sf::Keyboard::Num0 and
+               event.key.code <= sf::Keyboard::Num9) {
 
       std::string text = input_panels_[(int)in_focus_].GetText();
       char letter = '0' + event.key.code - sf::Keyboard::Num0;
@@ -188,7 +188,8 @@ Board sfml_window::CreatorInputPanel::GetLevel() { return Board(target_); }
 
 LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() {
   UpdateLevel();
-  return target_; }
+  return target_;
+}
 
 std::string sfml_window::CreatorInputPanel::GetLevelDirectory() {
   return std::string("../levels/" + target_.GetName());
@@ -257,13 +258,19 @@ void sfml_window::CreatorInputPanel::ClearHighlight() {
 
 void sfml_window::CreatorInputPanel::UpdateLevel() {
 
-  target_.SetName(input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME].GetText());
+  std::string name =
+      input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME].GetText();
+  for (int i = name.size() - 1; i >= 0; i--)
+    if (name[i] == ' ')
+      name.erase(i);
 
-  //input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME].GetText();
+  target_.SetName(name);
+
+  // input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME].GetText();
 
   target_.Resize(
-  std::stoi(input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText()),
-  std::stoi(input_panels_[(int)CreatorInputPanelTextField::HEIGHT].GetText()));
-
-
+      std::stoi(
+          input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText()),
+      std::stoi(
+          input_panels_[(int)CreatorInputPanelTextField::HEIGHT].GetText()));
 }
