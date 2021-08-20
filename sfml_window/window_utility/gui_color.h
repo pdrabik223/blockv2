@@ -6,6 +6,12 @@
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_GUI_COLOR_H_
 #include "SFML/Graphics/Color.hpp"
 #include <corecrt_math.h>
+#define YELLOW sf::Color::Yellow
+#define RED sf::Color::Red
+#define BLUE sf::Color::Blue
+#define GREEN sf::Color::Green
+#define WHITE sf::Color::White
+
 
 /// \param color primary color, to be lighten
 /// \return light/ brighter  version of the primary color

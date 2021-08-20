@@ -10,9 +10,9 @@
 sfml_window::MainMenu::MainMenu(unsigned int window_width,
                                 unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
-      game_name_(Align(50, 20, 500, 100), "Block v2", sf::Color::Red),
+      game_name_(Align(50, 20, 500, 100), "Block v2", RED),
       author_name_(Align(90, 90, 200, 50),
-                   "author: piotr233\nversion: alpha 0.1", sf::Color::Red) {
+                   "author: piotr233\nversion: alpha 0.1", RED) {
 
 
   LoadButtons();

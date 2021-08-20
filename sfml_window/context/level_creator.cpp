@@ -83,25 +83,25 @@ void sfml_window::LevelCreator::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_creator/";
   buttons_[(unsigned)LevelCreatorButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "back.png", sf::Color::Yellow);
+                      directory + "back.png", YELLOW);
 
   buttons_[(unsigned)LevelCreatorButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
-                      directory + "run-button.png", sf::Color::Blue);
+                      directory + "run-button.png", BLUE);
 
   buttons_[(unsigned)LevelCreatorButton::INPUT_PANEL] =
       new ImageButton(Rect(Coord(window_width_  - 110, 4 ) , 32, 32),
-                      directory + "information-button.png", sf::Color::Blue);
+                      directory + "information-button.png",BLUE);
 
   buttons_[(unsigned)LevelCreatorButton::SAVE_LEVEL] =
       new ImageButton(Rect(Coord(window_width_  - 146, 4 ) , 32, 32),
-                      directory + "floppy-disk.png", sf::Color::Blue);
+                      directory + "floppy-disk.png", BLUE);
 
 
 
   buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] =
       new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
-                      directory + "add-border.png", sf::Color::Blue);
+                      directory + "add-border.png", BLUE);
 
 
 
@@ -187,7 +187,7 @@ void sfml_window::LevelCreator::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor({250, 80, 0});
+      grid_.back().setOutlineColor(RED);
       grid_.back().setOutlineThickness(1.5);
     }
 
@@ -204,7 +204,7 @@ void sfml_window::LevelCreator::GenGrid() {
 
   for (int i = 0; i < grid_.size(); i++)
     if (!level_.IsLocked(i)) {
-      grid_[i].setOutlineColor({0, 200, 80});
+      grid_[i].setOutlineColor(GREEN);
       grid_[i].setOutlineThickness(2);
     }
 }

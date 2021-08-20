@@ -205,10 +205,10 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
 
   buttons_[(unsigned)CreatorInputPanelButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "back.png", sf::Color::Yellow);
+                      directory + "back.png", YELLOW);
   buttons_[(unsigned)CreatorInputPanelButton::SAVE_LEVEL] =
       new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
-                      directory + "floppy-disk.png", sf::Color::Blue);
+                      directory + "floppy-disk.png",BLUE);
 }
 
 void sfml_window::CreatorInputPanel::LoadBackground() {

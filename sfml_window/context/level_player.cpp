@@ -35,11 +35,11 @@ void sfml_window::LevelPlayer::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_player/";
   buttons_[(unsigned)LevelPlayerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "back.png", sf::Color::Yellow);
+                      directory + "back.png", YELLOW);
 
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
-                      directory + "run-button.png", sf::Color::Blue);
+                      directory + "run-button.png", BLUE);
   // more buttons will shortly follow
   buttons_[(unsigned)LevelPlayerButton::B_BASIC] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 106, 4), 32, 32), Texture(Assets::BASIC));
@@ -116,7 +116,7 @@ void sfml_window::LevelPlayer::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor({250, 80, 0});
+      grid_.back().setOutlineColor(RED);
       grid_.back().setOutlineThickness(1.5);
     }
 
@@ -133,7 +133,7 @@ void sfml_window::LevelPlayer::GenGrid() {
 
   for (int i = 0; i < grid_.size(); i++)
     if (!level_.IsLocked(i)) {
-      grid_[i].setOutlineColor({0, 200, 80});
+      grid_[i].setOutlineColor(GREEN);
       grid_[i].setOutlineThickness(2);
     }
 }

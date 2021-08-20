@@ -84,18 +84,17 @@ void sfml_window::RunSimulation::LoadButtons() {
 
   buttons_[(unsigned)RunSimulationButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "back.png", sf::Color::Yellow);
+                      directory + "back.png", YELLOW);
 
   buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
       new ImageToggleButton(
           Rect(Coord(window_width_ - 74, 4), 32, 32),
           {directory + "run-button.png",
            sf::Color::Blue},
-          {directory + "pause-button.png",sf::Color::Yellow});
+          {directory + "pause-button.png",YELLOW});
 
   buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] = new ImageButton(
-      Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png",
-      sf::Color::Green);
+      Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png", GREEN);
 }
 
 void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
@@ -110,7 +109,7 @@ void sfml_window::RunSimulation::GenGrid() {
   unsigned real_window_height = window_height_ - 40;
   button_background_.setPosition(0,0);
   button_background_.setSize({(float)window_width_,40});
-  button_background_.setFillColor({0, 0, 0, 80});
+//  button_background_.setFillColor({0, 0, 0, 80});
 
   // all cells are squares so the width = height
   // between all cells and surrounding them is 3px wide border
@@ -138,7 +137,7 @@ void sfml_window::RunSimulation::GenGrid() {
       grid_.back().setPosition(3 + x * pixel_shift, 40 + 3 + y * pixel_shift);
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
-      grid_.back().setOutlineColor(sf::Color::White);
+      grid_.back().setOutlineColor(WHITE);
       grid_.back().setOutlineThickness(1);
     }
 

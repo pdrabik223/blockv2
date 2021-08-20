@@ -9,15 +9,15 @@ void sfml_window::LevelPicker::LoadButtons() {
 
   buttons_[(unsigned)LevelPickerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "back.png", sf::Color::Yellow);
+                      directory + "back.png", YELLOW);
 
   buttons_[(unsigned)LevelPickerButton::PAGE_UP] =
       new ImageButton(Rect(Coord((window_width_ / 4) - 36 * 2, 4), 32, 32),
-                      directory + "page_up.png", {255, 255, 255});
+                      directory + "page_up.png", WHITE);
 
   buttons_[(unsigned)LevelPickerButton::PAGE_DOWN] = new ImageButton(
       Rect(Coord((window_width_ / 4) - 36 * 2, window_height_ - 36), 32, 32),
-      directory + "page_down.png", {255, 255, 255});
+      directory + "page_down.png",WHITE);
 }
 
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
