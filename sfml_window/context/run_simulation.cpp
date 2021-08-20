@@ -109,7 +109,7 @@ void sfml_window::RunSimulation::GenGrid() {
   unsigned real_window_height = window_height_ - 40;
   button_background_.setPosition(0,0);
   button_background_.setSize({(float)window_width_,40});
-//  button_background_.setFillColor({0, 0, 0, 80});
+  button_background_.setFillColor({0, 0, 0, 80});
 
   // all cells are squares so the width = height
   // between all cells and surrounding them is 3px wide border
