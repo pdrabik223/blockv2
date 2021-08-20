@@ -64,6 +64,9 @@ private:
 
   void ClearHighlight();
 
+  bool HandleNumber(const sf::Event &event);
+  bool HandleLetter(const sf::Event &event);
+  bool HandleFunctional(const sf::Event &event);
 protected:
   /// \format in pixels
   /// x axis domain = <0,window_width_>

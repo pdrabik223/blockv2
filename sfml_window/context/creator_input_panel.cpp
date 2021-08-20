@@ -49,7 +49,68 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
 
   for (auto &i : input_panels_labels_)
     i.DrawToWindow(window);
+}
 
+bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
+  if (in_focus_ != CreatorInputPanelTextField::WIDTH and
+      in_focus_ != CreatorInputPanelTextField::HEIGHT)
+    if (event.key.code >= sf::Keyboard::A and
+        event.key.code <= sf::Keyboard::Z) {
+      std::string text = input_panels_[(int)in_focus_].GetText();
+
+      char letter = event.key.code;
+
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) or
+          sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+        letter += 'A';
+      else
+        letter += 'a';
+
+      text += letter;
+      input_panels_[(int)in_focus_].SetText(text);
+      return true;
+    } else if (event.key.code == sf::Keyboard::Space) {
+      std::string text = input_panels_[(int)in_focus_].GetText();
+      text += ' ';
+      input_panels_[(int)in_focus_].SetText(text);
+      return true;
+    } else  if (event.key.code >= sf::Keyboard::Num0 and
+    event.key.code <= sf::Keyboard::Num9) {
+
+      std::string text = input_panels_[(int)in_focus_].GetText();
+      char letter = '0' + event.key.code - sf::Keyboard::Num0;
+      text += letter;
+      input_panels_[(int)in_focus_].SetText(text);
+
+      return true;
+    }
+  return false;
+}
+bool sfml_window::CreatorInputPanel::HandleNumber(const sf::Event &event) {
+
+  if (in_focus_ == CreatorInputPanelTextField::WIDTH or
+      in_focus_ == CreatorInputPanelTextField::HEIGHT)
+    if (event.key.code >= sf::Keyboard::Num0 and
+        event.key.code <= sf::Keyboard::Num9) {
+
+      std::string text = input_panels_[(int)in_focus_].GetText();
+      char letter = '0' + event.key.code - sf::Keyboard::Num0;
+      text += letter;
+      input_panels_[(int)in_focus_].SetText(text);
+
+      return true;
+    }
+  return false;
+}
+bool sfml_window::CreatorInputPanel::HandleFunctional(const sf::Event &event) {
+  if (event.key.code == sf::Keyboard::Backspace) {
+    std::string text = input_panels_[(int)in_focus_].GetText();
+    if (text.size() > 0)
+      text.erase(text.size() - 1);
+    input_panels_[(int)in_focus_].SetText(text);
+    return true;
+  }
+  return false;
 }
 
 sfml_window::ContextEvent
@@ -67,9 +128,17 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
   bool change = false; // if true window should be re-loaded to display change
   // in appearance
 
-  if(event.type ==  sf::Event::KeyPressed){
-  // not yet implamented
-  }
+  if (event.type == sf::Event::KeyPressed)
+    if (in_focus_ != CreatorInputPanelTextField::SIZE) {
+
+      if (event.key.code == sf::Keyboard::Enter) {
+        in_focus_ = CreatorInputPanelTextField::SIZE;
+        return ContextEvent::UPDATE_DISPLAY;
+      }
+
+      if (HandleLetter(event) or HandleNumber(event) or HandleFunctional(event))
+        return ContextEvent::UPDATE_DISPLAY;
+    }
 
   if (event.type == sf::Event::MouseButtonReleased) {
 
@@ -81,6 +150,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         case CreatorInputPanelButton::EXIT:
           return ContextEvent::SWITCH_BACK_TO_CREATOR;
         case CreatorInputPanelButton::SAVE_LEVEL:
+
           target_.SaveLevel();
         }
 
@@ -89,7 +159,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         in_focus_ = (CreatorInputPanelTextField)id;
         return ContextEvent::UPDATE_DISPLAY;
       }
-    if(in_focus_ != CreatorInputPanelTextField::SIZE) {
+    if (in_focus_ != CreatorInputPanelTextField::SIZE) {
       in_focus_ = CreatorInputPanelTextField::SIZE;
       return ContextEvent::UPDATE_DISPLAY;
     }
@@ -153,16 +223,16 @@ void sfml_window::CreatorInputPanel::LoadCreatorInputPanelTexts() {
 
   input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME] =
       ToggleTextButton({{(int)window_width_ / 2 - 200, 100}, 400, 30},
-                       "some_text", sf::Color::Blue, true);
+                       target_.GetName(), sf::Color::Blue, true);
   input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME] =
       ToggleTextButton({{(int)window_width_ / 2 - 200, 150}, 400, 30},
-                       "some_text", sf::Color::Blue, true);
-  input_panels_[(int)CreatorInputPanelTextField::WIDTH] =
-      ToggleTextButton({{(int)window_width_ / 2 - 200, 200}, 400, 30},
-                       "some_text", sf::Color::Blue, true);
-  input_panels_[(int)CreatorInputPanelTextField::HEIGHT] =
-      ToggleTextButton({{(int)window_width_ / 2 - 200, 250}, 400, 30},
-                       "some_text", sf::Color::Blue, true);
+                       "not yet implemented", sf::Color::Blue, true);
+  input_panels_[(int)CreatorInputPanelTextField::WIDTH] = ToggleTextButton(
+      {{(int)window_width_ / 2 - 200, 200}, 400, 30},
+      std::to_string(target_.GetWidth()), sf::Color::Blue, true);
+  input_panels_[(int)CreatorInputPanelTextField::HEIGHT] = ToggleTextButton(
+      {{(int)window_width_ / 2 - 200, 250}, 400, 30},
+      std::to_string(target_.GetHeight()), sf::Color::Blue, true);
 }
 
 void sfml_window::CreatorInputPanel::LoadLabels() {
@@ -176,9 +246,8 @@ void sfml_window::CreatorInputPanel::LoadLabels() {
       TextBox({40, 250}, "level height:", sf::Color::Blue, 24);
 }
 void sfml_window::CreatorInputPanel::ClearHighlight() {
-  for (ToggleTextButton & i:input_panels_)
+  for (ToggleTextButton &i : input_panels_)
     i.TurnOff();
-  if(in_focus_ != CreatorInputPanelTextField::SIZE)
-  input_panels_[(int)in_focus_].TurnOn();
-
+  if (in_focus_ != CreatorInputPanelTextField::SIZE)
+    input_panels_[(int)in_focus_].TurnOn();
 }
