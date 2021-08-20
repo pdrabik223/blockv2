@@ -10,31 +10,29 @@ LevelInfo::LevelInfo(const LevelInfo &other) {
   width_ = other.width_;
   height_ = other.height_;
 
-  for(const auto& b:other.plane_)
+  for (const auto &b : other.plane_)
     plane_.emplace_back(b->Clone());
 
   locked_fields_ = other.locked_fields_;
-
 }
 LevelInfo &LevelInfo::operator=(const LevelInfo &other) {
- if(&other == this )return *this;
+  if (&other == this)
+    return *this;
   name_ = other.name_;
   width_ = other.width_;
   height_ = other.height_;
 
-  for(const auto& b:other.plane_)
+  for (const auto &b : other.plane_)
     plane_.emplace_back(b->Clone());
 
   locked_fields_ = other.locked_fields_;
-return *this;
+  return *this;
 }
-
 
 LevelInfo::~LevelInfo() {
 
   for (auto &bot : plane_)
     delete bot;
-
 }
 
 LevelInfo::LevelInfo(unsigned int width, unsigned int height)
@@ -282,32 +280,34 @@ void LevelInfo::RotateCell(int x, int y) {
 void LevelInfo::UnLock(Coord position) {
   locked_fields_[position.ToInt(width_)] = false;
 }
-void LevelInfo::SetName(const std::string &name) {
-  name_ = name;
-}
+void LevelInfo::SetName(const std::string &name) { name_ = name; }
 void LevelInfo::Resize(const int new_width, const int new_height) {
 
-
   std::vector<Bot *> level_copy = plane_;
-    unsigned i = 0;
-    for(auto &i:plane_)
-      delete i;
-    plane_.clear();
-    plane_.reserve(new_height * new_width);
+  std::vector<bool> locked_fields_copy = locked_fields_;
 
-    for (int x = 0; x < new_height; x++) {
-      for (int y = 0; y < new_width; y++) {
-        if (x < height_ && y < width_) {
+  unsigned i = 0;
+  plane_.clear();
+  locked_fields_.clear();
+  plane_.reserve(new_height * new_width);
+  locked_fields_.reserve(new_height * new_width);
+  for (int x = 0; x < new_height; x++) {
+    for (int y = 0; y < new_width; y++) {
+      if (x < height_ && y < width_) {
 
-          plane_.push_back(level_copy[i]);
-          ++i;
+        plane_.push_back(level_copy[i]->Clone());
+        locked_fields_.emplace_back(locked_fields_copy[i]);
+        ++i;
 
-        } else
-          plane_.push_back(new Empty());
-      }
-      if (new_width < width_) i += width_ - new_width;
+      } else
+        plane_.push_back(new Empty());
+      locked_fields_.emplace_back(false);
     }
+    if (new_width < width_)
+      i += width_ - new_width;
+  }
+
 
     width_ = new_width;
-    height_ = new_height;
+   height_ = new_height;
 }
