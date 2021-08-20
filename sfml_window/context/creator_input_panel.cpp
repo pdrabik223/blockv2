@@ -54,9 +54,11 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
 bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
   if (in_focus_ != CreatorInputPanelTextField::WIDTH and
       in_focus_ != CreatorInputPanelTextField::HEIGHT)
+
     if (event.key.code >= sf::Keyboard::A and
         event.key.code <= sf::Keyboard::Z) {
       std::string text = input_panels_[(int)in_focus_].GetText();
+      if(text.size() == 30) return false;
 
       char letter = event.key.code;
 
@@ -69,21 +71,26 @@ bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
       text += letter;
       input_panels_[(int)in_focus_].SetText(text);
       return true;
-    } else if (event.key.code == sf::Keyboard::Space) {
+    }
+    else if (event.key.code == sf::Keyboard::Space) {
       std::string text = input_panels_[(int)in_focus_].GetText();
+      if(text.size() == 30) return false;
       text += '_';
       input_panels_[(int)in_focus_].SetText(text);
       return true;
-    } else if (event.key.code >= sf::Keyboard::Num0 and
+    }
+    else if (event.key.code >= sf::Keyboard::Num0 and
                event.key.code <= sf::Keyboard::Num9) {
 
       std::string text = input_panels_[(int)in_focus_].GetText();
+      if(text.size() == 30) return false;
       char letter = '0' + event.key.code - sf::Keyboard::Num0;
       text += letter;
       input_panels_[(int)in_focus_].SetText(text);
 
       return true;
     }
+
   return false;
 }
 bool sfml_window::CreatorInputPanel::HandleNumber(const sf::Event &event) {
@@ -208,7 +215,7 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
                       directory + "back.png", YELLOW);
   buttons_[(unsigned)CreatorInputPanelButton::SAVE_LEVEL] =
       new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
-                      directory + "floppy-disk.png",BLUE);
+                      directory + "floppy-disk.png", BLUE);
 }
 
 void sfml_window::CreatorInputPanel::LoadBackground() {
