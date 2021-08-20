@@ -1,6 +1,7 @@
 # blockv2
 
 The second iteration of my version of logic block and automata game. This time (after learning a lesson), will be better
+[trello](https://trello.com/b/0EFQH3JJ/block-v2) 
 
 
 # My mistakes
