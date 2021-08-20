@@ -306,8 +306,7 @@ void LevelInfo::Resize(const int new_width, const int new_height) {
     if (new_width < width_)
       i += width_ - new_width;
   }
+  width_ = new_width;
+  height_ = new_height;
 
-
-    width_ = new_width;
-   height_ = new_height;
 }
