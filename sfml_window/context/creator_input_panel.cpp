@@ -150,7 +150,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         case CreatorInputPanelButton::EXIT:
           return ContextEvent::SWITCH_BACK_TO_CREATOR;
         case CreatorInputPanelButton::SAVE_LEVEL:
-
+          UpdateLevel();
           target_.SaveLevel();
         }
 
@@ -186,7 +186,9 @@ sfml_window::CreatorInputPanel *sfml_window::CreatorInputPanel::Clone() {
 
 Board sfml_window::CreatorInputPanel::GetLevel() { return Board(target_); }
 
-LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() { return target_; }
+LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() {
+  UpdateLevel();
+  return target_; }
 
 std::string sfml_window::CreatorInputPanel::GetLevelDirectory() {
   return std::string("../levels/" + target_.GetName());
@@ -245,9 +247,23 @@ void sfml_window::CreatorInputPanel::LoadLabels() {
   input_panels_labels_[(int)CreatorInputPanelTextField::HEIGHT] =
       TextBox({40, 250}, "level height:", sf::Color::Blue, 24);
 }
+
 void sfml_window::CreatorInputPanel::ClearHighlight() {
   for (ToggleTextButton &i : input_panels_)
     i.TurnOff();
   if (in_focus_ != CreatorInputPanelTextField::SIZE)
     input_panels_[(int)in_focus_].TurnOn();
+}
+
+void sfml_window::CreatorInputPanel::UpdateLevel() {
+
+  target_.SetName(input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME].GetText());
+
+  //input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME].GetText();
+
+  target_.Resize(
+  std::stoi(input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText()),
+  std::stoi(input_panels_[(int)CreatorInputPanelTextField::HEIGHT].GetText()));
+
+
 }
