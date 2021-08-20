@@ -48,6 +48,9 @@ public:
 
   LevelCreator(const LevelCreator &other);
 
+  LevelCreator& operator=(const LevelCreator &other);
+
+
   LevelCreator *Clone() override;
 
   void DrawToWindow(sf::RenderWindow &window) override;

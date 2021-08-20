@@ -26,6 +26,46 @@ sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
   LoadButtons();
 }
 
+sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
+: level_(other.level_) {
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+  button_background_ = other.button_background_;
+  level_directory_ = other.level_directory_;
+
+  cell_size_ = other.cell_size_;
+
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  brush_ = other.brush_;
+  cells_ = other.cells_;
+  grid_ = other.grid_;
+}
+
+sfml_window::LevelCreator &sfml_window::LevelCreator::operator=(const LevelCreator &other) {
+  if(&other == this) return *this;
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+  button_background_ = other.button_background_;
+  level_directory_ = other.level_directory_;
+
+  cell_size_ = other.cell_size_;
+
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  brush_ = other.brush_;
+  cells_ = other.cells_;
+  grid_ = other.grid_;
+  return *this;
+}
+
+
 
 void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
 
@@ -528,6 +568,7 @@ bool sfml_window::LevelCreator::AddBotToGame(const Coord &mouse_position,
   }
   return false;
 }
+
 bool sfml_window::LevelCreator::RotateBot(const Coord &mouse_position,
                                           const sf::Event &event) {
   if (event.type != sf::Event::MouseButtonReleased or
@@ -564,25 +605,6 @@ sfml_window::LevelCreator::~LevelCreator() {
 
   for (auto &b : buttons_)
     delete b;
-}
-
-sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
-    : level_(other.level_) {
-  window_width_ = other.window_width_;
-  window_height_ = other.window_height_;
-  background_texture_ = other.background_texture_;
-  background_sprite_ = other.background_sprite_;
-  button_background_ = other.button_background_;
-  level_directory_ = other.level_directory_;
-
-  cell_size_ = other.cell_size_;
-
-  for (int i = 0; i < other.buttons_.size(); i++)
-    buttons_[i] = other.buttons_[i]->Clone();
-
-  brush_ = other.brush_;
-  cells_ = other.cells_;
-  grid_ = other.grid_;
 }
 
 Board sfml_window::LevelCreator::GetLevel() { return Board(level_); }
@@ -627,6 +649,7 @@ bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
   }
   return false;
 }
+
 void sfml_window::LevelCreator::DrawBorder() {
 
 
