@@ -282,4 +282,32 @@ void LevelInfo::RotateCell(int x, int y) {
 void LevelInfo::UnLock(Coord position) {
   locked_fields_[position.ToInt(width_)] = false;
 }
+void LevelInfo::SetName(const std::string &name) {
+  name_ = name;
+}
+void LevelInfo::Resize(const int new_width, const int new_height) {
 
+
+  std::vector<Bot *> level_copy = plane_;
+    unsigned i = 0;
+    for(auto &i:plane_)
+      delete i;
+    plane_.clear();
+    plane_.reserve(new_height * new_width);
+
+    for (int x = 0; x < new_height; x++) {
+      for (int y = 0; y < new_width; y++) {
+        if (x < height_ && y < width_) {
+
+          plane_.push_back(level_copy[i]);
+          ++i;
+
+        } else
+          plane_.push_back(new Empty());
+      }
+      if (new_width < width_) i += width_ - new_width;
+    }
+
+    width_ = new_width;
+    height_ = new_height;
+}

@@ -75,6 +75,9 @@ public:
 
   void RotateCell(int x, int y);
 
+  void SetName(const std::string &name);
+
+  void Resize(const int new_width, const int new_height);
 private:
   /// creates bot object and returns ptr to it
   /// \important the returned hanging pointer must be deleted manually!
