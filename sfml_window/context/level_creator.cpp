@@ -39,9 +39,19 @@ void sfml_window::LevelCreator::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "run-button.png", sf::Color::Blue);
 
+  buttons_[(unsigned)LevelCreatorButton::INPUT_PANEL] =
+      new ImageButton(Rect(Coord(window_width_  - 110, 4 ) , 32, 32),
+                      directory + "information-button.png", sf::Color::Blue);
+
+
+
+
   buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] =
       new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
                       directory + "add-border.png", sf::Color::Blue);
+
+
+
 
   buttons_[(unsigned)LevelCreatorButton::B_TP] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 178, 4), 32, 32), Texture(Assets::TP));
@@ -369,6 +379,11 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
           DrawBorder();
           return ContextEvent::UPDATE_DISPLAY;
         }
+
+        case LevelCreatorButton::INPUT_PANEL:
+          return ContextEvent::SWITCH_TO_CREATOR_INPUT_PANEL;
+
+
         case LevelCreatorButton::B_BASIC: {
           brush_ = BotType::BASIC;
           change = true;
