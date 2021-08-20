@@ -59,6 +59,10 @@ private:
   /// Load Text Boxes
   void LoadCreatorInputPanelTexts();
 
+  /// Load Text Boxes labels
+  void LoadLabels();
+
+
 
 protected:
   /// \format in pixels
@@ -79,6 +83,8 @@ protected:
   std::array<Button *, (unsigned)CreatorInputPanelButton::SIZE> buttons_;
 
   std::array<ToggleTextButton, (unsigned)CreatorInputPanelTextField::SIZE> input_panels_;
+  std::array<TextBox, (unsigned)CreatorInputPanelTextField::SIZE> input_panels_labels_;
+
 
 
   LevelInfo target_;

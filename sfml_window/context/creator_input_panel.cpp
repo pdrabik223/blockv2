@@ -13,6 +13,7 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(unsigned int window_width,
   LoadCreatorInputPanelTexts();
   LoadButtons();
   LoadBackground();
+  LoadLabels();
 }
 sfml_window::CreatorInputPanel::CreatorInputPanel(
     const CreatorInputPanel &other)
@@ -28,8 +29,11 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(
 
   in_focus_ = other.in_focus_;
 
-  for (int i = 0; i < other.buttons_.size(); i++)
+  for (int i = 0; i < other.input_panels_.size(); i++)
     input_panels_[i] = other.input_panels_[i];
+
+  for (int i = 0; i < other.input_panels_labels_.size(); i++)
+    input_panels_labels_[i] = other.input_panels_labels_[i];
 }
 
 void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
@@ -40,6 +44,10 @@ void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
 
   for (ToggleTextButton &i : input_panels_)
     i.DrawToWindow(window);
+
+  for (auto &i : input_panels_labels_)
+    i.DrawToWindow(window);
+
 }
 
 sfml_window::ContextEvent
@@ -132,13 +140,27 @@ void sfml_window::CreatorInputPanel::LoadBackground() {
 
 void sfml_window::CreatorInputPanel::LoadCreatorInputPanelTexts() {
 
-  input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME] = ToggleTextButton(
-      {{40, 100}, 400, 30}, "some_text", sf::Color::Blue, true);
+  input_panels_[(int)CreatorInputPanelTextField::LEVEL_NAME] =
+      ToggleTextButton({{(int)window_width_ / 2 - 200, 100}, 400, 30},
+                       "some_text", sf::Color::Blue, true);
   input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME] =
-      ToggleTextButton({{40, 150}, 400, 30}, "some_text", sf::Color::Blue,
-                       true);
-  input_panels_[(int)CreatorInputPanelTextField::WIDTH] = ToggleTextButton(
-      {{40, 200}, 400, 30}, "some_text", sf::Color::Blue, true);
-  input_panels_[(int)CreatorInputPanelTextField::HEIGHT] = ToggleTextButton(
-      {{40, 250}, 400, 30}, "some_text", sf::Color::Blue, true);
+      ToggleTextButton({{(int)window_width_ / 2 - 200, 150}, 400, 30},
+                       "some_text", sf::Color::Blue, true);
+  input_panels_[(int)CreatorInputPanelTextField::WIDTH] =
+      ToggleTextButton({{(int)window_width_ / 2 - 200, 200}, 400, 30},
+                       "some_text", sf::Color::Blue, true);
+  input_panels_[(int)CreatorInputPanelTextField::HEIGHT] =
+      ToggleTextButton({{(int)window_width_ / 2 - 200, 250}, 400, 30},
+                       "some_text", sf::Color::Blue, true);
+}
+
+void sfml_window::CreatorInputPanel::LoadLabels() {
+  input_panels_labels_[(int)CreatorInputPanelTextField::LEVEL_NAME] =
+      TextBox({40, 100}, "level name:", sf::Color::Blue, 24);
+  input_panels_labels_[(int)CreatorInputPanelTextField::AUTHOR_NAME] =
+      TextBox({40, 150}, "author name:", sf::Color::Blue, 24);
+  input_panels_labels_[(int)CreatorInputPanelTextField::WIDTH] =
+      TextBox({40, 200}, "level width:", sf::Color::Blue, 24);
+  input_panels_labels_[(int)CreatorInputPanelTextField::HEIGHT] =
+      TextBox({40, 250}, "level height:", sf::Color::Blue, 24);
 }
