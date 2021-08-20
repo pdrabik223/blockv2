@@ -630,20 +630,20 @@ bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
 void sfml_window::LevelCreator::DrawBorder() {
 
 
-//  for (unsigned y = 0; y < level_.GetHeight(); y++) {
-//      level_.AddBot(Coord(0, y), BotType::BEDROCK);
-//
-//      level_.AddBot(Coord(level_.GetWidth() - 1, y),
-//                          BotType::BEDROCK);
-//    }
-//
-//  for (unsigned x = 0; x < level_.GetWidth(); x++) {
-//      level_.AddBot(Coord(x, 0), BotType::BEDROCK);
-//
-//      level_.AddBot(Coord(x, level_.GetHeight() - 1),
-//                          BotType::BEDROCK);
-//    }
-//
-//
+  for (unsigned y = 0; y < level_.GetHeight(); y++) {
+      level_.AddBot(Coord(0, y), BotType::BEDROCK);
+
+      level_.AddBot(Coord(level_.GetWidth() - 1, y),
+                          BotType::BEDROCK);
+    }
+
+  for (unsigned x = 0; x < level_.GetWidth(); x++) {
+      level_.AddBot(Coord(x, 0), BotType::BEDROCK);
+
+      level_.AddBot(Coord(x, level_.GetHeight() - 1),
+                          BotType::BEDROCK);
+    }
+
+
 
 }
