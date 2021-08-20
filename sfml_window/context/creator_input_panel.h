@@ -87,7 +87,7 @@ protected:
 
   LevelInfo target_;
 
-  CreatorInputPanelTextField in_focus_ = CreatorInputPanelTextField::LEVEL_NAME;
+  CreatorInputPanelTextField in_focus_ = CreatorInputPanelTextField::SIZE;
 
 
 };

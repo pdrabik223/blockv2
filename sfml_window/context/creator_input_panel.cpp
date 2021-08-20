@@ -67,6 +67,10 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
   bool change = false; // if true window should be re-loaded to display change
   // in appearance
 
+  if(event.type ==  sf::Event::KeyPressed){
+  // not yet implamented
+  }
+
   if (event.type == sf::Event::MouseButtonReleased) {
 
     for (unsigned id = 0; id < buttons_.size(); id++)
@@ -85,7 +89,10 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         in_focus_ = (CreatorInputPanelTextField)id;
         return ContextEvent::UPDATE_DISPLAY;
       }
-
+    if(in_focus_ != CreatorInputPanelTextField::SIZE) {
+      in_focus_ = CreatorInputPanelTextField::SIZE;
+      return ContextEvent::UPDATE_DISPLAY;
+    }
   } else {
 
     for (auto &button : buttons_)
@@ -171,6 +178,7 @@ void sfml_window::CreatorInputPanel::LoadLabels() {
 void sfml_window::CreatorInputPanel::ClearHighlight() {
   for (ToggleTextButton & i:input_panels_)
     i.TurnOff();
+  if(in_focus_ != CreatorInputPanelTextField::SIZE)
   input_panels_[(int)in_focus_].TurnOn();
 
 }
