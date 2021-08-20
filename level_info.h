@@ -18,6 +18,9 @@ public:
 
   LevelInfo(unsigned int width, unsigned int height);
 
+  LevelInfo(const LevelInfo& other);
+  LevelInfo& operator=(const LevelInfo& other);
+
   /// copy constructor
   void LoadLevel(const std::string &file_path);
 
@@ -55,6 +58,7 @@ public:
   void AddBot(const Coord &position, BotType type, int id);
 
   void Lock(Coord position);
+  void UnLock(Coord position);
   bool IsLocked(Coord position);
   bool IsLocked(int position);
 
@@ -66,6 +70,10 @@ public:
   Bot* GetCell(int position);
 
   const std::vector<bool> &GetLockedFields() const;
+
+  void AddCell(int x, int y, BotType type);
+
+  void RotateCell(int x, int y);
 
 private:
   /// creates bot object and returns ptr to it

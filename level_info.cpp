@@ -4,12 +4,37 @@
 
 #include "level_info.h"
 
-
 LevelInfo::LevelInfo(const std::string &file_path) { LoadLevel(file_path); }
+LevelInfo::LevelInfo(const LevelInfo &other) {
+  name_ = other.name_;
+  width_ = other.width_;
+  height_ = other.height_;
+
+  for(const auto& b:other.plane_)
+    plane_.emplace_back(b->Clone());
+
+  locked_fields_ = other.locked_fields_;
+
+}
+LevelInfo &LevelInfo::operator=(const LevelInfo &other) {
+ if(&other == this )return *this;
+  name_ = other.name_;
+  width_ = other.width_;
+  height_ = other.height_;
+
+  for(const auto& b:other.plane_)
+    plane_.emplace_back(b->Clone());
+
+  locked_fields_ = other.locked_fields_;
+return *this;
+}
+
 
 LevelInfo::~LevelInfo() {
+
   for (auto &bot : plane_)
     delete bot;
+
 }
 
 LevelInfo::LevelInfo(unsigned int width, unsigned int height)
@@ -75,7 +100,6 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
     my_file >> info;
     locked_fields_.emplace_back(info);
   }
-
 }
 /// creates bot object and returns ptr to it
 /// \important the returned hanging pointer must be deleted manually!
@@ -189,9 +213,73 @@ void LevelInfo::Lock(Coord position) {
 bool LevelInfo::IsLocked(Coord position) {
   return locked_fields_[position.ToInt(width_)];
 }
-bool LevelInfo::IsLocked(int position) {
-  return locked_fields_[position];
+bool LevelInfo::IsLocked(int position) { return locked_fields_[position]; }
+
+const std::vector<bool> &LevelInfo::GetLockedFields() const {
+  return locked_fields_;
+}
+Bot *LevelInfo::GetCell(int position) { return plane_[position]; }
+
+void LevelInfo::AddCell(int x, int y, BotType type) {
+  assert(x < width_ and y < height_);
+  switch (type) {
+  case BotType::ENGINE:
+    plane_[y * width_ + x] = new Engine(Direction::UP);
+    break;
+  case BotType::FACTORY:
+    plane_[y * width_ + x] = new Factory(Direction::UP);
+    break;
+  case BotType::EMPTY:
+    plane_[y * width_ + x] = new Empty();
+    break;
+  case BotType::BASIC:
+    plane_[y * width_ + x] = new Basic();
+    break;
+  case BotType::BEDROCK:
+    plane_[y * width_ + x] = new Bedrock();
+    break;
+  case BotType::GOAL:
+    plane_[y * width_ + x] = new Goal();
+    break;
+  case BotType::ENEMY:
+    plane_[y * width_ + x] = new Enemy();
+    break;
+  case BotType::TURN:
+    plane_[y * width_ + x] = new Turn(TurnDirection::CLOCKWISE);
+    break;
+  case BotType::TP:
+    plane_[y * width_ + x] = new Tp(1);
+    break;
+  }
+}
+void LevelInfo::RotateCell(int x, int y) {
+  assert(x < width_ and y < height_);
+
+  switch (plane_[y * width_ + x]->GetType()) {
+  case BotType::BASIC:
+  case BotType::BEDROCK:
+  case BotType::GOAL:
+  case BotType::ENEMY:
+  case BotType::TP:
+  case BotType::EMPTY:
+    return;
+  case BotType::TURN:
+    ((Turn *)plane_[y * width_ + x])->RotateCell();
+    return;
+  case BotType::ENGINE:
+    ((Engine *)plane_[y * width_ + x])->RotateCell();
+    return;
+  case BotType::FACTORY:
+    ((Factory *)plane_[y * width_ + x])->RotateCell();
+    return;
+
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert(false);
+    return;
+  }
+}
+void LevelInfo::UnLock(Coord position) {
+  locked_fields_[position.ToInt(width_)] = false;
 }
 
-const std::vector<bool>& LevelInfo::GetLockedFields()const  { return locked_fields_; }
-Bot *LevelInfo::GetCell(int position) { return plane_[position]; }
