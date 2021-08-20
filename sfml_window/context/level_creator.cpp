@@ -55,6 +55,9 @@ void sfml_window::LevelCreator::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_  - 110, 4 ) , 32, 32),
                       directory + "information-button.png", sf::Color::Blue);
 
+  buttons_[(unsigned)LevelCreatorButton::SAVE_LEVEL] =
+      new ImageButton(Rect(Coord(window_width_  - 146, 4 ) , 32, 32),
+                      directory + "floppy-disk.png", sf::Color::Blue);
 
 
 
@@ -394,6 +397,10 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
 
         case LevelCreatorButton::INPUT_PANEL:
           return ContextEvent::SWITCH_TO_CREATOR_INPUT_PANEL;
+
+          case LevelCreatorButton::SAVE_LEVEL:
+            level_.SaveLevel();
+
 
 
         case LevelCreatorButton::B_BASIC: {
