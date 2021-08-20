@@ -9,8 +9,7 @@ void sfml_window::LevelPicker::LoadButtons() {
 
   buttons_[(unsigned)LevelPickerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png",
-                      sf::Color::Red);
+                      directory + "back.png", sf::Color::Yellow);
 
   buttons_[(unsigned)LevelPickerButton::PAGE_UP] =
       new ImageButton(Rect(Coord((window_width_ / 4) - 36 * 2, 4), 32, 32),

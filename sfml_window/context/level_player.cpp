@@ -35,7 +35,7 @@ void sfml_window::LevelPlayer::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_player/";
   buttons_[(unsigned)LevelPlayerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png", sf::Color::Red);
+                      directory + "back.png", sf::Color::Yellow);
 
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),

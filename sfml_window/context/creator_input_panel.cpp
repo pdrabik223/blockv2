@@ -205,7 +205,7 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
 
   buttons_[(unsigned)CreatorInputPanelButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png", sf::Color::Red);
+                      directory + "back.png", sf::Color::Yellow);
   buttons_[(unsigned)CreatorInputPanelButton::SAVE_LEVEL] =
       new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
                       directory + "floppy-disk.png", sf::Color::Blue);

@@ -84,7 +84,7 @@ void sfml_window::RunSimulation::LoadButtons() {
 
   buttons_[(unsigned)RunSimulationButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
-                      directory + "cancel-button.png",sf::Color::Red);
+                      directory + "back.png", sf::Color::Yellow);
 
   buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
       new ImageToggleButton(
