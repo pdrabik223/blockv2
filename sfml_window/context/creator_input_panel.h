@@ -19,6 +19,7 @@
 namespace sfml_window {
 enum class CreatorInputPanelButton {
   EXIT,
+  SAVE_LEVEL,
   SIZE
 };
 enum class CreatorInputPanelTextField {

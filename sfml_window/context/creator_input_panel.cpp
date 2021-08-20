@@ -57,6 +57,8 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         switch ((CreatorInputPanelButton)id) {
       case CreatorInputPanelButton::EXIT:
         return ContextEvent::SWITCH_BACK_TO_CREATOR;
+        case CreatorInputPanelButton::SAVE_LEVEL:
+          target_.SaveLevel();
       }
   } else {
 
@@ -92,6 +94,9 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "cancel-button.png",
                       sf::Color::Red);
+  buttons_[(unsigned)CreatorInputPanelButton::SAVE_LEVEL] =
+      new ImageButton(Rect(Coord(window_width_  - 146, 4 ) , 32, 32),
+                      directory + "floppy-disk.png", sf::Color::Blue);
 
 }
 void sfml_window::CreatorInputPanel::LoadBackground() {
