@@ -115,5 +115,6 @@ void sfml_window::ToggleTextButton::TurnOff() {
 void sfml_window::ToggleTextButton::TurnOn() {
   state_ = State::TOGGLE;
 }
+std::string sfml_window::ToggleTextButton::GetText() { return text_.GetText(); }
 
 sfml_window::ToggleTextButton::~ToggleTextButton() = default;

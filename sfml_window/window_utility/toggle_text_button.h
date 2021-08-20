@@ -56,6 +56,8 @@ public:
   void TurnOff();
   void TurnOn();
 
+  std::string GetText();
+
 protected:
   Rect structure_;
   sf::RectangleShape background_;
@@ -66,8 +68,6 @@ protected:
   bool hover_ = false;
   State state_ = State::DEFAULT;
   bool display_background_ = false ;
-
-
-  };
+};
 }
 #endif // BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_TEXT_BUTTON_H_

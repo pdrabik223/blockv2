@@ -83,3 +83,4 @@ void sfml_window::TextBox::SetText(const std::string &text) {
   raw_text_ = text;
   text_.setString(text);
 }
+std::string sfml_window::TextBox::GetText() { return raw_text_; }

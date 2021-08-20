@@ -39,6 +39,8 @@ public:
 
   void SetText(const std::string &text);
 
+  std::string GetText();
+
 protected:
   Coord position_;
   std::string raw_text_;
