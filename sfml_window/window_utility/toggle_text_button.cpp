@@ -26,6 +26,16 @@ void sfml_window::ToggleTextButton::DrawToWindow(sf::RenderWindow &window) {
   text_.DrawToWindow(window);
 }
 
+sfml_window::ToggleTextButton& sfml_window::ToggleTextButton::operator=(const ToggleTextButton& other){
+  if(&other == this) return *this;
+  structure_ = other.structure_;
+  background_ = other.background_;
+  text_ = other.text_;
+  hover_ = other.hover_;
+  button_color_ = other.button_color_;
+  display_background_ = other.display_background_;
+  return *this;
+}
 void sfml_window::ToggleTextButton::SetButtonColor(const sf::Color &button_color) {
   button_color_ = button_color;
   background_.setFillColor(Light(button_color_));

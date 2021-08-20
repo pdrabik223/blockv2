@@ -14,8 +14,10 @@
  namespace sfml_window {
 /// the size of the button depends on the text within
 class ToggleTextButton : public Button {
+public:
   ToggleTextButton() = default;
   ToggleTextButton(const ToggleTextButton& other);
+  ToggleTextButton& operator=(const ToggleTextButton& other);
 
   ///
   /// \param structure  the position on screen and boundaries the text will fill
