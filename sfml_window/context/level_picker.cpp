@@ -63,10 +63,13 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
         case LevelPickerButton::EXIT:
           return ContextEvent::SWITCH_TO_MAIN_MENU;
         case LevelPickerButton::PAGE_UP:
-          break;
+          if (page_ < max_page_ - 1)
+            page_++;
+          return ContextEvent::UPDATE_DISPLAY;
         case LevelPickerButton::PAGE_DOWN:
-          if (page_)
-            break;
+          if (page_ > 0)
+            page_--;
+          return ContextEvent::UPDATE_DISPLAY;
         }
   } else {
 
@@ -201,4 +204,4 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
   levels_ = other.levels_;
   path_to_chosen_level_ = other.path_to_chosen_level_;
 }
-Board sfml_window::LevelPicker::GetLevel() { return Board(LevelInfo(2,1));; }
+Board sfml_window::LevelPicker::GetLevel() { return Board(LevelInfo(2,1));}
