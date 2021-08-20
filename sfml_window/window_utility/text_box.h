@@ -37,6 +37,8 @@ public:
 
   Rect GetFontBoundaries();
 
+  void SetText(const std::string &text);
+
 protected:
   Coord position_;
   std::string raw_text_;

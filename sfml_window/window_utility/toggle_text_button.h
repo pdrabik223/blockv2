@@ -51,6 +51,8 @@ public:
   ToggleTextButton *Clone() override;
   ~ToggleTextButton() override;
 
+  void SetText(const std::string &text);
+
 protected:
   Rect structure_;
   sf::RectangleShape background_;

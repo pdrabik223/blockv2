@@ -94,5 +94,9 @@ void sfml_window::ToggleTextButton::SetPosition(const Coord &position) {
   text_.SetPosition(position);
 }
 sfml_window::ToggleTextButton *sfml_window::ToggleTextButton::Clone() { return new ToggleTextButton(*this); }
+void sfml_window::ToggleTextButton::SetText(const std::string &text) {
+  text_.SetText(text);
+
+}
 
 sfml_window::ToggleTextButton::~ToggleTextButton() = default;
