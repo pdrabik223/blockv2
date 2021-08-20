@@ -14,6 +14,8 @@ public:
   ImageButton(const Rect &structure, const std::string &image_path,
               const sf::Color &color);
 
+  ImageButton(const ImageButton& other);
+  ImageButton & operator=(const ImageButton& other);
 
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
