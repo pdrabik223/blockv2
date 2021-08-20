@@ -7,13 +7,25 @@
 sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
                                         unsigned int window_height)
     : window_width_(window_width), window_height_(window_height),
-      level_(LevelInfo(20, 10)) {
+      level_(20, 10) {
 
   GenGrid();
   LoadAssets();
   LoadButtons();
   //  level_ = Board(temp_info);
 }
+
+
+sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
+                                        unsigned int window_height,
+                                        const LevelInfo &level)
+                                        : window_width_(window_width), window_height_(window_height),
+                                        level_(level) {
+  GenGrid();
+  LoadAssets();
+  LoadButtons();
+}
+
 
 void sfml_window::LevelCreator::DrawToWindow(sf::RenderWindow &window) {
 
@@ -538,7 +550,7 @@ sfml_window::LevelCreator *sfml_window::LevelCreator::Clone() {
 }
 
 LevelInfo sfml_window::LevelCreator::GetLevelInfo() {
-  return LevelInfo(LevelPath(level_directory_));
+  return level_;
 }
 
 sfml_window::LevelCreator::~LevelCreator() {
@@ -566,7 +578,7 @@ sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
   grid_ = other.grid_;
 }
 
-Board sfml_window::LevelCreator::GetLevel() { return level_; }
+Board sfml_window::LevelCreator::GetLevel() { return Board(level_); }
 
 std::string sfml_window::LevelCreator::GetLevelDirectory() {
   return level_directory_;

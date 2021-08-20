@@ -21,6 +21,7 @@ enum class LevelCreatorButton {
   EXIT,
   RUN_SIMULATION,
   CREATE_BORDER,
+  INPUT_PANEL,
   B_EMPTY,
   B_BEDROCK,
   B_ENEMY,
@@ -39,6 +40,9 @@ public:
   /// \param level_info full level info object
   /// \param window_height of the window
   /// \param window_width of the window
+  LevelCreator(unsigned int window_width, unsigned int window_height,
+               const LevelInfo &level);
+
   LevelCreator(unsigned int window_width, unsigned int window_height);
 
   LevelCreator(const LevelCreator &other);
@@ -119,7 +123,7 @@ private:
 
   std::string level_directory_;
 
-  Board level_;
+  LevelInfo level_;
 
   /// size of a square cell
   unsigned cell_size_;
