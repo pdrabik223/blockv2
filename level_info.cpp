@@ -194,3 +194,4 @@ bool LevelInfo::IsLocked(int position) {
 }
 
 const std::vector<bool>& LevelInfo::GetLockedFields()const  { return locked_fields_; }
+Bot *LevelInfo::GetCell(int position) { return plane_[position]; }

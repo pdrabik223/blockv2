@@ -63,6 +63,7 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
   const std::string &GetName() const;
+  Bot* GetCell(int position);
 
   const std::vector<bool> &GetLockedFields() const;
 
