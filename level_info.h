@@ -56,6 +56,7 @@ public:
 
   void Lock(Coord position);
   bool IsLocked(Coord position);
+  bool IsLocked(int position);
 
   const std::vector<Bot *> &GetPLane() const { return plane_; };
 

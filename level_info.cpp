@@ -189,4 +189,8 @@ void LevelInfo::Lock(Coord position) {
 bool LevelInfo::IsLocked(Coord position) {
   return locked_fields_[position.ToInt(width_)];
 }
+bool LevelInfo::IsLocked(int position) {
+  return locked_fields_[position];
+}
+
 const std::vector<bool>& LevelInfo::GetLockedFields()const  { return locked_fields_; }
