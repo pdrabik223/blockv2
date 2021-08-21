@@ -25,11 +25,6 @@ void sfml_window::TextButton::DrawToWindow(sf::RenderWindow &window) {
   text_.DrawToWindow(window);
 }
 
-void sfml_window::TextButton::SetButtonColor(const sf::Color &button_color) {
-  button_color_ = button_color;
-  background_.setFillColor(Light(button_color_));
-  background_.setOutlineColor(button_color_);
-}
 sfml_window::TextButton::TextButton(const Rect &structure,
                                     const std::string &text,
                                     const sf::Color &button_color,

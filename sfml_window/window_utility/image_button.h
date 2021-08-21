@@ -14,6 +14,7 @@ public:
   ImageButton(const Rect &structure, const std::string &image_path,
               const sf::Color &color);
 
+
   ImageButton(const ImageButton& other);
   ImageButton & operator=(const ImageButton& other);
   ImageButton *Clone() override;
@@ -21,7 +22,6 @@ public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
-  void SetButtonColor(const sf::Color &button_color) override;
   ~ImageButton() override = default;
 
 protected:

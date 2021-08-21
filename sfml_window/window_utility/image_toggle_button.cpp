@@ -65,8 +65,6 @@ bool sfml_window::ImageToggleButton::DetectInteraction(const Coord &press_point,
   return hover && (event.type == sf::Event::MouseButtonReleased &&
                    event.mouseButton.button == sf::Mouse::Left);
 }
-void sfml_window::ImageToggleButton::SetButtonColor(
-    const sf::Color &button_color) {}
 
 sfml_window::ImageToggleButton::ImageToggleButton(
     const ImageToggleButton &other) {

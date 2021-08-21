@@ -41,7 +41,6 @@ void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
     sprite_.setColor(Light(color_));
   window.draw(sprite_);
 }
-void sfml_window::ImageButton::SetButtonColor(const sf::Color &button_color) {}
 
 sfml_window::ImageButton::ImageButton(const Rect &structure,
                                       const std::string &image_path, const sf::Color &color)

@@ -25,7 +25,7 @@ public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
-  void SetButtonColor(const sf::Color &button_color) override {};
+  ;
 
   ~ToggleSpriteButton() override = default;
   void TurnOn();

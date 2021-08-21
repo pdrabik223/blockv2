@@ -45,7 +45,6 @@ public:
   /// display current look of a button to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
-  void SetButtonColor(const sf::Color &button_color) override;
   void SetPosition(const Coord& position);
   TextButton *Clone() override;
   ~TextButton() override;
