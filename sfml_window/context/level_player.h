@@ -44,9 +44,13 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
+
+
   ///  copy constructor
   /// \param other copied object
   LevelPlayer(const LevelPlayer & other );
+  LevelPlayer& operator=(const LevelPlayer & other );
+
 
   LevelPlayer *Clone() override;
 
