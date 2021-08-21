@@ -35,11 +35,11 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
 }
 
 sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
-  level_ = TextButton({0, 0}, "None", sf::Color::Red, false, 24);
+  level_ = TextButton({0, 0}, "None", RED, false, 24);
 }
 
 void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
-                                               Coord position) {
+                                               const Coord& position) {
   level_.SetPosition(position);
   level_.DrawToWindow(window);
 }
