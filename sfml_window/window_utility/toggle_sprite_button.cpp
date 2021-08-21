@@ -55,3 +55,20 @@ void sfml_window::ToggleSpriteButton::DrawToWindow(sf::RenderWindow &window) {
 sfml_window::ToggleSpriteButton *sfml_window::ToggleSpriteButton::Clone() {
   return new ToggleSpriteButton(*this);
 }
+sfml_window::ToggleSpriteButton::ToggleSpriteButton(
+    const ToggleSpriteButton &other) {
+  structure_ = other.structure_;
+  hover_ = other.hover_;
+  state_ = other.state_;
+  sprite_ = other.sprite_;
+}
+sfml_window::ToggleSpriteButton &sfml_window::ToggleSpriteButton::operator=(
+    const sfml_window::ToggleSpriteButton &other) {
+  if (&other == this)
+    return *this;
+  structure_ = other.structure_;
+  hover_ = other.hover_;
+  state_ = other.state_;
+  sprite_ = other.sprite_;
+  return *this;
+}

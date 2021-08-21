@@ -18,14 +18,16 @@ namespace sfml_window {
 class ToggleSpriteButton : public Button {
 public:
   ToggleSpriteButton(const Rect &structure, const sf::Texture &sprite);
+  ToggleSpriteButton(const ToggleSpriteButton& other);
+  ToggleSpriteButton& operator=(const ToggleSpriteButton& other);
 
+  ToggleSpriteButton  *Clone() override;
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override {};
 
   ~ToggleSpriteButton() override = default;
-  ToggleSpriteButton  *Clone() override;
   void TurnOn();
   void TurnOff();
 
