@@ -37,6 +37,7 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
 sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
   level_ = TextButton({0, 0}, "None", sf::Color::Red, false, 24);
 }
+
 void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
                                                Coord position) {
   level_.SetPosition(position);
@@ -47,9 +48,11 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(
   level_ = other.level_;
   path_ = other.path_;
 }
+
 bool sfml_window::ShortLevelInfo::DetectHover(const Coord &mouse_position) {
   return level_.DetectHover(mouse_position);
 }
+
 bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
                                                     sf::Event &event) {
   return level_.DetectInteraction(press_point, event);
@@ -58,6 +61,7 @@ bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
 std::string sfml_window::ShortLevelInfo::GetPath() {
   return path_;
 }
+
 sfml_window::ShortLevelInfo &sfml_window::ShortLevelInfo::operator=(const ShortLevelInfo& other) {
   if(&other != this) return *this;
   level_ = other.level_;

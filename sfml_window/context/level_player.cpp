@@ -14,7 +14,7 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
   LevelInfo temp_info(LevelPath(level_path));
   LoadAssets(temp_info.GetName());
   LoadButtons();
-  //  level_ = Board(temp_info);
+
 }
 
 void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
@@ -216,7 +216,6 @@ void sfml_window::LevelPlayer::DrawCell(sf::RenderWindow &window,
                                         unsigned int position) {
   Sprite(id).setPosition(grid_[position].getPosition().x + cell_size_ / 2,
                          grid_[position].getPosition().y + cell_size_ / 2);
-
 
   window.draw(Sprite(id));
 }
@@ -471,8 +470,8 @@ void sfml_window::LevelPlayer::ClearBotButtonHighlight() {
 
 bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position,
                                             const sf::Event &event) {
-  if(event.type != sf::Event::MouseButtonReleased or
-  event.mouseButton.button != sf::Mouse::Left)
+  if (event.type != sf::Event::MouseButtonReleased or
+      event.mouseButton.button != sf::Mouse::Left)
     return false;
 
   int square_x;
@@ -497,9 +496,9 @@ bool sfml_window::LevelPlayer::AddBotToGame(const Coord &mouse_position,
 }
 bool sfml_window::LevelPlayer::RotateBot(const Coord &mouse_position,
                                          const sf::Event &event) {
-  if(event.type != sf::Event::MouseButtonReleased or
-  event.mouseButton.button != sf::Mouse::Right)
-   return false;
+  if (event.type != sf::Event::MouseButtonReleased or
+      event.mouseButton.button != sf::Mouse::Right)
+    return false;
 
   int square_x;
   int square_y;

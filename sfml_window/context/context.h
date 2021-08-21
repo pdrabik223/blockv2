@@ -82,8 +82,11 @@ enum class Assets {
 
 class Context {
 public:
+
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
+
   virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
+
   virtual Context* Clone() = 0;
 
   /// get game object

@@ -104,6 +104,8 @@ private:
   /// position
   unsigned Align(double x);
 
+  Board level_;
+
   /// \format in pixels
   /// x axis domain = <0,window_width_>
   unsigned window_width_;
@@ -121,7 +123,7 @@ private:
 
   std::string level_directory_;
 
-  Board level_;
+
 
   /// size of a square cell
   unsigned cell_size_;
@@ -130,6 +132,7 @@ private:
 
   /// current bot user puts down
   BotType brush_ = BotType::BASIC;
+
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;

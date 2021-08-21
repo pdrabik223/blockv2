@@ -17,6 +17,7 @@ Gui::Gui(LevelInfo &level) : current_loaded_level_(level) {
 }
 
 Gui::~Gui() { window_thread_->join(); }
+
 void Gui::ThMainLoop() {
 
   sf::ContextSettings settings;
@@ -53,6 +54,7 @@ void Gui::ThMainLoop() {
   }
   delete context_storage;
 }
+
 void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
                                Context *&context_storage) {
   switch (event) {
@@ -77,6 +79,7 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
   case ContextEvent::RUN_SIMULATION: {
     delete context_storage;
     context_storage = current_context_->Clone();
+
     SwitchContext(Contexts::RUN_SIMULATION);
     goto update_display;
   }
@@ -101,6 +104,7 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
 
     delete current_context_;
     current_context_ = context_storage->Clone();
+
     delete context_storage;
     context_storage = nullptr;
 
