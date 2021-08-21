@@ -30,38 +30,24 @@ sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
 : level_(other.level_) {
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
-  background_texture_ = other.background_texture_;
-  background_sprite_ = other.background_sprite_;
-  button_background_ = other.button_background_;
   level_directory_ = other.level_directory_;
 
-  cell_size_ = other.cell_size_;
+  GenGrid();
+  LoadAssets();
+  LoadButtons();
 
-  for (int i = 0; i < other.buttons_.size(); i++)
-    buttons_[i] = other.buttons_[i]->Clone();
-
-  brush_ = other.brush_;
-  cells_ = other.cells_;
-  grid_ = other.grid_;
 }
 
 sfml_window::LevelCreator &sfml_window::LevelCreator::operator=(const LevelCreator &other) {
   if(&other == this) return *this;
+  level_ = other.level_;
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
-  background_texture_ = other.background_texture_;
-  background_sprite_ = other.background_sprite_;
-  button_background_ = other.button_background_;
   level_directory_ = other.level_directory_;
 
-  cell_size_ = other.cell_size_;
-
-  for (int i = 0; i < other.buttons_.size(); i++)
-    buttons_[i] = other.buttons_[i]->Clone();
-
-  brush_ = other.brush_;
-  cells_ = other.cells_;
-  grid_ = other.grid_;
+  GenGrid();
+  LoadAssets();
+  LoadButtons();
   return *this;
 }
 

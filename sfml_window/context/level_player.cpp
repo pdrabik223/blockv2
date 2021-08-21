@@ -17,8 +17,9 @@ sfml_window::LevelPlayer::LevelPlayer(unsigned int window_width,
 
 }
 
+/// the function is written this way, because using "normal" constructor  corrups the assets
 sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
-: level_(other.level_) {
+    : level_(other.level_) {
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
 //  background_texture_ = other.background_texture_;
@@ -40,25 +41,19 @@ sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
 //  cells_ = other.cells_;
 //  grid_ = other.grid_;
 }
-
+/// the function is written this way, because using "normal" constructor  corrups the assets
 sfml_window::LevelPlayer &sfml_window::LevelPlayer::operator=(const LevelPlayer& other) {
   if(&other == this)return *this;
   level_ = other.level_;
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
-  background_texture_ = other.background_texture_;
-  background_sprite_ = other.background_sprite_;
-  button_background_ = other.button_background_;
+
   level_directory_ = other.level_directory_;
 
-  cell_size_ = other.cell_size_;
-
-  for (int i = 0; i < other.buttons_.size(); i++)
-    buttons_[i] = other.buttons_[i]->Clone();
-
-  brush_ = other.brush_;
-  cells_ = other.cells_;
-  grid_ = other.grid_;
+  GenGrid();
+  LevelInfo temp_info(LevelPath(level_directory_));
+  LoadAssets(temp_info.GetName());
+  LoadButtons();
   return * this;
 
 }
