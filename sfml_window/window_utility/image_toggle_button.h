@@ -19,14 +19,16 @@ public:
       const Rect &structure,
       std::pair<const std::string &, const sf::Color &> default_image,
       std::pair<const std::string &, const sf::Color &> toggle_image);
+
   ImageToggleButton(const ImageToggleButton& other);
+  ImageToggleButton *Clone() override;
+
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetButtonColor(const sf::Color &button_color) override;
 
   ~ImageToggleButton() override = default;
-  ImageToggleButton *Clone() override;
 
 protected:
   Rect structure_;
