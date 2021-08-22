@@ -102,6 +102,8 @@ sfml_window::ToggleTextButton *sfml_window::ToggleTextButton::Clone() {
 }
 void sfml_window::ToggleTextButton::SetText(const std::string &text) {
   text_.SetText(text);
+  text_.CenterText(structure_);
+
 }
 void sfml_window::ToggleTextButton::TurnOff() {
   state_ = State::DEFAULT;

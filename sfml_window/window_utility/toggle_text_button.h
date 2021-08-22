@@ -66,7 +66,7 @@ protected:
   /// if mouse is hovering over the background is displaying
   bool hover_ = false;
   State state_ = State::DEFAULT;
-  bool display_background_ = false ;
+  bool display_background_ = false;
 };
 }
 #endif // BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_TEXT_BUTTON_H_
