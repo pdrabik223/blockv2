@@ -58,3 +58,9 @@ consists of :
 game state and so on 
 - the block assets (all must be there if not the game won't start)
 - background image 
+
+# The plans for next week 
+    - using trello as mouch as possible 
+    - ending it, 
+    - send it out to people 
+    - and create a lot of levels with assets and stuff 
