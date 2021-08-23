@@ -15,19 +15,18 @@ sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
   //  level_ = Board(temp_info);
 }
 
-
 sfml_window::LevelCreator::LevelCreator(unsigned int window_width,
                                         unsigned int window_height,
                                         const LevelInfo &level)
-                                        : window_width_(window_width), window_height_(window_height),
-                                        level_(level) {
+    : window_width_(window_width), window_height_(window_height),
+      level_(level) {
   GenGrid();
   LoadAssets();
   LoadButtons();
 }
 
 sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
-: level_(other.level_) {
+    : level_(other.level_) {
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
   level_directory_ = other.level_directory_;
@@ -35,11 +34,12 @@ sfml_window::LevelCreator::LevelCreator(const sfml_window::LevelCreator &other)
   GenGrid();
   LoadAssets();
   LoadButtons();
-
 }
 
-sfml_window::LevelCreator &sfml_window::LevelCreator::operator=(const LevelCreator &other) {
-  if(&other == this) return *this;
+sfml_window::LevelCreator &
+sfml_window::LevelCreator::operator=(const LevelCreator &other) {
+  if (&other == this)
+    return *this;
   level_ = other.level_;
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
@@ -76,21 +76,16 @@ void sfml_window::LevelCreator::LoadButtons() {
                       directory + "run-button.png", BLUE);
 
   buttons_[(unsigned)LevelCreatorButton::INPUT_PANEL] =
-      new ImageButton(Rect(Coord(window_width_  - 110, 4 ) , 32, 32),
-                      directory + "information-button.png",BLUE);
+      new ImageButton(Rect(Coord(window_width_ - 110, 4), 32, 32),
+                      directory + "information-button.png", BLUE);
 
   buttons_[(unsigned)LevelCreatorButton::SAVE_LEVEL] =
-      new ImageButton(Rect(Coord(window_width_  - 146, 4 ) , 32, 32),
+      new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
                       directory + "floppy-disk.png", BLUE);
-
-
 
   buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] =
       new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
                       directory + "add-border.png", BLUE);
-
-
-
 
   buttons_[(unsigned)LevelCreatorButton::B_TP] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 178, 4), 32, 32), Texture(Assets::TP));
@@ -422,10 +417,8 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
         case LevelCreatorButton::INPUT_PANEL:
           return ContextEvent::SWITCH_TO_CREATOR_INPUT_PANEL;
 
-          case LevelCreatorButton::SAVE_LEVEL:
-            level_.SaveLevel();
-
-
+        case LevelCreatorButton::SAVE_LEVEL:
+          level_.SaveLevel();
 
         case LevelCreatorButton::B_BASIC: {
           brush_ = BotType::BASIC;
@@ -519,9 +512,11 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight() {
   case BotType::EMPTY:
     ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_EMPTY])
         ->TurnOn();
+    return;
   case BotType::TP:
     ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_TP])->TurnOn();
     return;
+
   case BotType::GOAL:
     ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_GOAL])->TurnOn();
     return;
@@ -581,9 +576,7 @@ sfml_window::LevelCreator *sfml_window::LevelCreator::Clone() {
   return new LevelCreator(*this);
 }
 
-LevelInfo sfml_window::LevelCreator::GetLevelInfo() {
-  return level_;
-}
+LevelInfo sfml_window::LevelCreator::GetLevelInfo() { return level_; }
 
 sfml_window::LevelCreator::~LevelCreator() {
 
@@ -636,21 +629,15 @@ bool sfml_window::LevelCreator::FlipSquareLock(const Coord &mouse_position,
 
 void sfml_window::LevelCreator::DrawBorder() {
 
-
   for (unsigned y = 0; y < level_.GetHeight(); y++) {
-      level_.AddBot(Coord(0, y), BotType::BEDROCK);
+    level_.AddBot(Coord(0, y), BotType::BEDROCK);
 
-      level_.AddBot(Coord(level_.GetWidth() - 1, y),
-                          BotType::BEDROCK);
-    }
+    level_.AddBot(Coord(level_.GetWidth() - 1, y), BotType::BEDROCK);
+  }
 
   for (unsigned x = 0; x < level_.GetWidth(); x++) {
-      level_.AddBot(Coord(x, 0), BotType::BEDROCK);
+    level_.AddBot(Coord(x, 0), BotType::BEDROCK);
 
-      level_.AddBot(Coord(x, level_.GetHeight() - 1),
-                          BotType::BEDROCK);
-    }
-
-
-
+    level_.AddBot(Coord(x, level_.GetHeight() - 1), BotType::BEDROCK);
+  }
 }
