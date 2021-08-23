@@ -56,3 +56,7 @@ a potrzebował 2 funkcji w każdym bloku i tablicy twardości w silniku, nie zad
 
 trzeba wymyślić coś lepszego
 
+tablkica transformacji: każdy blok nakłada swoją zmianę na tablicę transformacji, i po nałożeniu wsszystkich, zmiany są kompilowane i analizowane
+
+
+kolejność działań: dodajemy kolejność działań do bloków, najpier przepchnięcie potem obrót, potem dodanie bloków 
