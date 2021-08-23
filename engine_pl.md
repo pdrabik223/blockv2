@@ -50,3 +50,9 @@ i teraz jak to wszystko zegrać razem nie męcząc się za bardzo
 
 do każdego kierunku w "transformation" powinna przypisana być wartość siły 
 to poniekąd robi funkcja CrushBots 
+
+ten pomysł jest dobry, ale rozwiązuje tylko jeden problem, jednego bloku 
+a potrzebował 2 funkcji w każdym bloku i tablicy twardości w silniku, nie zadziała
+
+trzeba wymyślić coś lepszego
+
