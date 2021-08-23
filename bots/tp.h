@@ -9,8 +9,9 @@
 class Tp : public Bot {
 public:
   Tp();
-  Tp(const Tp &other);
   explicit Tp(unsigned int id);
+  Tp(const Tp &other);
+  Tp& operator=(const Tp& other);
   Tp *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

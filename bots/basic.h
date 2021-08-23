@@ -11,6 +11,7 @@ public:
   Basic();
 
   Basic(const Basic &other);
+  Basic& operator=(const Basic &other);
 
   Basic *Clone() override;
 
@@ -33,8 +34,8 @@ public:
                                   Direction push_direction) override;
 
   Transposition GetMovement() const override;
-
   BotType GetType() const override;
+
 
 protected:
   const BotType type_ = BotType::BASIC;

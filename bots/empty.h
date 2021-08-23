@@ -10,6 +10,7 @@ class Empty : public Bot {
 public:
   Empty();
   Empty(const Empty &other);
+  Empty& operator=(const Empty &other);
   Empty *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

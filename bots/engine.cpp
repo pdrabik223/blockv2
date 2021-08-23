@@ -5,7 +5,20 @@
 #include "engine.h"
 Engine::Engine() = default;
 
+Engine::Engine(const Engine &other) : Bot(other) {
+  movement_ = other.movement_;
+  direction_ = other.direction_;
+}
+
+Engine &Engine::operator=(const Engine& other) {
+  if(&other == this) return *this;
+  movement_ = other.movement_;
+  direction_ = other.direction_;
+  return *this;
+}
+
 Engine *Engine::Clone() { return new Engine(*this); }
+
 void Engine::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::ENGINE << " " << (unsigned)direction_ << "\n";
 }
@@ -55,10 +68,7 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
   else
     movement_.LockEdge(direction_);
 }
-Engine::Engine(const Engine &other) : Bot(other) {
-  movement_ = other.movement_;
-  direction_ = other.direction_;
-}
+
 Engine::Engine(Direction direction) : direction_(direction) {}
 Transposition Engine::GetMovement() const { return movement_; }
 void Engine::RotateCell() {
@@ -77,3 +87,4 @@ void Engine::RotateCell() {
     return;
   }
 }
+

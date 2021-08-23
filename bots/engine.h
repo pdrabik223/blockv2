@@ -12,7 +12,7 @@ public:
   Engine();
   explicit Engine(Direction direction);
   Engine(const Engine &other);
-
+  Engine& operator=(const Engine& other);
   Engine *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

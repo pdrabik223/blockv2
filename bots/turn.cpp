@@ -5,6 +5,19 @@
 #include "turn.h"
 Turn::Turn() = default;
 
+Turn::Turn(const Turn &other) : Bot(other) {
+  movement_ = other.movement_;
+  direction_ = other.direction_;
+}
+
+Turn &Turn::operator=(const Turn &other) {
+  if (&other == this)
+    return *this;
+  movement_ = other.movement_;
+  direction_ = other.direction_;
+  return *this;
+}
+
 Turn *Turn::Clone() { return new Turn(*this); }
 
 void Turn::OutputToFile(std::ostream &out) const {
@@ -29,11 +42,6 @@ void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
       plane, new_position, plane_width, plane_height, push_direction);
 }
 void Turn::ClearMovementDirection() { movement_.Clear(); }
-
-Turn::Turn(const Turn &other) : Bot(other) {
-  movement_ = other.movement_;
-  direction_ = other.direction_;
-}
 
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
 

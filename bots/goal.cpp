@@ -6,11 +6,22 @@
 
 Goal::Goal() = default;
 
+Goal::Goal(const Goal &other) : Bot(other) {
+  movement_ = other.movement_;
+}
+
+Goal &Goal::operator=(const Goal& other) {
+  if(&other == this) return *this;
+  movement_ = other.movement_;
+  return *this;
+}
 Goal *Goal::Clone() { return new Goal(*this); }
+
 void Goal::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::GOAL << "\n";
 }
 BotType Goal::GetType() const { return type_; }
+
 void Goal::CalculateMovementDirection(
     const std::vector<Bot *> &plane, const Coord &bot_position,
     const unsigned plane_width, const unsigned plane_height,
@@ -39,10 +50,9 @@ void Goal::CalculateMovementDirection(
 void Goal::ClearMovementDirection() {
   movement_.Clear();
 }
-Goal::Goal(const Goal &other) : Bot(other) {
-  movement_.Clear();
-}
+
 void Goal::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                   unsigned int plane_width, unsigned int plane_height) {/* do nothing */}
 
 Transposition Goal::GetMovement() const { return movement_; }
+

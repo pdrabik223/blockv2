@@ -5,7 +5,15 @@
 #include "factory.h"
 Factory::Factory() = default;
 
+Factory &Factory::operator=(const Factory& other) {
+  if(&other == this) return *this;
+  movement_ = other.movement_;
+  direction_ = other.direction_;
+  return *this;
+}
+
 Factory *Factory::Clone() { return new Factory(*this); }
+
 void Factory::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::FACTORY << " " << (unsigned)direction_ << "\n";
 }
@@ -62,3 +70,4 @@ void Factory::RotateCell() {
     return;
   }
 }
+

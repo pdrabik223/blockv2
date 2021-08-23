@@ -9,8 +9,8 @@
 class Enemy : public Bot {
 public:
   Enemy();
-
   Enemy(const Enemy &other);
+  Enemy& operator=(const Enemy &other);
   Enemy *Clone() override;
   void OutputToFile(std::ostream &out) const override;
 

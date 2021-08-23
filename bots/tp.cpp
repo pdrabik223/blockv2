@@ -5,7 +5,16 @@
 #include "tp.h"
 #include "../game.h"
 Tp::Tp() = default;
-
+Tp &Tp::operator=(const Tp& other) {
+  if(&other == this) return * this;
+  movement_ = other.movement_;
+  id_ = other.id_;
+  return *this;
+}
+Tp::Tp(const Tp &other) : Bot(other) {
+  movement_ = other.movement_;
+  id_ = other.id_;
+}
 Tp *Tp::Clone() { return new Tp(*this); }
 void Tp::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::TP << " " << id_ << "\n";
@@ -19,12 +28,10 @@ void Tp::CalculateMovementDirection(const std::vector<Bot *> &plane,
 
 }
 void Tp::ClearMovementDirection() { movement_.Clear(); }
-Tp::Tp(const Tp &other) : Bot(other) {
-  movement_ = other.movement_;
-  id_ = other.id_;
-}
+
 Tp::Tp(unsigned int id) : id_(id) {}
 void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                 unsigned int plane_width, unsigned int plane_height) {}
 
 Transposition Tp::GetMovement() const { return movement_; }
+

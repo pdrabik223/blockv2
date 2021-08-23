@@ -31,6 +31,7 @@ public:
     assert(false);
     return new Bot(*this);
   };
+  Bot(const Bot & other) {movement_ = other.movement_;};
 
   virtual void OutputToFile(std::ostream &out) const {assert(false);};
 

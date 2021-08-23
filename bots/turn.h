@@ -10,6 +10,7 @@ class Turn : public Bot {
 public:
   Turn();
   Turn(const Turn &other);
+  Turn& operator=(const Turn& other);
   explicit Turn(TurnDirection direction);
   Turn *Clone() override;
 

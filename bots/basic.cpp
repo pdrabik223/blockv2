@@ -7,6 +7,17 @@
 
 Basic::Basic() = default;
 
+Basic::Basic(const Basic &other) : Bot(other) { movement_ = other.movement_; }
+
+Basic &Basic::operator=(const  Basic& other) {
+if(&other == this) return *this;
+
+movement_ = other.movement_;
+
+return *this;
+}
+
+
 Basic *Basic::Clone() { return new Basic(*this); }
 
 void Basic::OutputToFile(std::ostream &out) const {
@@ -41,6 +52,5 @@ void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                    const unsigned plane_width,
                    const unsigned plane_height) { /*do nothing*/
 }
-Basic::Basic(const Basic &other) : Bot(other) { movement_ = other.movement_; }
-Transposition Basic::GetMovement() const { return movement_; }
 
+Transposition Basic::GetMovement() const { return movement_; }
