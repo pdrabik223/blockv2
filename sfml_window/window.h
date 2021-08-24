@@ -44,7 +44,6 @@ protected:
 
   sfml_window::Context* current_context_;
   std::thread *window_thread_;
-  LevelInfo current_loaded_level_;
   sf::Event event_;
 
 };

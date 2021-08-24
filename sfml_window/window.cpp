@@ -5,13 +5,13 @@
 #include "window.h"
 
 using namespace sfml_window;
-Gui::Gui() : current_loaded_level_(2, 1) {
+Gui::Gui()  {
   current_context_ = new MainMenu(1200, 600);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
-Gui::Gui(LevelInfo &level) : current_loaded_level_(level) {
-  current_context_ = new RunSimulation(1200, 600, current_loaded_level_,
+Gui::Gui(LevelInfo &level)  {
+  current_context_ = new RunSimulation(1200, 600, Board(level),
                                        "../levels/no_name_given/no_name_given");
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
