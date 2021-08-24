@@ -7,7 +7,8 @@
 #include "level_info.h"
 #include <vector>
 
-class Board {
+class Board
+{
 public:
   Board() = delete;
 
@@ -55,6 +56,14 @@ private:
 //
 //  /// update bot position depending on legal moves
 //  void GenNextPlaneState();
+
+  /// handles snake of block
+  /// \param position of a first block in Snake structure
+  void Snake(const Coord& position);
+
+  /// adds new block to a plane, based of generator block position
+  /// \param position of a generator block
+  void Create(Coord position);
 
   /// x axis
   unsigned width_;

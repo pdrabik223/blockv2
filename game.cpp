@@ -178,6 +178,8 @@ bool Board::IsLocked(int position) { return locked_fields_[position]; }
 
 void Board::UnLock(const Coord& position) {locked_fields_[position.ToInt(width_)] = false;}
 
+
+
 void Board::GenPosition() {
   //
   //  ClearMovementDirection();
@@ -185,6 +187,12 @@ void Board::GenPosition() {
   //  CalculateMovementDirection();
   //
   //  GenNextPlaneState();
+
+}
+
+void Board::Snake(const Coord& position) {
+
+
 }
 
 //void Board::ClearMovementDirection() {
@@ -256,4 +264,5 @@ void Board::GenPosition() {
 //
 //  return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
 //}
+
 
