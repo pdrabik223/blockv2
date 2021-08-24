@@ -13,10 +13,13 @@ public:
 
   Board(const LevelInfo &level_info);
   Board &operator=(const Board &other);
+
   Bot *GetCell(Coord position);
   Bot *GetCell(unsigned position);
+
   BotType GetBotType(const Coord &position) const;
   BotType GetBotType(unsigned position) const;
+
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
@@ -34,24 +37,24 @@ public:
   void RotateCell(int x, int y);
 
 private:
-  /// if two bots want to be in the same place this function resolves this
-  /// conflict
-  /// \param bot_a bot a
-  /// \param bot_b  bot b
-  /// \return the new bot object that will survive
-  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
-
-  /// restore default moving direction in all the bots
-  void ClearMovementDirection();
-
-  /// blocks every bot on the plane, from moving in the direction he can't
-  void LockEdges();
-
-  /// gen new legal moving directions
-  void CalculateMovementDirection();
-
-  /// update bot position depending on legal moves
-  void GenNextPlaneState();
+//  /// if two bots want to be in the same place this function resolves this
+//  /// conflict
+//  /// \param bot_a bot a
+//  /// \param bot_b  bot b
+//  /// \return the new bot object that will survive
+//  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
+//
+//  /// restore default moving direction in all the bots
+//  void ClearMovementDirection();
+//
+//  /// blocks every bot on the plane, from moving in the direction he can't
+//  void LockEdges();
+//
+//  /// gen new legal moving directions
+//  void CalculateMovementDirection();
+//
+//  /// update bot position depending on legal moves
+//  void GenNextPlaneState();
 
   /// x axis
   unsigned width_;
