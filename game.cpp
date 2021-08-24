@@ -5,7 +5,7 @@
 #include "game.h"
 #include <iostream>
 
-Bot *Board::GetCell(Coord position) { return plane_[position.ToInt(width_)]; }
+Bot *Board::GetCell(const Coord& position) { return plane_[position.ToInt(width_)]; }
 
 Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 
@@ -244,13 +244,14 @@ void Board::RotateCell(int x, int y) {
   }
 }
 
-void Board::Lock(Coord position) {
+void Board::Lock(const Coord& position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
 
-bool Board::IsLocked(Coord position) {
+bool Board::IsLocked(const Coord& position) {
   return locked_fields_[position.ToInt(width_)];
 }
 
 bool Board::IsLocked(int position) { return locked_fields_[position]; }
-void Board::UnLock(Coord position) {locked_fields_[position.ToInt(width_)] = false;}
+
+void Board::UnLock(const Coord& position) {locked_fields_[position.ToInt(width_)] = false;}

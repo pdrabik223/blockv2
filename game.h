@@ -14,7 +14,7 @@ public:
   Board(const LevelInfo &level_info);
   Board &operator=(const Board &other);
 
-  Bot *GetCell(Coord position);
+  Bot *GetCell(const Coord& position);
   Bot *GetCell(unsigned position);
 
   BotType GetBotType(const Coord &position) const;
@@ -23,9 +23,9 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
 
-  void Lock(Coord position);
-  void UnLock(Coord position);
-  bool IsLocked(Coord position);
+  void Lock(const Coord& position);
+  void UnLock(const Coord& position);
+  bool IsLocked(const Coord& position);
   bool IsLocked(int position);
 
   void GenPosition();
