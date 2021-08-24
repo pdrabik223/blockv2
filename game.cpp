@@ -181,6 +181,8 @@ void Board::UnLock(const Coord& position) {locked_fields_[position.ToInt(width_)
 
 
 void Board::GenPosition() {
+
+
   //
   //  ClearMovementDirection();
   //  CalculateMovementDirection();
@@ -188,10 +190,33 @@ void Board::GenPosition() {
   //
   //  GenNextPlaneState();
 
+  // first run all the movement
+  for(int x = 0;x<width_;x++)
+    for(int y = 0;y<height_;y++)
+    {
+      switch(GetCell({x, y})->GetType()){
+      case BotType::ENGINE:
+      case BotType::FACTORY:
+        Snake({x,y});
+      default:
+        break;
+      }
+    }
+
 }
 
 void Board::Snake(const Coord& position) {
+// tail to head
 
+// get direction
+//Direction direction = GetCell(position);
+//
+// go along the  every cell in snake, change direction if
+//while(true){
+//  NextPosition()
+
+
+// head to tail
 
 }
 
