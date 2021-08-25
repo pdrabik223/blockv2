@@ -222,6 +222,7 @@ void Board::Snake(Coord position) {
     if ( GetCell(position)->GetMovement().CheckDirection(direction))
       SetDirection(position,direction);
 
+
     else if(GetBotType(position) == BotType::TURN){
       direction
 
@@ -232,7 +233,6 @@ void Board::Snake(Coord position) {
 
 
 
-a
   }
   backward_pass:
   // head to tail
