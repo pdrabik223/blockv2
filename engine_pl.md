@@ -60,3 +60,8 @@ tablkica transformacji: każdy blok nakłada swoją zmianę na tablicę transfor
 
 
 kolejność działań: dodajemy kolejność działań do bloków, najpier przepchnięcie potem obrót, potem dodanie bloków 
+
+
+ok ok ok 
+wymyśliłem to, idziemy z pierwszym podejściem, ale całość gry opieramy na funkcji "push" 
+więc wszystko upraszcza się do train and special :) dam radę
