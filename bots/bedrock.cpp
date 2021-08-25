@@ -22,10 +22,10 @@ void Bedrock::CalculateMovementDirection(const std::vector<Bot *> &plane,
 }
 void Bedrock::ClearMovementDirection() {
   movement_.Clear();
-  movement_.LockEdge(Direction::LEFT);
-  movement_.LockEdge(Direction::RIGHT);
-  movement_.LockEdge(Direction::UP);
-  movement_.LockEdge(Direction::DOWN);
+  movement_.LockDirection(Direction::LEFT);
+  movement_.LockDirection(Direction::RIGHT);
+  movement_.LockDirection(Direction::UP);
+  movement_.LockDirection(Direction::DOWN);
 
 }
 void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,

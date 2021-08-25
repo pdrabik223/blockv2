@@ -82,7 +82,7 @@ Coord Transposition::Collapse(const Coord &current_position) {
 
   return current_position;
 }
-void Transposition::LockEdge(const Direction &direction) {
+void Transposition::LockDirection(const Direction &direction) {
   encounter_counter_[(int)direction] = TriState::T_FALSE;
 }
 

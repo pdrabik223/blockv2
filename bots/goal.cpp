@@ -39,12 +39,13 @@ void Goal::CalculateMovementDirection(
     if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
         push_direction)) {
       movement_.AddDirection(push_direction);
-      movement_.LockEdge(Opposite(push_direction));
+      movement_.LockDirection(Opposite(push_direction));
     } else
       //      movement_.LockEdge(push_direction); // the basic can't crush the enemy
-      movement_.LockEdge(Opposite(push_direction)); // the basic can
+      movement_.LockDirection(Opposite(push_direction)); // the basic can
 
-  }else movement_.LockEdge(Opposite(push_direction));
+  }else
+    movement_.LockDirection(Opposite(push_direction));
 }
 
 void Goal::ClearMovementDirection() {

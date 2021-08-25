@@ -5,7 +5,9 @@
 #include "game.h"
 #include <iostream>
 
-Bot *Board::GetCell(const Coord& position) { return plane_[position.ToInt(width_)]; }
+Bot *Board::GetCell(const Coord &position) {
+  return plane_[position.ToInt(width_)];
+}
 
 Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
 
@@ -39,7 +41,6 @@ Board &Board::operator=(const Board &other) {
 unsigned int Board::GetWidth() const { return width_; }
 
 unsigned int Board::GetHeight() const { return height_; }
-
 
 bool Board::CompareGameState(const Board &other) {
   if (width_ not_eq other.GetWidth() or height_ not_eq other.GetHeight())
@@ -100,7 +101,6 @@ bool Board::IsWon() {
 
 void Board::AddCell(int x, int y, BotType type) {
   assert(x < width_ and y < height_);
-
 
   delete plane_[y * width_ + x];
   switch (type) {
@@ -166,22 +166,21 @@ void Board::RotateCell(int x, int y) {
   }
 }
 
-void Board::Lock(const Coord& position) {
+void Board::Lock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
 
-bool Board::IsLocked(const Coord& position) {
+bool Board::IsLocked(const Coord &position) {
   return locked_fields_[position.ToInt(width_)];
 }
 
 bool Board::IsLocked(int position) { return locked_fields_[position]; }
 
-void Board::UnLock(const Coord& position) {locked_fields_[position.ToInt(width_)] = false;}
-
-
+void Board::UnLock(const Coord &position) {
+  locked_fields_[position.ToInt(width_)] = false;
+}
 
 void Board::GenPosition() {
-
 
   //
   //  ClearMovementDirection();
@@ -191,103 +190,119 @@ void Board::GenPosition() {
   //  GenNextPlaneState();
 
   // first run all the movement
-  for(int x = 0;x<width_;x++)
-    for(int y = 0;y<height_;y++)
-    {
-      switch(GetCell({x, y})->GetType()){
+  for (int x = 0; x < width_; x++)
+    for (int y = 0; y < height_; y++) {
+      switch (GetCell({x, y})->GetType()) {
       case BotType::ENGINE:
       case BotType::FACTORY:
-        Snake({x,y});
+        Snake(Coord(x, y);
       default:
         break;
       }
     }
-
 }
 
-void Board::Snake(const Coord& position) {
-// tail to head
-
-// get direction
-//Direction direction = GetCell(position);
-//
-// go along the  every cell in snake, change direction if
-//while(true){
-//  NextPosition()
 
 
-// head to tail
+void Board::Snake(Coord &position) {
+  // tail to head
 
+  // get direction
+  Direction direction = ((Engine *)GetCell(position))->GetDirection();
+
+  // go along the  every cell in snake, change direction if
+  while (true) {
+
+    position = NextPosition(direction, position);
+
+    if (not GetCell(position)->GetMovement().CheckDirection(direction))
+      goto backward_pass;
+
+
+
+    {
+      GetCell(position)->GetMovement().AddDirection(direction);
+      GetCell(position)->GetMovement().LockDirection(direction);
+   }
+
+
+  }
+backward_pass:
+  // head to tail
 }
 
-//void Board::ClearMovementDirection() {
-//  for (int i = 0; i < Size(); i++)
-//    plane_[i]->ClearMovementDirection();
-//}
+// void Board::ClearMovementDirection() {
+//   for (int i = 0; i < Size(); i++)
+//     plane_[i]->ClearMovementDirection();
+// }
 //
-//void Board::CalculateMovementDirection() {
-//  for (int i = 0; i < Size(); ++i) {
-//    plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_, height_);
-//  }
-//}
+// void Board::CalculateMovementDirection() {
+//   for (int i = 0; i < Size(); ++i) {
+//     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
+//     height_);
+//   }
+// }
 //
-//void Board::LockEdges() {
-//  //    for (int i = 0; i < Size(); ++i)
-//  //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_), width_,
-//  //      height_,);
-//}
+// void Board::LockEdges() {
+//   //    for (int i = 0; i < Size(); ++i)
+//   //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_),
+//   width_,
+//   //      height_,);
+// }
 //
-//void Board::GenNextPlaneState() {
-//  std::vector<Bot *> temp_plane;
+// void Board::GenNextPlaneState() {
+//   std::vector<Bot *> temp_plane;
 //
-//  temp_plane.reserve(Size());
+//   temp_plane.reserve(Size());
 //
-//  for (int i = 0; i < Size(); ++i)
-//    temp_plane.push_back(nullptr);
-//  std::cout << "new frame: generating\n";
+//   for (int i = 0; i < Size(); ++i)
+//     temp_plane.push_back(nullptr);
+//   std::cout << "new frame: generating\n";
 //
-//  for (int y = 0; y < height_; ++y) {
-//    for (int x = 0; x < width_; ++x) {
+//   for (int y = 0; y < height_; ++y) {
+//     for (int x = 0; x < width_; ++x) {
 //
-//      Coord origin(x, y);
-//      Coord target(GetCell(origin)->GetMovement().Collapse(origin));
+//       Coord origin(x, y);
+//       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
 //
-//      //      if(temp_plane[target.ToInt(width_)] == nullptr) // this is kinda
-//      //      flimsily solution
-//      if (temp_plane[target.ToInt(width_)] == nullptr)
-//        temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
-//      else
-//        temp_plane[target.ToInt(width_)] =
-//            CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
-//    }
-//  }
+//       //      if(temp_plane[target.ToInt(width_)] == nullptr) // this is
+//       kinda
+//       //      flimsily solution
+//       if (temp_plane[target.ToInt(width_)] == nullptr)
+//         temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
+//       else
+//         temp_plane[target.ToInt(width_)] =
+//             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
+//     }
+//   }
 //
-//  for (int i = 0; i < Size(); ++i)
-//    if (temp_plane[i] == nullptr)
-//      temp_plane[i] = new Empty();
+//   for (int i = 0; i < Size(); ++i)
+//     if (temp_plane[i] == nullptr)
+//       temp_plane[i] = new Empty();
 //
-//  for (int i = 0; i < Size(); ++i)
-//    if (temp_plane[i]->GetType() == BotType::FACTORY)
-//      ((Factory *)temp_plane[i])
-//          ->Spawn(temp_plane, Coord(i % width_, i / width_), width_, height_);
+//   for (int i = 0; i < Size(); ++i)
+//     if (temp_plane[i]->GetType() == BotType::FACTORY)
+//       ((Factory *)temp_plane[i])
+//           ->Spawn(temp_plane, Coord(i % width_, i / width_), width_,
+//           height_);
 //
-//  plane_.clear();
-//  plane_.reserve(Size());
+//   plane_.clear();
+//   plane_.reserve(Size());
 //
-//  for (int i = 0; i < Size(); ++i)
-//    plane_.emplace_back(temp_plane[i]->Clone());
+//   for (int i = 0; i < Size(); ++i)
+//     plane_.emplace_back(temp_plane[i]->Clone());
 //
-//  //    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
-//  //      delete temp_plane[i];
-//}
+//   //    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
+//   //      delete temp_plane[i];
+// }
 
-//Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
-//  int value_of_a_life = GetValue(*bot_a);
-//  int value_of_b_life = GetValue(*bot_b);
-//  // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn , basic,
-//  // bedrock = 4
+// Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
+//   int value_of_a_life = GetValue(*bot_a);
+//   int value_of_b_life = GetValue(*bot_b);
+//   // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn ,
+//   basic,
+//   // bedrock = 4
 //
-//  return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
-//}
-
-
+//   return value_of_a_life > value_of_b_life ? bot_a->Clone() :
+//   bot_b->Clone();
+// }

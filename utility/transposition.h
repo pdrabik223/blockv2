@@ -42,10 +42,14 @@ Coord PreviousPosition(Direction direction, const Coord &current_position);
 class Transposition {
 public:
   Transposition();
+
   Transposition(const Transposition &other);
+
   Transposition &operator=(const Transposition &other);
+
   Coord Collapse(const Coord &current_position);
-  void LockEdge(const Direction &direction);
+
+  void LockDirection(const Direction &direction);
   void AddDirection(const Direction &direction);
   void Clear();
   bool CheckDirection(const Direction &direction);
