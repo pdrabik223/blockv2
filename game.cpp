@@ -204,7 +204,7 @@ void Board::GenPosition() {
 
 void Board::SetDirection(const Coord &position, const Direction &direction) {
   GetCell(position)->GetMovement().AddDirection(direction);
-  GetCell(position)->GetMovement().LockDirection(direction);
+  GetCell(position)->GetMovement().LockDirection(Opposite(direction));
 }
 
 void Board::Snake(Coord position) {
@@ -222,13 +222,19 @@ void Board::Snake(Coord position) {
     if ( GetCell(position)->GetMovement().CheckDirection(direction))
       SetDirection(position,direction);
 
-    else
+    else if(GetBotType(position) == BotType::TURN){
+      direction
+
+    }else{
+      GetCell(position)->GetMovement().LockDirection(direction);
+      goto backward_pass;
+    }
 
 
 
-
+a
   }
-backward_pass:
+  backward_pass:
   // head to tail
 }
 
