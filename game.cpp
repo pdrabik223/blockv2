@@ -195,16 +195,19 @@ void Board::GenPosition() {
       switch (GetCell({x, y})->GetType()) {
       case BotType::ENGINE:
       case BotType::FACTORY:
-        Snake(Coord(x, y);
+        Snake({x, y});
       default:
         break;
       }
     }
 }
 
+void Board::SetDirection(const Coord &position, const Direction &direction) {
+  GetCell(position)->GetMovement().AddDirection(direction);
+  GetCell(position)->GetMovement().LockDirection(direction);
+}
 
-
-void Board::Snake(Coord &position) {
+void Board::Snake(Coord position) {
   // tail to head
 
   // get direction
@@ -215,21 +218,20 @@ void Board::Snake(Coord &position) {
 
     position = NextPosition(direction, position);
 
-    if (not GetCell(position)->GetMovement().CheckDirection(direction))
-      goto backward_pass;
+    // this ensures the cell can be moved in the direction
+    if ( GetCell(position)->GetMovement().CheckDirection(direction))
+      SetDirection(position,direction);
+
+    else
 
 
-
-    {
-      GetCell(position)->GetMovement().AddDirection(direction);
-      GetCell(position)->GetMovement().LockDirection(direction);
-   }
 
 
   }
 backward_pass:
   // head to tail
 }
+
 
 // void Board::ClearMovementDirection() {
 //   for (int i = 0; i < Size(); i++)

@@ -38,6 +38,7 @@ public:
   void RotateCell(int x, int y);
 
 private:
+  void SetDirection(const Coord &position, const Direction &direction);
 //  /// if two bots want to be in the same place this function resolves this
 //  /// conflict
 //  /// \param bot_a bot a
@@ -59,7 +60,7 @@ private:
 
   /// handles snake of block
   /// \param position of a first block in Snake structure
-  void Snake(const Coord& position);
+  void Snake(Coord position);
 
   /// adds new block to a plane, based of generator block position
   /// \param position of a generator block
