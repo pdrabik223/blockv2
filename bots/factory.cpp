@@ -30,7 +30,9 @@ Factory::Factory(const Factory &other) : Bot(other) {
   movement_ = other.movement_;
   direction_ = other.direction_;
 }
+
 Factory::Factory(Direction direction) : direction_(direction) {}
+
 void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_width,
                      const unsigned int plane_height) {
@@ -45,14 +47,6 @@ Transposition Factory::GetMovement() const { return movement_; }
 void Factory::Spawn(std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width, unsigned int plane_height) {
 
-  Coord target = NextPosition(direction_, bot_position);
-  Coord original = NextPosition(Opposite(direction_), bot_position);
-
-  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY) {
-    delete plane[target.ToInt(plane_width)];
-    plane[target.ToInt(plane_width)] =
-        plane[original.ToInt(plane_width)]->Clone();
-  }
 }
 void Factory::RotateCell() {
   switch (direction_) {
@@ -73,6 +67,13 @@ void Factory::RotateCell() {
 void Factory::SecondAction(std::vector<Bot *> &plane,
                            const Coord &bot_position, unsigned int plane_width,
                            unsigned int plane_height) {
-  // add block
+  Coord target = NextPosition(direction_, bot_position);
+  Coord original = NextPosition(Opposite(direction_), bot_position);
+
+  if (plane[target.ToInt(plane_width)]->GetType() == BotType::EMPTY) {
+    delete plane[target.ToInt(plane_width)];
+    plane[target.ToInt(plane_width)] =
+        plane[original.ToInt(plane_width)]->Clone();
+  }
 
 }
