@@ -6,12 +6,11 @@
 
 Goal::Goal() = default;
 
-Goal::Goal(const Goal &other) : Bot(other) {
-  movement_ = other.movement_;
-}
+Goal::Goal(const Goal &other) : Bot(other) { movement_ = other.movement_; }
 
-Goal &Goal::operator=(const Goal& other) {
-  if(&other == this) return *this;
+Goal &Goal::operator=(const Goal &other) {
+  if (&other == this)
+    return *this;
   movement_ = other.movement_;
   return *this;
 }
@@ -22,33 +21,43 @@ void Goal::OutputToFile(std::ostream &out) const {
 }
 BotType Goal::GetType() const { return type_; }
 
-void Goal::Push(
-    const std::vector<Bot *> &plane, const Coord &bot_position,
-    unsigned plane_width, unsigned plane_height,
+void Goal::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+                unsigned plane_width, unsigned plane_height,
                 Direction push_direction) {
   Coord new_position = NextPosition(push_direction, bot_position);
   Coord pusher_position = NextPosition(Opposite(push_direction), bot_position);
 
-  // if true the block behaves like basic block
-  if(plane[pusher_position.ToInt(plane_width)]->GetType() == BotType::BASIC) {
+  switch (plane[pusher_position.ToInt(plane_width)]->GetType()) {
 
+  case BotType::BASIC:
+  case BotType::GOAL:
+    // act normal
     plane[new_position.ToInt(plane_width)]->Push(
         plane, new_position, plane_width, plane_height, push_direction);
-    // if the next cell is "pushable" in the push_direction
-    // this cell is pushable also in the push_direction
+
     if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
-        push_direction)) {
-      movement_.AddDirection(push_direction);
-      movement_.LockDirection(Opposite(push_direction));
-    } else
-      //      movement_.LockEdge(push_direction); // the basic can't crush the enemy
-      movement_.LockDirection(Opposite(push_direction)); // the basic can
+            push_direction)) {
+      movement_.Push(push_direction);
+    }
+    break;
+  case BotType::BEDROCK:
+  case BotType::TURN:
+  case BotType::TP:
+  case BotType::EMPTY:
+    // those block can't push
+    assert("un-pushable block");
 
-  }else
+  case BotType::ENEMY:
+  case BotType::ENGINE:
+  case BotType::FACTORY:
+    // get killed by those
     movement_.LockDirection(Opposite(push_direction));
+    break;
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert("incorrect memory assigment");
+  }
 }
 
-void Goal::ClearMovementDirection() {
-  movement_.Clear();
-}
-Transposition Goal::GetMovement() const { return movement_;  }
+void Goal::ClearMovementDirection() { movement_.Clear(); }
+Transposition Goal::GetMovement() const { return movement_; }

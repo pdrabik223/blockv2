@@ -33,6 +33,7 @@ void Turn::Push(const std::vector<Bot *> &plane,
                                       unsigned plane_width,
                                       unsigned plane_height,
                 Direction push_direction) {
+
 }
 void Turn::ClearMovementDirection() { movement_.Clear(); }
 

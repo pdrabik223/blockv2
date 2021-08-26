@@ -24,7 +24,7 @@ public:
   void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              unsigned int plane_width, unsigned int plane_height) override;
+              unsigned int plane_width, unsigned int plane_height) override{/*do nothing*/};
 
 
   TurnDirection GetDirection() const;

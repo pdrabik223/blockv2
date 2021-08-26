@@ -70,6 +70,7 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 }
 
 Engine::Engine(Direction direction) : direction_(direction) {}
+
 Transposition Engine::GetMovement() const { return movement_; }
 void Engine::RotateCell() {
   switch (direction_) {
