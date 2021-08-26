@@ -62,11 +62,12 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
   // if the next cell is "pushable" in the push_direction
   // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
-          direction_))
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(direction_))
     movement_.AddDirection(direction_);
   else
     movement_.LockDirection(direction_);
+
+
 }
 
 Engine::Engine(Direction direction) : direction_(direction) {}

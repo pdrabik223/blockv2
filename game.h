@@ -44,8 +44,8 @@ private:
 //  /// \param bot_a bot a
 //  /// \param bot_b  bot b
 //  /// \return the new bot object that will survive
-//  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
-//
+  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
+
   /// restore default moving direction in all the bots
   void ClearMovementDirection();
 

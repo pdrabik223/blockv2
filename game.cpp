@@ -214,7 +214,8 @@ void Board::EngagePush() {
 
 void Board::ActivateSecondAction() {
   for (int i = 0; i < Size(); ++i) {
-    plane_[i]->SecondAction(plane_, Coord(i % width_, i / width_), width_, height_);
+    plane_[i]->SecondAction(plane_, Coord(i % width_, i / width_), width_,
+                            height_);
   }
 }
 void Board::GenNextPlaneState() {
@@ -231,9 +232,11 @@ void Board::GenNextPlaneState() {
 
       Coord origin(x, y);
       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
-
-      temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
-
+      if (!temp_plane[target.ToInt(width_)])
+        temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
+      else
+        temp_plane[target.ToInt(width_)] =
+            CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
     }
   }
 
@@ -302,13 +305,12 @@ void Board::GenNextPlaneState() {
 //   //      delete temp_plane[i];
 // }
 
-// Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
-//   int value_of_a_life = GetValue(*bot_a);
-//   int value_of_b_life = GetValue(*bot_b);
-//   // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn ,
-//   basic,
-//   // bedrock = 4
-//
-//   return value_of_a_life > value_of_b_life ? bot_a->Clone() :
-//   bot_b->Clone();
-// }
+Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
+  int value_of_a_life = GetValue(*bot_a);
+  int value_of_b_life = GetValue(*bot_b);
+  // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn ,
+  // basic,
+  // bedrock = 4
+
+  return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
+}
