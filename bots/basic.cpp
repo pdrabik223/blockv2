@@ -48,9 +48,6 @@ void Basic::Push(const std::vector<Bot *> &plane,
 }
 void Basic::ClearMovementDirection() { movement_.Clear(); }
 
-void Basic::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                   const unsigned plane_width,
-                   const unsigned plane_height) { /*do nothing*/
-}
+
 
 Transposition Basic::GetMovement() const { return movement_; }

@@ -51,9 +51,4 @@ void Goal::Push(
 void Goal::ClearMovementDirection() {
   movement_.Clear();
 }
-
-void Goal::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                  unsigned int plane_width, unsigned int plane_height) {/* do nothing */}
-
-Transposition Goal::GetMovement() const { return movement_; }
-
+Transposition Goal::GetMovement() const { return movement_;  }

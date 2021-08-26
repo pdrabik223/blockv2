@@ -8,32 +8,29 @@ Bedrock::Bedrock() = default;
 
 Bedrock *Bedrock::Clone() { return new Bedrock(*this); }
 
+Bedrock::Bedrock(const Bedrock &other) : Bot(other) {
+  movement_ = other.movement_;
+}
+
+Bedrock &Bedrock::operator=(const Bedrock &other) {
+  if (&other == this)
+    return *this;
+  movement_ = other.movement_;
+  return *this;
+}
+
 void Bedrock::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::BEDROCK << "\n";
 }
+
 BotType Bedrock::GetType() const { return type_; }
 
-void Bedrock::Push(const std::vector<Bot *> &plane,
-                                         const Coord &bot_position,
-                                         unsigned plane_width,
-                                         unsigned plane_height,
-                   Direction push_direction) {
-  // do nothing :P
-}
 void Bedrock::ClearMovementDirection() {
   movement_.Clear();
   movement_.LockDirection(Direction::LEFT);
   movement_.LockDirection(Direction::RIGHT);
   movement_.LockDirection(Direction::UP);
   movement_.LockDirection(Direction::DOWN);
-
-}
-void Bedrock::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                     unsigned plane_width,
-                     unsigned plane_height) { /*do nothing*/}
-
-Bedrock::Bedrock(const Bedrock &other) : Bot(other) {
-  movement_ = other.movement_;
 }
 
- Transposition Bedrock::GetMovement() const { return movement_; }
+Transposition Bedrock::GetMovement() const { return movement_; }

@@ -14,21 +14,21 @@ public:
   Bedrock &operator=(const Bedrock &other);
   Bedrock *Clone() override;
 
-  void OutputToFile(std::ostream &out) const override;
+  void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              unsigned plane_width, unsigned plane_height) override;
-  void Push(const std::vector<Bot *> &plane,
-                                  const Coord &bot_position,
-                                  unsigned int plane_width,
-                                  unsigned int plane_height,
-                                  Direction push_direction) override;
+              unsigned plane_width,
+              unsigned plane_height) override{/* do nothing */};
+
+  void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+            unsigned int plane_width, unsigned int plane_height,
+            Direction push_direction) override {/* do nothing */};
 
   void SecondAction(const std::vector<Bot *> &plane, const Coord &bot_position,
-               unsigned int plane_width,
-               unsigned int plane_height) override{/* do nothing */};
+                    unsigned int plane_width,
+                    unsigned int plane_height) override{/* do nothing */};
 
-  void ClearMovementDirection() override;
+  void OutputToFile(std::ostream &out) const override;
 
   Transposition GetMovement() const override;
   BotType GetType() const override;

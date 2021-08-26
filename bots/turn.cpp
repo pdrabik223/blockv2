@@ -33,20 +33,10 @@ void Turn::Push(const std::vector<Bot *> &plane,
                                       unsigned plane_width,
                                       unsigned plane_height,
                 Direction push_direction) {
-  Coord pushing_block_position(NextPosition(push_direction, bot_position));
-
-  Coord new_position =
-      NextPosition(Rotate(push_direction, direction_), bot_position);
-
-  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
-                                               plane_height, push_direction);
 }
 void Turn::ClearMovementDirection() { movement_.Clear(); }
 
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
-
-void Turn::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-                  unsigned int plane_width, unsigned int plane_height) {}
 
 Transposition Turn::GetMovement() const { return movement_; }
 

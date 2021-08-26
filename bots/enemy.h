@@ -15,7 +15,7 @@ public:
   void OutputToFile(std::ostream &out) const override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              unsigned plane_width, unsigned plane_height) override;
+              unsigned plane_width, unsigned plane_height) override {/* do nothing */};
 
   void Push(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,

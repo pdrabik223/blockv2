@@ -26,6 +26,7 @@ public:
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width, unsigned int plane_height) override;
 
+
   TurnDirection GetDirection() const;
   BotType GetType() const override;
   Transposition GetMovement() const override;
