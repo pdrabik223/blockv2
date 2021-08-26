@@ -28,18 +28,18 @@ TurnDirection Turn::GetDirection() const { return direction_; }
 
 BotType Turn::GetType() const { return type_; }
 
-void Turn::CalculateMovementDirection(const std::vector<Bot *> &plane,
+void Turn::Push(const std::vector<Bot *> &plane,
                                       const Coord &bot_position,
-                                      const unsigned plane_width,
-                                      const unsigned plane_height,
-                                      const Direction push_direction) {
+                                      unsigned plane_width,
+                                      unsigned plane_height,
+                Direction push_direction) {
   Coord pushing_block_position(NextPosition(push_direction, bot_position));
 
   Coord new_position =
       NextPosition(Rotate(push_direction, direction_), bot_position);
 
-  plane[new_position.ToInt(plane_width)]->CalculateMovementDirection(
-      plane, new_position, plane_width, plane_height, push_direction);
+  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
+                                               plane_height, push_direction);
 }
 void Turn::ClearMovementDirection() { movement_.Clear(); }
 

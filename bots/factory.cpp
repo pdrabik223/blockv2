@@ -20,11 +20,11 @@ void Factory::OutputToFile(std::ostream &out) const {
 
 Direction Factory::GetDirection() const { return direction_; }
 BotType Factory::GetType() const { return type_; }
-void Factory::CalculateMovementDirection(const std::vector<Bot *> &plane,
+void Factory::Push(const std::vector<Bot *> &plane,
                                          const Coord &bot_position,
-                                         const unsigned plane_width,
-                                         const unsigned plane_height,
-                                         const Direction push_direction) {}
+                                         unsigned plane_width,
+                                         unsigned plane_height,
+                   Direction push_direction) {}
 void Factory::ClearMovementDirection() { movement_.Clear(); }
 Factory::Factory(const Factory &other) : Bot(other) {
   movement_ = other.movement_;
@@ -36,8 +36,8 @@ void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                      const unsigned int plane_height) {
   Coord new_position = NextPosition(direction_, bot_position);
 
-  plane[new_position.ToInt(plane_width)]->CalculateMovementDirection(
-      plane, new_position, plane_width, plane_height, direction_);
+  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
+                                               plane_height, direction_);
 }
 
 Transposition Factory::GetMovement() const { return movement_; }

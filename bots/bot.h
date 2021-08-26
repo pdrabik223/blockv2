@@ -31,32 +31,37 @@ public:
     assert(false);
     return new Bot(*this);
   };
-  Bot(const Bot & other) {movement_ = other.movement_;};
+  Bot(const Bot &other) { movement_ = other.movement_; };
 
-  virtual void OutputToFile(std::ostream &out) const {assert(false);};
+  virtual void OutputToFile(std::ostream &out) const { assert(false); };
 
   virtual BotType GetType() const { return type_; }
 
+  /// activates special function of a block (if there is one)
   virtual void Action(const std::vector<Bot *> &plane,
                       const Coord &bot_position, const unsigned plane_width,
-                      const unsigned plane_height){assert(false);};
+                      const unsigned plane_height) {
+    assert(false);
+  };
 
-  virtual void CalculateMovementDirection(
-      const std::vector<Bot *> &plane, const Coord &bot_position,
-      unsigned int plane_width, unsigned int plane_height,
-      Direction push_direction){assert(false);};
+  virtual void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+                    unsigned int plane_width, unsigned int plane_height,
+                    Direction push_direction) {
+    assert(false);
+  };
 
-  virtual void Ability( const std::vector<Bot *> &plane, const Coord &bot_position,
-                        unsigned int plane_width, unsigned int plane_height){assert(false);};
+  virtual void Ability(const std::vector<Bot *> &plane,
+                       const Coord &bot_position, unsigned int plane_width,
+                       unsigned int plane_height) {
+    assert(false);
+  };
 
-  virtual void ClearMovementDirection(){assert(false);};
-
+  virtual void ClearMovementDirection() { assert(false); };
 
   virtual Transposition GetMovement() const { return movement_; }
 
-  virtual void LockEdge(Direction edge){assert(false);};
-  virtual void AddDirection(Direction direction){assert(false);};
-
+  virtual void LockEdge(Direction edge) { assert(false); };
+  virtual void AddDirection(Direction direction) { assert(false); };
 
 protected:
   const BotType type_ = BotType::NONE;

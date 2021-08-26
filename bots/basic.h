@@ -27,7 +27,7 @@ public:
                unsigned int plane_width, unsigned int plane_height)  override
       {/* do nothing */};
 
-  void CalculateMovementDirection(const std::vector<Bot *> &plane,
+  void Push(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
                                   unsigned int plane_width,
                                   unsigned int plane_height,
