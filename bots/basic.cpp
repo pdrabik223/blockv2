@@ -25,7 +25,8 @@ void Basic::OutputToFile(std::ostream &out) const {
 }
 BotType Basic::GetType() const { return type_; }
 
-
+/// default push
+/// cant be killed so nothing can stop him
 void Basic::Push(const std::vector<Bot *> &plane,
                                        const Coord &bot_position,
                                        unsigned plane_width,
@@ -37,14 +38,13 @@ void Basic::Push(const std::vector<Bot *> &plane,
   plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
                                                plane_height, push_direction);
 
-  // if the next cell is "pushable" in the push_direction
-  // this cell is pushable also in the push_direction
   if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           push_direction)) {
     movement_.AddDirection(push_direction);
     movement_.LockDirection(Opposite(push_direction));
   } else
     movement_.LockDirection(push_direction);
+
 }
 void Basic::ClearMovementDirection() { movement_.Clear(); }
 

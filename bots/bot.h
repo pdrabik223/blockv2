@@ -49,6 +49,9 @@ public:
   };
 
   /// react to a main mechanic of the game
+  /// also the pushed block should worry about block that is pushing it
+  /// a.k.a. if goal is pushed he needs to check what block is pushing him, and
+  /// than react by letting be pushed or not
   virtual void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width, unsigned int plane_height,
                     Direction push_direction) {
@@ -57,8 +60,8 @@ public:
 
   /// activates second function of a block,  that happens after push faze
   virtual void SecondAction(const std::vector<Bot *> &plane,
-                       const Coord &bot_position, unsigned int plane_width,
-                       unsigned int plane_height) {
+                            const Coord &bot_position, unsigned int plane_width,
+                            unsigned int plane_height) {
     assert(false);
   };
 

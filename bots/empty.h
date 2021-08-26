@@ -18,6 +18,7 @@ public:
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width, unsigned int plane_height) override {/* do nothing */};
 
+  /// can't be pushed but can be killed, and everything will kill it
   void Push(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,
                                   unsigned int plane_width,

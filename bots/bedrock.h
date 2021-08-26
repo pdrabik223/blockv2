@@ -20,6 +20,7 @@ public:
               unsigned plane_width,
               unsigned plane_height) override{/* do nothing */};
 
+  /// pushing this block doesn't change anything
   void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
             unsigned int plane_width, unsigned int plane_height,
             Direction push_direction) override {/* do nothing */};
