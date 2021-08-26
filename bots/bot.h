@@ -10,14 +10,18 @@
 
 /// contains all used cell types
 enum class BotType {
-  BASIC, /// something like stone
+  BASIC, /// something like stone in minecraft
   BEDROCK,
+
   TURN, /// changes the direction of  block
+  TP,
+
   GOAL,
   ENEMY,
+
   ENGINE,
   FACTORY,
-  TP,
+
   EMPTY,
   NONE,
   SIZE
@@ -44,13 +48,15 @@ public:
     assert(false);
   };
 
+  /// react to a main mechanic of the game
   virtual void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width, unsigned int plane_height,
                     Direction push_direction) {
     assert(false);
   };
 
-  virtual void Ability(const std::vector<Bot *> &plane,
+  /// activates second function of a block,  that happens after push faze
+  virtual void SecondAction(const std::vector<Bot *> &plane,
                        const Coord &bot_position, unsigned int plane_width,
                        unsigned int plane_height) {
     assert(false);

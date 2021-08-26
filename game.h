@@ -46,17 +46,17 @@ private:
 //  /// \return the new bot object that will survive
 //  static Bot *CrushBots(Bot *bot_a, Bot *bot_b);
 //
-//  /// restore default moving direction in all the bots
-//  void ClearMovementDirection();
-//
-//  /// blocks every bot on the plane, from moving in the direction he can't
-//  void LockEdges();
-//
-//  /// gen new legal moving directions
-//  void CalculateMovementDirection();
-//
-//  /// update bot position depending on legal moves
-//  void GenNextPlaneState();
+  /// restore default moving direction in all the bots
+  void ClearMovementDirection();
+
+  /// blocks every bot on the plane, from moving in the direction he can't
+  void LockEdges();
+
+  /// gen new legal moving directions
+  void EngagePush();
+
+  /// update bot position depending on legal moves
+  void GenNextPlaneState();
 
   /// handles snake of block
   /// \param position of a first block in Snake structure
@@ -73,6 +73,7 @@ private:
 
   std::vector<Bot *> plane_;
   std::vector<bool> locked_fields_;
+  void ActivateSecondAction();
 };
 
 #endif // BLOCK_V2__GAME_H_

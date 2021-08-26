@@ -182,75 +182,51 @@ void Board::UnLock(const Coord &position) {
 
 void Board::GenPosition() {
 
-  //
-  //  ClearMovementDirection();
-  //  CalculateMovementDirection();
-  //  CalculateMovementDirection();
-  //
-  //  GenNextPlaneState();
+
+    ClearMovementDirection();
+    EngagePush();
+    EngagePush();
+    
+    
+    GenNextPlaneState();
 
   // first run all the movement
-  for (int x = 0; x < width_; x++)
-    for (int y = 0; y < height_; y++) {
-      switch (GetCell({x, y})->GetType()) {
-      case BotType::ENGINE:
-      case BotType::FACTORY:
-        Snake({x, y});
-      default:
-        break;
-      }
-    }
+//  for (int x = 0; x < width_; x++)
+//    for (int y = 0; y < height_; y++) {
+//      switch (GetCell({x, y})->GetType()) {
+//      case BotType::ENGINE:
+//      case BotType::FACTORY:
+//        Snake({x, y});
+//      default:
+//        break;
+//      }
+//    }
 }
 
-void Board::SetDirection(const Coord &position, const Direction &direction) {
-  GetCell(position)->GetMovement().AddDirection(direction);
-  GetCell(position)->GetMovement().LockDirection(Opposite(direction));
-}
-
-void Board::Snake(Coord position) {
-  // tail to head
-
-  // get direction
-  Direction direction = ((Engine *)GetCell(position))->GetDirection();
-
-  // go along the  every cell in snake, change direction if
-  while (true) {
-
-    position = NextPosition(direction, position);
-
-    // this ensures the cell can be moved in the direction
-    if ( GetCell(position)->GetMovement().CheckDirection(direction))
-      SetDirection(position,direction);
-
-
-    else if(GetBotType(position) == BotType::TURN){
-      direction
-
-    }else{
-      GetCell(position)->GetMovement().LockDirection(direction);
-      goto backward_pass;
-    }
 
 
 
+ void Board::ClearMovementDirection() {
+   for (int i = 0; i < Size(); i++)
+     plane_[i]->ClearMovementDirection();
+ }
+
+ void Board::EngagePush() {
+   for (int i = 0; i < Size(); ++i) {
+     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
+     height_);
+   }
+ }
+ 
+ void Board::ActivateSecondAction() {
+  for (int i = 0; i < Size(); ++i) {
+    plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
+                      height_);
   }
-  backward_pass:
-  // head to tail
 }
-
-
-// void Board::ClearMovementDirection() {
-//   for (int i = 0; i < Size(); i++)
-//     plane_[i]->ClearMovementDirection();
-// }
-//
-// void Board::CalculateMovementDirection() {
-//   for (int i = 0; i < Size(); ++i) {
-//     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
-//     height_);
-//   }
-// }
-//
+ 
+ 
+ //
 // void Board::LockEdges() {
 //   //    for (int i = 0; i < Size(); ++i)
 //   //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_),
