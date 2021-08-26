@@ -53,6 +53,7 @@ public:
   void AddDirection(const Direction &direction);
   void Clear();
   bool CheckDirection(const Direction &direction);
+  void Push(const Direction& direction);
 
   TriState encounter_counter_[4];
 };

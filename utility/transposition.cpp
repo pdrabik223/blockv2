@@ -98,6 +98,11 @@ void Transposition::AddDirection(const Direction &direction) {
     return;
   encounter_counter_[(int)direction] = TriState::T_TRUE;
 }
+void Transposition::Push(const Direction& direction) {
+    AddDirection(direction);
+    LockDirection(Opposite(direction));
+}
+
 Direction Opposite(Direction target) {
   switch (target) {
   case Direction::UP:
