@@ -70,7 +70,7 @@ void Factory::RotateCell() {
     return;
   }
 }
-void Factory::SecondAction(const std::vector<Bot *> &plane,
+void Factory::SecondAction(std::vector<Bot *> &plane,
                            const Coord &bot_position, unsigned int plane_width,
                            unsigned int plane_height) {
   // add block

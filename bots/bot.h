@@ -59,7 +59,7 @@ public:
   };
 
   /// activates second function of a block,  that happens after push faze
-  virtual void SecondAction(const std::vector<Bot *> &plane,
+  virtual void SecondAction(std::vector<Bot *> &plane,
                             const Coord &bot_position, unsigned int plane_width,
                             unsigned int plane_height) {
     assert(false);

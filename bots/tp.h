@@ -24,7 +24,7 @@ public:
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width, unsigned int plane_height) override;
 
-  void SecondAction(const std::vector<Bot *> &plane, const Coord &bot_position,
+  void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width,
                     unsigned int plane_height) override {/* do nothing*/};
 

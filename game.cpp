@@ -182,51 +182,73 @@ void Board::UnLock(const Coord &position) {
 
 void Board::GenPosition() {
 
-
-    ClearMovementDirection();
-    EngagePush();
-    EngagePush();
-    
-    
-    GenNextPlaneState();
+  ClearMovementDirection();
+  EngagePush();
+  EngagePush();
+  GenNextPlaneState();
+  //    ActivateSecondAction();
 
   // first run all the movement
-//  for (int x = 0; x < width_; x++)
-//    for (int y = 0; y < height_; y++) {
-//      switch (GetCell({x, y})->GetType()) {
-//      case BotType::ENGINE:
-//      case BotType::FACTORY:
-//        Snake({x, y});
-//      default:
-//        break;
-//      }
-//    }
+  //  for (int x = 0; x < width_; x++)
+  //    for (int y = 0; y < height_; y++) {
+  //      switch (GetCell({x, y})->GetType()) {
+  //      case BotType::ENGINE:
+  //      case BotType::FACTORY:
+  //        Snake({x, y});
+  //      default:
+  //        break;
+  //      }
+  //    }
 }
 
+void Board::ClearMovementDirection() {
+  for (int i = 0; i < Size(); i++)
+    plane_[i]->ClearMovementDirection();
+}
 
-
-
- void Board::ClearMovementDirection() {
-   for (int i = 0; i < Size(); i++)
-     plane_[i]->ClearMovementDirection();
- }
-
- void Board::EngagePush() {
-   for (int i = 0; i < Size(); ++i) {
-     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
-     height_);
-   }
- }
- 
- void Board::ActivateSecondAction() {
+void Board::EngagePush() {
   for (int i = 0; i < Size(); ++i) {
-    plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_,
-                      height_);
+    plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_, height_);
   }
 }
- 
- 
- //
+
+void Board::ActivateSecondAction() {
+  for (int i = 0; i < Size(); ++i) {
+    plane_[i]->SecondAction(plane_, Coord(i % width_, i / width_), width_, height_);
+  }
+}
+void Board::GenNextPlaneState() {
+
+  std::vector<Bot *> temp_plane;
+
+  temp_plane.reserve(Size());
+
+  for (int i = 0; i < Size(); ++i)
+    temp_plane.push_back(nullptr);
+
+  for (int y = 0; y < height_; ++y) {
+    for (int x = 0; x < width_; ++x) {
+
+      Coord origin(x, y);
+      Coord target(GetCell(origin)->GetMovement().Collapse(origin));
+
+      temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
+
+    }
+  }
+
+  for (int i = 0; i < Size(); ++i)
+    if (temp_plane[i] == nullptr)
+      temp_plane[i] = new Empty();
+
+  plane_.clear();
+  plane_.reserve(Size());
+
+  for (int i = 0; i < Size(); ++i)
+    plane_.emplace_back(temp_plane[i]->Clone());
+}
+
+//
 // void Board::LockEdges() {
 //   //    for (int i = 0; i < Size(); ++i)
 //   //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_),
