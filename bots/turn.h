@@ -10,27 +10,31 @@ class Turn : public Bot {
 public:
   Turn();
   Turn(const Turn &other);
-  Turn& operator=(const Turn& other);
+  Turn &operator=(const Turn &other);
   explicit Turn(TurnDirection direction);
   Turn *Clone() override;
 
   void OutputToFile(std::ostream &out) const override;
 
-  void Push(const std::vector<Bot *> &plane,
-                                  const Coord &bot_position,
-                                  unsigned int plane_width,
-                                  unsigned int plane_height,
-                                  Direction push_direction) override;
+  void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+            unsigned int plane_width, unsigned int plane_height,
+            Direction push_direction) override;
+
   void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
-              unsigned int plane_width, unsigned int plane_height) override{/*do nothing*/};
+              unsigned int plane_width,
+              unsigned int plane_height) override{/*do nothing*/};
 
+  void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
+                    unsigned int plane_width,
+                    unsigned int plane_height) override{/*do nothing*/};
 
   TurnDirection GetDirection() const;
   BotType GetType() const override;
   Transposition GetMovement() const override;
   void RotateCell();
+  void RotateCell(TurnDirection angle) override;
 
 protected:
   const BotType type_ = BotType::TURN;

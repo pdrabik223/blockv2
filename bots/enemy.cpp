@@ -59,3 +59,5 @@ void Enemy::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 Transposition Enemy::GetMovement() const { return movement_; }
 void Enemy::ClearMovementDirection() { movement_.Clear(); }
+void Enemy::SetMovement(const Transposition &movement) { movement_ = movement; }
+void Enemy::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }

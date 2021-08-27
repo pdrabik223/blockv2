@@ -32,6 +32,8 @@ public:
   void OutputToFile(std::ostream &out) const override;
 
   Transposition GetMovement() const override;
+  void SetMovement(const Transposition &movement);
+  void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
 
 protected:

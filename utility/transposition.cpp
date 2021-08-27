@@ -103,6 +103,36 @@ void Transposition::Push(const Direction& direction) {
     LockDirection(Opposite(direction));
 }
 
+void Transposition::Rotate() {
+  TriState temp_encounter[4];
+  for(int i=0;i<4;i++)
+    temp_encounter[i] = encounter_counter_[i];
+
+  encounter_counter_[(int)Direction::UP] = temp_encounter[(int)Direction::LEFT];
+  encounter_counter_[(int)Direction::RIGHT] = temp_encounter[(int)Direction::UP];
+  encounter_counter_[(int)Direction::DOWN] = temp_encounter[(int)Direction::RIGHT];
+  encounter_counter_[(int)Direction::LEFT] = temp_encounter[(int)Direction::DOWN];
+
+
+
+}
+
+void Transposition::Rotate(TurnDirection direction) {
+
+  switch (direction) {
+
+  case TurnDirection::CLOCKWISE:
+    Rotate();
+    break;
+  case TurnDirection::COUNTER_CLOCKWISE:
+    Rotate();
+    Rotate();
+    Rotate();
+    break;
+  }
+}
+
+
 Direction Opposite(Direction target) {
   switch (target) {
   case Direction::UP:

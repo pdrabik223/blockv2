@@ -55,7 +55,10 @@ public:
   bool CheckDirection(const Direction &direction);
   void Push(const Direction& direction);
 
+  void Rotate(TurnDirection direction);
+  void Rotate();
   TriState encounter_counter_[4];
+
 };
 
 #endif // BLOCK_V2_UTILITY_TRANSPOSITION_H_

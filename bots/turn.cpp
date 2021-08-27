@@ -3,6 +3,7 @@
 //
 
 #include "turn.h"
+#include "engine.h"
 Turn::Turn() = default;
 
 Turn::Turn(const Turn &other) : Bot(other) {
@@ -28,15 +29,23 @@ TurnDirection Turn::GetDirection() const { return direction_; }
 
 BotType Turn::GetType() const { return type_; }
 
-void Turn::Push(const std::vector<Bot *> &plane,
-                                      const Coord &bot_position,
-                                      unsigned plane_width,
-                                      unsigned plane_height,
+void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+                unsigned plane_width, unsigned plane_height,
                 Direction push_direction) {
+  Coord new_position =
+      NextPosition(Rotate(push_direction, direction_), bot_position);
+
+  Coord pusher_position = NextPosition(Opposite(push_direction), bot_position);
+
+  plane[pusher_position.ToInt(plane_width)]->RotateCell(direction_);
 
 }
 void Turn::ClearMovementDirection() {
   movement_.Clear();
+  movement_.LockDirection(Direction::LEFT);
+  movement_.LockDirection(Direction::RIGHT);
+  movement_.LockDirection(Direction::UP);
+  movement_.LockDirection(Direction::DOWN);
 }
 
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
@@ -53,3 +62,4 @@ void Turn::RotateCell() {
     return;
   }
 }
+void Turn::RotateCell(TurnDirection angle) { movement_.Rotate(angle);  }

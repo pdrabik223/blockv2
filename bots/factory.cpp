@@ -98,3 +98,18 @@ void Factory::SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
         plane[original.ToInt(plane_width)]->Clone();
   }
 }
+void Factory::RotateCell(TurnDirection angle) {
+  switch (angle) {
+
+  case TurnDirection::CLOCKWISE:
+    RotateCell();
+    break;
+  case TurnDirection::COUNTER_CLOCKWISE:
+    RotateCell();
+    RotateCell();
+    RotateCell();
+    break;
+  }
+
+  movement_.Rotate(angle);
+}

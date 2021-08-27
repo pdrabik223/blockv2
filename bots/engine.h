@@ -33,9 +33,11 @@ public:
                {/* do nothing */};
 
   Transposition GetMovement() const override;
+  void SetMovement(const Transposition &movement);
   Direction GetDirection() const;
   BotType GetType() const override;
   void RotateCell();
+  void RotateCell(TurnDirection angle) override;
 
 protected:
   const BotType type_ = BotType::ENGINE;

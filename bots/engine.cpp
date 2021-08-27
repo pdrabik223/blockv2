@@ -10,8 +10,9 @@ Engine::Engine(const Engine &other) : Bot(other) {
   direction_ = other.direction_;
 }
 
-Engine &Engine::operator=(const Engine& other) {
-  if(&other == this) return *this;
+Engine &Engine::operator=(const Engine &other) {
+  if (&other == this)
+    return *this;
   movement_ = other.movement_;
   direction_ = other.direction_;
   return *this;
@@ -27,11 +28,9 @@ Direction Engine::GetDirection() const { return direction_; }
 
 BotType Engine::GetType() const { return type_; }
 
-void Engine::Push(const std::vector<Bot *> &plane,
-                                        const Coord &bot_position,
-                                        unsigned plane_width,
-                                        unsigned plane_height,
-                                        Direction push_direction) {
+void Engine::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+                  unsigned plane_width, unsigned plane_height,
+                  Direction push_direction) {
 
   Coord new_position = NextPosition(push_direction, bot_position);
 
@@ -62,12 +61,11 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
   // if the next cell is "pushable" in the push_direction
   // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(direction_))
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
+          direction_))
     movement_.AddDirection(direction_);
   else
     movement_.LockDirection(direction_);
-
-
 }
 
 Engine::Engine(Direction direction) : direction_(direction) {}
@@ -88,5 +86,22 @@ void Engine::RotateCell() {
     direction_ = Direction::DOWN;
     return;
   }
+}
+void Engine::RotateCell(TurnDirection angle) {
+  switch (angle) {
+
+  case TurnDirection::CLOCKWISE:
+    RotateCell();
+    break;
+  case TurnDirection::COUNTER_CLOCKWISE:
+    RotateCell();
+    RotateCell();
+    RotateCell();
+    break;
+  }
+  movement_.Rotate(angle);
+}
+void Engine::SetMovement(const Transposition &movement) {
+  movement_ = movement;
 }
 

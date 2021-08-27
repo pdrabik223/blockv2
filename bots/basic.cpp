@@ -50,3 +50,6 @@ void Basic::ClearMovementDirection() { movement_.Clear(); }
 
 
 Transposition Basic::GetMovement() const { return movement_; }
+
+void Basic::SetMovement(const Transposition &movement) { movement_ = movement; }
+void Basic::RotateCell(TurnDirection angle) { movement_.Rotate(angle); }
