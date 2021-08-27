@@ -35,7 +35,9 @@ void Turn::Push(const std::vector<Bot *> &plane,
                 Direction push_direction) {
 
 }
-void Turn::ClearMovementDirection() { movement_.Clear(); }
+void Turn::ClearMovementDirection() {
+  movement_.Clear();
+}
 
 Turn::Turn(TurnDirection direction) : direction_(direction) {}
 

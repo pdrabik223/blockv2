@@ -40,8 +40,7 @@ void Basic::Push(const std::vector<Bot *> &plane,
 
   if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           push_direction)) {
-    movement_.AddDirection(push_direction);
-    movement_.LockDirection(Opposite(push_direction));
+    movement_.Push(push_direction);
   } else
     movement_.LockDirection(push_direction);
 

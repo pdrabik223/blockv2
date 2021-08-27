@@ -5,8 +5,9 @@
 #include "factory.h"
 Factory::Factory() = default;
 
-Factory &Factory::operator=(const Factory& other) {
-  if(&other == this) return *this;
+Factory &Factory::operator=(const Factory &other) {
+  if (&other == this)
+    return *this;
   movement_ = other.movement_;
   direction_ = other.direction_;
   return *this;
@@ -19,13 +20,38 @@ void Factory::OutputToFile(std::ostream &out) const {
 }
 
 Direction Factory::GetDirection() const { return direction_; }
+
 BotType Factory::GetType() const { return type_; }
-void Factory::Push(const std::vector<Bot *> &plane,
-                                         const Coord &bot_position,
-                                         unsigned plane_width,
-                                         unsigned plane_height,
-                   Direction push_direction) {}
-void Factory::ClearMovementDirection() { movement_.Clear(); }
+
+void Factory::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+                   unsigned plane_width, unsigned plane_height,
+                   Direction push_direction) {
+
+  if (direction_ == push_direction or push_direction == Opposite(direction_)) {
+
+    return;
+  }
+
+  Coord new_position = NextPosition(push_direction, bot_position);
+
+  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
+                                               plane_height, push_direction);
+
+  // if the next cell is "pushable" in the push_direction
+  // this cell is pushable also in the push_direction
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
+          push_direction))
+    movement_.Push(push_direction);
+  else
+    movement_.LockDirection(push_direction);
+}
+
+void Factory::ClearMovementDirection() {
+  movement_.Clear();
+  movement_.LockDirection(direction_);
+  movement_.LockDirection(Opposite(direction_));
+}
+
 Factory::Factory(const Factory &other) : Bot(other) {
   movement_ = other.movement_;
   direction_ = other.direction_;
@@ -44,10 +70,6 @@ void Factory::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 Transposition Factory::GetMovement() const { return movement_; }
 
-void Factory::Spawn(std::vector<Bot *> &plane, const Coord &bot_position,
-                    unsigned int plane_width, unsigned int plane_height) {
-
-}
 void Factory::RotateCell() {
   switch (direction_) {
   case Direction::UP:
@@ -64,8 +86,8 @@ void Factory::RotateCell() {
     return;
   }
 }
-void Factory::SecondAction(std::vector<Bot *> &plane,
-                           const Coord &bot_position, unsigned int plane_width,
+void Factory::SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
+                           unsigned int plane_width,
                            unsigned int plane_height) {
   Coord target = NextPosition(direction_, bot_position);
   Coord original = NextPosition(Opposite(direction_), bot_position);
@@ -75,5 +97,4 @@ void Factory::SecondAction(std::vector<Bot *> &plane,
     plane[target.ToInt(plane_width)] =
         plane[original.ToInt(plane_width)]->Clone();
   }
-
 }

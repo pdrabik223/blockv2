@@ -28,15 +28,13 @@ public:
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
                unsigned int plane_width, unsigned int plane_height)  override;
 
-  void Spawn(std::vector<Bot *> &plane, const Coord &bot_position,
-  unsigned int plane_width, unsigned int plane_height);
-
   void ClearMovementDirection() override;
 
   Transposition GetMovement() const override;
   Direction GetDirection() const;
   BotType GetType() const override;
   void RotateCell();
+
 protected:
   const BotType type_ = BotType::FACTORY;
   Transposition movement_;

@@ -42,7 +42,7 @@ void Engine::Push(const std::vector<Bot *> &plane,
   // this cell is pushable also in the push_direction
   if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
           push_direction))
-    movement_.AddDirection(push_direction);
+    movement_.Push(push_direction);
   else
     movement_.LockDirection(push_direction);
 }

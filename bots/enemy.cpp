@@ -27,6 +27,8 @@ void Enemy::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   switch (plane[pusher_position.ToInt(plane_width)]->GetType()) {
 
   case BotType::BASIC:
+  case BotType::FACTORY:
+  case BotType::ENEMY:
     // act normal
     plane[new_position.ToInt(plane_width)]->Push(
         plane, new_position, plane_width, plane_height, push_direction);
@@ -41,12 +43,11 @@ void Enemy::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   case BotType::TURN:
   case BotType::TP:
   case BotType::EMPTY:
+
     // those block can't push
     assert("un-pushable block");
   case BotType::GOAL:
-  case BotType::ENEMY:
   case BotType::ENGINE:
-  case BotType::FACTORY:
     // kill those
     movement_.LockDirection(Opposite(push_direction));
     break;

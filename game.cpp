@@ -186,7 +186,7 @@ void Board::GenPosition() {
   EngagePush();
   EngagePush();
   GenNextPlaneState();
-  //    ActivateSecondAction();
+  ActivateSecondAction();
 
   // first run all the movement
   //  for (int x = 0; x < width_; x++)
