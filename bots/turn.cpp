@@ -68,3 +68,4 @@ void Turn::RotateCell() {
   }
 }
 void Turn::RotateCell(TurnDirection angle) { movement_.Rotate(angle);  }
+void Turn::ClearRotation() {  movement_.ClearRotation(); }

@@ -61,3 +61,4 @@ Transposition Enemy::GetMovement() const { return movement_; }
 void Enemy::ClearMovementDirection() { movement_.Clear(); }
 void Enemy::SetMovement(const Transposition &movement) { movement_ = movement; }
 void Enemy::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }
+void Enemy::ClearRotation() {  movement_.ClearRotation(); }

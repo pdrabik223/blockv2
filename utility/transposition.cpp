@@ -113,8 +113,6 @@ void Transposition::Rotate() {
   encounter_counter_[(int)Direction::DOWN] = temp_encounter[(int)Direction::RIGHT];
   encounter_counter_[(int)Direction::LEFT] = temp_encounter[(int)Direction::DOWN];
 
-
-
 }
 
 void Transposition::Rotate(TurnDirection direction) {
@@ -122,16 +120,15 @@ void Transposition::Rotate(TurnDirection direction) {
   switch (direction) {
 
   case TurnDirection::CLOCKWISE:
-    Rotate();
+    rotation_angle_ += 90;
     break;
   case TurnDirection::COUNTER_CLOCKWISE:
-    Rotate();
-    Rotate();
-    Rotate();
+    rotation_angle_ -= 90;
     break;
   }
 }
-
+void Transposition::ClearRotation() { rotation_angle_ = 0;
+}
 
 Direction Opposite(Direction target) {
   switch (target) {

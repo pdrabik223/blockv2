@@ -32,6 +32,7 @@ public:
                unsigned int plane_width, unsigned int plane_height)  override
                {/* do nothing */};
 
+  void ClearRotation() override;
   Transposition GetMovement() const override;
   void SetMovement(const Transposition &movement);
   Direction GetDirection() const;

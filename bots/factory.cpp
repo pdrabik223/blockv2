@@ -113,3 +113,4 @@ void Factory::RotateCell(TurnDirection angle) {
 
   movement_.Rotate(angle);
 }
+void Factory::ClearRotation() {  movement_.ClearRotation(); }

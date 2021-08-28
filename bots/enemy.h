@@ -29,6 +29,7 @@ public:
 
   void ClearMovementDirection() override;
 
+  void ClearRotation() override;
   Transposition GetMovement() const override;
   void SetMovement(const Transposition &movement);
   void RotateCell(TurnDirection angle) override;

@@ -35,3 +35,4 @@ void Tp::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
 
 Transposition Tp::GetMovement() const { return movement_; }
 void Tp::RotateCell(TurnDirection angle) { movement_.Rotate(angle);  }
+void Tp::ClearRotation() {  movement_.ClearRotation(); }

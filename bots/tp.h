@@ -28,7 +28,7 @@ public:
                     unsigned int plane_width,
                     unsigned int plane_height) override {/* do nothing*/};
 
-
+  void ClearRotation() override;
   void ClearMovementDirection() override;
 
   void RotateCell(TurnDirection angle) override;

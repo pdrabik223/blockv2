@@ -72,6 +72,7 @@ public:
   virtual void RotateCell(TurnDirection angle) { assert(false); };
   virtual void LockEdge(Direction edge) { assert(false); };
   virtual void AddDirection(Direction direction) { assert(false); };
+  virtual void ClearRotation()  { assert(false); };
 
 protected:
   const BotType type_ = BotType::NONE;

@@ -61,3 +61,4 @@ void Goal::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
 void Goal::ClearMovementDirection() { movement_.Clear(); }
 Transposition Goal::GetMovement() const { return movement_; }
 void Goal::RotateCell(TurnDirection angle) { movement_.Rotate(angle);  }
+void Goal::ClearRotation() {  movement_.ClearRotation(); }

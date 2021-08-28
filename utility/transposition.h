@@ -57,7 +57,10 @@ public:
 
   void Rotate(TurnDirection direction);
   void Rotate();
+  void ClearRotation();
   TriState encounter_counter_[4];
+
+  int rotation_angle_ = 0;
 
 };
 

@@ -38,3 +38,4 @@ void Bedrock::SetMovement(const Transposition &movement) {
   movement_ = movement;
 }
 void Bedrock::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }
+void Bedrock::ClearRotation() {  movement_.ClearRotation(); }
