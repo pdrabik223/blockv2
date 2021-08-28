@@ -184,6 +184,7 @@ void Board::GenPosition() {
 
   ClearMovementDirection();
   EngagePush();
+  ClearRotation();
   EngagePush();
   GenNextPlaneState();
   ActivateSecondAction();
@@ -231,12 +232,19 @@ void Board::GenNextPlaneState() {
     for (int x = 0; x < width_; ++x) {
 
       Coord origin(x, y);
+      // calculate new placement for the cell
       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
+
       if (!temp_plane[target.ToInt(width_)])
         temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
       else
         temp_plane[target.ToInt(width_)] =
             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
+
+      if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
+        temp_plane[target.ToInt(width_)]->RotateCell(
+            GetCell(origin)->GetMovement().CollapseRotation());
+
     }
   }
 
@@ -313,4 +321,8 @@ Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
   // bedrock = 4
 
   return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
+}
+void Board::ClearRotation() {
+  for (auto &b : plane_)
+    b->ClearRotation();
 }

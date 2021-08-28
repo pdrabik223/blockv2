@@ -58,13 +58,8 @@ private:
   /// update bot position depending on legal moves
   void GenNextPlaneState();
 
-  /// handles snake of block
-  /// \param position of a first block in Snake structure
-  void Snake(Coord position);
 
-  /// adds new block to a plane, based of generator block position
-  /// \param position of a generator block
-  void Create(Coord position);
+  void ClearRotation();
 
   /// x axis
   unsigned width_;
