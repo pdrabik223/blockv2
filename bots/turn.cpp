@@ -32,10 +32,15 @@ BotType Turn::GetType() const { return type_; }
 void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
                 unsigned plane_width, unsigned plane_height,
                 Direction push_direction) {
-  Coord new_position =
-      NextPosition(Rotate(push_direction, direction_), bot_position);
+  Direction new_direction = Rotate(push_direction, direction_);
 
   Coord pusher_position = NextPosition(Opposite(push_direction), bot_position);
+
+  Coord new_position =
+      NextPosition(new_direction, pusher_position);
+
+  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
+                                                 plane_height, push_direction);
 
   plane[pusher_position.ToInt(plane_width)]->RotateCell(direction_);
 
