@@ -241,9 +241,9 @@ void Board::GenNextPlaneState() {
         temp_plane[target.ToInt(width_)] =
             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
 
-      if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
-        temp_plane[target.ToInt(width_)]->RotateCell(
-            GetCell(origin)->GetMovement().CollapseRotation());
+//      if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
+//        temp_plane[target.ToInt(width_)]->RotateCell(
+//            GetCell(origin)->GetMovement().CollapseRotation());
 
     }
   }
