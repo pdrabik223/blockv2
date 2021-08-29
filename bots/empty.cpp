@@ -34,5 +34,5 @@ void Empty::ClearMovementDirection() { movement_.Clear(); }
 
 Transposition Empty::GetMovement() const { return movement_; }
 void Empty::SetMovement(const Transposition &movement) { movement_ = movement; }
-void Empty::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }
+void Empty::RotateCell(int angle)  { movement_.Rotate(angle); }
 void Empty::ClearRotation() {  movement_.ClearRotation(); }

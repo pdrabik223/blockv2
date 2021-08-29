@@ -69,7 +69,7 @@ public:
 
   virtual Transposition GetMovement() const { return movement_; }
 
-  virtual void RotateCell(TurnDirection angle) { assert(false); };
+  virtual void RotateCell(int angle) { assert(false); };
   virtual void LockEdge(Direction edge) { assert(false); };
   virtual void AddDirection(Direction direction) { assert(false); };
   virtual void ClearRotation()  { assert(false); };

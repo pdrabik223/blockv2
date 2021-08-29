@@ -87,21 +87,23 @@ void Engine::RotateCell() {
     return;
   }
 }
-void Engine::RotateCell(TurnDirection angle) {
+void Engine::RotateCell(int angle) {
   switch (angle) {
-
-  case TurnDirection::CLOCKWISE:
+  case 90:
     RotateCell();
     break;
-  case TurnDirection::COUNTER_CLOCKWISE:
+  case -90:
     RotateCell();
+    RotateCell();
+    RotateCell();
+  case 180:
     RotateCell();
     RotateCell();
     break;
   }
-  movement_.Rotate(angle);
+  //  movement_.Rotate(angle);
 }
 void Engine::SetMovement(const Transposition &movement) {
   movement_ = movement;
 }
-void Engine::ClearRotation() {  movement_.ClearRotation(); }
+void Engine::ClearRotation() { movement_.ClearRotation(); }

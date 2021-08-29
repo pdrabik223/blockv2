@@ -30,7 +30,7 @@ public:
   void ClearMovementDirection() override;
   Transposition GetMovement() const override;
   BotType GetType() const override;
-  void RotateCell(TurnDirection angle) override;
+  void RotateCell(int angle) override;
 
 protected:
   const BotType type_ = BotType::GOAL;

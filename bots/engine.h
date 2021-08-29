@@ -38,7 +38,7 @@ public:
   Direction GetDirection() const;
   BotType GetType() const override;
   void RotateCell();
-  void RotateCell(TurnDirection angle) override;
+  void RotateCell(int angle) override;
 
 protected:
   const BotType type_ = BotType::ENGINE;
