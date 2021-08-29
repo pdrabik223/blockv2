@@ -98,21 +98,23 @@ void Transposition::AddDirection(const Direction &direction) {
     return;
   encounter_counter_[(int)direction] = TriState::T_TRUE;
 }
-void Transposition::Push(const Direction& direction) {
-    AddDirection(direction);
-    LockDirection(Opposite(direction));
+void Transposition::Push(const Direction &direction) {
+  AddDirection(direction);
+  LockDirection(Opposite(direction));
 }
 
 void Transposition::Rotate() {
   TriState temp_encounter[4];
-  for(int i=0;i<4;i++)
+  for (int i = 0; i < 4; i++)
     temp_encounter[i] = encounter_counter_[i];
 
   encounter_counter_[(int)Direction::UP] = temp_encounter[(int)Direction::LEFT];
-  encounter_counter_[(int)Direction::RIGHT] = temp_encounter[(int)Direction::UP];
-  encounter_counter_[(int)Direction::DOWN] = temp_encounter[(int)Direction::RIGHT];
-  encounter_counter_[(int)Direction::LEFT] = temp_encounter[(int)Direction::DOWN];
-
+  encounter_counter_[(int)Direction::RIGHT] =
+      temp_encounter[(int)Direction::UP];
+  encounter_counter_[(int)Direction::DOWN] =
+      temp_encounter[(int)Direction::RIGHT];
+  encounter_counter_[(int)Direction::LEFT] =
+      temp_encounter[(int)Direction::DOWN];
 }
 
 void Transposition::Rotate(TurnDirection direction) {
@@ -127,7 +129,18 @@ void Transposition::Rotate(TurnDirection direction) {
     break;
   }
 }
-void Transposition::ClearRotation() { rotation_angle_ = 0;
+void Transposition::ClearRotation() { rotation_angle_ = 0; }
+// todo make a better one
+TurnDirection Transposition::CollapseRotation() {
+  switch (rotation_angle_) {
+  case 90:
+    return TurnDirection::CLOCKWISE;
+  case -90:
+    return TurnDirection::COUNTER_CLOCKWISE;
+  default:
+    assert(false);
+    return TurnDirection::CLOCKWISE;
+  }
 }
 
 Direction Opposite(Direction target) {
