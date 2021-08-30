@@ -39,7 +39,7 @@ void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   Coord new_position = NextPosition(new_direction, pusher_position);
 
   plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
-                                               plane_height, push_direction);
+                                               plane_height, new_direction);
 
   if (direction_ == TurnDirection::CLOCKWISE)
     plane[pusher_position.ToInt(plane_width)]->SetRotation(90);
