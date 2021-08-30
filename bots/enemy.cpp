@@ -5,7 +5,9 @@
 #include "enemy.h"
 
 Enemy::Enemy() = default;
+
 Enemy::Enemy(const Enemy &other) : Bot(other) { movement_ = other.movement_; }
+
 Enemy &Enemy::operator=(const Enemy &other) {
   if (&other == this)
     return *this;
@@ -17,6 +19,7 @@ void Enemy::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::ENEMY << "\n";
 }
 BotType Enemy::GetType() const { return type_; }
+
 void Enemy::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
                  unsigned plane_width, unsigned plane_height,
                  Direction push_direction) {
@@ -58,7 +61,11 @@ void Enemy::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
 }
 
 Transposition Enemy::GetMovement() const { return movement_; }
+
 void Enemy::ClearMovementDirection() { movement_.Clear(); }
+
 void Enemy::SetMovement(const Transposition &movement) { movement_ = movement; }
+
 void Enemy::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }
+
 void Enemy::ClearRotation() {  movement_.ClearRotation(); }
