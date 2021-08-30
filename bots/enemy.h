@@ -32,7 +32,7 @@ public:
   void ClearRotation() override;
   Transposition GetMovement() const override;
   void SetMovement(const Transposition &movement);
-  void RotateCell(int angle) override;
+  void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
 
 protected:

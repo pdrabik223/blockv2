@@ -20,6 +20,7 @@ void Tp::OutputToFile(std::ostream &out) const {
   out << (unsigned)BotType::TP << " " << id_ << "\n";
 }
 BotType Tp::GetType() const { return type_; }
+
 void Tp::Push(const std::vector<Bot *> &plane,
                                     const Coord &bot_position,
                                     unsigned plane_width,

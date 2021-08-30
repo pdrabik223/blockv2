@@ -5,7 +5,6 @@
 #ifndef BLOCK_V2_BOTS_BOT_H_
 #define BLOCK_V2_BOTS_BOT_H_
 #include <ostream>
-
 #include "transposition.h"
 
 /// contains all used cell types
@@ -35,6 +34,7 @@ public:
     assert(false);
     return new Bot(*this);
   };
+
   Bot(const Bot &other) { movement_ = other.movement_; };
 
   virtual void OutputToFile(std::ostream &out) const { assert(false); };
@@ -69,10 +69,15 @@ public:
 
   virtual Transposition GetMovement() const { return movement_; }
 
-  virtual void RotateCell(int angle) { assert(false); };
+  virtual void RotateCell(TurnDirection angle) { assert(false); };
+
   virtual void LockEdge(Direction edge) { assert(false); };
+
   virtual void AddDirection(Direction direction) { assert(false); };
+
   virtual void ClearRotation()  { assert(false); };
+
+  virtual void SetRotation(int angle){assert(false);};
 
 protected:
   const BotType type_ = BotType::NONE;

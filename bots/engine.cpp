@@ -87,7 +87,7 @@ void Engine::RotateCell() {
     return;
   }
 }
-void Engine::RotateCell(int angle) {
+void Engine::RotateCell(TurnDirection angle) {
   switch (angle) {
   case 90:
     RotateCell();
