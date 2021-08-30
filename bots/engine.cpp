@@ -104,20 +104,4 @@ void Engine::SetMovement(const Transposition &movement) {
 }
 void Engine::ClearRotation() { movement_.ClearRotation(); }
 
-void Engine::SetRotation(int angle) {
-  switch (angle) {
-  case 90:
-    RotateCell(TurnDirection::CLOCKWISE);
-    return;
-  case -90:
-    RotateCell(TurnDirection::COUNTER_CLOCKWISE);
-    return;
-  case 180:
-  case -180:
-    RotateCell();
-    RotateCell();
-    return;
-  default:
-    assert(false);
-  }
-}
+void Engine::SetRotation(int angle) { movement_.rotation_angle_ = angle; }

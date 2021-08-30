@@ -41,7 +41,10 @@ void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
                                                plane_height, push_direction);
 
-  plane[pusher_position.ToInt(plane_width)]->RotateCell(direction_);
+  if (direction_ == TurnDirection::CLOCKWISE)
+    plane[pusher_position.ToInt(plane_width)]->SetRotation(90);
+  else
+    plane[pusher_position.ToInt(plane_width)]->SetRotation(-90);
 }
 void Turn::ClearMovementDirection() {
   movement_.Clear();
@@ -66,19 +69,7 @@ void Turn::RotateCell() {
   }
 }
 void Turn::RotateCell(TurnDirection angle) { movement_.Rotate(angle); }
+
 void Turn::ClearRotation() { movement_.ClearRotation(); }
-void Turn::SetRotation(int angle) {
-  switch (angle) {
-  case 90:
-    RotateCell();
-    return;
-  case -90:
-    RotateCell();
-    return;
-  case 180:
-  case -180:
-    return;
-  default:
-    assert(false);
-  }
-}
+
+void Turn::SetRotation(int angle) { movement_.rotation_angle_ = angle; }
