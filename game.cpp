@@ -183,10 +183,14 @@ void Board::UnLock(const Coord &position) {
 void Board::GenPosition() {
 
   ClearMovementDirection();
+  ClearRotation();
+
   EngagePush();
   ClearRotation();
+
   EngagePush();
   GenNextPlaneState();
+
   ActivateSecondAction();
 
   // first run all the movement
@@ -260,12 +264,15 @@ void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
     if (rotation == 0)
       plane[placement.ToInt(width_)] =
           CrushBots(new Engine(Direction::UP), plane[placement.ToInt(width_)]);
+
     else if (rotation == 90)
       plane[placement.ToInt(width_)] = CrushBots(
           new Engine(Direction::RIGHT), plane[placement.ToInt(width_)]);
-    else if (rotation == -90)
+
+    else if (rotation == -90 or rotation == 270)
       plane[placement.ToInt(width_)] = CrushBots(
           new Engine(Direction::LEFT), plane[placement.ToInt(width_)]);
+
     else if (rotation == 180 or rotation == -180)
       plane[placement.ToInt(width_)] = CrushBots(
           new Engine(Direction::DOWN), plane[placement.ToInt(width_)]);
@@ -290,10 +297,12 @@ void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
       assert(false);
 
   } break;
+
   case BotType::EMPTY:
     plane[placement.ToInt(width_)] =
         CrushBots(new Empty, plane[placement.ToInt(width_)]);
     break;
+
   case BotType::NONE:
   case BotType::SIZE:
     assert(false);
@@ -319,6 +328,7 @@ void Board::GenNextPlaneState() {
       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
 
       int angle = CollapseRotation(origin);
+
       EmplaceBot(temp_plane, target, GetBotType(origin), angle);
 
       //
@@ -416,10 +426,12 @@ Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
 
   return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
 }
+
 void Board::ClearRotation() {
   for (auto &b : plane_)
     b->ClearRotation();
 }
+
 int Board::CollapseRotation(const Coord &coord) {
 
   switch (GetBotType(coord)) {
@@ -460,7 +472,9 @@ int Board::CollapseRotation(const Coord &coord) {
       rotation += 90;
       break;
     }
-
+    if (GetCell(coord)->GetMovement().rotation_angle_ != 0) {
+      //        break me daddy
+    }
     return rotation + GetCell(coord)->GetMovement().rotation_angle_;
   }
 
@@ -468,7 +482,6 @@ int Board::CollapseRotation(const Coord &coord) {
     int rotation = 0;
 
     switch (((Factory *)GetCell(coord))->GetDirection()) {
-
     case Direction::UP:
       break;
     case Direction::DOWN:
