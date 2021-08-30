@@ -246,8 +246,7 @@ void Board::GenNextPlaneState() {
 
       if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
 
-        temp_plane[target.ToInt(width_)]->RotateCell(
-            GetCell(origin)->GetMovement().CollapseRotation());
+        temp_plane[target.ToInt(width_)]->SetRotation((GetCell(origin)->GetMovement().rotation_angle_));
 
     }
   }
