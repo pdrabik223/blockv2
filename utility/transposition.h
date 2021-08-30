@@ -48,9 +48,8 @@ public:
   Transposition &operator=(const Transposition &other);
 
   Coord Collapse(const Coord &current_position);
+
   TurnDirection CollapseRotation();
-
-
 
   void LockDirection(const Direction &direction);
   void AddDirection(const Direction &direction);

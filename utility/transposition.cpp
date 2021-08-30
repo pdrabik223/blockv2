@@ -53,9 +53,20 @@ Coord Transposition::Collapse(const Coord &current_position) {
 
   Direction vertical;
   bool empty_vertical = true;
+
   Direction horizontal;
   bool empty_horizontal = true;
 
+  TurnDirection rotation;
+  bool empty_rotation = true;
+
+  if (rotation_angle_ == 90) {
+    rotation = TurnDirection::CLOCKWISE;
+    empty_rotation = false;
+  } else if (rotation_angle_ == -90) {
+    rotation = TurnDirection::COUNTER_CLOCKWISE;
+    empty_rotation = false;
+  }
   if (encounter_counter_[(int)Direction::UP] == TriState::T_TRUE) {
     vertical = Direction::UP;
     empty_vertical = false;
@@ -72,6 +83,12 @@ Coord Transposition::Collapse(const Coord &current_position) {
     horizontal = Direction::RIGHT;
     empty_horizontal = false;
   }
+
+  if (not empty_rotation and not empty_vertical)
+    vertical = r_r[(int)vertical][(int)rotation];
+
+  if (not empty_rotation and not empty_horizontal)
+    horizontal = r_r[(int)vertical][(int)horizontal];
 
   if (not empty_vertical and not empty_horizontal)
     return NextPosition(RHR(vertical, horizontal), current_position);
