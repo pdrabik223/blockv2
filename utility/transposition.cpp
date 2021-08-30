@@ -39,12 +39,14 @@ Transposition::Transposition() {
 Transposition::Transposition(const Transposition &other) {
   for (int i = 0; i < 4; i++)
     this->encounter_counter_[i] = other.encounter_counter_[i];
+  rotation_angle_ = other.rotation_angle_;
 }
 Transposition &Transposition::operator=(const Transposition &other) {
   if (this == &other)
     return *this;
   for (int i = 0; i < 4; i++)
     this->encounter_counter_[i] = other.encounter_counter_[i];
+  rotation_angle_ = other.rotation_angle_;
   return *this;
 }
 Coord Transposition::Collapse(const Coord &current_position) {
