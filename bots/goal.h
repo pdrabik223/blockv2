@@ -26,7 +26,9 @@ public:
                     unsigned int plane_width,
                     unsigned int plane_height) override{/* do nothing */};
 
+  void SetRotation(int angle) override{/*do nothing*/};
   void ClearRotation() override;
+
   void ClearMovementDirection() override;
   Transposition GetMovement() const override;
   BotType GetType() const override;

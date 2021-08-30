@@ -27,7 +27,7 @@ public:
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width,
                     unsigned int plane_height) override {/* do nothing*/};
-
+  void SetRotation(int angle) override{/*do nothing*/};
   void ClearRotation() override;
   void ClearMovementDirection() override;
 

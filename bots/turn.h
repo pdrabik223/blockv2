@@ -30,6 +30,7 @@ public:
                     unsigned int plane_width,
                     unsigned int plane_height) override{/*do nothing*/};
 
+  void SetRotation(int angle);
   void ClearRotation() override;
   TurnDirection GetDirection() const;
   BotType GetType() const override;

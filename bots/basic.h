@@ -30,7 +30,7 @@ public:
 
   void OutputToFile(std::ostream &out) const override;
   void RotateCell(TurnDirection angle) override;
-  void SetRotation(int angle);
+  void SetRotation(int angle) override{/*do nothing*/};
 
 
   void ClearRotation() override;

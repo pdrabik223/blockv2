@@ -35,6 +35,7 @@ public:
   void RotateCell(TurnDirection angle) override;
   Direction GetDirection() const;
   BotType GetType() const override;
+  void SetRotation(int angle) override;
   void RotateCell();
 
 protected:
