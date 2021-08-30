@@ -219,6 +219,88 @@ void Board::ActivateSecondAction() {
                             height_);
   }
 }
+
+void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
+                       BotType type, int rotation) {
+
+  switch (type) {
+  case BotType::BASIC:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Basic, plane[placement.ToInt(width_)]);
+    break;
+  case BotType::BEDROCK:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Bedrock, plane[placement.ToInt(width_)]);
+    break;
+  case BotType::TURN: {
+    if (rotation == 0 or rotation == 180 or rotation == -180)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Turn(TurnDirection::CLOCKWISE), plane[placement.ToInt(width_)]);
+    else if (rotation == 90 or rotation == -90)
+      plane[placement.ToInt(width_)] =
+          CrushBots(new Turn(TurnDirection::COUNTER_CLOCKWISE),
+                    plane[placement.ToInt(width_)]);
+    else
+      assert(false);
+  } break;
+  case BotType::TP:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Tp(0), plane[placement.ToInt(width_)]);
+    break;
+  case BotType::GOAL:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Goal, plane[placement.ToInt(width_)]);
+    break;
+  case BotType::ENEMY:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Enemy, plane[placement.ToInt(width_)]);
+    break;
+
+  case BotType::ENGINE: {
+    if (rotation == 0)
+      plane[placement.ToInt(width_)] =
+          CrushBots(new Engine(Direction::UP), plane[placement.ToInt(width_)]);
+    else if (rotation == 90)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Engine(Direction::RIGHT), plane[placement.ToInt(width_)]);
+    else if (rotation == -90)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Engine(Direction::LEFT), plane[placement.ToInt(width_)]);
+    else if (rotation == 180 or rotation == -180)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Engine(Direction::DOWN), plane[placement.ToInt(width_)]);
+    else
+      assert(false);
+  } break;
+
+  case BotType::FACTORY: {
+    if (rotation == 0)
+      plane[placement.ToInt(width_)] =
+          CrushBots(new Factory(Direction::UP), plane[placement.ToInt(width_)]);
+    else if (rotation == 90)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Factory(Direction::RIGHT), plane[placement.ToInt(width_)]);
+    else if (rotation == -90)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Factory(Direction::LEFT), plane[placement.ToInt(width_)]);
+    else if (rotation == 180 or rotation == -180)
+      plane[placement.ToInt(width_)] = CrushBots(
+          new Factory(Direction::DOWN), plane[placement.ToInt(width_)]);
+    else
+      assert(false);
+
+  } break;
+  case BotType::EMPTY:
+    plane[placement.ToInt(width_)] =
+        CrushBots(new Empty, plane[placement.ToInt(width_)]);
+    break;
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert(false);
+    break;
+  }
+}
+
 void Board::GenNextPlaneState() {
 
   std::vector<Bot *> temp_plane;
@@ -236,18 +318,22 @@ void Board::GenNextPlaneState() {
       // calculate new placement for the cell
       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
 
+      int angle = CollapseRotation(origin);
+      EmplaceBot(temp_plane, target, GetBotType(origin), angle);
 
-      // place cell at it's correct placement
-      if (!temp_plane[target.ToInt(width_)])
-        temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
-      else
-        temp_plane[target.ToInt(width_)] =
-            CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
-
-      if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
-
-        temp_plane[target.ToInt(width_)]->SetRotation((GetCell(origin)->GetMovement().rotation_angle_));
-
+      //
+      //      // place cell at it's correct placement
+      //      if (!temp_plane[target.ToInt(width_)])
+      //        temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
+      //      else
+      //        temp_plane[target.ToInt(width_)] =
+      //            CrushBots(temp_plane[target.ToInt(width_)],
+      //            GetCell(origin));
+      //
+      //      if (GetCell(origin)->GetMovement().rotation_angle_ not_eq 0)
+      //
+      //        temp_plane[target.ToInt(width_)]->SetRotation(
+      //            (GetCell(origin)->GetMovement().rotation_angle_));
     }
   }
 
@@ -317,6 +403,11 @@ void Board::GenNextPlaneState() {
 // }
 
 Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
+  if (bot_a == nullptr)
+    return bot_b->Clone();
+  if (bot_b == nullptr)
+    return bot_a->Clone();
+
   int value_of_a_life = GetValue(*bot_a);
   int value_of_b_life = GetValue(*bot_b);
   // empty = 0, goal = 1, engine = 2, factory = 2, kill = 3, tp, turn ,
@@ -328,4 +419,73 @@ Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
 void Board::ClearRotation() {
   for (auto &b : plane_)
     b->ClearRotation();
+}
+int Board::CollapseRotation(const Coord &coord) {
+
+  switch (GetBotType(coord)) {
+    // for those rotations doesn't matter
+  case BotType::BASIC:
+  case BotType::BEDROCK:
+  case BotType::GOAL:
+  case BotType::ENEMY:
+  case BotType::EMPTY:
+    return 0;
+  case BotType::TURN: {
+    int rotation = 0;
+
+    switch (((Turn *)GetCell(coord))->GetDirection()) {
+    case TurnDirection::CLOCKWISE:
+      break;
+    case TurnDirection::COUNTER_CLOCKWISE:
+      rotation += 90;
+      break;
+    }
+
+    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+  }
+  case BotType::ENGINE: {
+    int rotation = 0;
+
+    switch (((Engine *)GetCell(coord))->GetDirection()) {
+
+    case Direction::UP:
+      break;
+    case Direction::DOWN:
+      rotation += 180;
+      break;
+    case Direction::LEFT:
+      rotation -= 90;
+      break;
+    case Direction::RIGHT:
+      rotation += 90;
+      break;
+    }
+
+    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+  }
+
+  case BotType::FACTORY: {
+    int rotation = 0;
+
+    switch (((Factory *)GetCell(coord))->GetDirection()) {
+
+    case Direction::UP:
+      break;
+    case Direction::DOWN:
+      rotation += 180;
+      break;
+    case Direction::LEFT:
+      rotation -= 90;
+      break;
+    case Direction::RIGHT:
+      rotation += 90;
+      break;
+    }
+
+    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+  }
+  case BotType::NONE:
+  case BotType::SIZE:
+    assert(false);
+  }
 }

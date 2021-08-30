@@ -58,6 +58,8 @@ private:
   /// update bot position depending on legal moves
   void GenNextPlaneState();
 
+  void EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
+                  BotType type, int rotation);
 
   void ClearRotation();
 
@@ -69,6 +71,7 @@ private:
   std::vector<Bot *> plane_;
   std::vector<bool> locked_fields_;
   void ActivateSecondAction();
+  int CollapseRotation(const Coord &coord);
 };
 
 #endif // BLOCK_V2__GAME_H_
