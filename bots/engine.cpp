@@ -97,7 +97,7 @@ void Engine::RotateCell(TurnDirection angle) {
     RotateCell();
     RotateCell();
   }
-  //  movement_.Rotate(angle);
+  //  movement_.RotateDirection(angle);
 }
 void Engine::SetMovement(const Transposition &movement) {
   movement_ = movement;

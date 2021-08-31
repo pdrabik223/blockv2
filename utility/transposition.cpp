@@ -54,12 +54,16 @@ Direction RotateDirection(Direction target, int angle) {
   case -180:
     if (target == Direction::UP)
       return Direction::DOWN;
+
     if (target == Direction::DOWN)
       return Direction::UP;
+
     if (target == Direction::LEFT)
       return Direction::RIGHT;
+
     if (target == Direction::RIGHT)
       return Direction::LEFT;
+
   default:
     assert(false);
     return Direction::UP;
@@ -147,6 +151,7 @@ Coord Transposition::Collapse(const Coord &current_position) {
     horizontal = Direction::RIGHT;
     empty_horizontal = false;
   }
+
   if (not empty_vertical)
     vertical = RotateDirection(vertical, rotation_angle_);
 

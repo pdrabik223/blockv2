@@ -32,7 +32,7 @@ BotType Turn::GetType() const { return type_; }
 void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
                 unsigned plane_width, unsigned plane_height,
                 Direction push_direction) {
-  Direction new_direction = Rotate(push_direction, direction_);
+  Direction new_direction = RotateDirection(push_direction, direction_);
 
   Coord pusher_position = NextPosition(Opposite(push_direction), bot_position);
 
