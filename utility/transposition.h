@@ -32,7 +32,7 @@ Direction RHR(Direction a, Direction b);
 
 Direction Opposite(Direction target);
 
-Direction Rotate(Direction target, TurnDirection angle);
+Direction RotateDirection(Direction target, TurnDirection angle);
 
 Coord NextPosition(Direction direction, const Coord &current_position);
 

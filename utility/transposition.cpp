@@ -20,6 +20,80 @@ const Direction r_r[4][2]{
     /*RIGHT */ {Direction::DOWN, Direction::UP},
 
 };
+Direction Opposite(Direction target) {
+  switch (target) {
+  case Direction::UP:
+    return Direction::DOWN;
+  case Direction::DOWN:
+    return Direction::UP;
+  case Direction::LEFT:
+    return Direction::RIGHT;
+  case Direction::RIGHT:
+    return Direction::LEFT;
+  }
+
+  assert(false);
+  return target;
+}
+
+Direction RotateDirection(Direction target, TurnDirection angle) {
+  return r_r[(int)target][(int)angle];
+}
+
+Direction RotateDirection(Direction target, int angle) {
+  switch (angle) {
+  case 0:
+    return target;
+  case 90:
+  case -270:
+    return r_r[(int)target][(int)TurnDirection::CLOCKWISE];
+  case -90:
+  case 270:
+    return r_r[(int)target][(int)TurnDirection::COUNTER_CLOCKWISE];
+  case 180:
+  case -180:
+    if (target == Direction::UP)
+      return Direction::DOWN;
+    if (target == Direction::DOWN)
+      return Direction::UP;
+    if (target == Direction::LEFT)
+      return Direction::RIGHT;
+    if (target == Direction::RIGHT)
+      return Direction::LEFT;
+  default:
+    assert(false);
+    return Direction::UP;
+  }
+}
+
+Coord NextPosition(Direction direction, const Coord &current_position) {
+  switch (direction) {
+  case Direction::UP:
+    return {current_position.x, current_position.y - 1};
+  case Direction::DOWN:
+    return {current_position.x, current_position.y + 1};
+  case Direction::LEFT:
+    return {current_position.x - 1, current_position.y};
+  case Direction::RIGHT:
+    return {current_position.x + 1, current_position.y};
+  }
+  assert(false);
+  return current_position;
+}
+Coord PreviousPosition(Direction direction, const Coord &current_position) {
+  switch (direction) {
+  case Direction::UP:
+    return {current_position.x, current_position.y + 1};
+  case Direction::DOWN:
+    return {current_position.x, current_position.y - 1};
+  case Direction::LEFT:
+    return {current_position.x + 1, current_position.y};
+  case Direction::RIGHT:
+    return {current_position.x - 1, current_position.y};
+  }
+  assert(false);
+  return current_position;
+}
 
 Direction RHR(Direction a, Direction b) {
 
@@ -57,16 +131,6 @@ Coord Transposition::Collapse(const Coord &current_position) {
   Direction horizontal;
   bool empty_horizontal = true;
 
-  TurnDirection rotation;
-  bool empty_rotation = true;
-
-  if (rotation_angle_ == 90) {
-    rotation = TurnDirection::CLOCKWISE;
-    empty_rotation = false;
-  } else if (rotation_angle_ == -90) {
-    rotation = TurnDirection::COUNTER_CLOCKWISE;
-    empty_rotation = false;
-  }
   if (encounter_counter_[(int)Direction::UP] == TriState::T_TRUE) {
     vertical = Direction::UP;
     empty_vertical = false;
@@ -83,12 +147,11 @@ Coord Transposition::Collapse(const Coord &current_position) {
     horizontal = Direction::RIGHT;
     empty_horizontal = false;
   }
+  if (not empty_vertical)
+    vertical = RotateDirection(vertical, rotation_angle_);
 
-  if (not empty_rotation and not empty_vertical)
-    vertical = r_r[(int)vertical][(int)rotation];
-
-  if (not empty_rotation and not empty_horizontal)
-    horizontal = r_r[(int)vertical][(int)horizontal];
+  if (not empty_horizontal)
+    horizontal = RotateDirection(horizontal, rotation_angle_);
 
   if (not empty_vertical and not empty_horizontal)
     return NextPosition(RHR(vertical, horizontal), current_position);
@@ -160,52 +223,4 @@ TurnDirection Transposition::CollapseRotation() {
     assert(false);
     return TurnDirection::CLOCKWISE;
   }
-}
-
-Direction Opposite(Direction target) {
-  switch (target) {
-  case Direction::UP:
-    return Direction::DOWN;
-  case Direction::DOWN:
-    return Direction::UP;
-  case Direction::LEFT:
-    return Direction::RIGHT;
-  case Direction::RIGHT:
-    return Direction::LEFT;
-  }
-
-  assert(false);
-  return target;
-}
-Direction Rotate(Direction target, TurnDirection angle) {
-  return r_r[(int)target][(int)angle];
-}
-
-Coord NextPosition(Direction direction, const Coord &current_position) {
-  switch (direction) {
-  case Direction::UP:
-    return {current_position.x, current_position.y - 1};
-  case Direction::DOWN:
-    return {current_position.x, current_position.y + 1};
-  case Direction::LEFT:
-    return {current_position.x - 1, current_position.y};
-  case Direction::RIGHT:
-    return {current_position.x + 1, current_position.y};
-  }
-  assert(false);
-  return current_position;
-}
-Coord PreviousPosition(Direction direction, const Coord &current_position) {
-  switch (direction) {
-  case Direction::UP:
-    return {current_position.x, current_position.y + 1};
-  case Direction::DOWN:
-    return {current_position.x, current_position.y - 1};
-  case Direction::LEFT:
-    return {current_position.x + 1, current_position.y};
-  case Direction::RIGHT:
-    return {current_position.x - 1, current_position.y};
-  }
-  assert(false);
-  return current_position;
 }
