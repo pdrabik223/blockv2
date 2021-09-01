@@ -186,7 +186,7 @@ void Board::GenPosition() {
   ClearRotation();
 
   EngagePush();
-  ClearRotation();
+  //  ClearRotation();
 
   EngagePush();
   GenNextPlaneState();
