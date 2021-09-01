@@ -41,13 +41,20 @@ void Turn::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
                                                plane_height, new_direction);
 
+  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
+          new_direction))
+    movement_.encounter_counter_[(int)push_direction] = TriState::UNDEFINED;
+  else
+    movement_.LockDirection(push_direction);
+
   if (direction_ == TurnDirection::CLOCKWISE)
     plane[pusher_position.ToInt(plane_width)]->SetRotation(90);
-  else
+
+  if (direction_ == TurnDirection::COUNTER_CLOCKWISE)
     plane[pusher_position.ToInt(plane_width)]->SetRotation(-90);
 }
 void Turn::ClearMovementDirection() {
-  movement_.Clear();
+  //  movement_.Clear();
   movement_.LockDirection(Direction::LEFT);
   movement_.LockDirection(Direction::RIGHT);
   movement_.LockDirection(Direction::UP);

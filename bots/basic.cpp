@@ -43,7 +43,6 @@ void Basic::Push(const std::vector<Bot *> &plane,
     movement_.Push(push_direction);
   } else
     movement_.LockDirection(push_direction);
-
 }
 void Basic::ClearMovementDirection() { movement_.Clear(); }
 
