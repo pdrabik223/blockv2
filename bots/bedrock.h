@@ -23,7 +23,7 @@ public:
   /// pushing this block doesn't change anything
   void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
             unsigned int plane_width, unsigned int plane_height,
-            Direction push_direction) override {/* do nothing */};
+            Direction push_direction) override{/* do nothing */};
 
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width,
@@ -33,7 +33,7 @@ public:
 
   void ClearRotation() override;
   Transposition GetMovement() const override;
-  void SetRotation(int angle) override{/*do nothing*/};
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
   void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
 

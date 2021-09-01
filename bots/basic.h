@@ -30,14 +30,11 @@ public:
 
   void OutputToFile(std::ostream &out) const override;
   void RotateCell(TurnDirection angle) override;
-  void SetRotation(int angle) override{/*do nothing*/};
-
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
 
   void ClearRotation() override;
   Transposition GetMovement() const override;
   BotType GetType() const override;
-
-
 
 protected:
   const BotType type_ = BotType::BASIC;

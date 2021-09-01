@@ -26,7 +26,7 @@ public:
                     unsigned int plane_width,
                     unsigned int plane_height) override{/* do nothing */};
 
-  void SetRotation(int angle) override{/*do nothing*/};
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
   void ClearRotation() override;
 
   void ClearMovementDirection() override;
