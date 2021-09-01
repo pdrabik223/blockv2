@@ -69,8 +69,6 @@ int GetValue(const Bot &bot_a) {
   case BotType::BASIC:
   case BotType::BEDROCK:
   case BotType::TURN:
-  case BotType::TP:
-    return 4;
   case BotType::ENEMY:
     return 3;
   case BotType::FACTORY:
@@ -125,9 +123,6 @@ void Board::AddCell(int x, int y, BotType type) {
   case BotType::FACTORY:
     plane_[y * width_ + x] = new Factory(Direction::UP);
     break;
-  case BotType::TP:
-    plane_[y * width_ + x] = new Tp(1);
-    break;
   case BotType::TURN:
     plane_[y * width_ + x] = new Turn(TurnDirection::CLOCKWISE);
     break;
@@ -146,7 +141,6 @@ void Board::RotateCell(int x, int y) {
   case BotType::BEDROCK:
   case BotType::GOAL:
   case BotType::ENEMY:
-  case BotType::TP:
   case BotType::EMPTY:
     return;
   case BotType::TURN:
@@ -247,10 +241,7 @@ void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
     else
       assert(false);
   } break;
-  case BotType::TP:
-    plane[placement.ToInt(width_)] =
-        CrushBots(new Tp(0), plane[placement.ToInt(width_)]);
-    break;
+
   case BotType::GOAL:
     plane[placement.ToInt(width_)] =
         CrushBots(new Goal, plane[placement.ToInt(width_)]);

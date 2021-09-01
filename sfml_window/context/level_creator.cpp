@@ -87,9 +87,6 @@ void sfml_window::LevelCreator::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
                       directory + "add-border.png", BLUE);
 
-  buttons_[(unsigned)LevelCreatorButton::B_TP] = new ToggleSpriteButton(
-      Rect(Coord(window_width_ / 2 - 178, 4), 32, 32), Texture(Assets::TP));
-
   buttons_[(unsigned)LevelCreatorButton::B_GOAL] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 142, 4), 32, 32), Texture(Assets::GOAL));
 
@@ -209,9 +206,7 @@ void sfml_window::LevelCreator::DrawCells(sf::RenderWindow &window) {
     case BotType::ENEMY:
       DrawCell(window, Assets::ENEMY, p);
       break;
-    case BotType::TP:
-      DrawCell(window, Assets::TP, p);
-      break;
+
     case BotType::TURN:
       if (((Turn *)level_.GetCell(p)->Clone())->GetDirection() ==
           TurnDirection::CLOCKWISE)
@@ -298,7 +293,6 @@ void sfml_window::LevelCreator::LoadAssets() {
     file_names[(unsigned)Assets::FACTORY_D] = "factory_down.png";
     file_names[(unsigned)Assets::FACTORY_L] = "factory_left.png";
     file_names[(unsigned)Assets::FACTORY_R] = "factory_right.png";
-    file_names[(unsigned)Assets::TP] = "tp.png";
     file_names[(unsigned)Assets::BACKGROUND] = "background.png";
   } // set filenames
 
@@ -453,10 +447,7 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
           brush_ = BotType::EMPTY;
           change = true;
         } break;
-        case LevelCreatorButton::B_TP: {
-          brush_ = BotType::TP;
-          change = true;
-        } break;
+
         case LevelCreatorButton::B_GOAL: {
           brush_ = BotType::GOAL;
           change = true;
@@ -512,9 +503,6 @@ void sfml_window::LevelCreator::ClearBotButtonHighlight() {
   case BotType::EMPTY:
     ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_EMPTY])
         ->TurnOn();
-    return;
-  case BotType::TP:
-    ((ToggleSpriteButton *)buttons_[(int)LevelCreatorButton::B_TP])->TurnOn();
     return;
 
   case BotType::GOAL:

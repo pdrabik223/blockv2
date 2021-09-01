@@ -62,7 +62,6 @@ enum class Assets {
   BASIC, /// something like stone
   BEDROCK,
   ENEMY,
-  TP,
   GOAL,
 
   TURN_C,   /// clockwise

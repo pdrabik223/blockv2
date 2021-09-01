@@ -197,9 +197,7 @@ void sfml_window::LevelPlayer::DrawCells(sf::RenderWindow &window) {
     case BotType::ENEMY:
       DrawCell(window, Assets::ENEMY, p);
       break;
-    case BotType::TP:
-      DrawCell(window, Assets::TP, p);
-      break;
+
     case BotType::TURN:
       if (((Turn *)level_.GetCell(p)->Clone())->GetDirection() ==
           TurnDirection::CLOCKWISE)
@@ -286,7 +284,7 @@ void sfml_window::LevelPlayer::LoadAssets(const std::string &level_name) {
     file_names[(unsigned)Assets::FACTORY_D] = "factory_down.png";
     file_names[(unsigned)Assets::FACTORY_L] = "factory_left.png";
     file_names[(unsigned)Assets::FACTORY_R] = "factory_right.png";
-    file_names[(unsigned)Assets::TP] = "tp.png";
+
     file_names[(unsigned)Assets::BACKGROUND] = "background.png";
   } // set filenames
 

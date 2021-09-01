@@ -43,7 +43,6 @@ void Goal::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
     break;
   case BotType::BEDROCK:
   case BotType::TURN:
-  case BotType::TP:
   case BotType::EMPTY:
     // those block can't push
     assert("un-pushable block");

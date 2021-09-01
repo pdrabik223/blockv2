@@ -13,7 +13,6 @@ enum class BotType {
   BEDROCK,
 
   TURN, /// changes the direction of  block
-  TP,
 
   GOAL,
   ENEMY,

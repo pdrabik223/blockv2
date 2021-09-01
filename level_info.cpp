@@ -128,9 +128,6 @@ Bot *LevelInfo::PushBot(std::ifstream &in, const Coord &position) {
   case BotType::FACTORY:
     in >> temp_int;
     return new Factory((Direction)temp_int);
-  case BotType::TP:
-    in >> temp_int;
-    return new Tp(temp_int);
   case BotType::NONE:
   case BotType::SIZE:
     throw "error";
@@ -194,9 +191,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
   assert(position.x < width_ and position.y < height_);
   delete plane_[position.ToInt(width_)];
   switch (type) {
-  case BotType::TP:
-    plane_[position.ToInt(width_)] = new Tp(id);
-    break;
+
   default:
     throw "bad type";
   }
@@ -245,9 +240,6 @@ void LevelInfo::AddCell(int x, int y, BotType type) {
   case BotType::TURN:
     plane_[y * width_ + x] = new Turn(TurnDirection::CLOCKWISE);
     break;
-  case BotType::TP:
-    plane_[y * width_ + x] = new Tp(1);
-    break;
   }
 }
 void LevelInfo::RotateCell(int x, int y) {
@@ -258,7 +250,6 @@ void LevelInfo::RotateCell(int x, int y) {
   case BotType::BEDROCK:
   case BotType::GOAL:
   case BotType::ENEMY:
-  case BotType::TP:
   case BotType::EMPTY:
     return;
   case BotType::TURN:
