@@ -67,7 +67,7 @@ public:
   unsigned int GetWidth() const;
   unsigned int GetHeight() const;
   const std::string &GetName() const;
-  Bot* GetCell(int position);
+  Bot *GetCell(int position);
 
   const std::vector<bool> &GetLockedFields() const;
 
@@ -77,7 +77,13 @@ public:
 
   void SetName(const std::string &name);
 
-  void Resize(const int new_width, const int new_height);
+  void Resize(int new_width, int new_height);
+
+  void LevelCompleted();
+
+  bool IsWon();
+  void SetWon(bool state);
+
 private:
   /// creates bot object and returns ptr to it
   /// \important the returned hanging pointer must be deleted manually!
@@ -92,6 +98,8 @@ protected:
   unsigned height_;
   std::vector<Bot *> plane_;
   std::vector<bool> locked_fields_;
+
+  bool is_won_ = false;
 };
 
 #endif // BLOCK_V2__LEVEL_INFO_H_

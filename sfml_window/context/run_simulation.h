@@ -43,7 +43,9 @@ public:
   RunSimulation *Clone() override;
 
   LevelInfo GetLevelInfo() override;
+
   Board GetLevel() override;
+
   std::string GetLevelDirectory() override;
 
   ~RunSimulation() override;
@@ -70,6 +72,8 @@ private:
   /// \param asset_path path to the correct .png file
   void LoadCell(Assets cell, const std::string &asset_path);
 
+  /// generates centered and scaled to size set of square geometries
+  /// used to orient blocks on the screen and display grid
   void GenGrid();
 
   /// display centered grid lines

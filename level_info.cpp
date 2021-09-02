@@ -14,6 +14,7 @@ LevelInfo::LevelInfo(const LevelInfo &other) {
     plane_.emplace_back(b->Clone());
 
   locked_fields_ = other.locked_fields_;
+  is_won_ = other.is_won_;
 }
 LevelInfo &LevelInfo::operator=(const LevelInfo &other) {
   if (&other == this)
@@ -26,6 +27,7 @@ LevelInfo &LevelInfo::operator=(const LevelInfo &other) {
     plane_.emplace_back(b->Clone());
 
   locked_fields_ = other.locked_fields_;
+  is_won_ = other.is_won_;
   return *this;
 }
 
@@ -68,7 +70,7 @@ void LevelInfo::SaveLevel() {
   }
   my_file << name_ << "\n";
   my_file << width_ << " " << height_ << "\n";
-
+  my_file << is_won_ << "\n";
   for (const Bot *bot : plane_)
     bot->OutputToFile(my_file);
 
@@ -77,6 +79,7 @@ void LevelInfo::SaveLevel() {
 
   my_file.close();
 }
+
 void LevelInfo::LoadLevel(const std::string &file_path) {
   std::ifstream my_file;
   my_file.open(file_path);
@@ -88,7 +91,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
   my_file >> name_;
   my_file >> width_;
   my_file >> height_;
-
+  my_file >> is_won_;
   for (unsigned x = 0; x < width_; ++x)
     for (unsigned y = 0; y < height_; ++y)
       plane_.emplace_back(PushBot(my_file, Coord(x, y)));
@@ -299,5 +302,7 @@ void LevelInfo::Resize(const int new_width, const int new_height) {
   }
   width_ = new_width;
   height_ = new_height;
-
 }
+bool LevelInfo::IsWon() { return is_won_; }
+void LevelInfo::LevelCompleted() { is_won_ = true; }
+void LevelInfo::SetWon(bool state) { is_won_ = state; }

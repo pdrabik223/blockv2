@@ -43,7 +43,7 @@ enum class GuiColor {
   SIZE
 };
 
-enum class ContextEvent{
+enum class ContextEvent {
   EXIT,
   SWITCH_TO_MAIN_MENU,
   SWITCH_TO_LEVEL_PICKER,
@@ -53,10 +53,11 @@ enum class ContextEvent{
   SWITCH_TO_CREATOR_INPUT_PANEL,
   SWITCH_BACK_TO_CREATOR,
   RUN_SIMULATION,
+  LEVEL_WON,
   UPDATE_DISPLAY,
   NONE,
   SIZE
-  };
+};
 
 enum class Assets {
   BASIC, /// something like stone

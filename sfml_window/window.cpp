@@ -63,6 +63,7 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     break;
   case ContextEvent::UPDATE_DISPLAY:
     goto update_display;
+
   case ContextEvent::SWITCH_TO_LEVEL_PICKER:
     SwitchContext(Contexts::LEVEL_PICKER);
     goto update_display;
@@ -110,8 +111,10 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
 
     goto update_display;
   }
-    return;
-
+  case ContextEvent::LEVEL_WON: {
+    current_context_->GetLevelInfo().SetWon(true);
+    goto update_display;
+  }
   update_display:
     current_context_->DrawToWindow(window);
     window.display();
