@@ -11,14 +11,16 @@
 #define BLUE sf::Color::Blue
 #define GREEN sf::Color::Green
 #define WHITE sf::Color::White
-
+#define GRAY sf::Color(195, 195, 195, 0)
+#define GOLD sf::Color(255, 215, 0, 0)
 
 /// \param color primary color, to be lighten
 /// \return light/ brighter  version of the primary color
-sf::Color Light(const sf::Color& color);
+sf::Color Light(const sf::Color &color);
 /// generates rainbow gradient
 /// \param value wanted color
 /// \param max_value the rainbow colors will be generated in range 0 - max_value
-/// \return the color corresponding to the specific value from range 0 - max_value
+/// \return the color corresponding to the specific value from range 0 -
+/// max_value
 sf::Color Rainbow(unsigned value, unsigned max_value);
 #endif // BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_GUI_COLOR_H_
