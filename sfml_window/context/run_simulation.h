@@ -20,12 +20,12 @@
 namespace sfml_window {
 
 enum class RunSimulationButton {
+  TROPHY,
   STEP_SIMULATION,
   STOP_START_SIMULATION,
   EXIT,
   SIZE
 };
-
 
 class RunSimulation : public Context {
 public:

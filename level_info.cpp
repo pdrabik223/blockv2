@@ -190,15 +190,7 @@ void LevelInfo::AddBot(const Coord &position, BotType type,
     throw "bad type";
   }
 }
-void LevelInfo::AddBot(const Coord &position, BotType type, int id) {
-  assert(position.x < width_ and position.y < height_);
-  delete plane_[position.ToInt(width_)];
-  switch (type) {
 
-  default:
-    throw "bad type";
-  }
-}
 unsigned int LevelInfo::GetWidth() const { return width_; }
 unsigned int LevelInfo::GetHeight() const { return height_; }
 const std::string &LevelInfo::GetName() const { return name_; }

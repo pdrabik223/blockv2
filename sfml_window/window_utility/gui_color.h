@@ -11,7 +11,7 @@
 #define BLUE sf::Color::Blue
 #define GREEN sf::Color::Green
 #define WHITE sf::Color::White
-#define GRAY sf::Color(195, 195, 195, 0)
+#define GRAY sf::Color(80, 80, 80, 0)
 #define GOLD sf::Color(255, 215, 0, 0)
 
 /// \param color primary color, to be lighten

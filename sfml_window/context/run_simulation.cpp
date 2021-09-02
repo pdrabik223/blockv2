@@ -23,7 +23,7 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
 }
 
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
-  // window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
+
   window.draw(background_sprite_);
   window.draw(button_background_);
 
@@ -67,6 +67,8 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
 
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
+          if (local_board_.IsWon())
+            buttons_[(int)RunSimulationButton::TROPHY]->SetColor(GOLD);
           return ContextEvent::UPDATE_DISPLAY;
         }
   } else {
@@ -85,19 +87,21 @@ void sfml_window::RunSimulation::LoadButtons() {
 
   std::string directory = "../sfml_window/assets/run_simulation/";
 
+  buttons_[(unsigned)RunSimulationButton::TROPHY] =
+      new ImageButton(Rect(Coord(4, 4), 32, 32), directory + "trophy.png", RED);
+
   buttons_[(unsigned)RunSimulationButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
 
   buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
-      new ImageToggleButton(
-          Rect(Coord(window_width_ - 74, 4), 32, 32),
-          {directory + "run-button.png",
-           sf::Color::Blue},
-          {directory + "pause-button.png",YELLOW});
+      new ImageToggleButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
+                            {directory + "run-button.png", sf::Color::Blue},
+                            {directory + "pause-button.png", YELLOW});
 
-  buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] = new ImageButton(
-      Rect(Coord(window_width_ - 112, 4), 32, 32), directory + "next.png", GREEN);
+  buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] =
+      new ImageButton(Rect(Coord(window_width_ - 112, 4), 32, 32),
+                      directory + "next.png", GREEN);
 }
 
 void sfml_window::RunSimulation::DrawGrid(sf::RenderWindow &window) {
@@ -110,8 +114,8 @@ void sfml_window::RunSimulation::GenGrid() {
 
   // to accommodate top rectangle
   unsigned real_window_height = window_height_ - 40;
-  button_background_.setPosition(0,0);
-  button_background_.setSize({(float)window_width_,40});
+  button_background_.setPosition(0, 0);
+  button_background_.setSize({(float)window_width_, 40});
   button_background_.setFillColor({0, 0, 0, 80});
 
   // all cells are squares so the width = height
@@ -384,9 +388,11 @@ void sfml_window::RunSimulation::DrawCells(sf::RenderWindow &window) {
       throw "error";
     }
 }
-sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() { return new RunSimulation(*this); }
-LevelInfo sfml_window::RunSimulation::GetLevelInfo() {
-  return LevelInfo(2,1);
+sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() {
+  return new RunSimulation(*this);
 }
+LevelInfo sfml_window::RunSimulation::GetLevelInfo() { return LevelInfo(2, 1); }
 Board sfml_window::RunSimulation::GetLevel() { return local_board_; }
-std::string sfml_window::RunSimulation::GetLevelDirectory() { return std::string(); }
+std::string sfml_window::RunSimulation::GetLevelDirectory() {
+  return std::string();
+}
