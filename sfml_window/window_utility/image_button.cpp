@@ -69,3 +69,7 @@ bool sfml_window::ImageButton::DetectHover(const Coord &press_point) {
 
 sfml_window::ImageButton *sfml_window::ImageButton::Clone() { return new ImageButton(*this); }
 
+void sfml_window::ImageButton::SetColor(const sf::Color &new_color) {
+  color_ = new_color;
+  sprite_.setColor(new_color);
+}

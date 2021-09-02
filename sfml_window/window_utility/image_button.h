@@ -22,6 +22,7 @@ public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
+  void SetColor(const sf::Color &new_color) override;
   ~ImageButton() override = default;
 
 protected:

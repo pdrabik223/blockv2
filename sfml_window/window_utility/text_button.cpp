@@ -77,6 +77,14 @@ void sfml_window::TextButton::SetPosition(const Coord &position) {
                           (float)structure_.placement.y);
   text_.SetPosition(position);
 }
-sfml_window::TextButton *sfml_window::TextButton::Clone() { return new TextButton(*this); }
+sfml_window::TextButton *sfml_window::TextButton::Clone() {
+  return new TextButton(*this);
+}
+void sfml_window::TextButton::SetColor(const sf::Color &new_color) {
+  button_color_ = new_color;
+
+  background_.setFillColor(Light(button_color_));
+  background_.setOutlineColor(button_color_);
+}
 
 sfml_window::TextButton::~TextButton() = default;

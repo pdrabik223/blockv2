@@ -79,3 +79,6 @@ sfml_window::ImageToggleButton::ImageToggleButton(
 sfml_window::ImageToggleButton *sfml_window::ImageToggleButton::Clone() {
   return new ImageToggleButton(*this);
 }
+void sfml_window::ImageToggleButton::SetColor(const sf::Color &new_color) {
+  /* this button can not change colors*/
+}

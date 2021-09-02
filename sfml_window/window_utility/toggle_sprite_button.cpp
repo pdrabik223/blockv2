@@ -72,3 +72,5 @@ sfml_window::ToggleSpriteButton &sfml_window::ToggleSpriteButton::operator=(
   sprite_ = other.sprite_;
   return *this;
 }
+
+void sfml_window::ToggleSpriteButton::SetColor(const sf::Color &new_color) {}
