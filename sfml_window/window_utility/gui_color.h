@@ -7,12 +7,12 @@
 #include "SFML/Graphics/Color.hpp"
 #include <corecrt_math.h>
 #define YELLOW sf::Color::Yellow
-#define RED sf::Color::Red
+#define RED sf::Color(255, 0, 0, 255)
 #define BLUE sf::Color::Blue
 #define GREEN sf::Color::Green
 #define WHITE sf::Color::White
-#define GRAY sf::Color(80, 80, 80, 0)
-#define GOLD sf::Color(255, 215, 0, 0)
+#define GRAY sf::Color(80, 80, 80, 255)
+#define GOLD sf::Color(255, 215, 0, 255)
 
 /// \param color primary color, to be lighten
 /// \return light/ brighter  version of the primary color
