@@ -4,19 +4,32 @@
 
 #include "image_button.h"
 #include <cassert>
+
 bool sfml_window::ImageButton::DetectInteraction(const Coord &press_point,
                                                  sf::Event &event) {
   bool hover = structure_.CheckWBoundaries(press_point);
 
   return hover && (event.type == sf::Event::MouseButtonReleased &&
-  event.mouseButton.button == sf::Mouse::Left);
+                   event.mouseButton.button == sf::Mouse::Left);
 }
-sfml_window::ImageButton::ImageButton(const ImageButton& other) {
-   structure_ = other.structure_;
-   color_ = other.color_;
-   hover_ = other.hover_;
-   texture_ = other.texture_;
-   sprite_ = other.sprite_;
+sfml_window::ImageButton::ImageButton() : structure_(), color_(RED) {
+
+  texture_ = sf::Texture();
+  texture_.setSmooth(true);
+  sprite_.setTexture(texture_);
+  sprite_.setColor(Light(color_));
+  sprite_.setPosition((float)structure_.placement.x,
+                      (float)structure_.placement.y);
+  sprite_.setScale((float)structure_.width / (float)texture_.getSize().x,
+                   (float)structure_.height / (float)texture_.getSize().y);
+}
+
+sfml_window::ImageButton::ImageButton(const ImageButton &other) {
+  structure_ = other.structure_;
+  color_ = other.color_;
+  hover_ = other.hover_;
+  texture_ = other.texture_;
+  sprite_ = other.sprite_;
 }
 sfml_window::ImageButton &
 sfml_window::ImageButton::operator=(const sfml_window::ImageButton &other) {
