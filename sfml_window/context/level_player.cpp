@@ -67,6 +67,10 @@ void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
   DrawCells(window);
 
   ClearBotButtonHighlight();
+
+  if (level_.IsWon())
+    buttons_[(unsigned)LevelPlayerButton::TROPHY]->SetColor(GOLD);
+
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
@@ -76,6 +80,9 @@ void sfml_window::LevelPlayer::LoadButtons() {
   buttons_[(unsigned)LevelPlayerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
+
+  buttons_[(unsigned)LevelPlayerButton::TROPHY] =
+      new ImageButton(Rect(Coord(4, 4), 32, 32), directory + "trophy.png", RED);
 
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),

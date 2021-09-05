@@ -61,8 +61,10 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
 
         case RunSimulationButton::STOP_START_SIMULATION:
           local_board_.GenPosition();
+
           if (local_board_.IsWon())
             return ContextEvent::LEVEL_WON;
+
           return ContextEvent::UPDATE_DISPLAY;
 
         case RunSimulationButton::STEP_SIMULATION:
