@@ -71,5 +71,5 @@ sfml_window::ImageButton *sfml_window::ImageButton::Clone() { return new ImageBu
 
 void sfml_window::ImageButton::SetColor(const sf::Color &new_color) {
   color_ = new_color;
-  sprite_.setColor(new_color);
+  sprite_.setColor(Light(color_));
 }
