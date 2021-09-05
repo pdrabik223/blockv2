@@ -81,8 +81,8 @@ void sfml_window::LevelPlayer::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
 
-  buttons_[(unsigned)LevelPlayerButton::TROPHY] =
-      new ImageButton(Rect(Coord(4, 4), 32, 32), directory + "trophy.png", RED);
+  buttons_[(unsigned)LevelPlayerButton::TROPHY] = new ImageButton(
+      Rect(Coord(4, 4), 32, 32), directory + "trophy.png", GRAY);
 
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
