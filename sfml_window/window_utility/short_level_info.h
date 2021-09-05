@@ -5,6 +5,7 @@
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_SHORT_LEVEL_INFO_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_SHORT_LEVEL_INFO_H_
 
+#include "image_button.h"
 #include "text_button.h"
 #include <coord.h>
 #include <fstream>
@@ -31,6 +32,9 @@ public:
 private:
   TextButton level_;
   std::string path_;
+
+  ImageButton trophy_;
+
   // throfeas
 };
 } // namespace sfml_window

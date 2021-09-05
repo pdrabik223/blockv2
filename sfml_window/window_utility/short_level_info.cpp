@@ -13,10 +13,11 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
 
   std::reverse(full_path.begin(), full_path.end());
 
-  int i=0;
-  while(full_path[i] != '/') i++;
+  int i = 0;
+  while (full_path[i] != '/')
+    i++;
 
-  std::string level_name = full_path.substr(0,i);
+  std::string level_name = full_path.substr(0, i);
   std::reverse(level_name.begin(), level_name.end());
 
   std::string author_name = "none";
@@ -27,19 +28,36 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
   if (!my_file.is_open()) {
     throw "file_error";
   }
+  int level_width, level_height;
+  bool level_won;
   my_file >> level_name;
+  my_file >> level_width;
+  my_file >> level_height;
+  my_file >> level_won;
   my_file.close();
 
   level_ = TextButton({0, 0}, level_name + " by " + author_name, color, false,
                       text_size);
+  if (level_won)
+    trophy_ =
+        ImageButton(Rect({level_.GetButtonWidth(), 0}, 32, 32),
+                    "../sfml_window/assets/level_picker/trophy.png", GOLD);
+  else
+    trophy_ =
+        ImageButton(Rect({level_.GetButtonWidth(), 0}, 32, 32),
+                    "../sfml_window/assets/level_picker/trophy.png", GRAY);
 }
 
 sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
+
   level_ = TextButton({0, 0}, "None", RED, false, 24);
+
+  trophy_ = ImageButton(Rect({0, 0}, 32, 32),
+                        "../sfml_window/assets/level_picker/trophy.png", GRAY);
 }
 
 void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
-                                               const Coord& position) {
+                                               const Coord &position) {
   level_.SetPosition(position);
   level_.DrawToWindow(window);
 }
@@ -58,12 +76,12 @@ bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
   return level_.DetectInteraction(press_point, event);
 }
 
-std::string sfml_window::ShortLevelInfo::GetPath() {
-  return path_;
-}
+std::string sfml_window::ShortLevelInfo::GetPath() { return path_; }
 
-sfml_window::ShortLevelInfo &sfml_window::ShortLevelInfo::operator=(const ShortLevelInfo& other) {
-  if(&other != this) return *this;
+sfml_window::ShortLevelInfo &
+sfml_window::ShortLevelInfo::operator=(const ShortLevelInfo &other) {
+  if (&other != this)
+    return *this;
   level_ = other.level_;
   path_ = other.path_;
   return *this;
