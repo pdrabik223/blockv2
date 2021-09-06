@@ -79,6 +79,7 @@ void LevelInfo::SaveLevel() {
 
   my_file.close();
 }
+void LevelInfo::SaveParameters() {}
 
 void LevelInfo::LoadLevel(const std::string &file_path) {
   std::ifstream my_file;
@@ -102,6 +103,7 @@ void LevelInfo::LoadLevel(const std::string &file_path) {
     locked_fields_.emplace_back(info);
   }
 }
+
 /// creates bot object and returns ptr to it
 /// \important the returned hanging pointer must be deleted manually!
 /// \param in ifstream handle, the cursor position within will be modified!
@@ -297,4 +299,5 @@ void LevelInfo::Resize(const int new_width, const int new_height) {
 }
 bool LevelInfo::IsWon() { return is_won_; }
 void LevelInfo::LevelCompleted() { is_won_ = true; }
+
 void LevelInfo::SetWon(bool state) { is_won_ = state; }

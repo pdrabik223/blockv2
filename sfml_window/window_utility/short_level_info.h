@@ -34,7 +34,7 @@ private:
   std::string path_;
 
   ImageButton trophy_;
-
+  bool level_won_ = false;
   // throfeas
 };
 } // namespace sfml_window

@@ -29,16 +29,16 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
     throw "file_error";
   }
   int level_width, level_height;
-  bool level_won;
+
   my_file >> level_name;
   my_file >> level_width;
   my_file >> level_height;
-  my_file >> level_won;
+  my_file >> level_won_;
   my_file.close();
 
   level_ = TextButton({0, 0}, level_name + " by " + author_name, color, false,
                       text_size);
-  if (level_won)
+  if (level_won_)
     trophy_ =
         ImageButton(Rect({level_.GetButtonWidth(), 0}, 32, 32),
                     "../sfml_window/assets/level_picker/trophy.png", GOLD);
@@ -59,7 +59,12 @@ sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
 void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
                                                const Coord &position) {
   level_.SetPosition(position);
+
+  trophy_.SetPosition(position);
+
   level_.DrawToWindow(window);
+
+  trophy_.DrawToWindow(window);
 }
 sfml_window::ShortLevelInfo::ShortLevelInfo(
     const sfml_window::ShortLevelInfo &other) {

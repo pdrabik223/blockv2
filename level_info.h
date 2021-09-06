@@ -55,8 +55,6 @@ public:
   void AddBot(const Coord &position, BotType type,
               TurnDirection turn_direction);
 
-  void AddBot(const Coord &position, BotType type, int id);
-
   void Lock(Coord position);
   void UnLock(Coord position);
   bool IsLocked(Coord position);
@@ -83,6 +81,7 @@ public:
 
   bool IsWon();
   void SetWon(bool state);
+  void SaveParameters();
 
 private:
   /// creates bot object and returns ptr to it
