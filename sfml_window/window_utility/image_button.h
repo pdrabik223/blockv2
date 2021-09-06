@@ -23,6 +23,7 @@ public:
   bool DetectHover(const Coord &press_point) override;
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetColor(const sf::Color &new_color) override;
+  void SetPosition(const Coord &position);
   ~ImageButton() override = default;
 
 protected:

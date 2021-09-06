@@ -86,3 +86,8 @@ void sfml_window::ImageButton::SetColor(const sf::Color &new_color) {
   color_ = new_color;
   sprite_.setColor(Light(color_));
 }
+void sfml_window::ImageButton::SetPosition(const Coord &position) {
+  structure_.placement = position;
+  sprite_.setPosition((float)structure_.placement.x,
+                      (float)structure_.placement.y);
+}
