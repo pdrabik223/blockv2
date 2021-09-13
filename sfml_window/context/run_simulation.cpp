@@ -49,6 +49,17 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
   mouse_x = mouse_x <= window_width_ ? mouse_x : window_width_ - 1;
   mouse_y = mouse_y <= window_height_ ? mouse_y : window_height_ - 1;
 
+  if (event.type == sf::Event::KeyPressed) {
+    if (event.key.code == sf::Keyboard::Space) {
+      local_board_.GenPosition();
+
+      if (local_board_.IsWon()) {
+        buttons_[(int)RunSimulationButton::TROPHY]->SetButtonColor(GOLD);
+        return ContextEvent::LEVEL_WON;
+      }
+    }
+  }
+
   if (event.type == sf::Event::MouseButtonReleased) {
 
     for (unsigned id = 0; id < buttons_.size(); id++)
@@ -60,17 +71,16 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
           return ContextEvent::SWITCH_TO_PREVIOUS;
 
         case RunSimulationButton::STOP_START_SIMULATION:
-          local_board_.GenPosition();
 
-          if (local_board_.IsWon())
-            return ContextEvent::LEVEL_WON;
-
-          return ContextEvent::UPDATE_DISPLAY;
-
+          break;
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
-          if (local_board_.IsWon())
+
+          if (local_board_.IsWon()) {
             buttons_[(int)RunSimulationButton::TROPHY]->SetButtonColor(GOLD);
+            return ContextEvent::LEVEL_WON;
+          }
+
           return ContextEvent::UPDATE_DISPLAY;
         }
   } else {
