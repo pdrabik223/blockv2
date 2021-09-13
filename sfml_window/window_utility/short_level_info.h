@@ -33,7 +33,7 @@ private:
   TextButton level_;
   std::string path_;
 
-  ImageButton trophy_;
+  ImageButton *trophy_;
   bool level_won_ = false;
   // throfeas
 };
