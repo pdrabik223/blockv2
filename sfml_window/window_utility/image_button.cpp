@@ -4,6 +4,7 @@
 
 #include "image_button.h"
 #include <cassert>
+#include <iostream>
 
 bool sfml_window::ImageButton::DetectInteraction(const Coord &press_point,
                                                  sf::Event &event) {
@@ -90,4 +91,7 @@ void sfml_window::ImageButton::SetPosition(const Coord &position) {
   structure_.placement = position;
   sprite_.setPosition((float)structure_.placement.x,
                       (float)structure_.placement.y);
+
+  //  std::cout<<"\nplacement :"<<
+  //  structure_.placement.x<<"\t"<<structure_.placement.y;
 }

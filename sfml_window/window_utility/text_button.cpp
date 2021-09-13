@@ -86,6 +86,8 @@ void sfml_window::TextButton::SetColor(const sf::Color &new_color) {
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 }
-int sfml_window::TextButton::GetButtonWidth() { return structure_.width; }
+int sfml_window::TextButton::GetButtonWidth() {
+  return text_.GetFontBoundaries().width;
+}
 
 sfml_window::TextButton::~TextButton() = default;

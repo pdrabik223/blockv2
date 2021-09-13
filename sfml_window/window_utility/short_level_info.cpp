@@ -3,7 +3,7 @@
 //
 
 #include "short_level_info.h"
-
+#include <iostream>
 sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
                                             unsigned int text_size,
                                             sf::Color color)
@@ -40,11 +40,11 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
                       text_size);
   if (level_won_)
     trophy_ =
-        ImageButton(Rect({level_.GetButtonWidth(), 0}, 32, 32),
+        ImageButton(Rect({600, 0}, 32, 32),
                     "../sfml_window/assets/level_picker/trophy.png", GOLD);
   else
     trophy_ =
-        ImageButton(Rect({level_.GetButtonWidth(), 0}, 32, 32),
+        ImageButton(Rect({600, 0}, 32, 32),
                     "../sfml_window/assets/level_picker/trophy.png", GRAY);
 }
 
@@ -52,7 +52,7 @@ sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
 
   level_ = TextButton({0, 0}, "None", RED, false, 24);
 
-  trophy_ = ImageButton(Rect({0, 0}, 32, 32),
+  trophy_ = ImageButton(Rect({600, 0}, 32, 32),
                         "../sfml_window/assets/level_picker/trophy.png", GRAY);
 }
 
@@ -60,10 +60,10 @@ void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
                                                const Coord &position) {
   level_.SetPosition(position);
 
-  trophy_.SetPosition(position);
+  //  std::cout << level_.GetButtonWidth() << " <width\n";
+  trophy_.SetPosition({600, position.y});
 
   level_.DrawToWindow(window);
-
   trophy_.DrawToWindow(window);
 }
 sfml_window::ShortLevelInfo::ShortLevelInfo(
