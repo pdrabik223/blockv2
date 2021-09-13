@@ -33,6 +33,7 @@ void Basic::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
   Coord new_position = NextPosition(push_direction, bot_position);
 
   if (CheckBoundaries(plane_width, plane_height, new_position))
+
     plane[new_position.ToInt(plane_width)]->Push(
         plane, new_position, plane_width, plane_height, push_direction);
 

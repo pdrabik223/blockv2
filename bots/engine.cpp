@@ -34,15 +34,19 @@ void Engine::Push(const std::vector<Bot *> &plane, const Coord &bot_position,
 
   Coord new_position = NextPosition(push_direction, bot_position);
 
-  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
-                                               plane_height, push_direction);
+  if (CheckBoundaries(plane_width, plane_height, new_position)) {
+    plane[new_position.ToInt(plane_width)]->Push(
+        plane, new_position, plane_width, plane_height, push_direction);
 
-  // if the next cell is "pushable" in the push_direction
-  // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
-          push_direction))
-    movement_.Push(push_direction);
-  else
+    // if the next cell is "pushable" in the push_direction
+    // this cell is pushable also in the push_direction
+    if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
+            push_direction))
+      movement_.Push(push_direction);
+    else
+      movement_.LockDirection(push_direction);
+
+  } else
     movement_.LockDirection(push_direction);
 }
 
@@ -56,15 +60,19 @@ void Engine::Action(const std::vector<Bot *> &plane, const Coord &bot_position,
                     const unsigned plane_width, const unsigned plane_height) {
   Coord new_position = NextPosition(direction_, bot_position);
 
-  plane[new_position.ToInt(plane_width)]->Push(plane, new_position, plane_width,
-                                               plane_height, direction_);
+  if (CheckBoundaries(plane_width, plane_height, new_position)) {
+    plane[new_position.ToInt(plane_width)]->Push(
+        plane, new_position, plane_width, plane_height, direction_);
 
-  // if the next cell is "pushable" in the push_direction
-  // this cell is pushable also in the push_direction
-  if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
-          direction_))
-    movement_.AddDirection(direction_);
-  else
+    // if the next cell is "pushable" in the push_direction
+    // this cell is pushable also in the push_direction
+    if (plane[new_position.ToInt(plane_width)]->GetMovement().CheckDirection(
+            direction_))
+      movement_.AddDirection(direction_);
+    else
+      movement_.LockDirection(direction_);
+
+  } else
     movement_.LockDirection(direction_);
 }
 
