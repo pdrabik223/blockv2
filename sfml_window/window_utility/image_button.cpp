@@ -30,22 +30,34 @@ sfml_window::ImageButton::ImageButton(const ImageButton &other) {
   color_ = other.color_;
   hover_ = other.hover_;
   texture_ = other.texture_;
-  sprite_ = other.sprite_;
+
+  sprite_.setTexture(texture_);
+  sprite_.setColor(Light(color_));
+  sprite_.setPosition((float)structure_.placement.x,
+                      (float)structure_.placement.y);
+  sprite_.setScale((float)structure_.width / (float)texture_.getSize().x,
+                   (float)structure_.height / (float)texture_.getSize().y);
 }
 sfml_window::ImageButton &
 sfml_window::ImageButton::operator=(const sfml_window::ImageButton &other) {
 
-  if(&other == this) return *this;
+  if (&other == this)
+    return *this;
 
   structure_ = other.structure_;
   color_ = other.color_;
   hover_ = other.hover_;
   texture_ = other.texture_;
-  sprite_ = other.sprite_;
+
+  sprite_.setTexture(texture_);
+  sprite_.setColor(Light(color_));
+  sprite_.setPosition((float)structure_.placement.x,
+                      (float)structure_.placement.y);
+  sprite_.setScale((float)structure_.width / (float)texture_.getSize().x,
+                   (float)structure_.height / (float)texture_.getSize().y);
 
   return *this;
 }
-
 
 void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
 

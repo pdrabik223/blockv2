@@ -70,6 +70,7 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(
     const sfml_window::ShortLevelInfo &other) {
   level_ = other.level_;
   path_ = other.path_;
+  trophy_ = other.trophy_;
 }
 
 bool sfml_window::ShortLevelInfo::DetectHover(const Coord &mouse_position) {
@@ -89,5 +90,6 @@ sfml_window::ShortLevelInfo::operator=(const ShortLevelInfo &other) {
     return *this;
   level_ = other.level_;
   path_ = other.path_;
+  trophy_ = other.trophy_;
   return *this;
 }
