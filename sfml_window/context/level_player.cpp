@@ -22,9 +22,6 @@ sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
     : level_(other.level_) {
   window_width_ = other.window_width_;
   window_height_ = other.window_height_;
-//  background_texture_ = other.background_texture_;
-//  background_sprite_ = other.background_sprite_;
-//  button_background_ = other.button_background_;
   level_directory_ = other.level_directory_;
 
   GenGrid();
@@ -32,16 +29,9 @@ sfml_window::LevelPlayer::LevelPlayer(const sfml_window::LevelPlayer &other)
   LoadAssets(temp_info.GetName());
   LoadButtons();
 
-//  cell_size_ = other.cell_size_;
-
-//  for (int i = 0; i < other.buttons_.size(); i++)
-//    buttons_[i] = other.buttons_[i]->Clone();
-
-//  brush_ = other.brush_;
-//  cells_ = other.cells_;
-//  grid_ = other.grid_;
 }
-/// the function is written this way, because using "normal" constructor  corrups the assets
+/// the function is written this way, because using "normal" constructor
+/// corrupts assets
 sfml_window::LevelPlayer &sfml_window::LevelPlayer::operator=(const LevelPlayer& other) {
   if(&other == this)return *this;
   level_ = other.level_;
@@ -68,21 +58,24 @@ void sfml_window::LevelPlayer::DrawToWindow(sf::RenderWindow &window) {
 
   ClearBotButtonHighlight();
 
-  if (level_.IsWon())
-    buttons_[(unsigned)LevelPlayerButton::TROPHY]->SetColor(GOLD);
-
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
 }
 
 void sfml_window::LevelPlayer::LoadButtons() {
   std::string directory = "../sfml_window/assets/level_player/";
+
   buttons_[(unsigned)LevelPlayerButton::EXIT] =
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
 
-  buttons_[(unsigned)LevelPlayerButton::TROPHY] = new ImageButton(
-      Rect(Coord(4, 4), 32, 32), directory + "trophy.png", GRAY);
+  if (GetLevelInfo().IsWon()) {
+    buttons_[(unsigned)LevelPlayerButton::TROPHY] = new ImageButton(
+        Rect(Coord(4, 4), 32, 32), directory + "trophy.png", GOLD);
+  } else {
+    buttons_[(unsigned)LevelPlayerButton::TROPHY] = new ImageButton(
+        Rect(Coord(4, 4), 32, 32), directory + "trophy.png", GRAY);
+  }
 
   buttons_[(unsigned)LevelPlayerButton::RUN_SIMULATION] =
       new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
