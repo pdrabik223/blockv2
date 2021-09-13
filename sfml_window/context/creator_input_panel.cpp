@@ -58,7 +58,8 @@ bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
     if (event.key.code >= sf::Keyboard::A and
         event.key.code <= sf::Keyboard::Z) {
       std::string text = input_panels_[(int)in_focus_].GetText();
-      if(text.size() == 30) return false;
+      if (text.size() == 30)
+        return false;
 
       char letter = event.key.code;
 
@@ -71,19 +72,19 @@ bool sfml_window::CreatorInputPanel::HandleLetter(const sf::Event &event) {
       text += letter;
       input_panels_[(int)in_focus_].SetText(text);
       return true;
-    }
-    else if (event.key.code == sf::Keyboard::Space) {
+    } else if (event.key.code == sf::Keyboard::Space) {
       std::string text = input_panels_[(int)in_focus_].GetText();
-      if(text.size() == 30) return false;
+      if (text.size() == 30)
+        return false;
       text += '_';
       input_panels_[(int)in_focus_].SetText(text);
       return true;
-    }
-    else if (event.key.code >= sf::Keyboard::Num0 and
+    } else if (event.key.code >= sf::Keyboard::Num0 and
                event.key.code <= sf::Keyboard::Num9) {
 
       std::string text = input_panels_[(int)in_focus_].GetText();
-      if(text.size() == 30) return false;
+      if (text.size() == 30)
+        return false;
       char letter = '0' + event.key.code - sf::Keyboard::Num0;
       text += letter;
       input_panels_[(int)in_focus_].SetText(text);
@@ -159,6 +160,46 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         case CreatorInputPanelButton::SAVE_LEVEL:
           UpdateLevel();
           target_.SaveLevel();
+        case CreatorInputPanelButton::WIDTH_UP: {
+          int width = std::stoi(
+              input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText());
+          width++;
+          input_panels_[(int)CreatorInputPanelTextField::WIDTH].SetText(
+              std::to_string(width));
+        }
+          return ContextEvent::UPDATE_DISPLAY;
+        case CreatorInputPanelButton::WIDTH_DOWN: {
+          int width = std::stoi(
+              input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText());
+
+          if (width < 1)
+            return ContextEvent::UPDATE_DISPLAY;
+
+          width--;
+          input_panels_[(int)CreatorInputPanelTextField::WIDTH].SetText(
+              std::to_string(width));
+        }
+          return ContextEvent::UPDATE_DISPLAY;
+        case CreatorInputPanelButton::HEIGHT_DOWN: {
+          int height = std::stoi(
+              input_panels_[(int)CreatorInputPanelTextField::HEIGHT].GetText());
+
+          if (height < 1)
+            return ContextEvent::UPDATE_DISPLAY;
+
+          height--;
+          input_panels_[(int)CreatorInputPanelTextField::HEIGHT].SetText(
+              std::to_string(height));
+        }
+          return ContextEvent::UPDATE_DISPLAY;
+        case CreatorInputPanelButton::HEIGHT_UP: {
+          int height = std::stoi(
+              input_panels_[(int)CreatorInputPanelTextField::HEIGHT].GetText());
+          height++;
+          input_panels_[(int)CreatorInputPanelTextField::HEIGHT].SetText(
+              std::to_string(height));
+        }
+          return ContextEvent::UPDATE_DISPLAY;
         }
 
     for (auto id = 0; id < input_panels_.size(); id++)
@@ -219,6 +260,20 @@ void sfml_window::CreatorInputPanel::LoadButtons() {
   buttons_[(unsigned)CreatorInputPanelButton::SAVE_LEVEL] =
       new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
                       directory + "floppy-disk.png", BLUE);
+
+  buttons_[(unsigned)CreatorInputPanelButton::WIDTH_UP] =
+      new ImageButton(Rect({(int)window_width_ / 2 - 200 + 400, 200}, 32, 32),
+                      directory + "right-arrow.png", YELLOW);
+  buttons_[(unsigned)CreatorInputPanelButton::WIDTH_DOWN] =
+      new ImageButton(Rect({(int)window_width_ / 2 - 236, 200}, 32, 32),
+                      directory + "left-arrow.png", BLUE);
+
+  buttons_[(unsigned)CreatorInputPanelButton::HEIGHT_UP] =
+      new ImageButton(Rect({(int)window_width_ / 2 - 200 + 400, 250}, 32, 32),
+                      directory + "right-arrow.png", YELLOW);
+  buttons_[(unsigned)CreatorInputPanelButton::HEIGHT_DOWN] =
+      new ImageButton(Rect({(int)window_width_ / 2 - 236, 250}, 32, 32),
+                      directory + "left-arrow.png", BLUE);
 }
 
 void sfml_window::CreatorInputPanel::LoadBackground() {
@@ -240,9 +295,11 @@ void sfml_window::CreatorInputPanel::LoadCreatorInputPanelTexts() {
   input_panels_[(int)CreatorInputPanelTextField::AUTHOR_NAME] =
       ToggleTextButton({{(int)window_width_ / 2 - 200, 150}, 400, 30},
                        "not yet implemented", sf::Color::Blue, true);
+
   input_panels_[(int)CreatorInputPanelTextField::WIDTH] = ToggleTextButton(
       {{(int)window_width_ / 2 - 200, 200}, 400, 30},
       std::to_string(target_.GetWidth()), sf::Color::Blue, true);
+
   input_panels_[(int)CreatorInputPanelTextField::HEIGHT] = ToggleTextButton(
       {{(int)window_width_ / 2 - 200, 250}, 400, 30},
       std::to_string(target_.GetHeight()), sf::Color::Blue, true);
