@@ -11,7 +11,7 @@ Gui::Gui()  {
 }
 
 Gui::Gui(LevelInfo &level)  {
-  current_context_ = new RunSimulation(1200, 600, Board(level),
+  current_context_ = new RunSimulation(1200, 600, GameEngine(level),
                                        "../levels/no_name_given/no_name_given");
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
@@ -148,7 +148,7 @@ void Gui::SwitchContext(Contexts new_screen) {
   } break;
 
   case Contexts::RUN_SIMULATION: {
-    Board chosen_level = current_context_->GetLevel();
+    GameEngine chosen_level = current_context_->GetLevel();
 
     std::string level_path =
         current_context_->GetLevelDirectory(); // for assets

@@ -34,7 +34,8 @@ public:
   /// \param window_height of the window
   /// \param window_width of the window
   RunSimulation(unsigned int window_width, unsigned int window_height,
-                const Board &level_info, const std::string &directory_path);
+                const GameEngine &level_info,
+                const std::string &directory_path);
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
@@ -44,7 +45,7 @@ public:
 
   LevelInfo GetLevelInfo() override;
 
-  Board GetLevel() override;
+  GameEngine GetLevel() override;
 
   std::string GetLevelDirectory() override;
 
@@ -108,7 +109,7 @@ protected:
 
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
-  Board local_board_;
+  GameEngine local_board_;
 
   /// size of a square cell
   unsigned cell_size_;

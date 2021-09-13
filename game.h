@@ -7,15 +7,14 @@
 #include "level_info.h"
 #include <vector>
 
-class Board
-{
+class GameEngine {
 public:
-  Board() = delete;
+  GameEngine() = delete;
 
-  Board(const LevelInfo &level_info);
-  Board &operator=(const Board &other);
+  GameEngine(const LevelInfo &level_info);
+  GameEngine &operator=(const GameEngine &other);
 
-  Bot *GetCell(const Coord& position);
+  Bot *GetCell(const Coord &position);
   Bot *GetCell(unsigned position);
 
   BotType GetBotType(const Coord &position) const;
@@ -30,7 +29,7 @@ public:
   bool IsLocked(int position);
 
   void GenPosition();
-  bool CompareGameState(const Board &other);
+  bool CompareGameState(const GameEngine &other);
   bool IsWon();
   size_t Size() const;
 

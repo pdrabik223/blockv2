@@ -44,7 +44,7 @@ public:
                            const sf::RenderWindow &window) override;
 
   CreatorInputPanel *Clone() override;
-  Board GetLevel() override;
+  GameEngine GetLevel() override;
   LevelInfo GetLevelInfo() override;
   std::string GetLevelDirectory() override;
   ~CreatorInputPanel() override;

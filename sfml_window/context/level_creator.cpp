@@ -572,7 +572,7 @@ sfml_window::LevelCreator::~LevelCreator() {
     delete b;
 }
 
-Board sfml_window::LevelCreator::GetLevel() { return Board(level_); }
+GameEngine sfml_window::LevelCreator::GetLevel() { return GameEngine(level_); }
 
 std::string sfml_window::LevelCreator::GetLevelDirectory() {
   return level_directory_;

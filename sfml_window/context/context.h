@@ -90,7 +90,7 @@ public:
   virtual Context* Clone() = 0;
 
   /// get game object
-  virtual Board GetLevel() = 0;
+  virtual GameEngine GetLevel() = 0;
   /// get Full level info object
   virtual LevelInfo GetLevelInfo() = 0;
   /// get level directory path (path to assets)

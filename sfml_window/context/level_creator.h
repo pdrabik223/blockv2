@@ -60,7 +60,7 @@ public:
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
   LevelInfo GetLevelInfo() override;
-  Board GetLevel() override;
+  GameEngine GetLevel() override;
   std::string GetLevelDirectory() override;
   ~LevelCreator() override;
 

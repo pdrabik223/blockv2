@@ -135,5 +135,5 @@ sfml_window::MainMenu *sfml_window::MainMenu::Clone() { return new MainMenu(*thi
 LevelInfo sfml_window::MainMenu::GetLevelInfo() {
   return LevelInfo(2,1);
 }
-Board sfml_window::MainMenu::GetLevel() { return Board(LevelInfo(2,1)); }
+GameEngine sfml_window::MainMenu::GetLevel() { return GameEngine(LevelInfo(2,1)); }
 std::string sfml_window::MainMenu::GetLevelDirectory() { return std::string(); }

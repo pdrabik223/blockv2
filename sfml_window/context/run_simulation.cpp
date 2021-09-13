@@ -12,7 +12,7 @@ sfml_window::RunSimulation::~RunSimulation() {
 
 sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           unsigned int window_height,
-                                          const Board &level_info,
+                                          const GameEngine &level_info,
                                           const std::string &directory_path)
     : local_board_(level_info), window_width_(window_width),
       window_height_(window_height) {
@@ -394,7 +394,7 @@ sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() {
   return new RunSimulation(*this);
 }
 LevelInfo sfml_window::RunSimulation::GetLevelInfo() { return LevelInfo(2, 1); }
-Board sfml_window::RunSimulation::GetLevel() { return local_board_; }
+GameEngine sfml_window::RunSimulation::GetLevel() { return local_board_; }
 std::string sfml_window::RunSimulation::GetLevelDirectory() {
   return std::string();
 }

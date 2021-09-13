@@ -36,8 +36,10 @@ Direction RotateDirection(Direction target, TurnDirection angle);
 
 Coord NextPosition(Direction direction, const Coord &current_position);
 
-Coord PreviousPosition(Direction direction, const Coord &current_position);
+bool CheckBoundaries(unsigned plane_width, unsigned plane_height,
+                     const Coord &new_position);
 
+Coord PreviousPosition(Direction direction, const Coord &current_position);
 
 class Transposition {
 public:

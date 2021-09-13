@@ -63,7 +63,7 @@ public:
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
   LevelInfo GetLevelInfo() override;
-  Board GetLevel() override;
+  GameEngine GetLevel() override;
   std::string GetLevelDirectory() override;
 
   ~LevelPlayer() override ;
@@ -111,7 +111,7 @@ private:
   /// position
   unsigned Align(double x);
 
-  Board level_;
+  GameEngine level_;
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>

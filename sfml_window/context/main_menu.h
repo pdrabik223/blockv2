@@ -39,7 +39,7 @@ public:
   MainMenu *Clone() override;
 
   LevelInfo GetLevelInfo() override;
-  Board GetLevel() override;
+  GameEngine GetLevel() override;
   std::string GetLevelDirectory() override;
   ~MainMenu();
 

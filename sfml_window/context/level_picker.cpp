@@ -204,4 +204,6 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
   levels_ = other.levels_;
   path_to_chosen_level_ = other.path_to_chosen_level_;
 }
-Board sfml_window::LevelPicker::GetLevel() { return Board(LevelInfo(2,1));}
+GameEngine sfml_window::LevelPicker::GetLevel() {
+  return GameEngine(LevelInfo(2, 1));
+}

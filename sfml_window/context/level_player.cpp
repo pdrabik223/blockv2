@@ -573,9 +573,7 @@ sfml_window::LevelPlayer::~LevelPlayer() {
     delete b;
 }
 
-
-
-Board sfml_window::LevelPlayer::GetLevel() { return level_; }
+GameEngine sfml_window::LevelPlayer::GetLevel() { return level_; }
 
 std::string sfml_window::LevelPlayer::GetLevelDirectory() {
   return level_directory_;

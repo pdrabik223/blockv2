@@ -84,6 +84,13 @@ Coord NextPosition(Direction direction, const Coord &current_position) {
   assert(false);
   return current_position;
 }
+
+bool CheckBoundaries(unsigned plane_width, unsigned plane_height,
+                     const Coord &new_position) {
+
+  return (plane_width > new_position.x and plane_height > new_position.y);
+}
+
 Coord PreviousPosition(Direction direction, const Coord &current_position) {
   switch (direction) {
   case Direction::UP:

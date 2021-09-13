@@ -5,13 +5,13 @@
 #include "game.h"
 #include <iostream>
 
-Bot *Board::GetCell(const Coord &position) {
+Bot *GameEngine::GetCell(const Coord &position) {
   return plane_[position.ToInt(width_)];
 }
 
-Bot *Board::GetCell(unsigned int position) { return plane_[position]; }
+Bot *GameEngine::GetCell(unsigned int position) { return plane_[position]; }
 
-Board::Board(const LevelInfo &level_info) {
+GameEngine::GameEngine(const LevelInfo &level_info) {
 
   plane_.clear();
 
@@ -24,7 +24,7 @@ Board::Board(const LevelInfo &level_info) {
   height_ = level_info.GetHeight();
 }
 
-Board &Board::operator=(const Board &other) {
+GameEngine &GameEngine::operator=(const GameEngine &other) {
   if (&other == this)
     return *this;
 
@@ -38,11 +38,11 @@ Board &Board::operator=(const Board &other) {
   return *this;
 }
 
-unsigned int Board::GetWidth() const { return width_; }
+unsigned int GameEngine::GetWidth() const { return width_; }
 
-unsigned int Board::GetHeight() const { return height_; }
+unsigned int GameEngine::GetHeight() const { return height_; }
 
-bool Board::CompareGameState(const Board &other) {
+bool GameEngine::CompareGameState(const GameEngine &other) {
   if (width_ not_eq other.GetWidth() or height_ not_eq other.GetHeight())
     return false;
 
@@ -53,13 +53,13 @@ bool Board::CompareGameState(const Board &other) {
   return true;
 }
 
-size_t Board::Size() const { return width_ * height_; }
+size_t GameEngine::Size() const { return width_ * height_; }
 
-BotType Board::GetBotType(unsigned int position) const {
+BotType GameEngine::GetBotType(unsigned int position) const {
   return plane_[position]->GetType();
 }
 
-BotType Board::GetBotType(const Coord &position) const {
+BotType GameEngine::GetBotType(const Coord &position) const {
   return plane_[position.ToInt(width_)]->GetType();
 }
 
@@ -89,7 +89,7 @@ int GetValue(const Bot &bot_a) {
   return -1;
 }
 
-bool Board::IsWon() {
+bool GameEngine::IsWon() {
   for (const auto &b : plane_)
     if (b->GetType() == BotType::GOAL)
       return false;
@@ -97,7 +97,7 @@ bool Board::IsWon() {
   return true;
 }
 
-void Board::AddCell(int x, int y, BotType type) {
+void GameEngine::AddCell(int x, int y, BotType type) {
   assert(x < width_ and y < height_);
 
   delete plane_[y * width_ + x];
@@ -133,7 +133,7 @@ void Board::AddCell(int x, int y, BotType type) {
   }
 }
 
-void Board::RotateCell(int x, int y) {
+void GameEngine::RotateCell(int x, int y) {
   assert(x < width_ and y < height_);
 
   switch (plane_[y * width_ + x]->GetType()) {
@@ -160,21 +160,21 @@ void Board::RotateCell(int x, int y) {
   }
 }
 
-void Board::Lock(const Coord &position) {
+void GameEngine::Lock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
 
-bool Board::IsLocked(const Coord &position) {
+bool GameEngine::IsLocked(const Coord &position) {
   return locked_fields_[position.ToInt(width_)];
 }
 
-bool Board::IsLocked(int position) { return locked_fields_[position]; }
+bool GameEngine::IsLocked(int position) { return locked_fields_[position]; }
 
-void Board::UnLock(const Coord &position) {
+void GameEngine::UnLock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = false;
 }
 
-void Board::GenPosition() {
+void GameEngine::GenPosition() {
 
   ClearMovementDirection();
   ClearRotation();
@@ -200,26 +200,26 @@ void Board::GenPosition() {
   //    }
 }
 
-void Board::ClearMovementDirection() {
+void GameEngine::ClearMovementDirection() {
   for (int i = 0; i < Size(); i++)
     plane_[i]->ClearMovementDirection();
 }
 
-void Board::EngagePush() {
+void GameEngine::EngagePush() {
   for (int i = 0; i < Size(); ++i) {
     plane_[i]->Action(plane_, Coord(i % width_, i / width_), width_, height_);
   }
 }
 
-void Board::ActivateSecondAction() {
+void GameEngine::ActivateSecondAction() {
   for (int i = 0; i < Size(); ++i) {
     plane_[i]->SecondAction(plane_, Coord(i % width_, i / width_), width_,
                             height_);
   }
 }
 
-void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
-                       BotType type, int rotation) {
+void GameEngine::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
+                            BotType type, int rotation) {
 
   switch (type) {
   case BotType::BASIC:
@@ -301,7 +301,7 @@ void Board::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
   }
 }
 
-void Board::GenNextPlaneState() {
+void GameEngine::GenNextPlaneState() {
 
   std::vector<Bot *> temp_plane;
 
@@ -403,7 +403,7 @@ void Board::GenNextPlaneState() {
 //   //      delete temp_plane[i];
 // }
 
-Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
+Bot *GameEngine::CrushBots(Bot *bot_a, Bot *bot_b) {
   if (bot_a == nullptr)
     return bot_b->Clone();
   if (bot_b == nullptr)
@@ -418,12 +418,12 @@ Bot *Board::CrushBots(Bot *bot_a, Bot *bot_b) {
   return value_of_a_life > value_of_b_life ? bot_a->Clone() : bot_b->Clone();
 }
 
-void Board::ClearRotation() {
+void GameEngine::ClearRotation() {
   for (auto &b : plane_)
     b->ClearRotation();
 }
 
-int Board::CollapseRotation(const Coord &coord) {
+int GameEngine::CollapseRotation(const Coord &coord) {
 
   switch (GetBotType(coord)) {
     // for those rotations doesn't matter
@@ -492,4 +492,6 @@ int Board::CollapseRotation(const Coord &coord) {
   case BotType::SIZE:
     assert(false);
   }
+  assert(false);
+  return 0;
 }

@@ -192,7 +192,9 @@ sfml_window::CreatorInputPanel *sfml_window::CreatorInputPanel::Clone() {
   return new CreatorInputPanel(*this);
 }
 
-Board sfml_window::CreatorInputPanel::GetLevel() { return Board(target_); }
+GameEngine sfml_window::CreatorInputPanel::GetLevel() {
+  return GameEngine(target_);
+}
 
 LevelInfo sfml_window::CreatorInputPanel::GetLevelInfo() {
   UpdateLevel();
