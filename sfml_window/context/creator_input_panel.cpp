@@ -164,6 +164,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
     for (auto id = 0; id < input_panels_.size(); id++)
       if (input_panels_[id].DetectInteraction({mouse_x, mouse_y}, event)) {
         in_focus_ = (CreatorInputPanelTextField)id;
+        input_panels_[id].SetText("");
         return ContextEvent::UPDATE_DISPLAY;
       }
     if (in_focus_ != CreatorInputPanelTextField::SIZE) {
