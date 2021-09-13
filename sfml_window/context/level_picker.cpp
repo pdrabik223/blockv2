@@ -26,7 +26,8 @@ void sfml_window::LevelPicker::LoadButtons() {
                       std::to_string(number_of_levels);
 
   buttons_[(unsigned)LevelPickerButton::PROGRESS_COUNTER] =
-      new TextButton(Coord(window_width_ - 100, 44), ratio, GOLD, false, 24);
+      new TextButton(Coord(window_width_ - (ratio.size() * 24 / 1.8) - 40, 44),
+                     ratio, GOLD, false, 24);
 
   buttons_[(unsigned)LevelPickerButton::TROPHY_IMAGE] =
       new ImageButton(Rect(Coord(window_width_ - 36, 44), 32, 32),
