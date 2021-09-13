@@ -157,9 +157,11 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
         switch ((CreatorInputPanelButton)id) {
         case CreatorInputPanelButton::EXIT:
           return ContextEvent::SWITCH_BACK_TO_CREATOR;
+
         case CreatorInputPanelButton::SAVE_LEVEL:
           UpdateLevel();
           target_.SaveLevel();
+          return ContextEvent::UPDATE_DISPLAY;
         case CreatorInputPanelButton::WIDTH_UP: {
           int width = std::stoi(
               input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText());
@@ -168,6 +170,7 @@ sfml_window::CreatorInputPanel::HandleEvent(sf::Event &event,
               std::to_string(width));
         }
           return ContextEvent::UPDATE_DISPLAY;
+
         case CreatorInputPanelButton::WIDTH_DOWN: {
           int width = std::stoi(
               input_panels_[(int)CreatorInputPanelTextField::WIDTH].GetText());
