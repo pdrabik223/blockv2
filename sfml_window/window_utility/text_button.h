@@ -41,6 +41,7 @@ public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
 
   bool DetectHover(const Coord &press_point) override;
+  bool DetectHover(bool hover);
 
   /// display current look of a button to window
   /// \param window target to display button to

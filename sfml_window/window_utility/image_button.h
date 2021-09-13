@@ -21,6 +21,7 @@ public:
 
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
+  bool DetectHover(bool hover);
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetColor(const sf::Color &new_color) override;
   void SetPosition(const Coord &position);

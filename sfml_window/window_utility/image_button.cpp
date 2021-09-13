@@ -61,7 +61,7 @@ sfml_window::ImageButton::operator=(const sfml_window::ImageButton &other) {
 
 void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
 
-  if(hover_)
+  if (hover_)
     sprite_.setColor(color_);
   else
     sprite_.setColor(Light(color_));
@@ -69,23 +69,24 @@ void sfml_window::ImageButton::DrawToWindow(sf::RenderWindow &window) {
 }
 
 sfml_window::ImageButton::ImageButton(const Rect &structure,
-                                      const std::string &image_path, const sf::Color &color)
-    : structure_(structure),color_(color) {
+                                      const std::string &image_path,
+                                      const sf::Color &color)
+    : structure_(structure), color_(color) {
 
-
-  if (!texture_.loadFromFile(image_path)){
+  if (!texture_.loadFromFile(image_path)) {
     assert(false);
   }
   texture_.setSmooth(true);
   sprite_.setTexture(texture_);
   sprite_.setColor(Light(color_));
-  sprite_.setPosition((float)structure.placement.x,(float)structure.placement.y);
-  sprite_.setScale( (float)structure.width/(float)texture_.getSize().x,
-                    (float)structure.height/(float)texture_.getSize().y);
+  sprite_.setPosition((float)structure.placement.x,
+                      (float)structure.placement.y);
+  sprite_.setScale((float)structure.width / (float)texture_.getSize().x,
+                   (float)structure.height / (float)texture_.getSize().y);
 }
 bool sfml_window::ImageButton::DetectHover(const Coord &press_point) {
 
-  bool change=
+  bool change =
       hover_ not_eq structure_.CheckWBoundaries(press_point) ? true : false;
 
   hover_ = structure_.CheckWBoundaries(press_point);
@@ -93,7 +94,9 @@ bool sfml_window::ImageButton::DetectHover(const Coord &press_point) {
   return change;
 }
 
-sfml_window::ImageButton *sfml_window::ImageButton::Clone() { return new ImageButton(*this); }
+sfml_window::ImageButton *sfml_window::ImageButton::Clone() {
+  return new ImageButton(*this);
+}
 
 void sfml_window::ImageButton::SetColor(const sf::Color &new_color) {
   color_ = new_color;
@@ -106,4 +109,8 @@ void sfml_window::ImageButton::SetPosition(const Coord &position) {
 
   //  std::cout<<"\nplacement :"<<
   //  structure_.placement.x<<"\t"<<structure_.placement.y;
+}
+bool sfml_window::ImageButton::DetectHover(bool hover) {
+  hover_ = hover;
+  return hover;
 }

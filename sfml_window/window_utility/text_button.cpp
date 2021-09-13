@@ -89,5 +89,9 @@ void sfml_window::TextButton::SetColor(const sf::Color &new_color) {
 int sfml_window::TextButton::GetButtonWidth() {
   return text_.GetFontBoundaries().width;
 }
+bool sfml_window::TextButton::DetectHover(bool hover) {
+  hover_ = hover;
+  return hover_;
+}
 
 sfml_window::TextButton::~TextButton() = default;
