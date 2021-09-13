@@ -17,6 +17,7 @@
 
 #include <image_button.h>
 #include <image_toggle_button.h>
+#include <thread>
 namespace sfml_window {
 
 enum class RunSimulationButton {
@@ -86,6 +87,9 @@ private:
   void DrawCell(sf::RenderWindow &window, sfml_window::Assets id,
                 unsigned position);
 
+  void ThStartClock();
+  void ThStopClock();
+
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
@@ -116,7 +120,11 @@ protected:
 
   std::vector<sf::RectangleShape> grid_;
 
+  std::thread *clock_thread_;
+  bool clock_is_running_ = false;
+
   bool display_grid_ = false;
+  void ClockLoop();
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_

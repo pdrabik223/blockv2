@@ -408,3 +408,22 @@ GameEngine sfml_window::RunSimulation::GetLevel() { return local_board_; }
 std::string sfml_window::RunSimulation::GetLevelDirectory() {
   return std::string();
 }
+
+//
+// void sfml_window::RunSimulation::ThStartClock()   {
+//
+//  clock_thread_ = new std::thread( & sfml_window::RunSimulation::ClockLoop(),
+//  this);
+//}
+// void sfml_window::RunSimulation::ClockLoop() {
+//  while(true){
+//    std::this_thread::sleep_for(std::chrono::seconds (1));
+//    if(clock_is_running_) {
+//      sf::Event gen_new_frame{};
+//      gen_new_frame.type = sf::Event::KeyPressed;
+//      gen_new_frame.key.code = sf::Keyboard::Space;
+//      sf
+//
+//    }else return;
+//  }
+//}
