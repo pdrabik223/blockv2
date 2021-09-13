@@ -60,10 +60,8 @@ sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
 void sfml_window::ShortLevelInfo::DrawToWindow(sf::RenderWindow &window,
                                                const Coord &position) {
   level_.SetPosition(position);
-
   //  std::cout << level_.GetButtonWidth() << " <width\n";
   trophy_->SetPosition({600, position.y});
-
   level_.DrawToWindow(window);
   trophy_->DrawToWindow(window);
 }
@@ -75,12 +73,37 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(
 }
 
 bool sfml_window::ShortLevelInfo::DetectHover(const Coord &mouse_position) {
-  return level_.DetectHover(mouse_position);
+
+  if (level_.DetectHover(mouse_position)) {
+    trophy_->DetectHover(true);
+    return true;
+  }
+
+  if (trophy_->DetectHover(mouse_position)) {
+    level_.DetectHover(true);
+    return true;
+  }
+
+  level_.DetectHover(false);
+  trophy_->DetectHover(false);
+  return false;
 }
 
 bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
                                                     sf::Event &event) {
-  return level_.DetectInteraction(press_point, event);
+
+  if (level_.DetectInteraction(press_point, event)) {
+    trophy_->DetectHover(true);
+    return true;
+
+  } else if (trophy_->DetectInteraction(press_point, event)) {
+    level_.DetectHover(true);
+    return true;
+  }
+
+  level_.DetectHover(false);
+  trophy_->DetectHover(false);
+  return false;
 }
 
 std::string sfml_window::ShortLevelInfo::GetPath() { return path_; }
