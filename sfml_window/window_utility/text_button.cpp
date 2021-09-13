@@ -81,7 +81,7 @@ void sfml_window::TextButton::SetPosition(const Coord &position) {
 sfml_window::TextButton *sfml_window::TextButton::Clone() {
   return new TextButton(*this);
 }
-void sfml_window::TextButton::SetColor(const sf::Color &new_color) {
+void sfml_window::TextButton::SetButtonColor(const sf::Color &new_color) {
   button_color_ = new_color;
 
   background_.setFillColor(Light(button_color_));
@@ -96,6 +96,13 @@ bool sfml_window::TextButton::SetHover(bool hover) {
   bool change = hover_ != hover;
   hover_ = hover;
   return change;
+}
+const Rect &sfml_window::TextButton::GetStructure() const { return structure_; }
+
+bool sfml_window::TextButton::IsHover() const { return hover_; }
+
+const sf::Color &sfml_window::TextButton::GetButtonColor() const {
+  return button_color_;
 }
 
 sfml_window::TextButton::~TextButton() = default;

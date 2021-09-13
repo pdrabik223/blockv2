@@ -70,7 +70,7 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
           if (local_board_.IsWon())
-            buttons_[(int)RunSimulationButton::TROPHY]->SetColor(GOLD);
+            buttons_[(int)RunSimulationButton::TROPHY]->SetButtonColor(GOLD);
           return ContextEvent::UPDATE_DISPLAY;
         }
   } else {

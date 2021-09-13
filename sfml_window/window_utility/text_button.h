@@ -53,7 +53,12 @@ public:
 
   bool SetHover(bool hover);
   void SetPosition(const Coord &position);
-  void SetColor(const sf::Color &new_color) override;
+  void SetButtonColor(const sf::Color &new_color) override;
+
+  /// getters for chosen fields
+  const Rect &GetStructure() const;
+  bool IsHover() const;
+  const sf::Color &GetButtonColor() const;
 
   int GetButtonWidth();
 

@@ -15,17 +15,25 @@ public:
   ImageButton(const Rect &structure, const std::string &image_path,
               const sf::Color &color);
 
-  ImageButton(const ImageButton& other);
-  ImageButton & operator=(const ImageButton& other);
+  ImageButton(const ImageButton &other);
+  ImageButton &operator=(const ImageButton &other);
   ImageButton *Clone() override;
+  ~ImageButton() override = default;
 
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
   bool DetectHover(const Coord &press_point) override;
-  bool DetectHover(bool hover);
   void DrawToWindow(sf::RenderWindow &window) override;
-  void SetColor(const sf::Color &new_color) override;
+
+  /// setters for chosen fields
+
+  bool SetHover(bool hover);
+  void SetButtonColor(const sf::Color &new_color) override;
   void SetPosition(const Coord &position);
-  ~ImageButton() override = default;
+  /// getters for chosen fields
+
+  const Rect &GetStructure() const;
+  const sf::Color &GetColor() const;
+  bool IsHover() const;
 
 protected:
   Rect structure_;

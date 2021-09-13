@@ -98,7 +98,7 @@ sfml_window::ImageButton *sfml_window::ImageButton::Clone() {
   return new ImageButton(*this);
 }
 
-void sfml_window::ImageButton::SetColor(const sf::Color &new_color) {
+void sfml_window::ImageButton::SetButtonColor(const sf::Color &new_color) {
   color_ = new_color;
   sprite_.setColor(Light(color_));
 }
@@ -110,7 +110,13 @@ void sfml_window::ImageButton::SetPosition(const Coord &position) {
   //  std::cout<<"\nplacement :"<<
   //  structure_.placement.x<<"\t"<<structure_.placement.y;
 }
-bool sfml_window::ImageButton::DetectHover(bool hover) {
+bool sfml_window::ImageButton::SetHover(bool hover) {
+  bool change = hover_ != hover;
   hover_ = hover;
-  return hover;
+  return change;
 }
+const Rect &sfml_window::ImageButton::GetStructure() const {
+  return structure_;
+}
+const sf::Color &sfml_window::ImageButton::GetColor() const { return color_; }
+bool sfml_window::ImageButton::IsHover() const { return hover_; }

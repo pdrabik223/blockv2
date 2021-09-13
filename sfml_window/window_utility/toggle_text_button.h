@@ -47,7 +47,7 @@ public:
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
   void SetPosition(const Coord &position);
-  void SetColor(const sf::Color &new_color) override;
+  void SetButtonColor(const sf::Color &new_color) override;
   ToggleTextButton *Clone() override;
   ~ToggleTextButton() override;
 

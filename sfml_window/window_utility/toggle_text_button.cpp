@@ -113,6 +113,7 @@ void sfml_window::ToggleTextButton::TurnOn() {
 }
 std::string sfml_window::ToggleTextButton::GetText() { return text_.GetText(); }
 // todo fill in this function
-void sfml_window::ToggleTextButton::SetColor(const sf::Color &new_color) {}
+void sfml_window::ToggleTextButton::SetButtonColor(const sf::Color &new_color) {
+}
 
 sfml_window::ToggleTextButton::~ToggleTextButton() = default;

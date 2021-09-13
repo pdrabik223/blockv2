@@ -74,27 +74,21 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(
 
 bool sfml_window::ShortLevelInfo::DetectHover(const Coord &mouse_position) {
 
-  if (level_.DetectHover(mouse_position)) {
-    trophy_->DetectHover(true);
-    return true;
-  }
+  bool change = level_.DetectHover(mouse_position);
+  change |= trophy_->DetectHover(mouse_position);
 
-  if (trophy_->DetectHover(mouse_position)) {
+  if (level_.IsHover() or trophy_->IsHover()) {
+    trophy_->SetHover(true);
     level_.SetHover(true);
-    return true;
   }
-
-  level_.SetHover(false);
-  trophy_->DetectHover(false);
-  return trophy_->DetectHover(mouse_position) or
-         level_.DetectHover(mouse_position);
+  return change;
 }
 
 bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
                                                     sf::Event &event) {
 
   if (level_.DetectInteraction(press_point, event)) {
-    trophy_->DetectHover(true);
+    trophy_->SetHover(true);
     return true;
 
   } else if (trophy_->DetectInteraction(press_point, event)) {
@@ -103,7 +97,7 @@ bool sfml_window::ShortLevelInfo::DetectInteraction(const Coord &press_point,
   }
 
   level_.SetHover(false);
-  trophy_->DetectHover(false);
+  trophy_->SetHover(false);
   return false;
 }
 
