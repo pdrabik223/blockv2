@@ -25,7 +25,14 @@
 
 namespace sfml_window {
 
-enum class LevelPickerButton { EXIT, PAGE_UP, PAGE_DOWN, SIZE };
+enum class LevelPickerButton {
+  EXIT,
+  PAGE_UP,
+  PAGE_DOWN,
+  PROGRESS_COUNTER,
+  TROPHY_IMAGE,
+  SIZE
+};
 
 class LevelPicker : public Context {
 public:
@@ -63,13 +70,13 @@ private:
   /// that fit on the screen
   void DrawLevels(sf::RenderWindow &window);
 
-
   /// checks levels directory for existing levels and populates levels_ field
   /// wit results of search
   /// created text field will have assigned color and size but not a position
   /// position is calculated ad drawing time
   void LoadLevelInfo(const std::vector<std::string> &file_paths);
 
+  unsigned CountTrophys();
 
   /// \format in pixels
   /// x axis domain = <0,window_width_>

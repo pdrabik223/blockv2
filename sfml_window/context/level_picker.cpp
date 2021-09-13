@@ -17,16 +17,29 @@ void sfml_window::LevelPicker::LoadButtons() {
 
   buttons_[(unsigned)LevelPickerButton::PAGE_DOWN] = new ImageButton(
       Rect(Coord((window_width_ / 4) - 36 * 2, window_height_ - 36), 32, 32),
-      directory + "page_down.png",WHITE);
+      directory + "page_down.png", WHITE);
+
+  int number_of_levels = levels_.size();
+  int number_of_trophys = CountTrophys();
+
+  std::string ratio = std::to_string(number_of_trophys) + " / " +
+                      std::to_string(number_of_levels);
+
+  buttons_[(unsigned)LevelPickerButton::PROGRESS_COUNTER] =
+      new TextButton(Coord(window_width_ - 100, 44), ratio, GOLD, false, 24);
+
+  buttons_[(unsigned)LevelPickerButton::TROPHY_IMAGE] =
+      new ImageButton(Rect(Coord(window_width_ - 36, 44), 32, 32),
+                      "../sfml_window/assets/level_picker/trophy.png", GOLD);
 }
 
 sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
                                       unsigned int window_height)
     : window_width_(window_width), window_height_(window_height) {
 
+  LoadLevels();
   LoadButtons();
   LoadBackground();
-  LoadLevels();
 }
 
 void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
@@ -206,4 +219,12 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
 }
 GameEngine sfml_window::LevelPicker::GetLevel() {
   return GameEngine(LevelInfo(2, 1));
+}
+
+unsigned sfml_window::LevelPicker::CountTrophys() {
+  int counter = 0;
+  for (auto l : levels_)
+    if (LevelInfo(LevelPath(l.GetPath())).IsWon())
+      counter++;
+  return counter;
 }
