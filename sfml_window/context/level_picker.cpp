@@ -11,23 +11,13 @@ void sfml_window::LevelPicker::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
 
-  buttons_[(unsigned)LevelPickerButton::PAGE_UP] =
+  buttons_[(unsigned)LevelPickerButton::PAGE_DOWN] =
       new ImageButton(Rect(Coord((window_width_ / 4) - 36 * 2, 4), 32, 32),
                       directory + "page_up.png", WHITE);
 
-  buttons_[(unsigned)LevelPickerButton::PAGE_DOWN] = new ImageButton(
+  buttons_[(unsigned)LevelPickerButton::PAGE_UP] = new ImageButton(
       Rect(Coord((window_width_ / 4) - 36 * 2, window_height_ - 36), 32, 32),
       directory + "page_down.png", WHITE);
-
-  int number_of_levels = levels_.size();
-  int number_of_trophys = CountTrophys();
-
-  std::string ratio = std::to_string(number_of_trophys) + " / " +
-                      std::to_string(number_of_levels);
-
-  buttons_[(unsigned)LevelPickerButton::PROGRESS_COUNTER] =
-      new TextButton(Coord(window_width_ - (ratio.size() * 24 / 1.8) - 40, 44),
-                     ratio, GOLD, false, 24);
 
   buttons_[(unsigned)LevelPickerButton::TROPHY_IMAGE] =
       new ImageButton(Rect(Coord(window_width_ - 36, 44), 32, 32),
@@ -40,14 +30,24 @@ sfml_window::LevelPicker::LevelPicker(unsigned int window_width,
 
   LoadLevels();
   LoadButtons();
+  LoadTextFields();
   LoadBackground();
 }
 
 void sfml_window::LevelPicker::DrawToWindow(sf::RenderWindow &window) {
   window.draw(background_sprite_);
 
-  for (const auto &button : buttons_)
-    button->DrawToWindow(window);
+  buttons_[(int)LevelPickerButton::EXIT]->DrawToWindow(window);
+  if (page_ < no_pages_ - 1)
+    buttons_[(int)LevelPickerButton::PAGE_UP]->DrawToWindow(window);
+
+  if (page_ != 0)
+    buttons_[(int)LevelPickerButton::PAGE_DOWN]->DrawToWindow(window);
+
+  buttons_[(int)LevelPickerButton::TROPHY_IMAGE]->DrawToWindow(window);
+
+  for (auto &field : text_fields_)
+    field.DrawToWindow(window);
 
   DrawLevels(window);
 }
@@ -77,12 +77,14 @@ sfml_window::LevelPicker::HandleEvent(sf::Event &event,
         case LevelPickerButton::EXIT:
           return ContextEvent::SWITCH_TO_MAIN_MENU;
         case LevelPickerButton::PAGE_UP:
-          if (page_ < max_page_ - 1)
+          if (page_ < no_pages_ - 1)
             page_++;
+          UpdatePageNumber();
           return ContextEvent::UPDATE_DISPLAY;
         case LevelPickerButton::PAGE_DOWN:
           if (page_ > 0)
             page_--;
+          UpdatePageNumber();
           return ContextEvent::UPDATE_DISPLAY;
         }
   } else {
@@ -153,6 +155,13 @@ void sfml_window::LevelPicker::LoadLevels() {
 
   for (auto &i : file_paths)
     std::cout << i << "\n";
+
+  // height of one displayed text
+  double height = font_size_ * 1.4;
+
+  const int kNumberOfLevelsOnScreen = (int)(window_height_ / height) - 2;
+
+  no_pages_ = 1 + levels_.size() / kNumberOfLevelsOnScreen;
 }
 
 void sfml_window::LevelPicker::LoadLevelInfo(
@@ -177,13 +186,13 @@ void sfml_window::LevelPicker::DrawLevels(sf::RenderWindow &window) {
 
   const int kNumberOfLevelsOnScreen = (int)(window_height_ / height) - 2;
 
-  max_page_ = 1 + levels_.size() / kNumberOfLevelsOnScreen;
-
   int py = (int)height;
 
   for (int i = 0; i < kNumberOfLevelsOnScreen; i++) {
-    if (i == levels_.size())
+
+    if (i + kNumberOfLevelsOnScreen * page_ == levels_.size())
       break;
+
     levels_[i + kNumberOfLevelsOnScreen * page_].DrawToWindow(
         window, {kPx, py + i * py});
   }
@@ -213,7 +222,7 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
   font_size_ = other.font_size_;
 
   page_ = other.page_;
-  max_page_ = other.max_page_;
+  no_pages_ = other.no_pages_;
 
   levels_ = other.levels_;
   path_to_chosen_level_ = other.path_to_chosen_level_;
@@ -228,4 +237,29 @@ unsigned sfml_window::LevelPicker::CountTrophys() {
     if (LevelInfo(LevelPath(l.GetPath())).IsWon())
       counter++;
   return counter;
+}
+
+void sfml_window::LevelPicker::LoadTextFields() {
+
+  int number_of_levels = levels_.size();
+
+  int number_of_trophys = CountTrophys();
+
+  std::string ratio = std::to_string(number_of_trophys) + " / " +
+                      std::to_string(number_of_levels);
+
+  text_fields_[(unsigned)LevelPickerTextBox::PROGRESS_COUNTER] =
+      TextBox(Coord(window_width_ - (ratio.size() * 24 / 1.8) - 40, 44), ratio,
+              GOLD, 24);
+
+  text_fields_[(unsigned)LevelPickerTextBox::PAGE_NUMBER] =
+      TextBox(Coord(4, 4), "page: 0/0", WHITE, 24);
+  UpdatePageNumber();
+}
+void sfml_window::LevelPicker::UpdatePageNumber() {
+
+  std::string pages =
+      "page: " + std::to_string(page_ + 1) + " / " + std::to_string(no_pages_);
+
+  text_fields_[(unsigned)LevelPickerTextBox::PAGE_NUMBER].SetText(pages);
 }

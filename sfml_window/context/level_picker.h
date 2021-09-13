@@ -16,23 +16,18 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include <short_level_info.h>
 #include <fstream>
 #include <iostream>
+#include <short_level_info.h>
 
 /// displays the content of the levels directory, and enables user to choose
 /// witch level they want to play
 
 namespace sfml_window {
 
-enum class LevelPickerButton {
-  EXIT,
-  PAGE_UP,
-  PAGE_DOWN,
-  PROGRESS_COUNTER,
-  TROPHY_IMAGE,
-  SIZE
-};
+enum class LevelPickerButton { EXIT, PAGE_UP, PAGE_DOWN, TROPHY_IMAGE, SIZE };
+
+enum class LevelPickerTextBox { PROGRESS_COUNTER, PAGE_NUMBER, SIZE };
 
 class LevelPicker : public Context {
 public:
@@ -41,7 +36,7 @@ public:
   /// \param window_width of the window
   LevelPicker(unsigned int window_width, unsigned int window_height);
 
-  LevelPicker(const LevelPicker & other);
+  LevelPicker(const LevelPicker &other);
 
   LevelPicker *Clone() override;
   void DrawToWindow(sf::RenderWindow &window) override;
@@ -53,11 +48,14 @@ public:
   GameEngine GetLevel() override;
   LevelInfo GetLevelInfo() override;
 
-  ~LevelPicker() override ;
+  ~LevelPicker() override;
 
 private:
   /// load buttons to memory
   void LoadButtons();
+
+  /// loads text fields to memory
+  void LoadTextFields();
 
   /// Loads background to memory
   void LoadBackground();
@@ -93,18 +91,22 @@ private:
 
   std::array<Button *, (unsigned)LevelPickerButton::SIZE> buttons_;
 
+  std::array<TextBox, (unsigned)LevelPickerTextBox::SIZE> text_fields_;
+
   /// level will be displayed with this font size
   unsigned font_size_ = 24;
 
   /// current displayed levels
+  /// every page accommodates 15 levels
   int page_ = 0;
 
   /// how many pages of levels can be found on drive
-  int max_page_ = 1;
+  int no_pages_ = 1;
 
   std::vector<ShortLevelInfo> levels_;
 
   std::string path_to_chosen_level_ = "none_chosen";
+  void UpdatePageNumber();
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PICKER_H_
