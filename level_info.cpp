@@ -299,6 +299,10 @@ void LevelInfo::Resize(const int new_width, const int new_height) {
 }
 bool LevelInfo::IsWon() { return is_won_; }
 
-void LevelInfo::LevelCompleted() { is_won_ = true; }
+void LevelInfo::LevelCompleted() {
+
+  is_won_ = true;
+  SaveLevel();
+}
 
 void LevelInfo::SetWon(bool state) { is_won_ = state; }

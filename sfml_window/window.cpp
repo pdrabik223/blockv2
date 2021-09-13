@@ -112,9 +112,11 @@ void Gui::HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
     goto update_display;
   }
   case ContextEvent::LEVEL_WON: {
-    current_context_->GetLevelInfo().SetWon(true);
+    context_storage->GetLevelInfo().LevelCompleted();
+
     goto update_display;
   }
+
   update_display:
     current_context_->DrawToWindow(window);
     window.display();
