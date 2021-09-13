@@ -12,9 +12,10 @@ bool sfml_window::TextButton::DetectInteraction(const Coord &press_point,
 }
 
 bool sfml_window::TextButton::DetectHover(const Coord &press_point) {
-  bool change =
-      hover_ not_eq structure_.CheckWBoundaries(press_point) ? true : false;
+  bool change = hover_ not_eq structure_.CheckWBoundaries(press_point);
+
   hover_ = structure_.CheckWBoundaries(press_point);
+
   return change;
 }
 void sfml_window::TextButton::DrawToWindow(sf::RenderWindow &window) {
@@ -62,7 +63,7 @@ sfml_window::TextButton::TextButton(const Coord &position,
 
   background_.setSize({(float)structure_.width, (float)structure_.height});
 }
-sfml_window::TextButton::TextButton(const sfml_window::TextButton& other) {
+sfml_window::TextButton::TextButton(const sfml_window::TextButton &other) {
   structure_ = other.structure_;
   background_ = other.background_;
   text_ = other.text_;
@@ -86,12 +87,15 @@ void sfml_window::TextButton::SetColor(const sf::Color &new_color) {
   background_.setFillColor(Light(button_color_));
   background_.setOutlineColor(button_color_);
 }
+
 int sfml_window::TextButton::GetButtonWidth() {
   return text_.GetFontBoundaries().width;
 }
-bool sfml_window::TextButton::DetectHover(bool hover) {
+
+bool sfml_window::TextButton::SetHover(bool hover) {
+  bool change = hover_ != hover;
   hover_ = hover;
-  return hover_;
+  return change;
 }
 
 sfml_window::TextButton::~TextButton() = default;

@@ -16,13 +16,16 @@ class TextButton : public Button {
 
 public:
   TextButton() = default;
-  TextButton(const TextButton& other);
+  TextButton(const TextButton &other);
+  TextButton *Clone() override;
+  ~TextButton() override;
 
   ///
   /// \param structure  the position on screen and boundaries the text will fill
   /// \param text displayed text
   /// \param button_color color of the text
-  /// \param display_background true if the background should be displayed, false if not
+  /// \param display_background true if the background should be displayed,
+  /// false if not
   TextButton(const Rect &structure, const std::string &text,
              const sf::Color &button_color, bool display_background);
 
@@ -41,16 +44,18 @@ public:
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
 
   bool DetectHover(const Coord &press_point) override;
-  bool DetectHover(bool hover);
 
   /// display current look of a button to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
+
+  /// setters for chosen fields
+
+  bool SetHover(bool hover);
   void SetPosition(const Coord &position);
   void SetColor(const sf::Color &new_color) override;
+
   int GetButtonWidth();
-  TextButton *Clone() override;
-  ~TextButton() override;
 
 protected:
   Rect structure_;
