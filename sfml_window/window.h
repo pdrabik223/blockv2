@@ -28,22 +28,36 @@ enum class Contexts{
   SIZE
 };
 
-
 class Gui {
 public:
+  /// enty point to Block2 game
   Gui();
-  Gui(LevelInfo &level);
+  /// constructor creates artificial game based on level
+  /// this constructor should not be used by end user,
+  Gui(const LevelInfo &level);
+
   ~Gui();
 
+  /// user is forbidden to copy this object
+  Gui &operator=(const Gui &other) = delete;
+  /// user is forbidden to copy this object
+  Gui(const Gui &other) = delete;
+
 private:
+  /// main game loop
   void ThMainLoop();
+  /// switches to new screen look
   void SwitchContext(Contexts new_screen);
+  /// handles events
   void HandleIncomingEvents(sf::RenderWindow &window, ContextEvent event,
                             Context *&context_storage);
-protected:
 
+protected:
+  /// current displayed context
   sfml_window::Context* current_context_;
+  /// whole game runs in seperated thread to main one
   std::thread *window_thread_;
+  /// current handled event
   sf::Event event_;
 
 };

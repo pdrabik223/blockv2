@@ -19,30 +19,6 @@ namespace sfml_window {
 
 enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
 
-/// all colors across whole platform must be unified
-/// all menus, and graphical elements must take one of these pre-defined colors
-/// this approach assures easy re-coloring of whole platform by simply editing
-/// one vector
-enum class GuiColor {
-  MENU_PRIMARY_COLOR,
-  MENU_SECONDARY_COLOR,
-  MENU_TERTIARY_COLOR,
-  MENU_BACKGROUND_COLOR,
-  /// \default red
-  /// \info to indicate dangerous behavior
-  DANGER_COLOR,
-  /// \default yellow
-  /// \info  to indicate not that important stuff
-  WARNING_COLOR,
-  /// \default blue
-  /// \info  to inform player about something
-  INFORMATIVE_COLOR,
-  /// \default green
-  /// \info  stuff that is safe to touch
-  SAFE_COLOR,
-  SIZE
-};
-
 enum class ContextEvent {
   EXIT,
   SWITCH_TO_MAIN_MENU,
@@ -82,12 +58,14 @@ enum class Assets {
 
 class Context {
 public:
-
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
 
-  virtual sfml_window::ContextEvent HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
+  virtual sfml_window::ContextEvent
+  HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
 
-  virtual Context* Clone() = 0;
+  /// clone function returns pointer to a new object of the Bot type,
+  /// @note new pointer must be deleted afterwards
+  virtual Context *Clone() = 0;
 
   /// get game object
   virtual GameEngine GetLevel() = 0;
@@ -97,10 +75,12 @@ public:
   virtual std::string GetLevelDirectory() = 0;
 
   virtual ~Context() = default;
-
 };
 
-std::string DirectoryPath(const std::string& level_path);
-std::string LevelPath(const std::string& directory_path);
+/// creates Directory path from level name
+std::string DirectoryPath(const std::string &level_path);
+
+/// creates Level path from directory name
+std::string LevelPath(const std::string &directory_path);
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_H_

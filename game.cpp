@@ -11,6 +11,16 @@ Bot *GameEngine::GetCell(const Coord &position) {
 
 Bot *GameEngine::GetCell(unsigned int position) { return plane_[position]; }
 
+GameEngine::GameEngine(const GameEngine &other) {
+  for (const auto &b : other.plane_)
+    plane_.emplace_back(b->Clone());
+
+  locked_fields_ = other.locked_fields_;
+
+  width_ = other.width_;
+  height_ = other.height_;
+}
+
 GameEngine::GameEngine(const LevelInfo &level_info) {
 
   plane_.clear();
@@ -42,15 +52,9 @@ unsigned int GameEngine::GetWidth() const { return width_; }
 
 unsigned int GameEngine::GetHeight() const { return height_; }
 
-bool GameEngine::CompareGameState(const GameEngine &other) {
-  if (width_ not_eq other.GetWidth() or height_ not_eq other.GetHeight())
-    return false;
-
-  for (int i = 0; i < Size(); ++i) {
-    if (plane_[i]->GetType() not_eq other.GetBotType(i))
-      return false;
-  }
-  return true;
+GameEngine::~GameEngine() {
+  for (auto bot : plane_)
+    delete bot;
 }
 
 size_t GameEngine::Size() const { return width_ * height_; }
@@ -164,10 +168,6 @@ void GameEngine::Lock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
 
-bool GameEngine::IsLocked(const Coord &position) {
-  return locked_fields_[position.ToInt(width_)];
-}
-
 bool GameEngine::IsLocked(int position) { return locked_fields_[position]; }
 
 void GameEngine::UnLock(const Coord &position) {
@@ -220,7 +220,6 @@ void GameEngine::ActivateSecondAction() {
 
 void GameEngine::EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
                             BotType type, int rotation) {
-
   switch (type) {
   case BotType::BASIC:
     plane[placement.ToInt(width_)] =
@@ -349,60 +348,6 @@ void GameEngine::GenNextPlaneState() {
     plane_.emplace_back(temp_plane[i]->Clone());
 }
 
-//
-// void Board::LockEdges() {
-//   //    for (int i = 0; i < Size(); ++i)
-//   //      plane_[i]->LockEdges(plane_, Coord(i % width_, i / width_),
-//   width_,
-//   //      height_,);
-// }
-//
-// void Board::GenNextPlaneState() {
-//   std::vector<Bot *> temp_plane;
-//
-//   temp_plane.reserve(Size());
-//
-//   for (int i = 0; i < Size(); ++i)
-//     temp_plane.push_back(nullptr);
-//   std::cout << "new frame: generating\n";
-//
-//   for (int y = 0; y < height_; ++y) {
-//     for (int x = 0; x < width_; ++x) {
-//
-//       Coord origin(x, y);
-//       Coord target(GetCell(origin)->GetMovement().Collapse(origin));
-//
-//       //      if(temp_plane[target.ToInt(width_)] == nullptr) // this is
-//       kinda
-//       //      flimsily solution
-//       if (temp_plane[target.ToInt(width_)] == nullptr)
-//         temp_plane[target.ToInt(width_)] = GetCell(origin)->Clone();
-//       else
-//         temp_plane[target.ToInt(width_)] =
-//             CrushBots(temp_plane[target.ToInt(width_)], GetCell(origin));
-//     }
-//   }
-//
-//   for (int i = 0; i < Size(); ++i)
-//     if (temp_plane[i] == nullptr)
-//       temp_plane[i] = new Empty();
-//
-//   for (int i = 0; i < Size(); ++i)
-//     if (temp_plane[i]->GetType() == BotType::FACTORY)
-//       ((Factory *)temp_plane[i])
-//           ->Spawn(temp_plane, Coord(i % width_, i / width_), width_,
-//           height_);
-//
-//   plane_.clear();
-//   plane_.reserve(Size());
-//
-//   for (int i = 0; i < Size(); ++i)
-//     plane_.emplace_back(temp_plane[i]->Clone());
-//
-//   //    for (int i = 0; i < Size(); ++i) emmm idk I just dont know
-//   //      delete temp_plane[i];
-// }
-
 Bot *GameEngine::CrushBots(Bot *bot_a, Bot *bot_b) {
   if (bot_a == nullptr)
     return bot_b->Clone();
@@ -423,9 +368,9 @@ void GameEngine::ClearRotation() {
     b->ClearRotation();
 }
 
-int GameEngine::CollapseRotation(const Coord &coord) {
+int GameEngine::CollapseRotation(const Coord &position) {
 
-  switch (GetBotType(coord)) {
+  switch (GetBotType(position)) {
     // for those rotations doesn't matter
   case BotType::BASIC:
   case BotType::BEDROCK:
@@ -436,7 +381,7 @@ int GameEngine::CollapseRotation(const Coord &coord) {
   case BotType::TURN: {
     int rotation = 0;
 
-    switch (((Turn *)GetCell(coord))->GetDirection()) {
+    switch (((Turn *)GetCell(position))->GetDirection()) {
     case TurnDirection::CLOCKWISE:
       break;
     case TurnDirection::COUNTER_CLOCKWISE:
@@ -444,12 +389,12 @@ int GameEngine::CollapseRotation(const Coord &coord) {
       break;
     }
 
-    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+    return rotation + GetCell(position)->GetMovement().rotation_angle_;
   }
   case BotType::ENGINE: {
     int rotation = 0;
 
-    switch (((Engine *)GetCell(coord))->GetDirection()) {
+    switch (((Engine *)GetCell(position))->GetDirection()) {
 
     case Direction::UP:
       break;
@@ -463,16 +408,16 @@ int GameEngine::CollapseRotation(const Coord &coord) {
       rotation += 90;
       break;
     }
-    if (GetCell(coord)->GetMovement().rotation_angle_ != 0) {
+    if (GetCell(position)->GetMovement().rotation_angle_ != 0) {
       //        break me daddy
     }
-    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+    return rotation + GetCell(position)->GetMovement().rotation_angle_;
   }
 
   case BotType::FACTORY: {
     int rotation = 0;
 
-    switch (((Factory *)GetCell(coord))->GetDirection()) {
+    switch (((Factory *)GetCell(position))->GetDirection()) {
     case Direction::UP:
       break;
     case Direction::DOWN:
@@ -486,7 +431,7 @@ int GameEngine::CollapseRotation(const Coord &coord) {
       break;
     }
 
-    return rotation + GetCell(coord)->GetMovement().rotation_angle_;
+    return rotation + GetCell(position)->GetMovement().rotation_angle_;
   }
   case BotType::NONE:
   case BotType::SIZE:
@@ -495,3 +440,4 @@ int GameEngine::CollapseRotation(const Coord &coord) {
   assert(false);
   return 0;
 }
+

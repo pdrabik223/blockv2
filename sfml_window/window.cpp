@@ -5,18 +5,22 @@
 #include "window.h"
 
 using namespace sfml_window;
-Gui::Gui()  {
+Gui::Gui() {
   current_context_ = new MainMenu(1200, 600);
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
-Gui::Gui(LevelInfo &level)  {
+Gui::Gui(const LevelInfo &level) {
   current_context_ = new RunSimulation(1200, 600, GameEngine(level),
                                        "../levels/no_name_given/no_name_given");
   window_thread_ = new std::thread(&Gui::ThMainLoop, this);
 }
 
-Gui::~Gui() { window_thread_->join(); }
+Gui::~Gui() {
+  delete current_context_;
+  window_thread_->join();
+  delete window_thread_;
+}
 
 void Gui::ThMainLoop() {
 
@@ -29,10 +33,8 @@ void Gui::ThMainLoop() {
   window.setPosition(sf::Vector2i(0, 0));
   window.setKeyRepeatEnabled(false);
 
-
   // run the program as long as the window is open
   current_context_->DrawToWindow(window);
-
 
   window.display();
   Context *context_storage = nullptr;
