@@ -13,29 +13,29 @@ public:
   Enemy& operator=(const Enemy &other);
   Enemy *Clone() override;
   ~Enemy() override = default;
+
   void OutputToFile(std::ostream &out) const override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override {/* do nothing */};
 
-  void Push(const std::vector<Bot *> &plane,
-                                  const Coord &bot_position,
-                                  unsigned int plane_width,
-                                  unsigned int plane_height,
+  void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+            unsigned int plane_width, unsigned int plane_height,
             Direction push_direction) override;
 
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
                     unsigned int plane_width,
                     unsigned int plane_height) override{/* do nothing */};
 
-  void ClearMovementDirection() override;
-
-  void ClearRotation() override;
-  Transposition GetMovement() const override;
-  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
-  void SetMovement(const Transposition &movement);
-  void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
+  Transposition GetMovement() const override;
+
+  void SetMovement(const Transposition &movement);
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
+
+  void ClearMovementDirection() override;
+  void ClearRotation() override;
+  void RotateCell(TurnDirection angle) override;
 
 protected:
   const BotType type_ = BotType::ENEMY;

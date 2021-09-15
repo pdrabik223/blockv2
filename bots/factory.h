@@ -26,17 +26,22 @@ public:
               unsigned int plane_width, unsigned int plane_height) override;
 
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
-               unsigned int plane_width, unsigned int plane_height)  override;
+                    unsigned int plane_width,
+                    unsigned int plane_height) override;
+  /// getters
+  Transposition GetMovement() const override;
+  Direction GetDirection() const;
+  BotType GetType() const override;
 
+  /// setters
+  void SetMovement(const Transposition &movement);
+  void SetDirection(Direction direction);
   void ClearMovementDirection() override;
 
   void ClearRotation() override;
-  Transposition GetMovement() const override;
   void RotateCell(TurnDirection angle) override;
-  Direction GetDirection() const;
-  BotType GetType() const override;
-  void SetRotation(int angle) override;
   void RotateCell();
+  void SetRotation(int angle) override;
 
 protected:
   const BotType type_ = BotType::FACTORY;

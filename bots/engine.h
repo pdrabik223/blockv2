@@ -15,33 +15,33 @@ public:
   Engine& operator=(const Engine& other);
   Engine *Clone() override;
   ~Engine() override = default;
+
   void OutputToFile(std::ostream &out) const override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;
 
-  void Push(const std::vector<Bot *> &plane,
-                                  const Coord &bot_position,
-                                  unsigned int plane_width,
-                                  unsigned int plane_height,
-                                  Direction push_direction) override;
-
-  void ClearMovementDirection() override;
+  void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
+            unsigned int plane_width, unsigned int plane_height,
+            Direction push_direction) override;
 
   void SecondAction(std::vector<Bot *> &plane, const Coord &bot_position,
-               unsigned int plane_width, unsigned int plane_height)  override
-               {/* do nothing */};
+                    unsigned int plane_width,
+                    unsigned int plane_height) override{/* do nothing */};
 
-  void ClearRotation() override;
   Transposition GetMovement() const override;
-  void SetMovement(const Transposition &movement);
   Direction GetDirection() const;
   BotType GetType() const override;
+
+  void SetRotation(int angle) override;
+  void SetMovement(const Transposition &movement);
+
+  void ClearRotation() override;
+  void ClearMovementDirection() override;
 
   void RotateCell();
   void RotateCell(TurnDirection angle) override;
 
-  void SetRotation(int angle) override;
 protected:
   const BotType type_ = BotType::ENGINE;
   Transposition movement_;

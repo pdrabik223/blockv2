@@ -116,3 +116,7 @@ void Factory::RotateCell(TurnDirection angle) {
 void Factory::ClearRotation() { movement_.ClearRotation(); }
 
 void Factory::SetRotation(int angle) { movement_.rotation_angle_ = angle; }
+void Factory::SetMovement(const Transposition &movement) {
+  movement_ = movement;
+}
+void Factory::SetDirection(Direction direction) { direction_ = direction; }

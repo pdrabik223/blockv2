@@ -80,3 +80,5 @@ void Turn::RotateCell(TurnDirection angle) { movement_.Rotate(angle); }
 void Turn::ClearRotation() { movement_.ClearRotation(); }
 
 void Turn::SetRotation(int angle) { movement_.rotation_angle_ = angle; }
+void Turn::SetMovement(const Transposition &movement) { movement_ = movement; }
+void Turn::SetDirection(TurnDirection direction) { direction_ = direction; }

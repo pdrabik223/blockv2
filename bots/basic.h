@@ -13,10 +13,7 @@ public:
   Basic(const Basic &other);
   Basic &operator=(const Basic &other);
   Basic *Clone() override;
-
   ~Basic() override = default;
-
-  void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width,
@@ -31,12 +28,16 @@ public:
                     unsigned int plane_height) override{/* do nothing */};
 
   void OutputToFile(std::ostream &out) const override;
-  void RotateCell(TurnDirection angle) override;
-  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
 
-  void ClearRotation() override;
   Transposition GetMovement() const override;
   BotType GetType() const override;
+
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
+  void SetMovement(const Transposition &movement);
+
+  void ClearMovementDirection() override;
+  void ClearRotation() override;
+  void RotateCell(TurnDirection angle) override;
 
 protected:
   const BotType type_ = BotType::BASIC;

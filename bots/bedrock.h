@@ -31,13 +31,14 @@ public:
 
   void OutputToFile(std::ostream &out) const override;
 
-  void ClearRotation() override;
-  Transposition GetMovement() const override;
-  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
-  void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
+  Transposition GetMovement() const override;
 
+  void SetRotation(int angle) override { movement_.rotation_angle_ = angle; };
   void SetMovement(const Transposition &movement);
+
+  void ClearRotation() override;
+  void RotateCell(TurnDirection angle) override;
 
 protected:
   const BotType type_ = BotType::BEDROCK;

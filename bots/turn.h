@@ -14,13 +14,13 @@ public:
   Turn &operator=(const Turn &other);
   Turn *Clone() override;
   ~Turn() override = default;
+
   void OutputToFile(std::ostream &out) const override;
 
   void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
             unsigned int plane_width, unsigned int plane_height,
             Direction push_direction) override;
 
-  void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width,
@@ -30,11 +30,16 @@ public:
                     unsigned int plane_width,
                     unsigned int plane_height) override{/*do nothing*/};
 
-  void SetRotation(int angle);
-  void ClearRotation() override;
   TurnDirection GetDirection() const;
   BotType GetType() const override;
   Transposition GetMovement() const override;
+
+  void SetRotation(int angle);
+  void SetMovement(const Transposition &movement);
+  void SetDirection(TurnDirection direction);
+
+  void ClearMovementDirection() override;
+  void ClearRotation() override;
   void RotateCell();
   void RotateCell(TurnDirection angle) override;
 
