@@ -88,6 +88,7 @@ private:
   /// load background to memory and scale it to screen
   /// \param background_path path to wanted background
   void LoadBackground(const std::string &background_path);
+
   void GenGrid();
 
   void ClearBotButtonHighlight();

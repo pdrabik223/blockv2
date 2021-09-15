@@ -14,8 +14,8 @@ public:
   Engine(const Engine &other);
   Engine& operator=(const Engine& other);
   Engine *Clone() override;
+  ~Engine() override = default;
   void OutputToFile(std::ostream &out) const override;
-
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned plane_width, unsigned plane_height) override;

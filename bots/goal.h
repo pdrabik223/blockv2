@@ -12,6 +12,7 @@ public:
   Goal(const Goal &other);
   Goal &operator=(const Goal &other);
   Goal *Clone() override;
+  ~Goal() override = default;
   void OutputToFile(std::ostream &out) const override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,

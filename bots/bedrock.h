@@ -37,6 +37,8 @@ public:
   void RotateCell(TurnDirection angle) override;
   BotType GetType() const override;
 
+  void SetMovement(const Transposition &movement);
+
 protected:
   const BotType type_ = BotType::BEDROCK;
   Transposition movement_;

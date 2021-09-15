@@ -12,6 +12,7 @@ public:
   Enemy(const Enemy &other);
   Enemy& operator=(const Enemy &other);
   Enemy *Clone() override;
+  ~Enemy() override = default;
   void OutputToFile(std::ostream &out) const override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,

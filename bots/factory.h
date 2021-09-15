@@ -13,8 +13,8 @@ public:
   Factory& operator=(const Factory& other);
   explicit Factory(Direction direction);
   Factory *Clone() override;
+  ~Factory() override = default;
   void OutputToFile(std::ostream &out) const override;
-
 
   void Push(const std::vector<Bot *> &plane,
                                   const Coord &bot_position,

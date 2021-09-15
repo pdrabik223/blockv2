@@ -29,16 +29,20 @@ class Bot {
 public:
   Bot() = default;
 
+  Bot(const Bot &other) { movement_ = other.movement_; };
+
   virtual Bot *Clone() {
     assert(false);
     return new Bot(*this);
   };
 
-  Bot(const Bot &other) { movement_ = other.movement_; };
-
-  virtual void OutputToFile(std::ostream &out) const { assert(false); };
+  virtual ~Bot() = default;
 
   virtual BotType GetType() const { return type_; }
+  virtual Transposition GetMovement() const { return movement_; }
+
+  virtual void SetRotation(int angle) { assert(false); };
+  virtual void OutputToFile(std::ostream &out) const { assert(false); };
 
   /// activates special function of a block (if there is one)
   virtual void Action(const std::vector<Bot *> &plane,
@@ -66,8 +70,6 @@ public:
 
   virtual void ClearMovementDirection() { assert(false); };
 
-  virtual Transposition GetMovement() const { return movement_; }
-
   virtual void RotateCell(TurnDirection angle) { assert(false); };
 
   virtual void LockEdge(Direction edge) { assert(false); };
@@ -76,7 +78,6 @@ public:
 
   virtual void ClearRotation()  { assert(false); };
 
-  virtual void SetRotation(int angle){assert(false);};
 
 protected:
   const BotType type_ = BotType::NONE;

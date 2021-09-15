@@ -14,6 +14,8 @@ public:
   Basic &operator=(const Basic &other);
   Basic *Clone() override;
 
+  ~Basic() override = default;
+
   void ClearMovementDirection() override;
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,

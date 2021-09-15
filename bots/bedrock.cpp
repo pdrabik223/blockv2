@@ -36,4 +36,7 @@ void Bedrock::ClearMovementDirection() {
 Transposition Bedrock::GetMovement() const { return movement_; }
 
 void Bedrock::RotateCell(TurnDirection angle)  { movement_.Rotate(angle); }
-void Bedrock::ClearRotation() {  movement_.ClearRotation(); }
+void Bedrock::ClearRotation() { movement_.ClearRotation(); }
+void Bedrock::SetMovement(const Transposition &movement) {
+  movement_ = movement;
+}

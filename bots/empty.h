@@ -12,8 +12,8 @@ public:
   Empty(const Empty &other);
   Empty& operator=(const Empty &other);
   Empty *Clone() override;
+  ~Empty() override = default;
   void OutputToFile(std::ostream &out) const override;
-
 
   void Action(const std::vector<Bot *> &plane, const Coord &bot_position,
               unsigned int plane_width, unsigned int plane_height) override {/* do nothing */};

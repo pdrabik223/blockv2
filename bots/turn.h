@@ -10,10 +10,10 @@ class Turn : public Bot {
 public:
   Turn();
   Turn(const Turn &other);
-  Turn &operator=(const Turn &other);
   explicit Turn(TurnDirection direction);
+  Turn &operator=(const Turn &other);
   Turn *Clone() override;
-
+  ~Turn() override = default;
   void OutputToFile(std::ostream &out) const override;
 
   void Push(const std::vector<Bot *> &plane, const Coord &bot_position,
