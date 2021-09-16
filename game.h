@@ -93,9 +93,14 @@ private:
 
   /// update bot position depending on legal moves
   void GenNextPlaneState();
-
+  ///  creates new bot entity in separate plane object
+  /// \param plane new board entity
+  /// \param placement coordinates of created cell
+  /// \param type type of created cell
+  /// \param rotation additional rotation information
   void EmplaceBot(std::vector<Bot *> &plane, const Coord &placement,
                   BotType type, int rotation);
+
   /// clears rotation off all cells on plane
   void ClearRotation();
   /// activates second action off all cells on plane
