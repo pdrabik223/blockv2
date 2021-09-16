@@ -63,8 +63,8 @@ public:
   virtual sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
 
-  /// clone function returns pointer to a new object of the Bot type,
-  /// @note new pointer must be deleted afterwards
+  /// clone function returns pointer to a new object of the Context type,
+  /// \note new pointer must be deleted afterwards
   virtual Context *Clone() = 0;
 
   /// get game object

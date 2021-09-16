@@ -1,7 +1,7 @@
 //
 // Created by studio25 on 20.08.2021.
 //
-
+/// toggleable text button
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_TEXT_BUTTON_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_TOGGLE_TEXT_BUTTON_H_
 
@@ -25,15 +25,20 @@ public:
   /// \param button_color color of the text
   /// \param display_background true if the background should be displayed, false if not
   ToggleTextButton(const Rect &structure, const std::string &text,
-             const sf::Color &button_color, bool display_background);
+                   const sf::Color &button_color, bool display_background);
 
-  /// \param position  the position on screen, actual size of button will be set to the size of text
-  /// \param text displayed text
-  /// \param button_color color of the text
-  /// \param display_background true if the background should be displayed, false if not
-  /// \param font_size the size of button letters
-  ToggleTextButton(const Coord &position,const std::string &text, const sf::Color &button_color,
-             bool display_background,unsigned font_size);
+  /// \param position  the position on screen, actual size of button will be set
+  /// to the size of text \param text displayed text \param button_color color
+  /// of the text \param display_background true if the background should be
+  /// displayed, false if not \param font_size the size of button letters
+  ToggleTextButton(const Coord &position, const std::string &text,
+                   const sf::Color &button_color, bool display_background,
+                   unsigned font_size);
+
+  /// clone function returns pointer to a new object of the Button type,
+  /// \note new pointer must be deleted afterwards
+  ToggleTextButton *Clone() override;
+  ~ToggleTextButton() override;
 
   /// updates look of a button depending on the position of mouse
   /// \param press_point current mouse position on screen
@@ -46,17 +51,17 @@ public:
   /// display current look of a button to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
+
   void SetPosition(const Coord &position);
   void SetButtonColor(const sf::Color &new_color) override;
-  ToggleTextButton *Clone() override;
-  ~ToggleTextButton() override;
 
   void SetText(const std::string &text);
-
-  void TurnOff();
-  void TurnOn();
-
   std::string GetText();
+
+  /// switch button to it's on state
+  void TurnOn();
+  /// switch button to it's off state
+  void TurnOff();
 
 protected:
   Rect structure_;

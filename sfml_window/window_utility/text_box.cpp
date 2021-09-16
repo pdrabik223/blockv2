@@ -7,6 +7,7 @@
 #include <iostream>
 
 sf::Font sfml_window::TextBox::font_;
+
 void sfml_window::TextBox::DrawToWindow(sf::RenderWindow &window) {
 
   window.draw(text_);
@@ -38,7 +39,20 @@ sfml_window::TextBox::TextBox(const Coord &position,
   text_.setString(raw_text);
   text_.setCharacterSize(font_size);
 }
+sfml_window::TextBox::TextBox(const TextBox &other) {
+  position_ = other.position_;
+  raw_text_ = other.raw_text_;
+  text_color_ = other.text_color_;
+  font_size_ = other.font_size_;
+  if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
+                          "window\\assets\\Georama-Medium.ttf"))
+    throw "bad file";
 
+  text_.setPosition(position_.x, position_.y);
+  text_.setFont(font_);
+  text_.setString(raw_text_);
+  text_.setCharacterSize(font_size_);
+}
 sfml_window::TextBox::TextBox(const Rect &position, const std::string &raw_text,
                               const sf::Color &text_color)
     : position_(position.placement), raw_text_(raw_text),
@@ -84,3 +98,22 @@ void sfml_window::TextBox::SetText(const std::string &text) {
   text_.setString(text);
 }
 std::string sfml_window::TextBox::GetText() { return raw_text_; }
+
+sfml_window::TextBox &
+sfml_window::TextBox::operator=(const sfml_window::TextBox &other) {
+  if (&other == this)
+    return *this;
+  position_ = other.position_;
+  raw_text_ = other.raw_text_;
+  text_color_ = other.text_color_;
+  font_size_ = other.font_size_;
+  if (!font_.loadFromFile("C:\\Users\\studio25\\Documents\\blockv2\\sfml_"
+                          "window\\assets\\Georama-Medium.ttf"))
+    throw "bad file";
+
+  text_.setPosition(position_.x, position_.y);
+  text_.setFont(font_);
+  text_.setString(raw_text_);
+  text_.setCharacterSize(font_size_);
+  return *this;
+}

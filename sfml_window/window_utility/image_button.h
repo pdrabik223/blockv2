@@ -1,7 +1,7 @@
 //
 // Created by studio25 on 03.08.2021.
 //
-
+/// button displaying image
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_IMAGE_BUTTON_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_IMAGE_BUTTON_H_
 #include "button.h"
@@ -17,11 +17,22 @@ public:
 
   ImageButton(const ImageButton &other);
   ImageButton &operator=(const ImageButton &other);
+
+  /// clone function returns pointer to a new object of the Button type,
+  /// \note new pointer must be deleted afterwards
   ImageButton *Clone() override;
   ~ImageButton() override = default;
-
+  /// handles user interaction with the button
+  /// \param press_point coordinates of user mouse
+  /// \param event action performed by user
+  /// \return  true if button was pressed, false if not
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
+  /// detects mouse hover
+  /// \param press_point coordinates of user mouse
+  /// \return true if appearance of button has changed
   bool DetectHover(const Coord &press_point) override;
+  /// handles button display to sfm::window
+  /// \param window targeted display
   void DrawToWindow(sf::RenderWindow &window) override;
 
   /// setters for chosen fields

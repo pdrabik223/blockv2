@@ -2,6 +2,8 @@
 // Created by studio25 on 01.08.2021.
 //
 
+/// file contains all colors used across while blockv2 project
+
 #ifndef BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_GUI_COLOR_H_
 #define BLOCK_V2_SFML_WINDOW_WINDOW_UTILITY_GUI_COLOR_H_
 #include "SFML/Graphics/Color.hpp"

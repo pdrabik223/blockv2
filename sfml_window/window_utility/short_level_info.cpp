@@ -49,9 +49,7 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
 }
 
 sfml_window::ShortLevelInfo::ShortLevelInfo() : path_("none") {
-
   level_ = TextButton({0, 0}, "None", RED, false, 24);
-
   trophy_ =
       new ImageButton(Rect({600, 0}, 32, 32),
                       "../sfml_window/assets/level_picker/trophy.png", GRAY);
