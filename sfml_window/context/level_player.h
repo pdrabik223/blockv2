@@ -5,7 +5,6 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_
 
-
 #include "context.h"
 
 #include <iostream>
@@ -18,11 +17,10 @@
 #include "text_button.h"
 #include <short_level_info.h>
 
-
 #include <toggle_sprite_button.h>
 
 namespace sfml_window {
-
+/// list  of buttons
 enum class LevelPlayerButton {
   EXIT,
   TROPHY,
@@ -38,27 +36,31 @@ enum class LevelPlayerButton {
   SIZE
 };
 
-
 class LevelPlayer : public Context {
 public:
-
   /// run provided simulation
   /// \param level_info full level info object
   /// \param window_height of the window
   /// \param window_width of the window
-  LevelPlayer(unsigned int window_width, unsigned int window_height, const std::string &level_path);
-
+  LevelPlayer(unsigned int window_width, unsigned int window_height,
+              const std::string &level_path);
 
   ///  copy constructor
   /// \param other copied object
-  LevelPlayer(const LevelPlayer & other );
-  LevelPlayer& operator=(const LevelPlayer & other );
+  LevelPlayer(const LevelPlayer &other);
+  LevelPlayer &operator=(const LevelPlayer &other);
 
-
+  /// clone function returns pointer to a new object of the Context type,
+  /// \note new pointer must be deleted afterwards
   LevelPlayer *Clone() override;
-
+  /// display current context to window
+  /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
-
+  ///  handles incoming events,
+  /// translates incoming event, and mouse position to ContextEvent
+  /// \param event new even
+  /// \param window source of mouse position info
+  /// \return new translated event
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
@@ -66,9 +68,10 @@ public:
   GameEngine GetLevel() override;
   std::string GetLevelDirectory() override;
 
-  ~LevelPlayer() override ;
+  ~LevelPlayer() override;
 
 private:
+  /// load buttons to memory
   void LoadButtons();
   /// loads assets from file to memory
   void LoadAssets(const std::string &level_name);
@@ -88,30 +91,45 @@ private:
   /// load background to memory and scale it to screen
   /// \param background_path path to wanted background
   void LoadBackground(const std::string &background_path);
-
+  /// generate cell grid
   void GenGrid();
-
+  /// clear button highlights
   void ClearBotButtonHighlight();
-
+  /// display grid to window
+  /// \param window target to display button to
   void DrawGrid(sf::RenderWindow &window);
+  /// display cells to window
+  /// \param window target to display button to
   void DrawCells(sf::RenderWindow &window);
+  /// display cell to window
+  /// \param window target to display button to
   void DrawCell(sf::RenderWindow &window, sfml_window::Assets id,
                 unsigned position);
 
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
-
+  /// adds new cell to grid
+  /// if event recorded left mouse button press, and mouse is hovering over
+  /// valid square new bot will be created in that place
+  /// \param mouse_position mouse coordinates
+  /// \param event last recorded event
+  /// \return if cell has been added, screen refreshes
   bool AddBotToGame(const Coord &mouse_position, const sf::Event &event);
 
-  bool RotateBot(const Coord &mouse_position,const sf::Event &event);
+  /// rotate existing cell 90 degrees clockwise
+  /// if event recorded right mouse button press, and mouse is hovering over
+  /// valid square new bot will be rotated  in that place \param mouse_position
+  /// mouse coordinates \param event last recorded event \return if cell has
+  /// been rotated, screen refreshes
+  bool RotateBot(const Coord &mouse_position, const sf::Event &event);
 
-  ///
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed
   /// \return the position on the screen corresponding to given relative
   /// position
   unsigned Align(double x);
 
+  /// current played level
   GameEngine level_;
 
   /// \format in pixels
@@ -126,24 +144,24 @@ private:
   sf::Texture background_texture_;
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
-
+  /// the gray button background on top of the screen
   sf::RectangleShape button_background_;
 
+  /// edited level directory path
   std::string level_directory_;
-
-
 
   /// size of a square cell
   unsigned cell_size_;
-
+  /// all of the buttons
   std::array<Button *, (unsigned)LevelPlayerButton::SIZE> buttons_;
 
   /// current bot user puts down
   BotType brush_ = BotType::BASIC;
-
+  /// list of used cells assets
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
+  /// the frame of  the level
   std::vector<sf::RectangleShape> grid_;
 };
-}
+} // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_LEVEL_PLAYER_H_

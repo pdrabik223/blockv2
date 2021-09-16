@@ -19,7 +19,7 @@
 #include <image_toggle_button.h>
 #include <thread>
 namespace sfml_window {
-
+/// list  of buttons
 enum class RunSimulationButton {
   TROPHY,
   STEP_SIMULATION,
@@ -37,11 +37,20 @@ public:
   RunSimulation(unsigned int window_width, unsigned int window_height,
                 const GameEngine &level_info,
                 const std::string &directory_path);
-
+  /// display current context to window
+  /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
 
+  ///  handles incoming events,
+  /// translates incoming event, and mouse position to ContextEvent
+  /// \param event new even
+  /// \param window source of mouse position info
+  /// \return new translated event
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
+
+  /// clone function returns pointer to a new object of the Context type,
+  /// \note new pointer must be deleted afterwards
   RunSimulation *Clone() override;
 
   LevelInfo GetLevelInfo() override;
@@ -81,14 +90,13 @@ private:
   /// display centered grid lines
   /// \param window target window
   void DrawGrid(sf::RenderWindow &window);
-
+  /// display cells to window
+  /// \param window target to display button to
   void DrawCells(sf::RenderWindow &window);
-
+  /// display cell to window
+  /// \param window target to display button to
   void DrawCell(sf::RenderWindow &window, sfml_window::Assets id,
                 unsigned position);
-
-  void ThStartClock();
-  void ThStopClock();
 
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
@@ -106,13 +114,13 @@ protected:
   sf::Texture background_texture_;
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
-
+  /// the gray button background on top of the screen
   sf::RectangleShape button_background_;
-
+  /// all of the buttons
   std::array<Button *, (unsigned)RunSimulationButton::SIZE> buttons_;
-
+  /// list of used cells assets
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
-
+  /// played level
   GameEngine local_board_;
 
   /// size of a square cell
@@ -120,11 +128,7 @@ protected:
 
   std::vector<sf::RectangleShape> grid_;
 
-  std::thread *clock_thread_;
-  bool clock_is_running_ = false;
-
   bool display_grid_ = false;
-  void ClockLoop();
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_

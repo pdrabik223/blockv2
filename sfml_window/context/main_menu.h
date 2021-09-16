@@ -30,12 +30,19 @@ enum class MainMenuButton {
 class MainMenu : public Context {
 public:
   MainMenu(unsigned int window_width, unsigned int window_height);
-
+  /// display current context to window
+  /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
 
+  ///  handles incoming events,
+  /// translates incoming event, and mouse position to ContextEvent
+  /// \param event new even
+  /// \param window source of mouse position info
+  /// \return new translated event
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
-
+  /// clone function returns pointer to a new object of the Context type,
+  /// \note new pointer must be deleted afterwards
   MainMenu *Clone() override;
 
   LevelInfo GetLevelInfo() override;

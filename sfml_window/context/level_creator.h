@@ -55,7 +55,10 @@ public:
   /// \note new pointer must be deleted afterwards
   LevelCreator *Clone() override;
 
+  /// display current context to window
+  /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
+
   ///  handles incoming events,
   /// translates incoming event, and mouse position to ContextEvent
   /// \param event new even
@@ -113,9 +116,10 @@ private:
 
   /// adds new cell to grid
   /// if event recorded left mouse button press, and mouse is hovering over
-  /// valid square new bot will be created in that place \param mouse_position
-  /// mouse coordinates \param event last recorded event \return if cell has
-  /// been added, screen refreshes
+  /// valid square new bot will be created in that place
+  /// \param mouse_position mouse coordinates
+  /// \param event last recorded event
+  /// \return if cell has been added, screen refreshes
   bool AddBotToGame(const Coord &mouse_position, const sf::Event &event);
 
   /// rotate existing cell 90 degrees clockwise
@@ -170,6 +174,7 @@ private:
   /// list of used cells assets
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
+  /// the frame of  the level
   std::vector<sf::RectangleShape> grid_;
 };
 } // namespace sfml_window
