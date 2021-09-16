@@ -227,6 +227,28 @@ sfml_window::LevelPicker::LevelPicker(const LevelPicker &other) {
   levels_ = other.levels_;
   path_to_chosen_level_ = other.path_to_chosen_level_;
 }
+sfml_window::LevelPicker &
+sfml_window::LevelPicker::operator=(const LevelPicker &other) {
+  if (&other == this)
+    return *this;
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  font_size_ = other.font_size_;
+
+  page_ = other.page_;
+  no_pages_ = other.no_pages_;
+
+  levels_ = other.levels_;
+  path_to_chosen_level_ = other.path_to_chosen_level_;
+  return *this;
+}
+
 GameEngine sfml_window::LevelPicker::GetLevel() {
   return GameEngine(LevelInfo(2, 1));
 }

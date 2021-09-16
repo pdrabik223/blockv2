@@ -17,6 +17,28 @@ sfml_window::MainMenu::MainMenu(unsigned int window_width,
   LoadButtons();
   LoadBackground();
 }
+sfml_window::MainMenu::MainMenu(const MainMenu &other)
+    : window_width_(other.window_width_), window_height_(other.window_height_),
+      game_name_(Align(50, 20, 500, 100), "Block v2", RED),
+      author_name_(Align(90, 90, 200, 50),
+                   "author: piotr233\nversion: alpha 0.1", RED) {
+  LoadButtons();
+  LoadBackground();
+}
+
+sfml_window::MainMenu &
+sfml_window::MainMenu::operator=(const sfml_window::MainMenu &other) {
+  if (&other == this)
+    return *this;
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  game_name_ = {Align(50, 20, 500, 100), "Block v2", RED};
+  author_name_ = {Align(90, 90, 200, 50),
+                  "author: piotr233\nversion: alpha 0.1", RED};
+  LoadButtons();
+  LoadBackground();
+  return *this;
+}
 
 sfml_window::MainMenu::~MainMenu() {
   for (auto &button : buttons_)
@@ -25,32 +47,31 @@ sfml_window::MainMenu::~MainMenu() {
 
 void sfml_window::MainMenu::LoadButtons() {
 
-  buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(
-      Align(10, 70), "EXIT", Rainbow(Align(10, 70).y,window_height_),
-      false, 24);
+  buttons_[(unsigned)MainMenuButton::EXIT] =
+      new TextButton(Align(10, 70), "EXIT",
+                     Rainbow(Align(10, 70).y, window_height_), false, 24);
 
-  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] = new TextButton(
-      Align(10, 30), "Play level",
-      Rainbow(Align(10, 30).y,window_height_), false, 24);
+  buttons_[(unsigned)MainMenuButton::PLAY_LEVEL] =
+      new TextButton(Align(10, 30), "Play level",
+                     Rainbow(Align(10, 30).y, window_height_), false, 24);
 
-  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] = new TextButton(
-      Align(10, 40), "Create level",
-      Rainbow(Align(10, 40).y,window_height_), false, 24);
+  buttons_[(unsigned)MainMenuButton::CREATE_LEVEL] =
+      new TextButton(Align(10, 40), "Create level",
+                     Rainbow(Align(10, 40).y, window_height_), false, 24);
 
-  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] = new TextButton(
-      Align(10, 50), "Multiplayer mode",
-      Rainbow(Align(10, 50).y,window_height_), false, 24);
+  buttons_[(unsigned)MainMenuButton::MULTIPLAYER] =
+      new TextButton(Align(10, 50), "Multiplayer mode",
+                     Rainbow(Align(10, 50).y, window_height_), false, 24);
 
-  buttons_[(unsigned)MainMenuButton::CREDITS] = new TextButton(
-      Align(10, 60), "Credits",
-      Rainbow(Align(10, 60).y,window_height_), false, 24);
+  buttons_[(unsigned)MainMenuButton::CREDITS] =
+      new TextButton(Align(10, 60), "Credits",
+                     Rainbow(Align(10, 60).y, window_height_), false, 24);
 }
 
 void sfml_window::MainMenu::DrawToWindow(sf::RenderWindow &window) {
 
   //  window.clear(color_palette_[(unsigned)GuiColor::MENU_BACKGROUND_COLOR]);
   window.draw(background_sprite_);
-
 
   for (const auto &button : buttons_)
     button->DrawToWindow(window);
@@ -128,12 +149,14 @@ void sfml_window::MainMenu::LoadBackground() {
       (float)window_height_ / (float)background_texture_.getSize().y);
 }
 
-sfml_window::MainMenu *sfml_window::MainMenu::Clone() { return new MainMenu(*this); }
-
-LevelInfo sfml_window::MainMenu::GetLevelInfo() {
-  return LevelInfo(2,1);
+sfml_window::MainMenu *sfml_window::MainMenu::Clone() {
+  return new MainMenu(*this);
 }
 
-GameEngine sfml_window::MainMenu::GetLevel() { return GameEngine(LevelInfo(2,1)); }
+LevelInfo sfml_window::MainMenu::GetLevelInfo() { return LevelInfo(2, 1); }
+
+GameEngine sfml_window::MainMenu::GetLevel() {
+  return GameEngine(LevelInfo(2, 1));
+}
 
 std::string sfml_window::MainMenu::GetLevelDirectory() { return std::string(); }

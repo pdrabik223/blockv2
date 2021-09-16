@@ -30,6 +30,8 @@ enum class MainMenuButton {
 class MainMenu : public Context {
 public:
   MainMenu(unsigned int window_width, unsigned int window_height);
+  MainMenu(const MainMenu &other);
+  MainMenu &operator=(const MainMenu &other);
   /// display current context to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
