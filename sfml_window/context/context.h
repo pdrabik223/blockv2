@@ -18,7 +18,7 @@ namespace sfml_window {
 #define EXIST(x) exists[(int)Assets::x]
 
 enum class FlipDirection { HORIZONTAL, VERTICAL, BOTH };
-
+/// the major way main window communicates with every running context
 enum class ContextEvent {
   EXIT,
   SWITCH_TO_MAIN_MENU,

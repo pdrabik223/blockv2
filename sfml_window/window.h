@@ -34,7 +34,7 @@ public:
   Gui();
   /// constructor creates artificial game based on level
   /// this constructor should not be used by end user,
-  Gui(const LevelInfo &level);
+  Gui(LevelInfo &level);
 
   ~Gui();
 
@@ -55,8 +55,7 @@ private:
 protected:
   /// current displayed context
   sfml_window::Context* current_context_;
-  /// whole game runs in seperated thread to main one
-  std::thread *window_thread_;
+
   /// current handled event
   sf::Event event_;
 

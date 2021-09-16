@@ -7,20 +7,16 @@
 using namespace sfml_window;
 Gui::Gui() {
   current_context_ = new MainMenu(1200, 600);
-  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
+  Gui::ThMainLoop();
 }
 
-Gui::Gui(const LevelInfo &level) {
+Gui::Gui(LevelInfo &level) {
   current_context_ = new RunSimulation(1200, 600, GameEngine(level),
                                        "../levels/no_name_given/no_name_given");
-  window_thread_ = new std::thread(&Gui::ThMainLoop, this);
+  Gui::ThMainLoop();
 }
 
-Gui::~Gui() {
-  delete current_context_;
-  window_thread_->join();
-  delete window_thread_;
-}
+Gui::~Gui() { delete current_context_; }
 
 void Gui::ThMainLoop() {
 
@@ -46,12 +42,9 @@ void Gui::ThMainLoop() {
 
       if (event_.type == sf::Event::Closed)
         window.close();
-      else {
-
-        HandleIncomingEvents(window,
-                             current_context_->HandleEvent(event_, window),
-                             context_storage);
-      }
+      HandleIncomingEvents(window,
+                           current_context_->HandleEvent(event_, window),
+                           context_storage);
     }
   }
   delete context_storage;

@@ -33,18 +33,19 @@ public:
 
   void DrawToWindow(sf::RenderWindow &window) override;
 
-  
   ContextEvent HandleEvent(sf::Event &event,
                            const sf::RenderWindow &window) override;
+
   MainMenu *Clone() override;
 
   LevelInfo GetLevelInfo() override;
   GameEngine GetLevel() override;
   std::string GetLevelDirectory() override;
+
   ~MainMenu();
 
 private:
-  ///
+  /// place object at specified coordinates
   /// \param x the percentage value where object should be placed
   /// \param y the percentage value where object should be placed
   /// \return the position on the screen corresponding to given relative

@@ -14,7 +14,6 @@ sfml_window::MainMenu::MainMenu(unsigned int window_width,
       author_name_(Align(90, 90, 200, 50),
                    "author: piotr233\nversion: alpha 0.1", RED) {
 
-
   LoadButtons();
   LoadBackground();
 }
@@ -25,8 +24,6 @@ sfml_window::MainMenu::~MainMenu() {
 }
 
 void sfml_window::MainMenu::LoadButtons() {
-
-
 
   buttons_[(unsigned)MainMenuButton::EXIT] = new TextButton(
       Align(10, 70), "EXIT", Rainbow(Align(10, 70).y,window_height_),
@@ -132,8 +129,11 @@ void sfml_window::MainMenu::LoadBackground() {
 }
 
 sfml_window::MainMenu *sfml_window::MainMenu::Clone() { return new MainMenu(*this); }
+
 LevelInfo sfml_window::MainMenu::GetLevelInfo() {
   return LevelInfo(2,1);
 }
+
 GameEngine sfml_window::MainMenu::GetLevel() { return GameEngine(LevelInfo(2,1)); }
+
 std::string sfml_window::MainMenu::GetLevelDirectory() { return std::string(); }
