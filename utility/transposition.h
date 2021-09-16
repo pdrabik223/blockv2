@@ -60,7 +60,11 @@ Coord NextPosition(Direction direction, const Coord &current_position);
 /// \return true if point lies inside of described plane, false if not
 bool CheckBoundaries(unsigned plane_width, unsigned plane_height,
                      const Coord &new_position);
-
+/// generate position of the square existing one unit moving in direction
+/// opposite to specified direction
+/// \param direction opposite direction to desired
+/// \param current_position current position in 2d space
+/// \return coordinates of neighbour square
 Coord PreviousPosition(Direction direction, const Coord &current_position);
 
 class Transposition {
@@ -70,22 +74,42 @@ public:
   Transposition(const Transposition &other);
 
   Transposition &operator=(const Transposition &other);
-
+  /// calculates all variables i.e. position angle and rotation to generate next
+  /// cell position \param current_position current position in 2d space \return
+  /// coordinates of new cell position
   Coord Collapse(const Coord &current_position);
 
+  /// combines all rotation angles and generates final angle
+  /// \return final rotation
   TurnDirection CollapseRotation();
 
+  /// prevents movement in specified direction
+  /// \param direction locked direction
   void LockDirection(const Direction &direction);
+  ///  adds new direction to movement direction buffer
+  /// \param direction new movement direction
   void AddDirection(const Direction &direction);
+  /// resets all directions to it's base values
   void Clear();
+  /// checks whether given movement direction isn't locked
+  /// \param direction in question
+  /// \return true if movement direction isn't locked, false if it is
   bool CheckDirection(const Direction &direction);
+
+  /// adds new movement direction, and locks opposite direction
+  /// \param direction to add, and lock opposite to
   void Push(const Direction &direction);
 
+  /// adds new rotation direction
+  /// \param direction new rotate direction
   void Rotate(TurnDirection direction);
+  /// adds new Clockwise rotation
   void Rotate();
+  /// resets rotation to it's base value
   void ClearRotation();
+  /// movement direction buffer
   TriState encounter_counter_[4];
-
+  /// current rotaion angle
   int rotation_angle_ = 0;
 };
 
