@@ -92,9 +92,9 @@ sfml_window::RunSimulation::HandleEvent(sf::Event &event,
         case RunSimulationButton::EXIT:
           return ContextEvent::SWITCH_TO_PREVIOUS;
 
-        case RunSimulationButton::STOP_START_SIMULATION:
-
-          break;
+          //        case RunSimulationButton::STOP_START_SIMULATION:
+          //
+          //          break;
         case RunSimulationButton::STEP_SIMULATION:
           local_board_.GenPosition();
 
@@ -128,13 +128,13 @@ void sfml_window::RunSimulation::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 36, 4), 32, 32),
                       directory + "back.png", YELLOW);
 
-  buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
-      new ImageToggleButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
-                            {directory + "run-button.png", sf::Color::Blue},
-                            {directory + "pause-button.png", YELLOW});
+  //  buttons_[(unsigned)RunSimulationButton::STOP_START_SIMULATION] =
+  //      new ImageToggleButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
+  //                            {directory + "run-button.png", sf::Color::Blue},
+  //                            {directory + "pause-button.png", YELLOW});
 
   buttons_[(unsigned)RunSimulationButton::STEP_SIMULATION] =
-      new ImageButton(Rect(Coord(window_width_ - 112, 4), 32, 32),
+      new ImageButton(Rect(Coord(window_width_ - 74, 4), 32, 32),
                       directory + "next.png", GREEN);
 }
 

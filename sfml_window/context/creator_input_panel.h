@@ -115,17 +115,17 @@ protected:
   /// all of the buttons
   std::array<Button *, (unsigned)CreatorInputPanelButton::SIZE> buttons_;
   /// input panels
-  std::array<ToggleTextButton, (unsigned)CreatorInputPanelTextField::SIZE> input_panels_;
+  std::array<ToggleTextButton, (unsigned)CreatorInputPanelTextField::SIZE>
+      input_panels_;
   /// text boxes
-  std::array<TextBox, (unsigned)CreatorInputPanelTextField::SIZE> input_panels_labels_;
+  std::array<TextBox, (unsigned)CreatorInputPanelTextField::SIZE>
+      input_panels_labels_;
 
   /// edited level
   LevelInfo target_;
 
   /// current edited button
   CreatorInputPanelTextField in_focus_ = CreatorInputPanelTextField::SIZE;
-
-
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_CREATOR_INPUT_PANEL_H_
