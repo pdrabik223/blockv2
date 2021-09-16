@@ -5,7 +5,6 @@
 #ifndef BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 #define BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_
 
-
 #include "context.h"
 
 #include <cassert>
@@ -37,6 +36,10 @@ public:
   RunSimulation(unsigned int window_width, unsigned int window_height,
                 const GameEngine &level_info,
                 const std::string &directory_path);
+
+  RunSimulation(const RunSimulation &other);
+  RunSimulation &operator=(const RunSimulation &other);
+
   /// display current context to window
   /// \param window target to display button to
   void DrawToWindow(sf::RenderWindow &window) override;
@@ -64,8 +67,8 @@ public:
 private:
   /// load pre-defined buttons to memory
   void LoadButtons();
-    /// load background to memory and scale it to screen
-    /// \param background_path path to wanted background
+  /// load background to memory and scale it to screen
+  /// \param background_path path to wanted background
   void LoadBackground(const std::string &background_path);
 
   /// loads assets from file to memory
@@ -129,6 +132,8 @@ protected:
   std::vector<sf::RectangleShape> grid_;
 
   bool display_grid_ = false;
+  /// path to loaded level directory
+  std::string level_directory_;
 };
 } // namespace sfml_window
 #endif // BLOCK_V2_SFML_WINDOW_CONTEXT_RUN_SIMULATION_H_

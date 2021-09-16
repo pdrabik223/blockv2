@@ -16,10 +16,32 @@ sfml_window::RunSimulation::RunSimulation(unsigned int window_width,
                                           const std::string &directory_path)
     : local_board_(level_info), window_width_(window_width),
       window_height_(window_height) {
-
+  level_directory_ = directory_path;
   LoadButtons();
   GenGrid();
-  LoadAssets(directory_path);
+  LoadAssets(level_directory_);
+}
+sfml_window::RunSimulation::RunSimulation(
+    const sfml_window::RunSimulation &other)
+    : local_board_(other.local_board_), window_width_(other.window_width_),
+      window_height_(other.window_height_) {
+  level_directory_ = other.level_directory_;
+  LoadButtons();
+  GenGrid();
+  LoadAssets(level_directory_);
+}
+sfml_window::RunSimulation &
+sfml_window::RunSimulation::operator=(const sfml_window::RunSimulation &other) {
+  if (&other == this)
+    return *this;
+  local_board_ = other.local_board_;
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  level_directory_ = other.level_directory_;
+  LoadButtons();
+  GenGrid();
+  LoadAssets(level_directory_);
+  return *this;
 }
 
 void sfml_window::RunSimulation::DrawToWindow(sf::RenderWindow &window) {
@@ -406,24 +428,5 @@ sfml_window::RunSimulation *sfml_window::RunSimulation::Clone() {
 LevelInfo sfml_window::RunSimulation::GetLevelInfo() { return LevelInfo(2, 1); }
 GameEngine sfml_window::RunSimulation::GetLevel() { return local_board_; }
 std::string sfml_window::RunSimulation::GetLevelDirectory() {
-  return std::string();
+  return level_directory_;
 }
-
-//
-// void sfml_window::RunSimulation::ThStartClock()   {
-//
-//  clock_thread_ = new std::thread( & sfml_window::RunSimulation::ClockLoop(),
-//  this);
-//}
-// void sfml_window::RunSimulation::ClockLoop() {
-//  while(true){
-//    std::this_thread::sleep_for(std::chrono::seconds (1));
-//    if(clock_is_running_) {
-//      sf::Event gen_new_frame{};
-//      gen_new_frame.type = sf::Event::KeyPressed;
-//      gen_new_frame.key.code = sf::Keyboard::Space;
-//      sf
-//
-//    }else return;
-//  }
-//}
