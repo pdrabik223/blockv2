@@ -16,7 +16,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <short_level_info.h>
 namespace sfml_window {
-
+/// list  of buttons
 enum class LevelCreatorButton {
   EXIT,
   RUN_SIMULATION,
@@ -49,13 +49,18 @@ public:
 
   LevelCreator(const LevelCreator &other);
 
-  LevelCreator& operator=(const LevelCreator &other);
+  LevelCreator &operator=(const LevelCreator &other);
 
-
+  /// clone function returns pointer to a new object of the Context type,
+  /// \note new pointer must be deleted afterwards
   LevelCreator *Clone() override;
 
   void DrawToWindow(sf::RenderWindow &window) override;
-
+  ///  handles incoming events,
+  /// translates incoming event, and mouse position to ContextEvent
+  /// \param event new even
+  /// \param window source of mouse position info
+  /// \return new translated event
   sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) override;
 
@@ -65,10 +70,11 @@ public:
   ~LevelCreator() override;
 
 private:
+  /// load buttons to memory
   void LoadButtons();
   /// loads assets from file to memory
   void LoadAssets();
-
+  /// create border around the level
   void DrawBorder();
 
   /// creates copy of a given cell, used to generate assets by rotating already
@@ -86,23 +92,45 @@ private:
   /// load background to memory and scale it to screen
   /// \param background_path path to wanted background
   void LoadBackground(const std::string &background_path);
+  /// generate cell grid
   void GenGrid();
-
+  /// clear button highlights
   void ClearBotButtonHighlight();
 
+  /// display grid to window
+  /// \param window target to display button to
   void DrawGrid(sf::RenderWindow &window);
+  /// display cells to window
+  /// \param window target to display button to
   void DrawCells(sf::RenderWindow &window);
+  /// display cell to window
+  /// \param window target to display button to
   void DrawCell(sf::RenderWindow &window, sfml_window::Assets id,
                 unsigned position);
 
   sf::Texture &Texture(Assets cell);
   sf::Sprite &Sprite(Assets cell);
 
+  /// adds new cell to grid
+  /// if event recorded left mouse button press, and mouse is hovering over
+  /// valid square new bot will be created in that place \param mouse_position
+  /// mouse coordinates \param event last recorded event \return if cell has
+  /// been added, screen refreshes
   bool AddBotToGame(const Coord &mouse_position, const sf::Event &event);
 
-  bool RotateBot(const Coord &mouse_position,const sf::Event &event);
+  /// rotate existing cell 90 degrees clockwise
+  /// if event recorded right mouse button press, and mouse is hovering over
+  /// valid square new bot will be rotated  in that place \param mouse_position
+  /// mouse coordinates \param event last recorded event \return if cell has
+  /// been rotated, screen refreshes
+  bool RotateBot(const Coord &mouse_position, const sf::Event &event);
 
-  bool FlipSquareLock(const Coord &mouse_position,const sf::Event &event);
+  /// flips lock of a square
+  /// if event recorded middle mouse button press, and mouse is hovering over
+  /// valid square the square "lockness" will be flipped \param mouse_position
+  /// mouse coordinates \param event last recorded event \return if square has
+  /// been flipped, screen refreshes
+  bool FlipSquareLock(const Coord &mouse_position, const sf::Event &event);
 
   ///
   /// \param x the percentage value where object should be placed
@@ -124,20 +152,22 @@ private:
   /// background sprite always provided by user
   sf::Sprite background_sprite_;
 
+  /// the gray button background on top of the screen
   sf::RectangleShape button_background_;
 
+  /// edited level directory path
   std::string level_directory_;
-
+  /// edited level
   LevelInfo level_;
 
   /// size of a square cell
   unsigned cell_size_;
-
+  /// all of the buttons
   std::array<Button *, (unsigned)LevelCreatorButton::SIZE> buttons_;
 
   /// current bot user puts down
   BotType brush_ = BotType::EMPTY;
-
+  /// list of used cells assets
   std::array<std::pair<sf::Texture, sf::Sprite>, (unsigned)Assets::SIZE> cells_;
 
   std::vector<sf::RectangleShape> grid_;

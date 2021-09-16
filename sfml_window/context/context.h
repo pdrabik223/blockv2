@@ -58,8 +58,15 @@ enum class Assets {
 
 class Context {
 public:
+  /// display current context to window
+  /// \param window target to display button to
   virtual void DrawToWindow(sf::RenderWindow &window) = 0;
 
+  ///  handles incoming events,
+  /// translates incoming event, and mouse position to ContextEvent
+  /// \param event new even
+  /// \param window source of mouse position info
+  /// \return new translated event
   virtual sfml_window::ContextEvent
   HandleEvent(sf::Event &event, const sf::RenderWindow &window) = 0;
 

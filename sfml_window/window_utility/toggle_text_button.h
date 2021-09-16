@@ -46,6 +46,10 @@ public:
   /// \return true if button is pressed
   bool DetectInteraction(const Coord &press_point, sf::Event &event) override;
 
+  /// detects mouse hover
+  /// \param press_point coordinates of user mouse
+  /// \return true if appearance of button has changed
+
   bool DetectHover(const Coord &press_point) override;
 
   /// display current look of a button to window

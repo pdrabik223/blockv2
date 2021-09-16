@@ -15,6 +15,7 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(unsigned int window_width,
   LoadBackground();
   LoadLabels();
 }
+
 sfml_window::CreatorInputPanel::CreatorInputPanel(
     const CreatorInputPanel &other)
     : target_(other.target_) {
@@ -36,6 +37,30 @@ sfml_window::CreatorInputPanel::CreatorInputPanel(
     input_panels_labels_[i] = other.input_panels_labels_[i];
 }
 
+sfml_window::CreatorInputPanel &sfml_window::CreatorInputPanel::operator=(
+    const sfml_window::CreatorInputPanel &other) {
+  if (&other == this)
+    return *this;
+  target_ = other.target_;
+  window_width_ = other.window_width_;
+  window_height_ = other.window_height_;
+  background_texture_ = other.background_texture_;
+  background_sprite_ = other.background_sprite_;
+  button_background_ = other.button_background_;
+
+  for (int i = 0; i < other.buttons_.size(); i++)
+    buttons_[i] = other.buttons_[i]->Clone();
+
+  in_focus_ = other.in_focus_;
+
+  for (int i = 0; i < other.input_panels_.size(); i++)
+    input_panels_[i] = other.input_panels_[i];
+
+  for (int i = 0; i < other.input_panels_labels_.size(); i++)
+    input_panels_labels_[i] = other.input_panels_labels_[i];
+
+  return *this;
+}
 void sfml_window::CreatorInputPanel::DrawToWindow(sf::RenderWindow &window) {
   window.draw(background_sprite_);
 
