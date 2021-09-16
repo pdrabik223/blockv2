@@ -79,8 +79,6 @@ void LevelInfo::SaveLevel() {
 
   my_file.close();
 }
-void LevelInfo::SaveParameters() {}
-
 void LevelInfo::LoadLevel(const std::string &file_path) {
   std::ifstream my_file;
   my_file.open(file_path);
