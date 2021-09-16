@@ -67,7 +67,7 @@ public:
   void UnLock(Coord position);
 
   /// checks if bloc can be placed at position
-  /// \param position Coodinates at witch the check will be performed
+  /// \param position Coordinates at witch the check will be performed
   /// \return true if block can't be placed, false if can be
   bool IsLocked(Coord position);
   /// checks if bloc can be placed at position
@@ -136,6 +136,7 @@ protected:
   std::vector<bool> locked_fields_;
   /// level name
   std::string name_;
+
   bool is_won_ = false;
 };
 

@@ -36,8 +36,7 @@ sfml_window::ShortLevelInfo::ShortLevelInfo(const std::string &level_directory,
   my_file >> level_won_;
   my_file.close();
 
-  level_ = TextButton({0, 0}, level_name + " by " + author_name, color, false,
-                      text_size);
+  level_ = TextButton({0, 0}, level_name + "   ", color, false, text_size);
   if (level_won_)
     trophy_ =
         new ImageButton(Rect({600, 0}, 32, 32),
