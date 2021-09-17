@@ -60,16 +60,16 @@ public:
               TurnDirection turn_direction);
   /// Locks field at position
   /// \param position coordinates of locking block
-  void Lock(Coord position);
+  void Lock(const Coord &position);
 
   /// Unlocks field at position
   /// \param position coordinates of unlocking block
-  void UnLock(Coord position);
+  void UnLock(const Coord &position);
 
   /// checks if bloc can be placed at position
   /// \param position Coordinates at witch the check will be performed
   /// \return true if block can't be placed, false if can be
-  bool IsLocked(Coord position);
+  bool IsLocked(const Coord &position);
   /// checks if bloc can be placed at position
   /// \param position at witch the check will be performed
   /// \return true if block can't be placed, false if can be
@@ -116,6 +116,8 @@ public:
   /// check whether the game is won
   /// \return true if game is won, false if not
   bool IsWon();
+
+  void FlipSquareLocks();
 
 private:
   /// creates bot object and returns ptr to it

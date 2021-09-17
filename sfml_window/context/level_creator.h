@@ -23,7 +23,7 @@ enum class LevelCreatorButton {
   CREATE_BORDER,
   INPUT_PANEL,
   SAVE_LEVEL,
-
+  FLIP_SQUARE_LOCKS,
   B_EMPTY,
   B_BEDROCK,
   B_ENEMY,

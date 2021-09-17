@@ -83,9 +83,13 @@ void sfml_window::LevelCreator::LoadButtons() {
       new ImageButton(Rect(Coord(window_width_ - 146, 4), 32, 32),
                       directory + "floppy-disk.png", BLUE);
 
-  buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] =
-      new ImageButton(Rect(Coord(window_width_ / 2 + 114 + 36 + 36, 4), 32, 32),
-                      directory + "add-border.png", BLUE);
+  buttons_[(unsigned)LevelCreatorButton::CREATE_BORDER] = new ImageButton(
+      Rect(Coord(window_width_ / 2 + 114 + (2 * 36), 4), 32, 32),
+      directory + "add-border.png", BLUE);
+
+  buttons_[(unsigned)LevelCreatorButton::FLIP_SQUARE_LOCKS] = new ImageButton(
+      Rect(Coord(window_width_ / 2 + 114 + (3 * 36), 4), 32, 32),
+      directory + "document-lock.png", BLUE);
 
   buttons_[(unsigned)LevelCreatorButton::B_GOAL] = new ToggleSpriteButton(
       Rect(Coord(window_width_ / 2 - 142, 4), 32, 32), Texture(Assets::GOAL));
@@ -137,6 +141,7 @@ void sfml_window::LevelCreator::DrawGrid(sf::RenderWindow &window) {
 }
 
 void sfml_window::LevelCreator::GenGrid() {
+
   // to accommodate top rectangle
   unsigned real_window_height = window_height_ - 40;
   button_background_.setPosition(0, 0);
@@ -166,7 +171,7 @@ void sfml_window::LevelCreator::GenGrid() {
       grid_.back().setSize({(float)cell_size_, (float)cell_size_});
       grid_.back().setFillColor(sf::Color::Transparent);
       grid_.back().setOutlineColor(RED);
-      grid_.back().setOutlineThickness(1.5);
+      grid_.back().setOutlineThickness(1);
     }
 
   // center grid
@@ -183,7 +188,7 @@ void sfml_window::LevelCreator::GenGrid() {
   for (int i = 0; i < grid_.size(); i++)
     if (!level_.IsLocked(i)) {
       grid_[i].setOutlineColor(GREEN);
-      grid_[i].setOutlineThickness(2);
+      grid_[i].setOutlineThickness(1);
     }
 }
 
@@ -402,6 +407,19 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
 
         case LevelCreatorButton::RUN_SIMULATION:
           return ContextEvent::RUN_SIMULATION;
+
+        case LevelCreatorButton::FLIP_SQUARE_LOCKS:
+          level_.FlipSquareLocks();
+
+          for (int i = 0; i < grid_.size(); i++)
+            if (!level_.IsLocked(i)) {
+              grid_[i].setOutlineColor(GREEN);
+              grid_[i].setOutlineThickness(1);
+            } else {
+              grid_[i].setOutlineColor(RED);
+              grid_[i].setOutlineThickness(1);
+            }
+          return ContextEvent::UPDATE_DISPLAY;
 
         case LevelCreatorButton::CREATE_BORDER: {
           DrawBorder();

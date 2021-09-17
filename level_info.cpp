@@ -195,10 +195,10 @@ unsigned int LevelInfo::GetWidth() const { return width_; }
 unsigned int LevelInfo::GetHeight() const { return height_; }
 const std::string &LevelInfo::GetName() const { return name_; }
 
-void LevelInfo::Lock(Coord position) {
+void LevelInfo::Lock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = true;
 }
-bool LevelInfo::IsLocked(Coord position) {
+bool LevelInfo::IsLocked(const Coord &position) {
   return locked_fields_[position.ToInt(width_)];
 }
 bool LevelInfo::IsLocked(int position) { return locked_fields_[position]; }
@@ -263,7 +263,7 @@ void LevelInfo::RotateCell(int x, int y) {
     return;
   }
 }
-void LevelInfo::UnLock(Coord position) {
+void LevelInfo::UnLock(const Coord &position) {
   locked_fields_[position.ToInt(width_)] = false;
 }
 void LevelInfo::SetName(const std::string &name) { name_ = name; }
@@ -304,3 +304,12 @@ void LevelInfo::LevelCompleted() {
 }
 
 void LevelInfo::SetWon(bool state) { is_won_ = state; }
+
+void LevelInfo::FlipSquareLocks() {
+
+  for (int i = 0; i < locked_fields_.size(); i++)
+    if (locked_fields_[i])
+      locked_fields_[i] = false;
+    else
+      locked_fields_[i] = true;
+}
