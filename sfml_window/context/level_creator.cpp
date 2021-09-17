@@ -465,7 +465,6 @@ sfml_window::LevelCreator::HandleEvent(sf::Event &event,
           brush_ = BotType::EMPTY;
           change = true;
         } break;
-
         case LevelCreatorButton::B_GOAL: {
           brush_ = BotType::GOAL;
           change = true;
