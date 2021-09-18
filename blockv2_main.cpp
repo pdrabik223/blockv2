@@ -1,5 +1,5 @@
 //
-// Created by studio25 on 14.08.2021.
+// Created by Piotr Drabik on 14.08.2021.
 //
 
 #include "sfml_window/window.h"
