@@ -38,4 +38,4 @@ obiekty, nie wymagają przez to zewnętrznych bibliotek do funkcjonowania.
 
 ![main](images/main.png "blockv2")
 
-Tak z poziomu   
+Tak wyglądać powinien plik mian.cpp używający biblioteki Block v2.
