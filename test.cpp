@@ -79,9 +79,6 @@ void FillWithBots(LevelInfo &target_level, double fill_level = 0.3) {
           target_level.AddBot(Coord(x, y), BotType::FACTORY,
                               (Direction)(rand() % 4));
           break;
-        case 7:
-          target_level.AddBot(Coord(x, y), BotType::TP, rand());
-          break;
         }
 }
 
