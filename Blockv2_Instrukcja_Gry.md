@@ -72,27 +72,29 @@ Dodatkowe wymagane pliki".
 Interfejs graficzny dzieli się na kilka okienek (widoków/ kontekstów). Jako pierwsze użytkownikowi ukazuje się panel
 głównego menu.
 
-![main_manu](main_menu.jpg "Główne Menu")
+![main_manu](images/main_menu.jpg "Główne Menu")
 
 Stąd gracz ma możliwość gry w zapisany na dysku poziom, lub przy użyciu narzędzia LevelCreator w prosty sposób stworzyć
 własny poziom.
 
 Po wybraniu Play level gracz przechodzi do okienka "Wybór Poziomów"
 
-![level_picker](main_menu.jpg "Wybór Poziomów")
+![level_picker](images/level_picker.jpg "Wybór Poziomów")
 
 Po wejściu w jeden z poziomów na liście poziom ten zostanie załadowany z pamięci i zaprezentowany w oknie gry.
 
-![level_player](main_menu.jpg "Okno Gry")
+![level_player](images/level_player.jpg "Okno Gry")
 
 LevelCreator pozwala na tworzenie i nazywanie własnych poziomów. stworzone w ten sposób łamigłówki dodawane są do listy
 poziomów. Twórca ma możliwość tworzenia własnych skórek obiektów poruszających się po ekranie, jak i dodania własnego   
 tła do poziomu. Wystarczy poprawnie nazwać dodawane przez siebie skórki (wymagane jest poprawne nazewnictwo, takie jak w
 folderze default) i zapisanie ich w folderze o nazwie swojego poziomu.
 
-![level_creator](main_menu.jpg "LevelCreator")
+![level_creator](images/level_creator.jpg "LevelCreator")
 
-![example_level](main_menu.jpg "Przykładowy level")
+Przykład poziomu:
+![example_level](images/example_level.jpg "Przykładowy level")
 
-![example_level](main_menu.jpg "Przykładowy level ze skórkami użytkownika")
+Przykład poziomu z tłem użytkownika:
+![example_level](images/example_level2.jpg "Przykładowy level ze skórkami użytkownika")
 
