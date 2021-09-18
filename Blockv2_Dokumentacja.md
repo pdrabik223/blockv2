@@ -5,6 +5,9 @@ kompilatora [MSVC](https://visualstudio.microsoft.com/vs/features/cplusplus/) w 
 
 ## Schemat klas
 
+Strzałki zakończone grotem symbolizują dziedziczenie, zakończone okręgiem zawieranie.
+[Link do wersji online poniższego grafu.](https://miro.com/app/board/o9J_lwSBXYM=/)
+
 ![project](images/klas.png "blockv2")
 
 Jak widać na załączonym schemacie projekt można podzielić na trzy drzewa klas, kilka klas grupujących odpowiedzialnych
