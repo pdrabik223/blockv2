@@ -8,6 +8,7 @@
 #include <cassert>
 #include <ciso646>
 #include <ostream>
+
 struct Coord {
   Coord();
   Coord(int x, int y);
